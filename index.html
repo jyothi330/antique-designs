@@ -307,43 +307,95 @@
     .mx-auto { margin-left: auto; margin-right: auto; }
 
     /* ---- PRODUCT CAROUSEL ---- */
-    .carousel-wrap { position: relative; overflow: hidden; contain: layout; }
-    .carousel-track {
+    .products-notice {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff8e7; border: 1px solid #e8c84a;
+      border-left: 4px solid #c29320;
+      border-radius: 10px; padding: 13px 20px;
+      font-size: 13px; color: #6b4c00; margin-bottom: 44px;
+      max-width: 780px; margin-left: auto; margin-right: auto;
+    }
+    .products-notice svg { flex-shrink: 0; color: #c29320; }
+
+    /* Carousel outer wrapper */
+    .product-carousel-outer {
+      position: relative;
+    }
+    .product-carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+    .product-grid {
       display: flex;
       gap: 24px;
-      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: transform 0.45s cubic-bezier(0.23,1,0.32,1);
       will-change: transform;
     }
-    .carousel-card {
-      min-width: 340px;
-      border-radius: 20px;
+    /* Each card: 1/3 of viewport, gap-adjusted (2 gaps split across 3 cards = 16px each) */
+    .product-card {
+      flex: 0 0 calc(33.333% - 16px);
       overflow: hidden;
+    }
+    /* Carousel arrow buttons */
+    .carousel-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid rgba(160,104,8,0.3);
+      color: #a06808; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(160,104,8,0.15);
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .carousel-arrow:hover {
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff; border-color: transparent;
+      box-shadow: 0 8px 28px rgba(160,104,8,0.3);
+    }
+    .carousel-arrow.prev { left: -24px; }
+    .carousel-arrow.next { right: -24px; }
+    .carousel-arrow:disabled { opacity: 0.3; pointer-events: none; }
+    /* Carousel dots */
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 28px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(160,104,8,0.25); border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .carousel-dot.active { width: 26px; border-radius: 4px; background: #a06808; }
+    .product-card {
+      border-radius: 20px;
       border: 1px solid rgba(180,120,20,0.2);
       background: #faf7f2;
       box-shadow: 0 4px 18px rgba(160,104,8,0.08);
       transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
       cursor: pointer;
-      flex-shrink: 0;
+      display: flex; flex-direction: column;
     }
-    .carousel-card:hover {
+    .product-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 24px 60px rgba(160,104,8,0.18);
       border-color: rgba(160,104,8,0.45);
     }
-    .carousel-card-img {
-      height: 240px;
+    .product-card-img {
+      height: 300px;
       overflow: hidden;
       background: #f5ede0;
       display: flex; align-items: center; justify-content: center;
+      position: relative;
     }
-    .carousel-card-img img {
+    .product-card-img img {
       width: 100%; height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
       will-change: transform;
     }
-    .carousel-card:hover .carousel-card-img img { transform: scale(1.05); }
-    .carousel-card-img .card-placeholder {
+    .product-card:hover .product-card-img img { transform: scale(1.05); }
+    .product-card-img .card-placeholder {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       background: linear-gradient(135deg, #f5ede0 0%, #eedcc0 100%);
@@ -359,12 +411,12 @@
       border: 1px solid rgba(160,104,8,0.35); color: #a06808;
       text-transform: uppercase;
     }
-    .carousel-card-body { padding: 22px 24px 24px; background: #faf7f2; }
-    .carousel-card-body h3 {
+    .product-card-body { padding: 22px 24px 24px; background: #faf7f2; flex: 1; display: flex; flex-direction: column; }
+    .product-card-body h3 {
       font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700;
       color: #2c1f0e; margin-bottom: 8px;
     }
-    .carousel-card-body p { font-size: 13px; color: #7a5830; line-height: 1.65; }
+    .product-card-body p { font-size: 13px; color: #7a5830; line-height: 1.65; flex: 1; }
     .card-footer {
       display: flex; align-items: center; justify-content: space-between;
       margin-top: 18px; padding-top: 16px;
@@ -377,20 +429,20 @@
       transition: color 0.2s;
     }
     .card-footer a:hover { color: #a06808; }
-
-    .carousel-nav {
-      display: flex; align-items: center; justify-content: center; gap: 16px;
-      margin-top: 40px;
+    .btn-view-all {
+      display: inline-block;
+      padding: 16px 48px; border-radius: 50px;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff; font-family: 'Cinzel', serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(160,104,8,0.3);
+      transition: box-shadow 0.3s, transform 0.3s;
     }
-    .carousel-btn {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: rgba(160,104,8,0.08);
-      border: 1px solid rgba(160,104,8,0.3);
-      color: #a06808; font-size: 18px;
-      cursor: pointer; transition: all 0.25s;
-      display: flex; align-items: center; justify-content: center;
+    .btn-view-all:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(160,104,8,0.4);
     }
-    .carousel-btn:hover { background: #a06808; color: #fff; }
 
     /* Carousel Filter Tabs */
     .filter-tabs {
@@ -492,13 +544,22 @@
     .testi-location { font-size: 11px; color: #9a7040; margin-top: 4px; letter-spacing: 1px; }
     .testi-nav { display: flex; gap: 10px; justify-content: center; margin-top: 36px; }
 
-    /* ---- GALLERY GRID ---- */
+    /* ---- GALLERY CAROUSEL ---- */
+    .gallery-carousel-outer {
+      position: relative;
+    }
+    .gallery-carousel-viewport {
+      overflow: hidden;
+      border-radius: 14px;
+    }
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
+      display: flex;
+      gap: 12px;
+      transition: transform 0.45s cubic-bezier(0.25,0.8,0.25,1);
+      will-change: transform;
     }
     .gallery-item {
+      flex: 0 0 calc((100% - 24px) / 3);
       aspect-ratio: 1;
       border-radius: 12px;
       overflow: hidden;
@@ -515,18 +576,32 @@
       opacity: 0; transition: opacity 0.3s;
     }
     .gallery-item:hover .g-overlay { opacity: 1; }
-    .gallery-item.hidden { display: none; }
-    .gallery-show-more {
-      display: flex; justify-content: center; margin-top: 28px;
+    .gallery-carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: 1.5px solid rgba(160,104,8,0.3);
+      color: #6b4410; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10; box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-show-more {
-      padding: 11px 32px; border-radius: 50px;
-      background: linear-gradient(135deg, #c29320, #8a6205);
-      color: #fff; font-size: 13px; font-weight: 700;
-      border: none; cursor: pointer; letter-spacing: 1px;
-      transition: filter 0.2s;
+    .gallery-carousel-btn:hover { background: #fff8ee; transform: translateY(-50%) scale(1.08); }
+    .gallery-carousel-btn.prev { left: -22px; }
+    .gallery-carousel-btn.next { right: -22px; }
+    .gallery-carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .gallery-carousel-btn:disabled:hover { transform: translateY(-50%) scale(1); background: rgba(255,255,255,0.92); }
+    .gallery-carousel-dots {
+      display: flex; justify-content: center; gap: 7px; margin-top: 20px;
     }
-    .btn-show-more:hover { filter: brightness(1.12); }
+    .gallery-carousel-dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(160,104,8,0.25); cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .gallery-carousel-dots span.active {
+      background: #a06808; transform: scale(1.3);
+    }
 
     /* Gallery lightbox */
     #glb {
@@ -833,71 +908,138 @@
       .process-grid { grid-template-columns: repeat(2, 1fr); }
       .mat-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-item { flex: 0 0 calc((100% - 12px) / 2); }
     }
     @media (max-width: 768px) {
+      /* ---- Nav ---- */
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       .nav-logo-title { font-size: 15px; letter-spacing: 1px; }
       .nav-inner { height: 62px; padding: 0 16px; }
       #mobile-menu { top: 62px; padding: 16px 20px 22px; }
       #mobile-menu a { font-size: 14px; padding: 10px 0; }
-      .hero-title { font-size: clamp(18px, 5.5vw, 30px); }
+
+      /* ---- Hero ---- */
+      .hero-title { font-size: clamp(20px, 6vw, 32px); }
       .hero-subtitle { font-size: clamp(13px, 3vw, 18px); }
-      .hero-desc { font-size: 13px; margin-bottom: 28px; }
-      .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 18px; }
-      .hero-btns a { padding: 11px 18px !important; font-size: 12px !important; }
-      .section { padding: 64px 0; }
+      .hero-desc { font-size: 13px; margin-bottom: 24px; max-width: 100% !important; }
+      .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 16px; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 10px; }
+      .hero-btns a { padding: 13px 28px !important; font-size: 13px !important; width: 100%; max-width: 280px; text-align: center; }
+      .hero-arrow { display: none; }
+
+      /* ---- Layout ---- */
+      .section { padding: 56px 0; }
+      .container { padding: 0 18px; }
       .section-title { font-size: clamp(20px, 6vw, 32px); }
       .section-desc { font-size: 13px; }
       .section-label { font-size: 10px; letter-spacing: 2px; }
-      .stat-num { font-size: 26px; }
+
+      /* ---- Stats ticker ---- */
+      .stat-num { font-size: 22px; }
       .stat-label { font-size: 10px; }
-      .process-grid { grid-template-columns: 1fr; }
-      .process-card { padding: 22px 18px; }
-      .process-num { font-size: 32px; }
+      .stat-item { padding: 0 28px; }
+
+      /* ---- About ---- */
+      .about-feat-grid { grid-template-columns: 1fr 1fr; }
+
+      /* ---- Process ---- */
+      .process-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .process-card { padding: 20px 16px; }
+      .process-num { font-size: 30px; }
       .process-card h3 { font-size: 13px; }
-      .process-card p { font-size: 12px; }
+      .process-card p { font-size: 11px; }
+
+      /* ---- Materials ---- */
       .mat-grid { grid-template-columns: 1fr 1fr; }
       .mat-card { padding: 18px 14px; }
       .mat-card h4 { font-size: 13px; }
       .mat-card p { font-size: 11px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-      .footer h4 { font-size: 11px; }
-      .footer-links a { font-size: 12px; }
-      .footer-bottom { font-size: 11px; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* ---- Filter tabs — horizontal scroll ---- */
+      .filter-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .filter-tabs::-webkit-scrollbar { display: none; }
+      .filter-tab { flex-shrink: 0; font-size: 11px; padding: 8px 16px; }
+
+      /* ---- Product carousel ---- */
+      .product-grid { gap: 14px; }
+      .product-card { flex: 0 0 calc(50% - 7px); }
+      .product-card-body h3 { font-size: 13px; }
+      .product-card-body p { font-size: 12px; }
+      .product-card-img { height: 180px; }
+      .carousel-arrow { display: none; }   /* rely on swipe on mobile */
+      .carousel-dots { margin-top: 20px; }
+
+      /* ---- Gallery carousel ---- */
+      .gallery-item { flex: 0 0 100%; }
+      .gallery-carousel-btn { display: none; }  /* swipe only on mobile */
+      .gallery-carousel-dots { margin-top: 14px; }
+
+      /* ---- Testimonials ---- */
       .testi-card { padding: 28px 16px; }
       .testi-stars { font-size: 16px; }
       .testi-quote { font-size: clamp(15px, 4vw, 20px); }
       .testi-author { font-size: 11px; }
       .testi-location { font-size: 10px; }
-      .form-row { grid-template-columns: 1fr; }
-      .form-control { font-size: 13px; padding: 10px 13px; }
-      .form-label { font-size: 10px; }
-      .form-submit { font-size: 12px; padding: 12px; }
-      .carousel-card { min-width: 260px; }
-      .carousel-card-body h3 { font-size: 14px; }
-      .carousel-card-body p { font-size: 12px; }
-      .carousel-card-img { height: 190px; }
-      .hero-arrow { display: none; }
+
+      /* ---- Contact & form ---- */
       .contact-value { font-size: 13px; }
       .contact-card { padding: 14px 16px; gap: 12px; }
       .contact-icon { width: 40px; height: 40px; }
-      .quote-form { padding: 24px 18px; }
+      .quote-form { padding: 20px 16px; border-radius: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-control { font-size: 14px; padding: 12px 14px; }
+      .form-label { font-size: 10px; }
+      .form-submit { font-size: 13px; padding: 13px; }
+
+      /* ---- Footer ---- */
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer h4 { font-size: 11px; margin-bottom: 12px; }
+      .footer-links a { font-size: 12px; }
+      .footer-bottom { font-size: 11px; }
+      .footer { padding: 48px 0 24px; }
+
+      /* ---- Floating buttons ---- */
+      .float-wa { bottom: 20px; right: 16px; width: 50px; height: 50px; }
+      #chatbot-toggle { bottom: 78px; right: 16px; width: 44px; height: 44px; }
+      #chatbot-window { bottom: 138px; right: 16px; left: 16px; width: auto; max-width: none; }
+      #back-to-top { bottom: 20px; left: 16px; width: 38px; height: 38px; font-size: 16px; }
     }
     @media (max-width: 480px) {
+      /* ---- Hero ---- */
+      .hero-title { font-size: clamp(18px, 5.5vw, 26px); }
+      .hero-desc { display: none; } /* hide long paragraph on tiny screens */
+
+      /* ---- Layout ---- */
+      .section { padding: 44px 0; }
+      .container { padding: 0 14px; }
+      .section-title { font-size: clamp(18px, 5.5vw, 26px); }
+
+      /* ---- About ---- */
       .about-feat-grid { grid-template-columns: 1fr; }
-      .hero-title { font-size: clamp(16px, 5vw, 26px); }
-      .section-title { font-size: clamp(18px, 5.5vw, 28px); }
       .about-feat h4 { font-size: 11px; }
       .about-feat p { font-size: 11px; }
-      .filter-tab { font-size: 10px; padding: 7px 13px; }
-      .carousel-card { min-width: 88vw; }
-      .carousel-card-img { height: 200px; }
+
+      /* ---- Process — single column on tiny phones ---- */
+      .process-grid { grid-template-columns: 1fr; }
+
+      /* ---- Materials ---- */
       .mat-grid { grid-template-columns: 1fr; }
-      .section { padding: 48px 0; }
-      .container { padding: 0 16px; }
+
+      /* ---- Product carousel ---- */
+      .product-grid { gap: 0; }
+      .product-card { flex: 0 0 100%; }
+      .product-card-img { height: 220px; }
+
+      /* ---- btn-view-all ---- */
+      .btn-view-all { padding: 13px 28px; font-size: 12px; letter-spacing: 1px; }
     }
   </style>
 
@@ -1016,9 +1158,8 @@
       background: linear-gradient(160deg, #f9f5ef 0%, #f2ece2 60%, #f9f5ef 100%) !important;
     }
 
-    /* ---- Carousel card — premium image overlay ---- */
-    .carousel-card-img { position: relative; }
-    .carousel-card-img::after {
+    /* ---- Product card — premium image overlay ---- */
+    .product-card-img::after {
       content: '';
       position: absolute; inset: 0;
       background: linear-gradient(to bottom, transparent 50%, rgba(20,12,4,0.55) 100%);
@@ -1026,7 +1167,7 @@
       transition: opacity 0.35s;
       pointer-events: none;
     }
-    .carousel-card:hover .carousel-card-img::after { opacity: 1; }
+    .product-card:hover .product-card-img::after { opacity: 1; }
 
     /* ---- Process section — premium dark bg ---- */
     #process.section-dark {
@@ -1182,12 +1323,12 @@
     /* ---- Perspective root for 3D children ---- */
     .section, .stats-strip { perspective: 1200px; }
 
-    /* ---- Product carousel cards — tilt on hover ---- */
-    .carousel-card {
+    /* ---- Product grid cards — tilt on hover ---- */
+    .product-card {
       transform-style: preserve-3d;
       transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
     }
-    .carousel-card:hover {
+    .product-card:hover {
       transform: translateY(-12px) rotateX(4deg) rotateY(-3deg) scale(1.02);
       box-shadow: 0 32px 64px rgba(160,104,8,0.22), 0 8px 24px rgba(0,0,0,0.12);
     }
@@ -1227,7 +1368,7 @@
       transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
     }
     .gallery-item:hover {
-      transform: translateY(-6px) scale(1.04) rotateX(3deg);
+      transform: translateY(-5px) scale(1.04);
       box-shadow: 0 20px 48px rgba(0,0,0,0.22);
       z-index: 2;
     }
@@ -1355,7 +1496,7 @@
 
     /* ---- Disable heavy 3D on mobile for performance ---- */
     @media (max-width: 768px) {
-      .carousel-card:hover,
+      .product-card:hover,
       .process-card:hover,
       .mat-card:hover,
       .gallery-item:hover {
@@ -1363,6 +1504,259 @@
       }
       .stats-strip { transform: none; }
       .hero-content { animation: none; }
+    }
+  </style>
+
+  <style>
+    /* ======================================================
+       VISUAL REFRESH — Match reference design
+    ====================================================== */
+
+    /* ---- Body & base palette ---- */
+    body {
+      background: #f5f0e8 !important;
+    }
+
+    /* ---- Nav — transparent over hero, clean white on scroll ---- */
+    nav#main-nav {
+      background: transparent !important;
+      box-shadow: none !important;
+      border-bottom: none !important;
+    }
+    nav#main-nav.scrolled {
+      background: rgba(255,252,246,0.97) !important;
+      box-shadow: 0 2px 24px rgba(100,60,0,0.10) !important;
+      border-bottom: 1px solid rgba(180,120,20,0.12) !important;
+    }
+    /* Nav links white on hero, dark on scroll */
+    nav#main-nav:not(.scrolled) .nav-links a {
+      color: rgba(255,248,230,0.92) !important;
+    }
+    nav#main-nav:not(.scrolled) .nav-links a:hover {
+      color: #f0c84a !important;
+    }
+    nav#main-nav:not(.scrolled) .nav-logo-title {
+      background: linear-gradient(135deg, #f5dfa0 0%, #e8c060 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+    }
+    nav#main-nav:not(.scrolled) .nav-logo-sub {
+      color: rgba(240,220,160,0.7) !important;
+    }
+    nav#main-nav:not(.scrolled) .nav-hamburger {
+      color: #f5e6b0 !important;
+    }
+    /* Scrolled nav — dark text */
+    nav#main-nav.scrolled .nav-links a {
+      color: #3a2510 !important;
+    }
+    nav#main-nav.scrolled .nav-logo-title {
+      background: linear-gradient(135deg, #c29320 0%, #8a6205 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+    }
+
+    /* ---- Hero — left-aligned layout ---- */
+    .hero-content {
+      text-align: left !important;
+      max-width: 560px !important;
+      margin-left: 7vw !important;
+      margin-right: auto !important;
+      padding: 0 24px 0 0 !important;
+      animation: none !important;
+    }
+    .hero-btns {
+      justify-content: flex-start !important;
+    }
+
+    /* ---- Hero overlay — stronger left fade ---- */
+    .hero-overlay {
+      background: linear-gradient(
+        105deg,
+        rgba(10,6,2,0.82) 0%,
+        rgba(10,6,2,0.60) 40%,
+        rgba(10,6,2,0.15) 75%,
+        rgba(10,6,2,0.05) 100%
+      ) !important;
+    }
+
+    /* ---- Hero title — bigger, refined ---- */
+    .hero-title {
+      font-size: clamp(28px, 4.2vw, 58px) !important;
+      font-weight: 800 !important;
+      color: #fdf8f0 !important;
+      line-height: 1.12 !important;
+      margin-bottom: 18px !important;
+      letter-spacing: 0.5px !important;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.5) !important;
+    }
+
+    /* ---- Hero desc — clean readable ---- */
+    .hero-desc {
+      font-size: 15px !important;
+      color: rgba(250,240,215,0.82) !important;
+      line-height: 1.75 !important;
+      max-width: 480px !important;
+      margin: 0 0 36px 0 !important;
+    }
+
+    /* ---- Hero buttons — outline secondary ---- */
+    .hero-btns .btn-wa {
+      background: rgba(255,255,255,0.12) !important;
+      border: 1.5px solid rgba(255,255,255,0.45) !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+    }
+    .hero-btns .btn-wa:hover {
+      background: rgba(255,255,255,0.22) !important;
+      color: #fff !important;
+    }
+    .hero-btns .btn-gold {
+      background: #c8a84b !important;
+      background: linear-gradient(135deg, #d4b050 0%, #a87e18 100%) !important;
+      color: #1a0e00 !important;
+      font-weight: 800 !important;
+      border-radius: 6px !important;
+      letter-spacing: 1px !important;
+    }
+
+    /* ---- Slide dots — bottom left ---- */
+    .hero-dots {
+      left: 7vw !important;
+      transform: none !important;
+      bottom: 36px !important;
+    }
+
+    /* ---- Stats strip — clean warm cream ---- */
+    .stats-strip {
+      background: #ede8dc !important;
+      transform: none !important;
+      box-shadow: none !important;
+      border-top: 1px solid rgba(160,104,8,0.15) !important;
+      border-bottom: 1px solid rgba(160,104,8,0.15) !important;
+    }
+    .stats-strip::before { background: linear-gradient(90deg, #ede8dc, transparent) !important; }
+    .stats-strip::after  { background: linear-gradient(-90deg, #ede8dc, transparent) !important; }
+
+    /* ---- Section backgrounds — warm cream ---- */
+    .section-light, .section-dark, .section-mid,
+    #about, #contact {
+      background: #f5f0e8 !important;
+    }
+    #collections.section-mid {
+      background: #ede8dc !important;
+    }
+    #process.section-dark {
+      background: linear-gradient(160deg, #1a0e04 0%, #2a1608 50%, #1a0e04 100%) !important;
+    }
+
+    /* ---- Product cards — clean white ---- */
+    .product-card {
+      background: #fff !important;
+      border: 1px solid #e8e0d0 !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 12px rgba(80,50,10,0.07) !important;
+    }
+    .product-card:hover {
+      border-color: #c8a030 !important;
+      box-shadow: 0 8px 32px rgba(120,80,10,0.14) !important;
+      transform: translateY(-4px) !important;
+    }
+    .product-card-body {
+      background: #fff !important;
+    }
+
+    /* ---- Section titles — darker, crisper ---- */
+    .section-title.dark, .section-title.light {
+      color: #1e1208 !important;
+    }
+    .section-desc.dark, .section-desc.light {
+      color: #5a3e1e !important;
+    }
+
+    /* ---- Nav CTA buttons ---- */
+    nav#main-nav:not(.scrolled) .btn-gold {
+      background: #c8a030 !important;
+      background: linear-gradient(135deg, #d4b050 0%, #a07010 100%) !important;
+      color: #1a0e00 !important;
+      border-radius: 6px !important;
+    }
+    nav#main-nav:not(.scrolled) .btn-wa {
+      background: rgba(255,255,255,0.12) !important;
+      border-color: rgba(255,255,255,0.4) !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+    }
+    .btn-gold { border-radius: 6px !important; }
+    .btn-wa   { border-radius: 6px !important; }
+
+    /* ---- Gold divider ---- */
+    .gold-divider {
+      background: linear-gradient(90deg, transparent, #c8a030, transparent) !important;
+      animation: none !important;
+    }
+
+    /* ---- About section card ---- */
+    .about-card {
+      background: #fff !important;
+      border: 1px solid #e8e0d0 !important;
+    }
+
+    /* ---- Contact cards ---- */
+    .contact-card {
+      background: #fff !important;
+      border: 1px solid #e8e0d0 !important;
+    }
+
+    /* ---- Quote form ---- */
+    .quote-form {
+      background: #fff !important;
+      border: 1px solid #e8e0d0 !important;
+    }
+    .form-control {
+      background: #faf6f0 !important;
+      border: 1px solid #d8cdb8 !important;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      background: linear-gradient(160deg, #1a0e04 0%, #2a1608 50%, #1a0e04 100%) !important;
+    }
+    .footer::before { display: none; }
+
+    /* ---- Section label lines ---- */
+    .section-label { color: #9a7030 !important; }
+    .section-label::before, .section-label::after { background: #9a7030 !important; }
+
+    /* ---- Mobile adjustments ---- */
+    @media (max-width: 768px) {
+      .hero-content {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: 0 20px !important;
+        max-width: 100% !important;
+      }
+      .hero-btns {
+        justify-content: center !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      .hero-dots { left: 50% !important; transform: translateX(-50%) !important; }
+      /* Brochure section — tighter on mobile */
+      .bro-left { padding: 40px 20px 28px !important; }
+      .bro-right { padding: 0 20px 40px !important; }
+      .bro-title { font-size: clamp(22px, 6vw, 30px) !important; }
+      .bro-desc { font-size: 13px !important; }
+      .bro-btn { padding: 13px 28px !important; font-size: 13px !important; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns a { max-width: 100% !important; }
+      /* Product page cards on tiny screens */
+      .about-card-body { padding: 16px 18px !important; }
+      .about-card-header { padding: 18px 18px 14px !important; }
     }
   </style>
 </head>
@@ -1416,7 +1810,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#about">Our Atelier</a></li>
-      <li><a href="#collections">Collections</a></li>
+      <li><a href="#collections">Our Products</a></li>
       <li><a href="#process">Craftsmanship</a></li>
       <li><a href="#materials">Materials</a></li>
       <li><a href="#instagram">Gallery</a></li>
@@ -1438,7 +1832,7 @@
 <!-- MOBILE MENU -->
 <div id="mobile-menu">
   <a href="#about" onclick="closeMobileMenu()">Our Atelier</a>
-  <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+  <a href="#collections" onclick="closeMobileMenu()">Our Products</a>
   <a href="#process" onclick="closeMobileMenu()">Craftsmanship</a>
   <a href="#materials" onclick="closeMobileMenu()">Materials</a>
   <a href="#instagram" onclick="closeMobileMenu()">Gallery</a>
@@ -1454,13 +1848,11 @@
 
     <!-- Slide 1 -->
     <div class="hero-slide active">
-      <div class="hero-slide-bg" style="background-image: url('gallery/g14.jpg'); background-position: center center;"></div>
+      <div class="hero-slide-bg" style="background-image: url('gallery/hero1.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge">✦ Authentic Offline Atelier · Est. 2011 · Bengaluru ✦</div>
-        <h1 class="hero-title">Handcrafted Brass &<br>White Metal Doors</h1>
-        <p class="hero-subtitle gold-text">Forged in Tradition, Built for Royalty</p>
-        <p class="hero-desc">From sacred Pooja mandirs to grand villa entrances — our Bengaluru master metalsmiths handcraft every panel with generational skill.</p>
+        <h1 class="hero-title">Welcome to Antique Designs</h1>
+        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore Collections</a>
           <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs!" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 WhatsApp Us</a>
@@ -1470,13 +1862,11 @@
 
     <!-- Slide 2 -->
     <div class="hero-slide">
-      <div class="hero-slide-bg" style="background-image: url('gallery/g05.jpg'); background-position: center center;"></div>
+      <div class="hero-slide-bg" style="background-image: url('gallery/hero2.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge">✦ 9 Architectural Product Lines ✦</div>
-        <h1 class="hero-title">Pooja Mandir &<br>Temple Doors</h1>
-        <p class="hero-subtitle gold-text">Sacred Craftwork, Timeless Devotion</p>
-        <p class="hero-desc">Gopuram arches, kalasha motifs, and hand-embossed brass sheets create divine entrances for your spiritual sanctuary.</p>
+        <h1 class="hero-title">Welcome to Antique Designs</h1>
+        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">View Pooja Doors</a>
           <a href="tel:+919620202221" class="btn-wa" style="padding:14px 28px;font-size:13px;">📞 Call Workshop</a>
@@ -1486,13 +1876,11 @@
 
     <!-- Slide 3 -->
     <div class="hero-slide">
-      <div class="hero-slide-bg" style="background-image: url('gallery/g16.jpg'); background-position: center center;"></div>
+      <div class="hero-slide-bg" style="background-image: url('gallery/hero3.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge">✦ Custom Architectural Metalwork ✦</div>
-        <h1 class="hero-title">Ornate Brass Railings<br>& Partition Grills</h1>
-        <p class="hero-subtitle gold-text">Architectural Elegance, Everlasting Metal</p>
-        <p class="hero-desc">Hand-turned spindles, cast acanthus balusters, laser-cut mandala partitions — crafted to complete luxury interiors.</p>
+        <h1 class="hero-title">Welcome to Antique Designs</h1>
+        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore All Products</a>
           <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;">Request Site Visit</a>
@@ -1502,13 +1890,11 @@
 
     <!-- Slide 4 -->
     <div class="hero-slide">
-      <div class="hero-slide-bg" style="background-image: url('gallery/g15.jpg'); background-position: center center;"></div>
+      <div class="hero-slide-bg" style="background-image: url('gallery/hero4.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge">✦ Bespoke Name Plates & Gates ✦</div>
-        <h1 class="hero-title">Cast Brass Name Plates<br>& Villa Gates</h1>
-        <p class="hero-subtitle gold-text">Your Identity, Immortalised in Metal</p>
-        <p class="hero-desc">Sand-cast family crests, deep-relief house names, and ornate compound gates — bespoke to your vision, lasting generations.</p>
+        <h1 class="hero-title">Welcome to Antique Designs</h1>
+        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">See Name Plates</a>
           <a href="https://wa.me/919620202221" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 Get a Custom Quote</a>
@@ -1554,39 +1940,62 @@
 <section class="section section-dark" id="about">
   <div class="container">
     <div class="about-grid">
+
+      <!-- LEFT — About text from document -->
       <div class="reveal-left">
-        <div class="section-label">Generations of Authentic Craft</div>
-        <h2 class="section-title dark">Traditional Indian Metal Artistry,<br><em class="font-cormorant gold-text" style="font-weight:400;font-size:1.1em;">Engineered for Royal Architecture</em></h2>
-        <div class="gold-divider" style="margin:0 0 24px 0;"></div>
-        <p class="section-desc dark" style="margin-bottom:16px;">At <strong style="color:#7a4e05;">Antique Designs</strong>, everything is authentic and physically handcrafted. Established over 13 years ago on Magadi Main Road, Bengaluru, our atelier specialises in traditional sheet metal embossing (<em style="color:#a06808;">Repoussé & Chasing</em>), sand casting, laser lattice cutwork, and chemical metal patination.</p>
-        <p class="section-desc dark">Every main entrance door, pooja mandir entrance, staircase balustrade, and designer handle is physically shaped by hands with decades of generational craft experience. We collaborate directly with homeowners, luxury interior architects, and temple trusts across South India.</p>
+        <div class="section-label">About Antique Designs</div>
+        <h2 class="section-title dark">Where Craftsmanship Meets<br><em class="font-cormorant gold-text" style="font-weight:400;font-size:1.1em;">Creativity in Every Piece</em></h2>
+        <div class="gold-divider" style="margin:0 0 28px 0;"></div>
+
+        <!-- Specialties -->
+        <div style="margin-bottom:22px;">
+          <h3 style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#2c1f0e;margin-bottom:8px;">Our Specialties</h3>
+          <p class="section-desc dark">
+            At Antique Designs, we take pride in offering a diverse range of metal artworks tailored to enhance various aspects of living spaces. Whether it's embellishing main doors, adding elegance to Pooja rooms, personalizing room door accents, crafting ornate railing handles, designing partition grills, or creating captivating wall art and nameplates — each piece is a testament to our dedication to quality and detail.
+          </p>
+        </div>
+
+        <!-- Craftsmanship -->
+        <div style="margin-bottom:22px;">
+          <h3 style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#2c1f0e;margin-bottom:8px;">Craftsmanship</h3>
+          <p class="section-desc dark">
+            Every artwork we produce is meticulously handcrafted by skilled artisans who bring decades of experience and an eye for detail to every project. From initial concept to final execution, our process ensures that each piece not only meets but exceeds expectations in terms of beauty, durability, and functionality.
+          </p>
+        </div>
+
+        <!-- 4 feature boxes -->
         <div class="about-feat-grid">
-          <div class="about-feat"><h4>🛡️ Tarnish Resistant</h4><p>Automotive-grade anti-oxidant lacquer prevents discolouration for decades.</p></div>
-          <div class="about-feat"><h4>✨ 4 Exclusive Alloys</h4><p>Pure Gold Brass, White Metal, Bronze Patina, and Copper Rose Gold.</p></div>
-          <div class="about-feat"><h4>📐 Site-Measured</h4><p>Our team visits your site in Bengaluru for precision measurements.</p></div>
-          <div class="about-feat"><h4>🏆 Est. 2011</h4><p>Over a decade serving villas, mansions and temples across South India.</p></div>
+          <div class="about-feat"><h4>🔨 Handcrafted Metalwork</h4><p>Every brass and white metal piece is hand-forged by our master artisans in Bengaluru — no mass production, only generational skill.</p></div>
+          <div class="about-feat"><h4>🪟 Main Doors & Pooja Mandirs</h4><p>From grand villa entrance doors to sacred Pooja mandir doors — we craft each panel with devotion, detail and durability.</p></div>
+          <div class="about-feat"><h4>✨ Bespoke to Your Vision</h4><p>Custom motifs, family crests, divine engravings — every design is tailored exclusively to your space and style.</p></div>
+          <div class="about-feat"><h4>📍 Bengaluru Atelier · Est. 2011</h4><p>Visit our offline workshop at Channenahalli, Magadi Main Road — where brass, white metal and artistry come together.</p></div>
         </div>
       </div>
+
+      <!-- RIGHT — Workshop info card -->
       <div class="reveal-right">
         <div class="about-card">
           <div class="about-card-header">
             <div>
-              <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:4px;">Visit the Atelier</div>
-              <div class="font-cinzel" style="font-size:20px;font-weight:700;color:#2c1f0e;">Bangalore Workshop</div>
+              <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:4px;">Visit Our Workshop</div>
+              <div class="font-cinzel" style="font-size:20px;font-weight:700;color:#2c1f0e;">Bangalore Atelier</div>
             </div>
-            <div style="width:48px;height:48px;border-radius:12px;background:rgba(160,104,8,0.1);border:1px solid rgba(160,104,8,0.22);display:flex;align-items:center;justify-content:center;font-size:20px;">🏛️</div>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(160,104,8,0.1);border:1px solid rgba(160,104,8,0.22);display:flex;align-items:center;justify-content:center;font-size:20px;">🎨</div>
           </div>
           <div class="about-card-body">
             <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span><strong style="color:#2c1f0e;">Address:</strong> 39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</span></div>
             <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong style="color:#2c1f0e;">Hours:</strong> Mon–Sat: 9:30 AM – 7:30 PM | Sunday by Appointment</span></div>
             <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.36 6.36l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span><strong style="color:#2c1f0e;">Phone:</strong> +91 89713 05188 / +91 96202 02221 / +91 96638 52454</span></div>
             <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><strong style="color:#2c1f0e;">Email:</strong> hello@antique-designs.com</span></div>
+            <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span><strong style="color:#2c1f0e;">Specialties:</strong> Brass & White Metal Main Doors, Pooja Doors, Railings, Partition Grills, Wall Art, Name Plates, Handles</span></div>
           </div>
-          <div style="padding:0 28px 28px;">
+          <div style="padding:0 28px 28px;display:flex;flex-direction:column;gap:10px;">
             <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="btn-gold" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;">📍 Open Google Maps Direction</a>
+            <a href="#contact" class="btn-wa" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;font-size:13px;font-weight:700;">✉️ Get a Free Consultation</a>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1595,162 +2004,391 @@
 <section class="section section-mid" id="collections">
   <div class="container">
     <div class="text-center reveal">
-      <div class="section-label mx-auto">Master Architectural Portfolio</div>
-      <h2 class="section-title dark">Our 9 Handcrafted Product Lines</h2>
+      <div class="section-label mx-auto">Antique Designs · Bengaluru</div>
+      <h2 class="section-title dark">Our Products</h2>
       <div class="gold-divider"></div>
-      <p class="section-desc dark mx-auto" style="margin-bottom:48px;">Explore our comprehensive offline manufacturing catalog — filtered by category for easy browsing.</p>
+      <p class="section-desc dark mx-auto" style="margin-bottom:48px;">Handcrafted brass and white metal creations — browse our product range and find the perfect piece for your space.</p>
     </div>
     <div class="filter-tabs reveal">
       <button class="filter-tab active" data-filter="all">All</button>
-      <button class="filter-tab" data-filter="main">Main Doors</button>
-      <button class="filter-tab" data-filter="pooja">Pooja Doors</button>
-      <button class="filter-tab" data-filter="partitions">Partition Grills</button>
-      <button class="filter-tab" data-filter="railings">Railings</button>
+      <button class="filter-tab" data-filter="accessories">Accessories</button>
+      <button class="filter-tab" data-filter="doubledoor">Double Door</button>
+      <button class="filter-tab" data-filter="gates">Gates</button>
+      <button class="filter-tab" data-filter="internaldoors">Internal Doors</button>
       <button class="filter-tab" data-filter="nameplates">Name Plates</button>
-      <button class="filter-tab" data-filter="threequarter">3/4 Concept Door</button>
-      <button class="filter-tab" data-filter="gates">Villa Gates</button>
-      <button class="filter-tab" data-filter="murals">3D Wall Murals</button>
-      <button class="filter-tab" data-filter="handles">Vaskaals</button>
+      <button class="filter-tab" data-filter="poojaaccesories">Pooja Door Accessories</button>
+      <button class="filter-tab" data-filter="traderdoor">Trader Door</button>
+      <button class="filter-tab" data-filter="wallarts">Wall Arts</button>
+      <button class="filter-tab" data-filter="bannister">Bannister</button>
+      <button class="filter-tab" data-filter="handles">Handles</button>
+      <button class="filter-tab" data-filter="main">Main Doors New</button>
+      <button class="filter-tab" data-filter="newdoubledoor">New Double Door</button>
+      <button class="filter-tab" data-filter="pooja">Pooja Doors</button>
+      <button class="filter-tab" data-filter="railings">Railings</button>
+      <button class="filter-tab" data-filter="vaskaals">Vaskaals</button>
     </div>
-    <div class="carousel-wrap reveal">
-      <div class="carousel-track" id="carouselTrack">
+    <!-- Product Carousel -->
+    <div class="product-carousel-outer reveal">
+      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous">&#8592;</button>
+      <button class="carousel-arrow next" id="carouselNext" aria-label="Next">&#8594;</button>
+      <div class="product-carousel-viewport">
+        <div class="product-grid" id="productGrid">
 
-        <div class="carousel-card" data-category="main" data-title="Grand Brass Main Doors" data-desc="Full-clad 16-gauge embossed brass and white metal entrance doors with lion knockers, pyramid studs, and deep-relief heritage motifs. Each panel is hand-embossed by master artisans and anchored to seasoned teak frames." data-material="Heavy Gauge Pure Brass" data-wa="Main%20Doors">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/Main_Door_01-2.a37f71e7.PNG" alt="Grand Brass Main Door" loading="eager" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>Grand Main Doors</div></div>'">
-            <span class="card-tag">Main Doors</span>
-            <div class="lb-hint">🔍 Tap to view</div>
+      <div class="product-card" data-category="accessories" data-title="Accessories" data-desc="Handcrafted brass and white metal accessories — beautifully crafted by master artisans in Bengaluru." data-material="Brass & White Metal" data-wa="Accessories">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/accessories/acc_1.jpg" alt="Accessories 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/accessories/acc_2.jpg" alt="Accessories 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/accessories/acc_3.jpg" alt="Accessories 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/accessories/acc_4.jpg" alt="Accessories 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
           </div>
-          <div class="carousel-card-body">
-            <h3>Grand Brass Main Doors</h3>
-            <p>Full-clad 16-gauge embossed brass and white metal entrance doors with lion knockers, pyramid studs, and deep-relief heritage motifs.</p>
-            <div class="card-footer"><span>Heavy Gauge Pure Brass</span><a href="https://wa.me/919620202221?text=Main%20Doors" target="_blank">Enquire →</a></div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Accessories</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Accessories</h3>
+          <p>Handcrafted brass and white metal accessories crafted with precision and artistry by our Bengaluru artisans.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/accessories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Accessories" target="_blank">Enquire →</a>
+            </div>
           </div>
         </div>
-
-        <div class="carousel-card" data-category="pooja" data-title="Pooja Mandir Doors" data-desc="Sacred Gopuram arches, kalasha tops, brass temple bell cutouts and pure white metal or brass sheet cladding. Handcrafted for spiritual serenity in home mandirs and temple sanctums." data-material="Bespoke Teak + Brass" data-wa="Pooja%20Doors">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g05.jpg" alt="Pooja Mandir Doors" loading="eager" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🛕</div><div>Pooja Doors</div></div>'">
-            <span class="card-tag">Pooja Doors</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Pooja Mandir Doors</h3>
-            <p>Sacred Gopuram arches, kalasha tops, brass temple bell cutouts and pure white metal or brass sheet cladding for spiritual serenity.</p>
-            <div class="card-footer"><span>Bespoke Teak + Brass</span><a href="https://wa.me/919620202221?text=Pooja%20Doors" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="main" data-title="Symmetrical Double Doors" data-desc="Regal two-leaf doors with mirror image relief work, matching brass medallions and ornate border embossing. Ideal for grand villa and mansion entrances that demand symmetry and presence." data-material="Mirror Matched Relief" data-wa="Double%20Doors">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g14.jpg" alt="Double Doors" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>Double Doors</div></div>'">
-            <span class="card-tag">Double Doors</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Symmetrical Double Doors</h3>
-            <p>Regal two-leaf doors with mirror image relief work, matching brass medallions and ornate border embossing for grand entrances.</p>
-            <div class="card-footer"><span>Mirror Matched Relief</span><a href="https://wa.me/919620202221?text=Double%20Doors" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="threequarter" data-title="3/4 Asymmetric Concept Door" data-desc="Modern asymmetric luxury entryways pairing a large operable primary leaf with a decorative fixed side metal panel. A contemporary statement piece for premium residences." data-material="Modern Luxury Design" data-wa="3%2F4%20Concept%20Door">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g48.jpg" alt="3/4 Concept Door" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>3/4 Concept</div></div>'">
-            <span class="card-tag">3/4 Concept</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>3/4 Asymmetric Concept Door</h3>
-            <p>Modern asymmetric luxury entryways pairing a large operable primary leaf with a decorative fixed side metal panel for a majestic presence.</p>
-            <div class="card-footer"><span>Modern Luxury Design</span><a href="https://wa.me/919620202221?text=3/4%20Concept%20Door" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="partitions" data-title="Luxury Partition Jaali Grills" data-desc="Geometric Islamic latticework, traditional mandala fretwork, and laser-machined pure brass partitions. Used for dining, living, and mandir zone separation in luxury interiors." data-material="Architectural Space Dividers" data-wa="Partition%20Grills">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/op_2JPG.826d0320.PNG" alt="Partition Grills" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🔲</div><div>Partitions</div></div>'">
-            <span class="card-tag">Partitions</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Luxury Partition Jaali Grills</h3>
-            <p>Geometric Islamic latticework, traditional mandala fretwork, and laser-machined pure brass partitions for dining, living, and mandir zones.</p>
-            <div class="card-footer"><span>Architectural Space Dividers</span><a href="https://wa.me/919620202221?text=Partition%20Grills" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="railings" data-title="Forged Brass Railings & Balusters" data-desc="Hand-turned solid brass spindles, cast acanthus balusters, curved helical handrails and ornate floral scrollwork. Crafted for duplex staircases in villas and luxury apartments." data-material="Solid Forged & Cast Brass" data-wa="Railings">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g18.jpg" alt="Brass Railings" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🪜</div><div>Railings</div></div>'">
-            <span class="card-tag">Railings</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Forged Brass Railings & Balusters</h3>
-            <p>Hand-turned solid brass spindles, cast acanthus balusters, curved helical handrails and ornate floral scrollwork for duplex staircases.</p>
-            <div class="card-footer"><span>Solid Forged & Cast Brass</span><a href="https://wa.me/919620202221?text=Railings" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="nameplates" data-title="Bespoke Cast Brass Name Plates" data-desc="Deep-relief sand-cast letters, house insignia, family crests, and engraved brass plaques mounted on Burma Teak or natural marble. Completely custom typography and crest design." data-material="Custom Typography & Crests" data-wa="Name%20Plates">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g15.jpg" alt="Name Plates" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🏷️</div><div>Name Plates</div></div>'">
-            <span class="card-tag">Name Plates</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Bespoke Cast Brass Name Plates</h3>
-            <p>Deep-relief sand-cast letters, house insignia, family crests, and engraved brass plaques mounted on Burma Teak or natural marble.</p>
-            <div class="card-footer"><span>Custom Typography & Crests</span><a href="https://wa.me/919620202221?text=Name%20Plates" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="gates" data-title="Grand Compound & Villa Gates" data-desc="Heavy-duty iron frames with ornate brass inserts, decorative brass finials, and custom monogram medallions. Engineered for prestigious compound and villa entrances across South India." data-material="Iron Frame + Brass Ornaments" data-wa="Villa%20Gates">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/18_gates-11.18e6a23a.png" alt="Villa Gates" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🏛️</div><div>Villa Gates</div></div>'">
-            <span class="card-tag">Gates</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Grand Compound & Villa Gates</h3>
-            <p>Heavy-duty iron frames with ornate brass inserts, decorative brass finials, and custom monogram medallions for prestigious entrances.</p>
-            <div class="card-footer"><span>Iron Frame + Brass Ornaments</span><a href="https://wa.me/919620202221?text=Villa%20Gates" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="murals" data-title="High-Relief 3D Metal Wall Murals" data-desc="Hand-hammered repoussé Tree of Life, peacock, lotus, and Nataraja panels. Statement pieces for foyers, temples, and luxury living rooms. Each mural is a one-of-a-kind art commission." data-material="Hand-Hammered Repoussé" data-wa="Wall%20Murals">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="gallery/g49.jpg" alt="3D Wall Murals" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🌿</div><div>Wall Murals</div></div>'">
-            <span class="card-tag">3D Murals</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>High-Relief 3D Metal Wall Murals</h3>
-            <p>Hand-hammered repoussé Tree of Life, peacock, lotus, and Nataraja — statement pieces for foyers, temples, and luxury living rooms.</p>
-            <div class="card-footer"><span>Hand-Hammered Repoussé</span><a href="https://wa.me/919620202221?text=Wall%20Murals" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
-        <div class="carousel-card" data-category="handles" data-title="Vaskaal Brass Handles & Hardware" data-desc="Heavy-duty solid cast brass Vaskaal pull handles, lion head knockers, ornate antique locks, tower bolts, and custom architectural door hardware. Designed to complement every door style." data-material="Solid Cast Brass Hardware" data-wa="Vaskaal%20Handles">
-          <div class="carousel-card-img lb-trigger" style="position:relative;">
-            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/MD_Vascal_3.5c3b2dc6.PNG" alt="Vaskaal Brass Handles" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🔑</div><div>Vaskaals</div></div>'">
-            <span class="card-tag">Vaskaals</span>
-            <div class="lb-hint">🔍 Tap to view</div>
-          </div>
-          <div class="carousel-card-body">
-            <h3>Vaskaal Brass Handles & Hardware</h3>
-            <p>Heavy-duty solid cast brass Vaskaal pull handles, lion head knockers, ornate antique locks, tower bolts, and custom architectural door hardware.</p>
-            <div class="card-footer"><span>Solid Cast Brass Hardware</span><a href="https://wa.me/919620202221?text=Vaskaal%20Handles" target="_blank">Enquire →</a></div>
-          </div>
-        </div>
-
       </div>
-    </div>
-    <div class="carousel-nav">
-      <button class="carousel-btn" id="carouselPrev">&#8592;</button>
-      <span id="carouselInfo" style="font-size:12px;color:#8a7560;letter-spacing:1px;"></span>
-      <button class="carousel-btn" id="carouselNext">&#8594;</button>
+
+      <div class="product-card" data-category="bannister" data-title="Bannister" data-desc="Ornate brass and white metal banisters handcrafted for staircases and balconies." data-material="Forged Brass" data-wa="Bannister">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/bannister/bn_1.jpg" alt="Bannister 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/bannister/bn_2.jpg" alt="Bannister 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/bannister/bn_3.jpg" alt="Bannister 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/bannister/bn_4.jpg" alt="Bannister 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Bannister</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Bannister</h3>
+          <p>Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.</p>
+          <div class="card-footer">
+            <span>Forged Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/bannister/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Bannister" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="handles" data-title="Handles" data-desc="Solid cast brass and white metal door handles, pull bars and architectural hardware." data-material="Cast Brass" data-wa="Handles">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/handles/hn_1.jpg" alt="Handles 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/handles/hn_2.jpg" alt="Handles 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/handles/hn_3.jpg" alt="Handles 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/handles/hn_4.jpg" alt="Handles 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Handles</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Handles</h3>
+          <p>Solid cast brass and white metal door handles, pull bars and architectural hardware crafted to last a lifetime.</p>
+          <div class="card-footer">
+            <span>Cast Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/handles/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Handles" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="doubledoor" data-title="Double Door" data-desc="Elegant symmetrical double doors handcrafted in brass and white metal for grand entrances." data-material="Brass & White Metal" data-wa="Double%20Door">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/doubledoor/dd_1.jpg" alt="Double Door 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/doubledoor/dd_2.jpg" alt="Double Door 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/doubledoor/dd_3.jpg" alt="Double Door 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/doubledoor/dd_4.jpg" alt="Double Door 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Double Door</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Double Door</h3>
+          <p>Elegant symmetrical double doors handcrafted in brass and white metal for grand villa and mansion entrances.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/doubledoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Double%20Door" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="internaldoors" data-title="Internal Doors" data-desc="Beautifully crafted internal doors with brass and white metal detailing." data-material="Brass & White Metal" data-wa="Internal%20Doors">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/internaldoors/id_1.jpg" alt="Internal Doors 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/internaldoors/id_2.jpg" alt="Internal Doors 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/internaldoors/id_3.jpg" alt="Internal Doors 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/internaldoors/id_4.jpg" alt="Internal Doors 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Internal Doors</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Internal Doors</h3>
+          <p>Beautifully crafted internal doors with brass and white metal detailing to elevate every room.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/internaldoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Internal%20Doors" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="poojaaccesories" data-title="Pooja Door Accessories" data-desc="Decorative brass accessories for pooja room doors." data-material="Brass & White Metal" data-wa="Pooja%20Door%20Accessories">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/poojaaccesories/pa_1.jpg" alt="Pooja Door Accessories 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaaccesories/pa_2.jpg" alt="Pooja Door Accessories 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaaccesories/pa_3.jpg" alt="Pooja Door Accessories 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaaccesories/pa_4.jpg" alt="Pooja Door Accessories 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Door Accessories</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Pooja Door Accessories</h3>
+          <p>Decorative brass accessories for pooja room doors — bells, kalasha motifs and divine embellishments.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/poojaaccesories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Pooja%20Door%20Accessories" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="main" data-title="Main Doors New" data-desc="Latest collection of handcrafted brass and white metal main doors for grand entrances." data-material="Brass & White Metal" data-wa="Main%20Doors%20New">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/maindoors/md_1.jpg" alt="Main Doors New 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/maindoors/md_2.jpg" alt="Main Doors New 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/maindoors/md_3.jpg" alt="Main Doors New 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/maindoors/md_4.jpg" alt="Main Doors New 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Main Doors New</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Main Doors New</h3>
+          <p>Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/maindoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Main%20Doors%20New" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="nameplates" data-title="Name Plates" data-desc="Custom cast brass name plates with deep-relief lettering and family crests." data-material="Cast Brass" data-wa="Name%20Plates">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/nameplates/np_1.jpg" alt="Name Plates 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/nameplates/np_2.jpg" alt="Name Plates 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/nameplates/np_3.jpg" alt="Name Plates 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/nameplates/np_4.jpg" alt="Name Plates 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Name Plates</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Name Plates</h3>
+          <p>Custom cast brass name plates with deep-relief lettering, house insignia and family crests.</p>
+          <div class="card-footer">
+            <span>Cast Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/nameplates/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Name%20Plates" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="gates" data-title="Gates" data-desc="Ornate compound and villa gates with decorative brass fittings and finials." data-material="Brass & Iron" data-wa="Gates">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/gates/gate_1.jpg" alt="Gates 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/gates/gate_2.jpg" alt="Gates 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/gates/gate_3.jpg" alt="Gates 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/gates/gate_4.jpg" alt="Gates 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Gates</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Gates</h3>
+          <p>Ornate compound and villa gates with decorative brass fittings and finials for prestigious entrances.</p>
+          <div class="card-footer">
+            <span>Brass & Iron</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/gates/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Gates" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="wallarts" data-title="Wall Arts" data-desc="Hand-hammered brass and white metal wall art pieces." data-material="Brass & White Metal" data-wa="Wall%20Arts">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/wallarts/wa_1.jpg" alt="Wall Arts 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/wallarts/wa_2.jpg" alt="Wall Arts 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/wallarts/wa_3.jpg" alt="Wall Arts 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/wallarts/wa_4.jpg" alt="Wall Arts 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Wall Arts</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Wall Arts</h3>
+          <p>Hand-hammered brass and white metal wall art — relief panels, 3D murals and statement pieces for any space.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/wallarts/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Wall%20Arts" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="traderdoor" data-title="Trader Door" data-desc="Sturdy and elegant trader doors crafted with brass and white metal embellishments." data-material="Brass & White Metal" data-wa="Trader%20Door">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/traderdoor/td_1.jpg" alt="Trader Door 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/traderdoor/td_2.jpg" alt="Trader Door 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/traderdoor/td_3.jpg" alt="Trader Door 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/traderdoor/td_4.jpg" alt="Trader Door 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Trader Door</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Trader Door</h3>
+          <p>Sturdy and elegant trader doors crafted with brass and white metal embellishments for commercial and residential spaces.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/traderdoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Trader%20Door" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="newdoubledoor" data-title="New Double Door" data-desc="New arrivals in double door designs — handcrafted brass and white metal statement entrances." data-material="Brass & White Metal" data-wa="New%20Double%20Door">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/newdoubledoor/ndd_1.jpg" alt="New Double Door 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/newdoubledoor/ndd_2.jpg" alt="New Double Door 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/newdoubledoor/ndd_3.jpg" alt="New Double Door 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/newdoubledoor/ndd_4.jpg" alt="New Double Door 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">New Double Door</span>
+        </div>
+        <div class="product-card-body">
+          <h3>New Double Door</h3>
+          <p>New arrivals in double door designs — handcrafted brass and white metal statement entrances for your home.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/newdoubledoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=New%20Double%20Door" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="pooja" data-title="Pooja Doors" data-desc="Sacred Gopuram arches, kalasha tops and brass temple cladding for home mandirs and temples." data-material="Teak + Brass" data-wa="Pooja%20Doors">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/poojaadoors/pd_1.jpg" alt="Pooja Doors 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaadoors/pd_2.jpg" alt="Pooja Doors 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaadoors/pd_3.jpg" alt="Pooja Doors 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaadoors/pd_4.jpg" alt="Pooja Doors 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Doors</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Pooja Doors</h3>
+          <p>Sacred Gopuram arches, kalasha tops and brass temple cladding handcrafted for home mandirs and temple sanctums.</p>
+          <div class="card-footer">
+            <span>Teak + Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/poojaadoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Pooja%20Doors" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="railings" data-title="Railings" data-desc="Hand-forged brass and white metal railings for staircases, balconies and terraces." data-material="Forged Brass" data-wa="Railings">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/railings/rl_1.jpg" alt="Railings 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/railings/rl_2.jpg" alt="Railings 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/railings/rl_3.jpg" alt="Railings 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/railings/rl_4.jpg" alt="Railings 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Railings</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Railings</h3>
+          <p>Hand-forged brass and white metal railings for staircases, balconies and terraces with ornate detailing.</p>
+          <div class="card-footer">
+            <span>Forged Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/railings/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Railings" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="vaskaals" data-title="Vaskaals" data-desc="Traditional solid brass vaskaal pull handles and door hardware crafted by master artisans." data-material="Solid Cast Brass" data-wa="Vaskaals">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:300px;">
+            <img src="products/vaskaals/vk_1.jpg" alt="Vaskaals 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/vaskaals/vk_2.jpg" alt="Vaskaals 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/vaskaals/vk_3.jpg" alt="Vaskaals 3" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/vaskaals/vk_4.jpg" alt="Vaskaals 4" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Vaskaals</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Vaskaals</h3>
+          <p>Traditional solid brass vaskaal pull handles and door hardware crafted by master artisans in Bengaluru.</p>
+          <div class="card-footer">
+            <span>Solid Cast Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/vaskaals/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Vaskaals" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        </div><!-- /#productGrid -->
+      </div><!-- /.product-carousel-viewport -->
+    </div><!-- /.product-carousel-outer -->
+
+    <!-- Carousel dots -->
+    <div class="carousel-dots" id="carouselDots"></div>
+
+    <!-- View All Products button -->
+    <div class="text-center" style="margin-top:40px;">
+      <a href="#contact" class="btn-view-all">View All Products &amp; Enquire</a>
     </div>
   </div>
 </section>
@@ -1852,58 +2490,62 @@
       <div class="gold-divider"></div>
       <p class="section-desc dark mx-auto">Real handcrafted pieces from our Bengaluru atelier — doors, railings, murals and more.</p>
     </div>
-    <div class="gallery-grid reveal" id="galleryGrid">
-      <div class="gallery-item" data-src="gallery/g01.jpg"><img loading="eager" decoding="async" src="gallery/g01.jpg" alt="Antique Designs Work 1"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item" data-src="gallery/g02.jpg"><img loading="eager" decoding="async" src="gallery/g02.jpg" alt="Antique Designs Work 2"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item" data-src="gallery/g03.jpg"><img loading="eager" decoding="async" src="gallery/g03.jpg" alt="Antique Designs Work 3"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item" data-src="gallery/g04.jpg"><img loading="eager" decoding="async" src="gallery/g04.jpg" alt="Antique Designs Work 4"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item" data-src="gallery/g05.jpg"><img loading="eager" decoding="async" src="gallery/g05.jpg" alt="Antique Designs Work 5"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item" data-src="gallery/g06.jpg"><img loading="eager" decoding="async" src="gallery/g06.jpg" alt="Antique Designs Work 6"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g07.jpg"><img loading="lazy" decoding="async" src="gallery/g07.jpg" alt="Antique Designs Work 7"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g08.jpg"><img loading="lazy" decoding="async" src="gallery/g08.jpg" alt="Antique Designs Work 8"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g09.jpg"><img loading="lazy" decoding="async" src="gallery/g09.jpg" alt="Antique Designs Work 9"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g10.jpg"><img loading="lazy" decoding="async" src="gallery/g10.jpg" alt="Antique Designs Work 10"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g11.jpg"><img loading="lazy" decoding="async" src="gallery/g11.jpg" alt="Antique Designs Work 11"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g12.jpg"><img loading="lazy" decoding="async" src="gallery/g12.jpg" alt="Antique Designs Work 12"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g13.jpg"><img loading="lazy" decoding="async" src="gallery/g13.jpg" alt="Antique Designs Work 13"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g14.jpg"><img loading="lazy" decoding="async" src="gallery/g14.jpg" alt="Antique Designs Work 14"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g15.jpg"><img loading="lazy" decoding="async" src="gallery/g15.jpg" alt="Antique Designs Work 15"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g16.jpg"><img loading="lazy" decoding="async" src="gallery/g16.jpg" alt="Antique Designs Work 16"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g17.jpg"><img loading="lazy" decoding="async" src="gallery/g17.jpg" alt="Antique Designs Work 17"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g18.jpg"><img loading="lazy" decoding="async" src="gallery/g18.jpg" alt="Antique Designs Work 18"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g19.jpg"><img loading="lazy" decoding="async" src="gallery/g19.jpg" alt="Antique Designs Work 19"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g20.jpg"><img loading="lazy" decoding="async" src="gallery/g20.jpg" alt="Antique Designs Work 20"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g21.jpg"><img loading="lazy" decoding="async" src="gallery/g21.jpg" alt="Antique Designs Work 21"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g22.jpg"><img loading="lazy" decoding="async" src="gallery/g22.jpg" alt="Antique Designs Work 22"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g23.jpg"><img loading="lazy" decoding="async" src="gallery/g23.jpg" alt="Antique Designs Work 23"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g24.jpg"><img loading="lazy" decoding="async" src="gallery/g24.jpg" alt="Antique Designs Work 24"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g25.jpg"><img loading="lazy" decoding="async" src="gallery/g25.jpg" alt="Antique Designs Work 25"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g26.jpg"><img loading="lazy" decoding="async" src="gallery/g26.jpg" alt="Antique Designs Work 26"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g27.jpg"><img loading="lazy" decoding="async" src="gallery/g27.jpg" alt="Antique Designs Work 27"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g28.jpg"><img loading="lazy" decoding="async" src="gallery/g28.jpg" alt="Antique Designs Work 28"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g29.jpg"><img loading="lazy" decoding="async" src="gallery/g29.jpg" alt="Antique Designs Work 29"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g30.jpg"><img loading="lazy" decoding="async" src="gallery/g30.jpg" alt="Antique Designs Work 30"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g31.jpg"><img loading="lazy" decoding="async" src="gallery/g31.jpg" alt="Antique Designs Work 31"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g32.jpg"><img loading="lazy" decoding="async" src="gallery/g32.jpg" alt="Antique Designs Work 32"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g33.jpg"><img loading="lazy" decoding="async" src="gallery/g33.jpg" alt="Antique Designs Work 33"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g34.jpg"><img loading="lazy" decoding="async" src="gallery/g34.jpg" alt="Antique Designs Work 34"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g35.jpg"><img loading="lazy" decoding="async" src="gallery/g35.jpg" alt="Antique Designs Work 35"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g36.jpg"><img loading="lazy" decoding="async" src="gallery/g36.jpg" alt="Antique Designs Work 36"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g37.jpg"><img loading="lazy" decoding="async" src="gallery/g37.jpg" alt="Antique Designs Work 37"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g38.jpg"><img loading="lazy" decoding="async" src="gallery/g38.jpg" alt="Antique Designs Work 38"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g39.jpg"><img loading="lazy" decoding="async" src="gallery/g39.jpg" alt="Antique Designs Work 39"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g40.jpg"><img loading="lazy" decoding="async" src="gallery/g40.jpg" alt="Antique Designs Work 40"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g41.jpg"><img loading="lazy" decoding="async" src="gallery/g41.jpg" alt="Antique Designs Work 41"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g42.jpg"><img loading="lazy" decoding="async" src="gallery/g42.jpg" alt="Antique Designs Work 42"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g43.jpg"><img loading="lazy" decoding="async" src="gallery/g43.jpg" alt="Antique Designs Work 43"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g44.jpg"><img loading="lazy" decoding="async" src="gallery/g44.jpg" alt="Antique Designs Work 44"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g45.jpg"><img loading="lazy" decoding="async" src="gallery/g45.jpg" alt="Antique Designs Work 45"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g46.jpg"><img loading="lazy" decoding="async" src="gallery/g46.jpg" alt="Antique Designs Work 46"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="gallery-item hidden" data-src="gallery/g47.jpg"><img loading="lazy" decoding="async" src="gallery/g47.jpg" alt="Antique Designs Work 47"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+    <div class="gallery-carousel-outer reveal">
+      <button class="gallery-carousel-btn prev" id="galPrev" aria-label="Previous">&#8249;</button>
+      <div class="gallery-carousel-viewport">
+        <div class="gallery-grid" id="galleryGrid">
+          <div class="gallery-item" data-src="gallery/g01.jpg"><img loading="eager" decoding="async" src="gallery/g01.jpg" alt="Antique Designs Work 1"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g02.jpg"><img loading="eager" decoding="async" src="gallery/g02.jpg" alt="Antique Designs Work 2"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g03.jpg"><img loading="eager" decoding="async" src="gallery/g03.jpg" alt="Antique Designs Work 3"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g04.jpg"><img loading="lazy" decoding="async" src="gallery/g04.jpg" alt="Antique Designs Work 4"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g05.jpg"><img loading="lazy" decoding="async" src="gallery/g05.jpg" alt="Antique Designs Work 5"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g06.jpg"><img loading="lazy" decoding="async" src="gallery/g06.jpg" alt="Antique Designs Work 6"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g07.jpg"><img loading="lazy" decoding="async" src="gallery/g07.jpg" alt="Antique Designs Work 7"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g08.jpg"><img loading="lazy" decoding="async" src="gallery/g08.jpg" alt="Antique Designs Work 8"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g09.jpg"><img loading="lazy" decoding="async" src="gallery/g09.jpg" alt="Antique Designs Work 9"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g10.jpg"><img loading="lazy" decoding="async" src="gallery/g10.jpg" alt="Antique Designs Work 10"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g11.jpg"><img loading="lazy" decoding="async" src="gallery/g11.jpg" alt="Antique Designs Work 11"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g12.jpg"><img loading="lazy" decoding="async" src="gallery/g12.jpg" alt="Antique Designs Work 12"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g13.jpg"><img loading="lazy" decoding="async" src="gallery/g13.jpg" alt="Antique Designs Work 13"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g14.jpg"><img loading="lazy" decoding="async" src="gallery/g14.jpg" alt="Antique Designs Work 14"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g15.jpg"><img loading="lazy" decoding="async" src="gallery/g15.jpg" alt="Antique Designs Work 15"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g16.jpg"><img loading="lazy" decoding="async" src="gallery/g16.jpg" alt="Antique Designs Work 16"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g17.jpg"><img loading="lazy" decoding="async" src="gallery/g17.jpg" alt="Antique Designs Work 17"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g18.jpg"><img loading="lazy" decoding="async" src="gallery/g18.jpg" alt="Antique Designs Work 18"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g19.jpg"><img loading="lazy" decoding="async" src="gallery/g19.jpg" alt="Antique Designs Work 19"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g20.jpg"><img loading="lazy" decoding="async" src="gallery/g20.jpg" alt="Antique Designs Work 20"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g21.jpg"><img loading="lazy" decoding="async" src="gallery/g21.jpg" alt="Antique Designs Work 21"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g22.jpg"><img loading="lazy" decoding="async" src="gallery/g22.jpg" alt="Antique Designs Work 22"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g23.jpg"><img loading="lazy" decoding="async" src="gallery/g23.jpg" alt="Antique Designs Work 23"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g24.jpg"><img loading="lazy" decoding="async" src="gallery/g24.jpg" alt="Antique Designs Work 24"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g25.jpg"><img loading="lazy" decoding="async" src="gallery/g25.jpg" alt="Antique Designs Work 25"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g26.jpg"><img loading="lazy" decoding="async" src="gallery/g26.jpg" alt="Antique Designs Work 26"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g27.jpg"><img loading="lazy" decoding="async" src="gallery/g27.jpg" alt="Antique Designs Work 27"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g28.jpg"><img loading="lazy" decoding="async" src="gallery/g28.jpg" alt="Antique Designs Work 28"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g29.jpg"><img loading="lazy" decoding="async" src="gallery/g29.jpg" alt="Antique Designs Work 29"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g30.jpg"><img loading="lazy" decoding="async" src="gallery/g30.jpg" alt="Antique Designs Work 30"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g31.jpg"><img loading="lazy" decoding="async" src="gallery/g31.jpg" alt="Antique Designs Work 31"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g32.jpg"><img loading="lazy" decoding="async" src="gallery/g32.jpg" alt="Antique Designs Work 32"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g33.jpg"><img loading="lazy" decoding="async" src="gallery/g33.jpg" alt="Antique Designs Work 33"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g34.jpg"><img loading="lazy" decoding="async" src="gallery/g34.jpg" alt="Antique Designs Work 34"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g35.jpg"><img loading="lazy" decoding="async" src="gallery/g35.jpg" alt="Antique Designs Work 35"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g36.jpg"><img loading="lazy" decoding="async" src="gallery/g36.jpg" alt="Antique Designs Work 36"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g37.jpg"><img loading="lazy" decoding="async" src="gallery/g37.jpg" alt="Antique Designs Work 37"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g38.jpg"><img loading="lazy" decoding="async" src="gallery/g38.jpg" alt="Antique Designs Work 38"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g39.jpg"><img loading="lazy" decoding="async" src="gallery/g39.jpg" alt="Antique Designs Work 39"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g40.jpg"><img loading="lazy" decoding="async" src="gallery/g40.jpg" alt="Antique Designs Work 40"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g41.jpg"><img loading="lazy" decoding="async" src="gallery/g41.jpg" alt="Antique Designs Work 41"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g42.jpg"><img loading="lazy" decoding="async" src="gallery/g42.jpg" alt="Antique Designs Work 42"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g43.jpg"><img loading="lazy" decoding="async" src="gallery/g43.jpg" alt="Antique Designs Work 43"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g44.jpg"><img loading="lazy" decoding="async" src="gallery/g44.jpg" alt="Antique Designs Work 44"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g45.jpg"><img loading="lazy" decoding="async" src="gallery/g45.jpg" alt="Antique Designs Work 45"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g46.jpg"><img loading="lazy" decoding="async" src="gallery/g46.jpg" alt="Antique Designs Work 46"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+          <div class="gallery-item" data-src="gallery/g47.jpg"><img loading="lazy" decoding="async" src="gallery/g47.jpg" alt="Antique Designs Work 47"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+        </div>
+      </div>
+      <button class="gallery-carousel-btn next" id="galNext" aria-label="Next">&#8250;</button>
     </div>
-    <div class="gallery-show-more">
-      <button class="btn-show-more" id="galleryShowMore">View All 47 Photos ↓</button>
-    </div>
+    <div class="gallery-carousel-dots" id="galDots"></div>
   </div>
 </section>
 
@@ -1972,6 +2614,624 @@
     </div>
   </div>
 </section>
+
+<!-- BROCHURE DOWNLOAD BANNER -->
+<style>
+  .bro-section {
+    background: linear-gradient(135deg, #2a1200 0%, #3d1e00 40%, #5c3000 70%, #3d1e00 100%);
+    position: relative; overflow: hidden;
+  }
+  .bro-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(194,147,32,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .bro-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; min-height: 520px;
+  }
+  .bro-left {
+    padding: 72px 60px 72px 48px;
+    position: relative; z-index: 1;
+  }
+  .bro-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: #c29320; margin-bottom: 20px;
+  }
+  .bro-eyebrow::before, .bro-eyebrow::after {
+    content: ''; display: block; height: 1px; width: 32px;
+    background: rgba(194,147,32,0.5);
+  }
+  .bro-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 800; color: #fdf5e0;
+    line-height: 1.15; margin-bottom: 18px;
+  }
+  .bro-desc {
+    font-size: 14px; color: rgba(240,215,160,0.72);
+    line-height: 1.8; max-width: 440px; margin-bottom: 32px;
+  }
+  .bro-features {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 36px;
+  }
+  .bro-feat {
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .bro-feat-icon {
+    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(194,147,32,0.12);
+    border: 1px solid rgba(194,147,32,0.25);
+    display: flex; align-items: center; justify-content: center;
+    color: #c29320;
+  }
+  .bro-feat-text { font-size: 12px; color: rgba(240,210,150,0.7); line-height: 1.5; }
+  .bro-feat-text strong { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #e0c080; margin-bottom: 2px; }
+  .bro-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 36px; border-radius: 8px;
+    background: linear-gradient(135deg, #c29320, #8a6205);
+    color: #fff; font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    border: none; cursor: pointer;
+    box-shadow: 0 8px 32px rgba(194,147,32,0.4);
+    transition: filter 0.25s, transform 0.25s;
+  }
+  .bro-btn:hover { filter: brightness(1.12); transform: translateY(-2px); }
+  .bro-meta {
+    margin-top: 14px; font-size: 11px;
+    color: rgba(240,200,140,0.35); letter-spacing: 1px;
+  }
+  /* RIGHT — book mockup */
+  .bro-right {
+    position: relative; display: flex;
+    align-items: center; justify-content: center;
+    padding: 48px 48px 48px 0;
+  }
+  .bro-book-wrap {
+    position: relative; z-index: 1;
+    filter: drop-shadow(-20px 24px 48px rgba(0,0,0,0.55));
+  }
+  .bro-book {
+    width: 240px;
+    background: linear-gradient(160deg, #1e1008 0%, #2a1608 50%, #1a0c04 100%);
+    border-radius: 6px 14px 14px 6px;
+    overflow: hidden; position: relative;
+    box-shadow: inset -4px 0 12px rgba(0,0,0,0.4), 4px 0 0 rgba(194,147,32,0.15);
+  }
+  .bro-book-spine {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
+    background: linear-gradient(180deg, #c29320 0%, #8a6205 50%, #c29320 100%);
+    border-right: 1px solid rgba(255,200,60,0.3);
+  }
+  .bro-book-cover {
+    margin-left: 18px;
+    padding: 28px 22px 24px 18px;
+    min-height: 310px; display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+  .bro-book-logo {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; margin-bottom: 8px;
+  }
+  /* SVG lotus emblem */
+  .bro-book-logo svg { opacity: 0.9; }
+  .bro-book-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 13px; font-weight: 800; letter-spacing: 2.5px;
+    color: #e8c060; text-align: center; line-height: 1.3;
+  }
+  .bro-book-sub {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(232,192,96,0.55); text-align: center;
+  }
+  .bro-book-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(194,147,32,0.5), transparent);
+    margin: 12px 0;
+  }
+  .bro-book-tagline {
+    font-family: 'Cinzel', serif; font-size: 8px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(232,192,96,0.5); text-align: center; line-height: 1.8;
+  }
+  .bro-book-catalogue {
+    font-family: 'Cinzel', serif;
+    font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(232,192,96,0.6);
+    text-align: center; margin-top: 12px;
+  }
+  /* Glow behind book */
+  .bro-glow {
+    position: absolute; width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,147,32,0.18) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none; z-index: 0;
+  }
+  @media (max-width: 900px) {
+    .bro-inner { grid-template-columns: 1fr; }
+    .bro-left { padding: 52px 28px 36px; }
+    .bro-right { padding: 0 28px 52px; justify-content: flex-start; }
+    .bro-book { width: 200px; }
+  }
+  @media (max-width: 500px) {
+    .bro-features { grid-template-columns: 1fr; }
+    .bro-title { font-size: clamp(24px, 7vw, 34px); }
+  }
+</style>
+
+<section class="bro-section">
+  <div class="bro-inner">
+
+    <!-- LEFT: text + features + button -->
+    <div class="bro-left">
+      <div class="bro-eyebrow">Official Catalogue</div>
+      <h2 class="bro-title">Download Our<br>Product Brochure</h2>
+      <p class="bro-desc">Explore our complete 2026 product catalogue — a curated collection of handcrafted product lines, design references, metal finishes and custom project inspirations.</p>
+
+      <div class="bro-features">
+        <div class="bro-feat">
+          <div class="bro-feat-icon">
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="bro-feat-text"><strong>Complete Product Range</strong>All 15 handcrafted lines</div>
+        </div>
+        <div class="bro-feat">
+          <div class="bro-feat-icon">
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="bro-feat-text"><strong>Design References</strong>Real project photos</div>
+        </div>
+        <div class="bro-feat">
+          <div class="bro-feat-icon">
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="bro-feat-text"><strong>Materials &amp; Finishes</strong>4 exclusive metal options</div>
+        </div>
+        <div class="bro-feat">
+          <div class="bro-feat-icon">
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="bro-feat-text"><strong>Custom Possibilities</strong>Bespoke to your vision</div>
+        </div>
+      </div>
+
+      <button class="bro-btn" onclick="openBrochureModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Brochure
+      </button>
+      <div class="bro-meta">Free PDF Download &nbsp;·&nbsp; Instant Access</div>
+    </div>
+
+    <!-- RIGHT: inline auto-flip book -->
+    <div class="bro-right">
+      <div class="bro-glow"></div>
+      <!-- Inline open-book viewer -->
+      <div class="ibook-wrap">
+        <div class="ibook" id="ibook">
+          <div class="ibook-spine"></div>
+          <div class="ibook-page ibook-left"  id="ibook-left"></div>
+          <div class="ibook-page ibook-right" id="ibook-right"></div>
+        </div>
+        <!-- progress bar -->
+        <div class="ibook-progress"><div class="ibook-progress-fill" id="ibook-pfill"></div></div>
+        <!-- nav row -->
+        <div class="ibook-nav">
+          <button class="ibook-arrow" id="ibook-prev" onclick="ibookNav(-1)">&#8592;</button>
+          <div class="ibook-dots" id="ibook-dots"></div>
+          <button class="ibook-arrow" id="ibook-next" onclick="ibookNav(1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── INLINE FLIP-BOOK ─────────────────────────── */
+  .ibook-wrap {
+    width: 100%; display: flex; flex-direction: column;
+    align-items: center; gap: 14px;
+  }
+  .ibook {
+    position: relative; display: flex;
+    width: 100%; max-width: 480px;
+    background: #12080200;
+    border-radius: 4px 14px 14px 4px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 4px 16px rgba(0,0,0,0.4);
+    overflow: hidden; min-height: 320px;
+  }
+  /* Spine */
+  .ibook-spine {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 14px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg,
+      rgba(0,0,0,0.5) 0%, rgba(194,147,32,0.3) 40%,
+      rgba(194,147,32,0.4) 50%, rgba(194,147,32,0.3) 60%,
+      rgba(0,0,0,0.5) 100%);
+    z-index: 3; pointer-events: none;
+  }
+  /* Pages */
+  .ibook-page {
+    flex: 1; position: relative; overflow: hidden;
+    background: #1a0c04; min-height: 320px;
+  }
+  .ibook-page img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; min-height: 320px; max-height: 420px;
+  }
+  /* Caption overlay */
+  .ibook-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(8,4,0,0.88) 0%, transparent 100%);
+    padding: 32px 14px 12px; pointer-events: none;
+  }
+  .ibook-cap-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #c29320; margin-bottom: 3px;
+  }
+  .ibook-cap-title {
+    font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700;
+    color: #faf0d0; line-height: 1.3;
+  }
+  /* Page number */
+  .ibook-pnum {
+    position: absolute; bottom: 8px; right: 10px;
+    font-size: 9px; color: rgba(194,147,32,0.35);
+    letter-spacing: 1px; z-index: 2;
+  }
+  .ibook-left .ibook-pnum { right: auto; left: 10px; }
+  /* Cover page */
+  .ibook-cover {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 28px 18px;
+    background: linear-gradient(160deg, #1e1008, #2d1a08);
+    min-height: 320px; width: 100%;
+  }
+  .ibook-cover-title {
+    font-family: 'Cinzel', serif; font-size: 15px; font-weight: 800;
+    color: #e8c060; line-height: 1.3; margin: 12px 0 5px;
+  }
+  .ibook-cover-sub {
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(232,192,96,0.45); margin-bottom: 14px;
+  }
+  .ibook-cover-line {
+    width: 50px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(194,147,32,0.5), transparent);
+    margin: 0 auto 14px;
+  }
+  .ibook-cover-tag {
+    font-family: 'Cinzel', serif; font-size: 7.5px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(232,192,96,0.35); line-height: 1.9;
+  }
+  /* Slide animations */
+  @keyframes ibSlideOutL { from{transform:translateX(0);opacity:1} to{transform:translateX(-28px);opacity:0} }
+  @keyframes ibSlideOutR { from{transform:translateX(0);opacity:1} to{transform:translateX(28px);opacity:0} }
+  @keyframes ibSlideInL  { from{transform:translateX(28px);opacity:0} to{transform:translateX(0);opacity:1} }
+  @keyframes ibSlideInR  { from{transform:translateX(-28px);opacity:0} to{transform:translateX(0);opacity:1} }
+  .ib-out-l { animation: ibSlideOutL 0.28s ease forwards; }
+  .ib-out-r { animation: ibSlideOutR 0.28s ease forwards; }
+  .ib-in-l  { animation: ibSlideInL  0.28s ease forwards; }
+  .ib-in-r  { animation: ibSlideInR  0.28s ease forwards; }
+  /* Progress bar */
+  .ibook-progress {
+    width: 100%; max-width: 480px; height: 2px;
+    background: rgba(194,147,32,0.12); border-radius: 2px; overflow: hidden;
+  }
+  .ibook-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #c29320, #f0c84a);
+    transition: width 0.3s linear;
+  }
+  /* Nav */
+  .ibook-nav { display: flex; align-items: center; gap: 14px; }
+  .ibook-arrow {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(194,147,32,0.1);
+    border: 1.5px solid rgba(194,147,32,0.28);
+    color: #c29320; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ibook-arrow:hover { background: rgba(194,147,32,0.25); transform: scale(1.1); }
+  .ibook-arrow:disabled { opacity: 0.2; pointer-events: none; }
+  .ibook-dots { display: flex; gap: 6px; }
+  .ibook-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(194,147,32,0.22); border: none; cursor: pointer;
+    padding: 0; transition: all 0.3s;
+  }
+  .ibook-dot.active { width: 20px; border-radius: 3px; background: #c29320; }
+  /* Pause on hover */
+  .ibook:hover ~ * { }
+  .ibook-wrap:hover .ibook-progress-fill { animation-play-state: paused !important; }
+  @media (max-width: 900px) {
+    .ibook { max-width: 100%; }
+    .ibook-page img { max-height: 260px; min-height: 220px; }
+    .ibook-page { min-height: 220px; }
+    .ibook-cover { min-height: 220px; }
+  }
+</style>
+
+
+<script>
+// ── INLINE AUTO-FLIP BOOK ────────────────────────────────
+var IB_PAGES = [
+  { left:  { type:'cover' },
+    right: { type:'image', src:'products/maindoors/md_1.jpg',       tag:'Main Doors',          title:'Grand Brass Entrance Doors' } },
+  { left:  { type:'image', src:'products/maindoors/md_2.jpg',       tag:'Main Doors',          title:'Handcrafted Brass Cladding' },
+    right: { type:'image', src:'products/maindoors/md_4.jpg',       tag:'Main Doors',          title:'Deep-Relief Embossed Panels' } },
+  { left:  { type:'image', src:'products/poojaadoors/pd_1.jpg',     tag:'Pooja Doors',         title:'Sacred Gopuram Arch' },
+    right: { type:'image', src:'products/poojaadoors/pd_2.jpg',     tag:'Pooja Doors',         title:'Kalasha & Divine Motifs' } },
+  { left:  { type:'image', src:'products/wallarts/wa_1.jpg',        tag:'Wall Arts',           title:'3D Metal Wall Mural' },
+    right: { type:'image', src:'products/wallarts/wa_2.jpg',        tag:'Wall Arts',           title:'Hand-Hammered Relief Panel' } },
+  { left:  { type:'image', src:'products/railings/rl_1.jpg',        tag:'Railings',            title:'Ornate Brass Staircase Railing' },
+    right: { type:'image', src:'products/bannister/bn_1.jpg',       tag:'Bannister',           title:'Forged Brass Balcony Baluster' } },
+  { left:  { type:'image', src:'products/doubledoor/dd_1.jpg',      tag:'Double Door',         title:'Symmetrical Grand Entry' },
+    right: { type:'image', src:'products/doubledoor/dd_2.jpg',      tag:'Double Door',         title:'Villa Entrance Doors' } },
+  { left:  { type:'image', src:'products/handles/hn_1.jpg',         tag:'Handles',             title:'Cast Brass Pull Handles' },
+    right: { type:'image', src:'products/poojaaccesories/pa_1.jpg', tag:'Pooja Accessories',   title:'Divine Brass Embellishments' } },
+  { left:  { type:'image', src:'products/nameplates/np_1.jpg',      tag:'Name Plates',         title:'Custom Deep-Relief Name Plate' },
+    right: { type:'image', src:'products/gates/gate_1.jpg',         tag:'Gates',               title:'Decorative Villa Gate' } },
+  { left:  { type:'image', src:'products/maindoors/md_5.jpg',       tag:'Our Craft',           title:'Every Piece Handcrafted in Bengaluru' },
+    right: { type:'cover', isBack:true } }
+];
+
+var ibIdx = 0, ibTimer = null, ibAnimating = false, ibStarted = false;
+var IB_INTERVAL = 2800;
+
+function ibBuildPage(el, data, pNum) {
+  el.innerHTML = '';
+  if (data.type === 'cover') {
+    var back = data.isBack;
+    el.innerHTML =
+      '<div class="ibook-cover">' +
+        '<svg width="38" height="30" viewBox="0 0 44 36" fill="none">' +
+          '<path d="M22 34C22 34 6 24 6 14C6 9 10 6 14 8C16 4 19 2 22 2C25 2 28 4 30 8C34 6 38 9 38 14C38 24 22 34 22 34Z" stroke="#c29320" stroke-width="1.2" fill="rgba(194,147,32,0.07)"/>' +
+          '<path d="M22 34C22 34 10 26 10 17C10 13 13 11 16 13C17.5 10 19.5 8 22 8C24.5 8 26.5 10 28 13C31 11 34 13 34 17C34 26 22 34 22 34Z" stroke="#c29320" stroke-width="1" fill="rgba(194,147,32,0.1)"/>' +
+          '<circle cx="22" cy="19" r="3" stroke="#c29320" stroke-width="1" fill="rgba(194,147,32,0.15)"/>' +
+        '</svg>' +
+        '<div class="ibook-cover-title">' + (back ? 'Enquire<br>Today' : 'ANTIQUE<br>DESIGNS') + '</div>' +
+        '<div class="ibook-cover-sub">' + (back ? 'Bengaluru · Est. 2011' : 'Handcrafted Spaces') + '</div>' +
+        '<div class="ibook-cover-line"></div>' +
+        '<div class="ibook-cover-tag">' + (back ? 'Commission your<br>bespoke metalwork' : 'Traditional Craftsmanship<br>for Timeless Spaces') + '</div>' +
+      '</div>';
+  } else {
+    var img = document.createElement('img');
+    img.src = data.src; img.alt = data.title; img.loading = 'lazy';
+    el.appendChild(img);
+    var cap = document.createElement('div');
+    cap.className = 'ibook-caption';
+    cap.innerHTML = '<div class="ibook-cap-tag">' + data.tag + '</div><div class="ibook-cap-title">' + data.title + '</div>';
+    el.appendChild(cap);
+    if (pNum) {
+      var pn = document.createElement('div');
+      pn.className = 'ibook-pnum'; pn.textContent = pNum;
+      el.appendChild(pn);
+    }
+  }
+}
+
+function ibRender(dir) {
+  var L = document.getElementById('ibook-left');
+  var R = document.getElementById('ibook-right');
+  var sp = IB_PAGES[ibIdx];
+  var lNum = ibIdx === 0 ? '' : (ibIdx * 2 - 1);
+  var rNum = ibIdx === 0 ? '' : (ibIdx * 2);
+
+  if (dir && !ibAnimating) {
+    ibAnimating = true;
+    var outL = dir > 0 ? 'ib-out-l' : 'ib-out-r';
+    var outR = dir > 0 ? 'ib-out-l' : 'ib-out-r';
+    var inL  = dir > 0 ? 'ib-in-l'  : 'ib-in-r';
+    var inR  = dir > 0 ? 'ib-in-l'  : 'ib-in-r';
+    L.classList.add(outL); R.classList.add(outR);
+    setTimeout(function() {
+      L.classList.remove(outL); R.classList.remove(outR);
+      ibBuildPage(L, sp.left,  lNum);
+      ibBuildPage(R, sp.right, rNum);
+      L.classList.add(inL); R.classList.add(inR);
+      setTimeout(function() { L.classList.remove(inL); R.classList.remove(inR); ibAnimating = false; }, 300);
+    }, 280);
+  } else {
+    ibBuildPage(L, sp.left,  lNum);
+    ibBuildPage(R, sp.right, rNum);
+  }
+
+  // dots
+  var dots = document.querySelectorAll('.ibook-dot');
+  dots.forEach(function(d, i) { d.classList.toggle('active', i === ibIdx); });
+  // arrows
+  var prev = document.getElementById('ibook-prev');
+  var next = document.getElementById('ibook-next');
+  if (prev) prev.disabled = ibIdx === 0;
+  if (next) next.disabled = ibIdx === IB_PAGES.length - 1;
+  // progress bar — reset & animate
+  ibUpdateProgress();
+}
+
+function ibUpdateProgress() {
+  var fill = document.getElementById('ibook-pfill');
+  if (!fill) return;
+  fill.style.transition = 'none';
+  fill.style.width = '0%';
+  setTimeout(function() {
+    fill.style.transition = 'width ' + IB_INTERVAL + 'ms linear';
+    fill.style.width = '100%';
+  }, 30);
+}
+
+function ibNext() {
+  if (ibAnimating) return;
+  if (ibIdx < IB_PAGES.length - 1) { ibIdx++; ibRender(1); }
+  else { ibIdx = 0; ibRender(1); }
+}
+
+function ibookNav(dir) {
+  clearInterval(ibTimer);
+  if (ibAnimating) return;
+  var n = ibIdx + dir;
+  if (n < 0 || n >= IB_PAGES.length) return;
+  ibIdx = n; ibRender(dir);
+  // restart auto-play
+  ibTimer = setInterval(ibNext, IB_INTERVAL);
+}
+
+function ibBuildDots() {
+  var row = document.getElementById('ibook-dots');
+  if (!row) return;
+  row.innerHTML = '';
+  IB_PAGES.forEach(function(_, i) {
+    var d = document.createElement('button');
+    d.className = 'ibook-dot' + (i === 0 ? ' active' : '');
+    d.onclick = function() { clearInterval(ibTimer); ibIdx = i; ibRender(0); ibTimer = setInterval(ibNext, IB_INTERVAL); };
+    row.appendChild(d);
+  });
+}
+
+function ibStart() {
+  if (ibStarted) return;
+  ibStarted = true;
+  ibBuildDots();
+  ibRender(0);
+  ibTimer = setInterval(ibNext, IB_INTERVAL);
+  // pause on hover
+  var wrap = document.querySelector('.ibook-wrap');
+  if (wrap) {
+    wrap.addEventListener('mouseenter', function() { clearInterval(ibTimer); });
+    wrap.addEventListener('mouseleave', function() { ibTimer = setInterval(ibNext, IB_INTERVAL); });
+  }
+}
+
+// Trigger when brochure section scrolls into view
+(function() {
+  var section = document.querySelector('.bro-section');
+  if (!section) return;
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { ibStart(); obs.disconnect(); }
+  }, { threshold: 0.3 });
+  obs.observe(section);
+})();
+</script>
+<!-- BROCHURE MODAL -->
+<div id="bro-modal" style="display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:20px;">
+  <div id="bro-modal-box" style="background:#fdf8f0;border-radius:20px;width:100%;max-width:440px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+
+    <!-- STEP 1: FORM -->
+    <div id="bro-step1">
+      <div style="height:5px;background:linear-gradient(90deg,#c29320,#f0c84a,#8a6205);"></div>
+      <div style="padding:24px 28px 20px;border-bottom:1px solid rgba(160,104,8,0.12);position:relative;">
+        <button onclick="closeBrochureModal()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:#f5ece0;border:none;font-size:16px;cursor:pointer;color:#a06808;">✕</button>
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c29320;margin-bottom:6px;">📄 Free Download</div>
+        <h3 style="font-family:'Cinzel',serif;font-size:19px;font-weight:800;color:#2c1f0e;margin-bottom:4px;">Get Our 2026 Catalogue</h3>
+        <p style="font-size:12px;color:#9a7040;line-height:1.6;">Fill in your details — the PDF downloads instantly and we will follow up with you.</p>
+      </div>
+      <div style="padding:20px 28px 24px;">
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a7040;margin-bottom:6px;">Full Name *</label>
+          <input id="bro-name" type="text" placeholder="e.g. Ramesh Kumar"
+            style="width:100%;padding:11px 14px;border-radius:8px;background:#f5f1ea;border:1.5px solid rgba(160,104,8,0.2);color:#2c1f0e;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a7040;margin-bottom:6px;">Phone Number *</label>
+          <input id="bro-phone" type="tel" placeholder="+91 98765 43210"
+            style="width:100%;padding:11px 14px;border-radius:8px;background:#f5f1ea;border:1.5px solid rgba(160,104,8,0.2);color:#2c1f0e;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a7040;margin-bottom:6px;">Email <span style="font-weight:400;font-size:10px;">(optional)</span></label>
+          <input id="bro-email" type="email" placeholder="your@email.com"
+            style="width:100%;padding:11px 14px;border-radius:8px;background:#f5f1ea;border:1.5px solid rgba(160,104,8,0.2);color:#2c1f0e;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;">
+        </div>
+        <div id="bro-err" style="display:none;color:#c0392b;font-size:12px;margin-bottom:12px;padding:8px 12px;background:#fff0f0;border-radius:6px;">⚠️ Please enter your name and phone number.</div>
+        <!-- This is the key: a real form submit via GET to WhatsApp -->
+        <button onclick="broSubmit()" style="width:100%;padding:13px;border-radius:50px;background:linear-gradient(135deg,#c29320,#8a6205);border:none;color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(194,147,32,0.4);">
+          ⬇ Download Brochure
+        </button>
+        <p style="font-size:11px;color:#b0956a;text-align:center;margin-top:10px;">We will call you back for a free consultation.</p>
+      </div>
+    </div>
+
+    <!-- STEP 2: SUCCESS screen -->
+    <div id="bro-step2" style="display:none;padding:40px 28px;text-align:center;">
+      <div style="font-size:50px;margin-bottom:14px;">✅</div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;font-weight:800;color:#2c1f0e;margin-bottom:10px;">Thank You!</h3>
+      <p style="font-size:13px;color:#7a5830;line-height:1.7;margin-bottom:24px;">Your brochure is downloading now.<br>Our team will call you shortly<br>for a free consultation.</p>
+      <button onclick="closeBrochureModal()" style="padding:12px 32px;border-radius:50px;background:linear-gradient(135deg,#c29320,#8a6205);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;">Close</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openBrochureModal() {
+    document.getElementById('bro-modal').style.display = 'flex';
+    document.getElementById('bro-step1').style.display = 'block';
+    document.getElementById('bro-step2').style.display = 'none';
+    document.getElementById('bro-name').value = '';
+    document.getElementById('bro-phone').value = '';
+    document.getElementById('bro-email').value = '';
+    document.getElementById('bro-err').style.display = 'none';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBrochureModal() {
+    document.getElementById('bro-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('bro-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeBrochureModal();
+  });
+
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbzTL8KlfDHXaK38vhjyecxOjqg5smKhJrJQ1HyC9d-Oz3sGGitPiaCUKOJ0KP4J0VHcbQ/exec';
+
+  function broSubmit() {
+    var name  = document.getElementById('bro-name').value.trim();
+    var phone = document.getElementById('bro-phone').value.trim();
+    var email = document.getElementById('bro-email').value.trim();
+
+    if (!name || !phone) {
+      document.getElementById('bro-err').style.display = 'block';
+      return;
+    }
+    document.getElementById('bro-err').style.display = 'none';
+
+    // Save lead to Google Sheet
+    var params = new URLSearchParams({
+      name:      name,
+      phone:     phone,
+      email:     email,
+      timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      source:    'Brochure Download'
+    });
+    fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+      .catch(function() {});
+
+    // Show step 2 (success screen)
+    document.getElementById('bro-step1').style.display = 'none';
+    document.getElementById('bro-step2').style.display = 'block';
+
+    // Download the PDF
+    var a = document.createElement('a');
+    a.href = 'brochure.pdf';
+    a.download = 'Antique_Designs_Catalogue_2026.pdf';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeBrochureModal();
+  });
+</script>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -2088,47 +3348,107 @@
   startHeroTimer();
 
   // PRODUCT CAROUSEL
-  const track = document.getElementById('carouselTrack');
-  const allCards = Array.from(track.children);
-  let filteredCards = [...allCards];
-  let carouselIndex = 0;
-  function getVisibleCount() {
-    if (window.innerWidth >= 1100) return 3;
-    if (window.innerWidth >= 720) return 2;
-    return 1;
-  }
-  function updateCarousel() {
-    const maxIndex = Math.max(0, filteredCards.length - getVisibleCount());
-    carouselIndex = Math.min(carouselIndex, maxIndex);
-    const visibleWidth = track.parentElement.offsetWidth;
-    const cardW = (visibleWidth - 24 * (getVisibleCount() - 1)) / getVisibleCount();
-    allCards.forEach(c => { c.style.minWidth = cardW + 'px'; });
-    const offset = filteredCards.slice(0, carouselIndex).reduce((acc, c) => acc + c.offsetWidth + 24, 0);
-    track.style.transform = `translateX(-${offset}px)`;
-    const info = document.getElementById('carouselInfo');
-    if (info && filteredCards.length > 0) {
-      info.textContent = `${carouselIndex + 1}–${Math.min(carouselIndex + getVisibleCount(), filteredCards.length)} of ${filteredCards.length}`;
+  (function() {
+    const grid = document.getElementById('productGrid');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    const allCards = Array.from(document.querySelectorAll('#productGrid .product-card'));
+
+    let visibleCards = allCards.slice(); // cards currently shown (after filter)
+    let currentPage = 0;
+
+    function getPerPage() {
+      if (window.innerWidth <= 480) return 1;
+      if (window.innerWidth <= 768) return 2;
+      return 3;
     }
-  }
-  document.getElementById('carouselPrev').addEventListener('click', () => { if (carouselIndex > 0) { carouselIndex--; updateCarousel(); } });
-  document.getElementById('carouselNext').addEventListener('click', () => { if (carouselIndex < filteredCards.length - getVisibleCount()) { carouselIndex++; updateCarousel(); } });
-  document.querySelectorAll('.filter-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const filter = tab.dataset.filter;
-      carouselIndex = 0;
-      filteredCards = [];
-      allCards.forEach(card => {
-        const show = filter === 'all' || card.dataset.category === filter;
-        card.style.display = show ? '' : 'none';
-        if (show) filteredCards.push(card);
+
+    function totalPages() {
+      return Math.max(1, Math.ceil(visibleCards.length / getPerPage()));
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      const pages = totalPages();
+      for (let i = 0; i < pages; i++) {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === currentPage ? ' active' : '');
+        d.setAttribute('aria-label', 'Page ' + (i + 1));
+        d.addEventListener('click', () => goToPage(i));
+        dotsContainer.appendChild(d);
+      }
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === currentPage));
+    }
+
+    function applyTransform() {
+      const perPage = getPerPage();
+      // One page = one full container width (cards + gaps = containerW)
+      const containerW = grid.parentElement.clientWidth;
+      const offsetPx = currentPage * containerW;
+      grid.style.transform = 'translateX(-' + offsetPx + 'px)';
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= totalPages() - 1;
+      updateDots();
+      // Lazy-load images near the visible page
+      const start = Math.max(0, (currentPage - 1) * perPage);
+      const end = Math.min(visibleCards.length, (currentPage + 2) * perPage);
+      visibleCards.slice(start, end).forEach(card => {
+        card.querySelectorAll('img[loading="lazy"]').forEach(img => {
+          if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+        });
       });
-      updateCarousel();
+    }
+
+    function goToPage(n) {
+      currentPage = Math.max(0, Math.min(n, totalPages() - 1));
+      applyTransform();
+    }
+
+    function renderFilter(filter) {
+      visibleCards = allCards.filter(c => filter === 'all' || c.dataset.category === filter);
+      allCards.forEach(c => {
+        c.style.display = visibleCards.includes(c) ? '' : 'none';
+      });
+      currentPage = 0;
+      buildDots();
+      applyTransform();
+    }
+
+    prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+    nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    grid.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    grid.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) { dx < 0 ? goToPage(currentPage + 1) : goToPage(currentPage - 1); }
+    }, { passive: true });
+
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderFilter(tab.dataset.filter);
+      });
     });
-  });
-  updateCarousel();
-  window.addEventListener('resize', updateCarousel);
+
+    window.addEventListener('resize', () => {
+      currentPage = 0;
+      buildDots();
+      applyTransform();
+    });
+
+    // Init
+    buildDots();
+    applyTransform();
+  })();
 
   // TESTIMONIALS AUTO SLIDER
   const testiTrack = document.getElementById('testiTrack');
@@ -2143,33 +3463,106 @@
   }
   testiNavBtns.forEach(btn => btn.addEventListener('click', () => { clearInterval(testiTimer); goToTesti(+btn.dataset.testi); testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000); }));
 
-  // SCROLL REVEAL
+  // SCROLL REVEAL — fire as soon as any part enters viewport
   const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => observer.observe(el));
+  }, { threshold: 0 });
+  // Also immediately show anything already in the viewport on load
+  revealEls.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      observer.observe(el);
+    }
+  });
 
-  // GALLERY — show more / lightbox
+  // GALLERY — sliding carousel + lightbox
   (function() {
-    const showMoreBtn = document.getElementById('galleryShowMore');
-    if (showMoreBtn) {
-      showMoreBtn.addEventListener('click', function() {
-        document.querySelectorAll('.gallery-item.hidden').forEach(function(el) {
-          el.classList.remove('hidden');
-        });
-        showMoreBtn.parentElement.style.display = 'none';
-      });
+    var grid = document.getElementById('galleryGrid');
+    var prevBtn = document.getElementById('galPrev');
+    var nextBtn = document.getElementById('galNext');
+    var dotsContainer = document.getElementById('galDots');
+    var items = Array.from(grid.querySelectorAll('.gallery-item'));
+    var total = items.length;
+    var perPage = 3;
+    var currentPage = 0;
+
+    function getPer() {
+      return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
     }
 
-    // Gallery fullscreen lightbox
-    const glb = document.getElementById('glb');
-    const glbImg = document.getElementById('glbImg');
-    const glbCounter = document.getElementById('glbCounter');
-    let glbItems = [], glbIndex = 0;
+    function totalPages() {
+      return Math.ceil(total / getPer());
+    }
 
-    function openGlb(items, idx) {
-      glbItems = items;
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      var pages = totalPages();
+      for (var i = 0; i < pages; i++) {
+        var d = document.createElement('span');
+        if (i === currentPage) d.classList.add('active');
+        (function(idx) {
+          d.addEventListener('click', function() { goTo(idx); });
+        })(i);
+        dotsContainer.appendChild(d);
+      }
+    }
+
+    function goTo(page) {
+      var pp = getPer();
+      var pages = Math.ceil(total / pp);
+      currentPage = Math.max(0, Math.min(page, pages - 1));
+      // Item width = viewport width / pp, gap = 12px
+      var vp = grid.parentElement.clientWidth;
+      var itemW = (vp - 12 * (pp - 1)) / pp;
+      var offset = currentPage * pp * (itemW + 12);
+      grid.style.transform = 'translateX(-' + offset + 'px)';
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= pages - 1;
+      buildDots();
+    }
+
+    // Autoplay — advance every 3.5 s, wraps around, pauses on hover/touch
+    var galTimer = setInterval(function() {
+      goTo(currentPage >= totalPages() - 1 ? 0 : currentPage + 1);
+    }, 3500);
+
+    function pauseAuto() { clearInterval(galTimer); }
+    function resumeAuto() {
+      galTimer = setInterval(function() {
+        goTo(currentPage >= totalPages() - 1 ? 0 : currentPage + 1);
+      }, 3500);
+    }
+
+    var outerEl = grid.parentElement.parentElement; // .gallery-carousel-outer
+    outerEl.addEventListener('mouseenter', pauseAuto);
+    outerEl.addEventListener('mouseleave', resumeAuto);
+
+    prevBtn.addEventListener('click', function() { pauseAuto(); goTo(currentPage - 1); resumeAuto(); });
+    nextBtn.addEventListener('click', function() { pauseAuto(); goTo(currentPage + 1); resumeAuto(); });
+    window.addEventListener('resize', function() { goTo(0); });
+
+    // Touch/swipe support
+    var touchStartX = 0;
+    grid.parentElement.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; pauseAuto(); }, { passive: true });
+    grid.parentElement.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(currentPage + (dx < 0 ? 1 : -1));
+      resumeAuto();
+    }, { passive: true });
+
+    goTo(0);
+
+    // Gallery fullscreen lightbox
+    var glb = document.getElementById('glb');
+    var glbImg = document.getElementById('glbImg');
+    var glbCounter = document.getElementById('glbCounter');
+    var glbItems = [], glbIndex = 0;
+
+    function openGlb(allItems, idx) {
+      glbItems = allItems;
       glbIndex = idx;
       showGlb();
       glb.classList.add('open');
@@ -2185,11 +3578,10 @@
       setTimeout(function() { glbImg.src = ''; }, 300);
     }
 
-    document.getElementById('galleryGrid').addEventListener('click', function(e) {
-      const item = e.target.closest('.gallery-item');
+    grid.addEventListener('click', function(e) {
+      var item = e.target.closest('.gallery-item');
       if (!item) return;
-      const allVisible = Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
-      openGlb(allVisible, allVisible.indexOf(item));
+      openGlb(items, items.indexOf(item));
     });
     document.getElementById('glbClose').addEventListener('click', closeGlb);
     document.getElementById('glbPrev').addEventListener('click', function() {
@@ -2223,7 +3615,7 @@
   // LIGHTBOX — all DOM lookups deferred to click time so lightbox HTML is ready
   function openLightbox(card) {
     const imgEl = card.querySelector('img');
-    const c = card.closest('.carousel-card');
+    const c = card.closest('.product-card');
     const title = c.dataset.title || (imgEl ? imgEl.alt : '');
     const cat = (c.dataset.category || '')
       .replace('threequarter','3/4 Concept')
@@ -2251,8 +3643,8 @@
     setTimeout(() => { document.getElementById('lbImg').src = ''; }, 300);
   }
 
-  // Event delegation on track — survives filter tab switching
-  document.getElementById('carouselTrack').addEventListener('click', function(e) {
+  // Event delegation on grid — survives filter tab switching
+  document.getElementById('productGrid').addEventListener('click', function(e) {
     const trigger = e.target.closest('.lb-trigger');
     if (trigger) openLightbox(trigger);
   });
@@ -2733,6 +4125,221 @@
 
 <!-- BACK TO TOP -->
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- PRODUCT GALLERY MODAL -->
+<div id="prodGalleryModal" style="display:none;position:fixed;inset:0;z-index:4000;background:#f5f0e8;overflow-y:auto;">
+
+  <!-- Sticky header bar -->
+  <div style="position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #e8e0d0;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(80,50,10,0.08);">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button onclick="closeProdGallery()" style="background:none;border:none;cursor:pointer;color:#5a3e1e;font-size:22px;line-height:1;padding:0;">←</button>
+      <h2 id="prodGalleryTitle" style="font-family:'Cinzel',serif;font-size:20px;font-weight:800;color:#1e1208;letter-spacing:0.5px;margin:0;"></h2>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <a id="prodGalleryWA" href="#" target="_blank" style="background:#22c55e;color:#fff;padding:9px 22px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">💬 WhatsApp Enquiry</a>
+      <button onclick="closeProdGallery()" style="background:#f0ece4;border:1px solid #d8cdb8;color:#5a3e1e;width:38px;height:38px;border-radius:6px;font-size:18px;cursor:pointer;">✕</button>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;">
+
+    <!-- Title + description -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <h1 id="prodGalleryHeading" style="font-family:'Cinzel',serif;font-size:clamp(26px,4vw,42px);font-weight:800;color:#1e1208;margin-bottom:16px;"></h1>
+      <div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#c8a030,transparent);margin:0 auto 20px;"></div>
+      <p id="prodGalleryDesc" style="font-size:15px;color:#5a3e1e;line-height:1.8;max-width:780px;margin:0 auto;"></p>
+    </div>
+
+    <!-- Image grid — 2 columns like reference -->
+    <div id="prodGalleryGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;"></div>
+
+  </div>
+</div>
+
+<style>
+  #prodGalleryGrid img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: zoom-in;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 2px 12px rgba(80,50,10,0.10);
+    background: #ede8dc;
+  }
+  #prodGalleryGrid img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(80,50,10,0.18);
+  }
+  @media (max-width: 600px) {
+    #prodGalleryGrid { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<script>
+  const prodGalleryData = {
+    accessories: {
+      title: 'Accessories',
+      desc: 'Handcrafted brass and white metal accessories — each piece forged by master artisans in our Bengaluru workshop with precision and timeless artistry.',
+      count: 31,
+      folder: 'products/accessories/acc_',
+      wa: 'Accessories'
+    },
+    doubledoor: {
+      title: 'Double Door',
+      desc: 'Elegant symmetrical double doors handcrafted in brass and white metal — mirror-matched relief work, ornate medallions and border embossing for grand villa and mansion entrances.',
+      count: 20,
+      folder: 'products/doubledoor/dd_',
+      wa: 'Double%20Door'
+    },
+    gates: {
+      title: 'Gates',
+      desc: 'Ornate compound and villa gates handcrafted with decorative brass fittings, finials and custom monogram medallions — built for prestigious entrances across South India.',
+      count: 8,
+      folder: 'products/gates/gate_',
+      wa: 'Gates'
+    },
+    internaldoors: {
+      title: 'Internal Doors',
+      desc: 'Beautifully crafted internal doors with brass and white metal detailing — designed to add elegance and character to every room in your home.',
+      count: 14,
+      folder: 'products/internaldoors/id_',
+      wa: 'Internal%20Doors'
+    },
+    nameplates: {
+      title: 'Name Plates',
+      desc: 'Custom cast brass name plates with deep-relief lettering, house insignia and family crests — sand-cast and hand-finished by our Bengaluru master artisans.',
+      count: 37,
+      folder: 'products/nameplates/np_',
+      wa: 'Name%20Plates'
+    },
+    poojaaccesories: {
+      title: 'Pooja Door Accessories',
+      desc: 'Decorative brass and white metal accessories for pooja room doors — bells, kalasha motifs, divine engravings and embellishments handcrafted by our Bengaluru artisans.',
+      count: 36,
+      folder: 'products/poojaaccesories/pa_',
+      wa: 'Pooja%20Door%20Accessories'
+    },
+    traderdoor: {
+      title: 'Trader Door',
+      desc: 'Sturdy and elegant trader doors crafted with brass and white metal embellishments — designed for commercial and residential spaces that demand quality and style.',
+      count: 14,
+      folder: 'products/traderdoor/td_',
+      wa: 'Trader%20Door'
+    },
+    wallarts: {
+      title: 'Wall Arts',
+      desc: 'Hand-hammered brass and white metal wall art — relief panels, 3D murals, peacock designs, Tree of Life and divine motifs that transform any wall into a masterpiece.',
+      count: 47,
+      folder: 'products/wallarts/wa_',
+      wa: 'Wall%20Arts'
+    },
+    bannister: {
+      title: 'Bannister',
+      desc: 'Ornate brass and white metal banisters handcrafted for staircases and balconies — intricate spindle work, curved handrails and decorative detailing by our Bengaluru artisans.',
+      count: 7,
+      folder: 'products/bannister/bn_',
+      wa: 'Bannister'
+    },
+    handles: {
+      title: 'Handles',
+      desc: 'Solid cast brass and white metal door handles, pull bars and architectural hardware — crafted to complement every door style and last a lifetime.',
+      count: 6,
+      folder: 'products/handles/hn_',
+      wa: 'Handles'
+    },
+    maindoors: {
+      title: 'Main Doors New',
+      desc: 'Latest collection of handcrafted brass and white metal main doors — bold designs, deep-relief motifs and superior craftsmanship for grand villa and home entrances.',
+      count: 37,
+      folder: 'products/maindoors/md_',
+      wa: 'Main%20Doors%20New'
+    },
+    newdoubledoor: {
+      title: 'New Double Door',
+      desc: 'New arrivals in double door designs — handcrafted brass and white metal statement entrances with mirror-matched relief work and ornate detailing.',
+      count: 12,
+      folder: 'products/newdoubledoor/ndd_',
+      wa: 'New%20Double%20Door'
+    },
+    poojaadoors: {
+      title: 'Pooja Doors',
+      desc: 'Sacred Gopuram arches, kalasha tops and hand-embossed brass temple cladding — crafted with devotion for home mandirs and temple sanctums across South India.',
+      count: 58,
+      folder: 'products/poojaadoors/pd_',
+      wa: 'Pooja%20Doors'
+    },
+    railings: {
+      title: 'Railings',
+      desc: 'Hand-forged brass and white metal railings for staircases, balconies and terraces — ornate spindle work, curved handrails and premium finish by our Bengaluru artisans.',
+      count: 39,
+      folder: 'products/railings/rl_',
+      wa: 'Railings'
+    },
+    vaskaals: {
+      title: 'Vaskaals',
+      desc: 'Traditional solid brass vaskaal pull handles and door hardware — sand-cast and hand-finished by master artisans in Bengaluru for a lifetime of use.',
+      count: 9,
+      folder: 'products/vaskaals/vk_',
+      wa: 'Vaskaals'
+    }
+  };
+
+  function openProductGallery(key, title, count) {
+    const modal = document.getElementById('prodGalleryModal');
+    const grid  = document.getElementById('prodGalleryGrid');
+    const ttl   = document.getElementById('prodGalleryTitle');
+    const hdg   = document.getElementById('prodGalleryHeading');
+    const dsc   = document.getElementById('prodGalleryDesc');
+    const wa    = document.getElementById('prodGalleryWA');
+
+    const data  = prodGalleryData[key] || { title: title, desc: '', count: count, folder: 'products/' + key + '/' + key.replace(/\s/g,'') + '_', wa: encodeURIComponent(title) };
+
+    ttl.textContent = data.title;
+    hdg.textContent = data.title;
+    dsc.textContent = data.desc;
+    wa.href = 'https://wa.me/919620202221?text=Enquiry%20about%20' + encodeURIComponent(data.title);
+
+    grid.innerHTML = '';
+    for (let i = 1; i <= data.count; i++) {
+      const img = document.createElement('img');
+      img.src     = data.folder + i + '.jpg';
+      img.alt     = data.title + ' ' + i;
+      img.loading = 'lazy';
+      img.onclick = function() { openFullImg(this.src); };
+      grid.appendChild(img);
+    }
+
+    modal.style.display = 'block';
+    modal.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProdGallery() {
+    document.getElementById('prodGalleryModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function openFullImg(src) {
+    const o = document.createElement('div');
+    o.style.cssText = 'position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.95);display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = 'max-width:95vw;max-height:95vh;object-fit:contain;border-radius:8px;';
+    o.appendChild(img);
+    o.onclick = function() { document.body.removeChild(o); };
+    document.body.appendChild(o);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const o = document.querySelector('div[style*="z-index:5000"]');
+      if (o) { document.body.removeChild(o); return; }
+      closeProdGallery();
+    }
+  });
+</script>
 
 </body>
 </html>
