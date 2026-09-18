@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antique Designs | Timeless Artefacts & Vintage Heritage</title>
+  <meta name="description" content="Discover exquisite antique designs, timeless heritage furniture, vintage artifacts, bespoke restorations, and curated collections.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            antique: {
+              cream: '#FAF8F5',
+              sand: '#F2ECE1',
+              gold: '#C5A059',
+              goldHover: '#B08B46',
+              bronze: '#8C6239',
+              wood: '#3E2723',
+              dark: '#1C1917',
+              muted: '#78716C'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    
+    /* Custom Gold Gradient Text */
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #D4AF37 0%, #AA771C 50%, #85580F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom Glassmorphism */
+    .glass-nav {
+      background: rgba(250, 248, 245, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    }
+    
+    .gold-border {
+      border: 1px solid rgba(197, 160, 89, 0.35);
+    }
+
+    /* Hero Parallax Glow */
+    .hero-glow {
+      background: radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.15) 0%, rgba(250, 248, 245, 0) 70%);
+    }
+
+    /* Floating animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-antique-gold selection:text-white">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-antique-dark text-antique-sand text-xs py-2 px-4 text-center tracking-widest font-medium border-b border-antique-gold/20 flex items-center justify-center gap-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-antique-gold animate-ping mr-1"></span>
+    <span class="font-cinzel">EXQUISITE HERITAGE COLLECTION • BESPOKE RESTORATIONS • WORLDWIDE CONCIERGE SHIPPING</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-nav transition-all duration-300" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-full border border-antique-gold flex items-center justify-center bg-antique-sand/60 group-hover:scale-105 transition-transform duration-300">
+            <i data-lucide="crown" class="w-6 h-6 text-antique-gold"></i>
+          </div>
+          <div>
+            <span class="font-cinzel text-xl md:text-2xl font-bold tracking-wider text-antique-dark block leading-none">ANTIQUE</span>
+            <span class="font-playfair text-xs tracking-[0.25em] text-antique-bronze uppercase">DESIGNS & CURATIONS</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-antique-dark/80">
+          <a href="#home" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Home</a>
+          <a href="#collection" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Collections</a>
+          <a href="#heritage" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Heritage & Story</a>
+          <a href="#services" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Services</a>
+          <a href="#testimonials" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Appraisals</a>
+          <a href="#contact" class="hover:text-antique-gold transition-colors font-cinzel tracking-wider">Contact</a>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="hidden lg:flex items-center gap-4">
+          <button onclick="openQuoteModal()" class="px-5 py-2.5 rounded-full border border-antique-gold text-antique-dark text-xs font-cinzel font-semibold tracking-wider hover:bg-antique-gold hover:text-white transition-all duration-300 shadow-sm flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-antique-gold group-hover:text-white"></i>
+            Request Appraisal
+          </button>
+          <a href="https://wa.me/919876543210?text=Hello%20Antique%20Designs,%20I%20am%20interested%20in%20your%20curated%20artifacts." target="_blank" class="px-4 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-semibold tracking-wider hover:bg-[#1EBE5D] transition-all flex items-center gap-2 shadow-md hover:shadow-lg">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="md:hidden text-antique-dark p-2 focus:outline-none" aria-label="Toggle Menu">
+          <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden bg-antique-cream border-t border-antique-sand px-6 py-6 space-y-4 shadow-xl">
+      <a href="#home" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Home</a>
+      <a href="#collection" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Collections</a>
+      <a href="#heritage" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Heritage & Story</a>
+      <a href="#services" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Services</a>
+      <a href="#testimonials" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Appraisals</a>
+      <a href="#contact" class="block font-cinzel tracking-wider text-antique-dark hover:text-antique-gold" onclick="toggleMobileMenu()">Contact</a>
+      <div class="pt-4 border-t border-antique-sand space-y-3">
+        <button onclick="openQuoteModal(); toggleMobileMenu();" class="w-full py-3 rounded-xl border border-antique-gold text-antique-dark font-cinzel font-semibold text-center hover:bg-antique-gold hover:text-white transition-all">
+          Request Instant Quote
+        </button>
+        <a href="https://wa.me/919876543210?text=Hello%20Antique%20Designs,%20I%20am%20interested%20in%20your%20curated%20artifacts." target="_blank" class="w-full py-3 rounded-xl bg-[#25D366] text-white font-semibold flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative min-h-[90vh] flex items-center justify-center hero-glow overflow-hidden px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 pointer-events-none opacity-40">
+      <div class="absolute top-1/4 left-10 w-96 h-96 bg-antique-gold/10 rounded-full filter blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-antique-bronze/10 rounded-full filter blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <!-- Left Column: Copywriting & CTA -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-up" data-aos-duration="1000">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-antique-sand text-antique-bronze text-xs font-semibold font-cinzel tracking-widest border border-antique-gold/30">
+          <i data-lucide="gem" class="w-3.5 h-3.5 text-antique-gold"></i>
+          CERTIFIED 17th - 20th CENTURY MASTERPIECES
+        </div>
+        
+        <h1 class="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-bold text-antique-dark leading-[1.15] tracking-tight">
+          Where Timeless <span class="text-gold-gradient italic font-playfair font-normal">Elegance</span> Meets Ancient Craft.
+        </h1>
+
+        <p class="text-antique-muted text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          Welcome to <strong class="text-antique-dark font-medium">Antique Designs</strong>. We curate, authenticate, and meticulously restore the world's most breathtaking vintage furniture, rare sculptures, clocks, and artisanal heirlooms.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-3 gap-4 pt-4 pb-2 border-y border-antique-gold/20 max-w-lg mx-auto lg:mx-0">
+          <div>
+            <span class="block font-cinzel font-bold text-2xl text-antique-gold">1,400+</span>
+            <span class="text-xs text-antique-muted uppercase tracking-wider">Artefacts Curated</span>
+          </div>
+          <div>
+            <span class="block font-cinzel font-bold text-2xl text-antique-gold">100%</span>
+            <span class="text-xs text-antique-muted uppercase tracking-wider">Verified Provenance</span>
+          </div>
+          <div>
+            <span class="block font-cinzel font-bold text-2xl text-antique-gold">35+ Yrs</span>
+            <span class="text-xs text-antique-muted uppercase tracking-wider">Heritage Legacy</span>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+          <a href="#collection" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-antique-dark text-antique-sand font-cinzel font-semibold tracking-wider text-sm hover:bg-antique-gold hover:text-white transition-all duration-300 shadow-lg flex items-center justify-center gap-3 group">
+            Explore Gallery Collection
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <button onclick="openQuoteModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-antique-gold/60 text-antique-dark font-cinzel font-semibold tracking-wider text-sm hover:bg-antique-sand transition-all flex items-center justify-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4 text-antique-gold"></i>
+            Request Catalog & Pricing
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Hero Visual Frame -->
+      <div class="lg:col-span-5 relative" data-aos="zoom-in" data-aos-duration="1200">
+        <div class="relative mx-auto max-w-md">
+          <!-- Outer Antique Border Accent -->
+          <div class="absolute -inset-3 rounded-3xl border-2 border-antique-gold/40 rotate-1 pointer-events-none"></div>
+          
+          <!-- Image Card -->
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-antique-sand border border-antique-gold/30">
+            <img 
+              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80" 
+              alt="Antique Masterpiece Living Setup" 
+              class="w-full h-[480px] object-cover hover:scale-105 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-antique-dark/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+              <span class="text-xs font-cinzel tracking-widest text-antique-gold uppercase mb-1">Featured Highlight</span>
+              <h3 class="font-playfair text-xl font-bold">19th-Century Victorian Hand-Carved Suite</h3>
+              <p class="text-xs text-antique-sand/80 mt-1">Burr walnut frame with gold-leaf gilding & authentic silk damask.</p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="font-cinzel text-sm text-antique-gold font-bold">Provenance: London, 1885</span>
+                <button onclick="openProductModal('victorian-suite')" class="text-xs underline underline-offset-4 hover:text-antique-gold">View Details &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Badge -->
+          <div class="absolute -bottom-6 -left-6 bg-antique-cream/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-antique-gold/40 flex items-center gap-3 animate-float">
+            <div class="w-10 h-10 rounded-full bg-antique-gold/20 flex items-center justify-center">
+              <i data-lucide="shield-check" class="w-6 h-6 text-antique-gold"></i>
+            </div>
+            <div>
+              <p class="text-xs font-cinzel font-bold text-antique-dark">Museum Authenticated</p>
+              <p class="text-[11px] text-antique-muted">Certificate with every item</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Search & Filter Catalog Section -->
+  <section id="collection" class="py-20 bg-antique-sand/40 border-y border-antique-gold/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12" data-aos="fade-up">
+        <div class="inline-flex items-center gap-2 text-antique-bronze text-xs font-cinzel font-bold tracking-widest uppercase mb-2">
+          <i data-lucide="compass" class="w-4 h-4 text-antique-gold"></i>
+          Curated Gallery & Archive
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-antique-dark">Discover Our Rare Collections</h2>
+        <div class="w-20 h-0.5 bg-antique-gold mx-auto my-4"></div>
+        <p class="text-antique-muted text-sm sm:text-base">Filter by category or search for specific eras, materials, and artisan signatures.</p>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="bg-antique-cream rounded-2xl p-6 shadow-sm border border-antique-gold/30 mb-10" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          <!-- Search Bar -->
+          <div class="relative w-full md:w-96">
+            <i data-lucide="search" class="w-5 h-5 text-antique-muted absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="catalogSearch" 
+              placeholder="Search by name, era, wood type..." 
+              oninput="filterCatalog()"
+              class="w-full pl-11 pr-4 py-3 bg-white rounded-xl border border-antique-sand focus:outline-none focus:border-antique-gold text-sm text-antique-dark transition-all placeholder:text-antique-muted/70"
+            >
+          </div>
+
+          <!-- Category Tabs -->
+          <div class="flex flex-wrap items-center justify-center gap-2 w-full md:w-auto" id="categoryButtons">
+            <button onclick="setCategory('all')" class="cat-btn active px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-antique-dark text-white" data-category="all">All Artefacts</button>
+            <button onclick="setCategory('furniture')" class="cat-btn px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-white text-antique-dark hover:bg-antique-sand" data-category="furniture">Vintage Furniture</button>
+            <button onclick="setCategory('sculpture')" class="cat-btn px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-white text-antique-dark hover:bg-antique-sand" data-category="sculpture">Sculptures & Bronze</button>
+            <button onclick="setCategory('clocks')" class="cat-btn px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-white text-antique-dark hover:bg-antique-sand" data-category="clocks">Timepieces & Clocks</button>
+            <button onclick="setCategory('decor')" class="cat-btn px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-white text-antique-dark hover:bg-antique-sand" data-category="decor">Rare Decor & Mirrors</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Grid -->
+      <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Products will be dynamically rendered via JavaScript -->
+      </div>
+
+      <!-- Bottom Brochure / Catalog Banner -->
+      <div class="mt-14 rounded-3xl bg-gradient-to-r from-antique-dark to-antique-wood p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8" data-aos="fade-up">
+        <div class="space-y-3 max-w-xl text-center md:text-left">
+          <span class="px-3 py-1 bg-antique-gold/30 text-antique-gold text-xs font-cinzel font-bold rounded-full border border-antique-gold/40">2026 PRIVATE CATALOGUE</span>
+          <h3 class="font-cinzel text-2xl sm:text-3xl font-bold">Download Exclusive High-Res Lookbook</h3>
+          <p class="text-sm text-antique-sand/80">Access over 200 unlisted private collection pieces with provenance documents and condition reports.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+          <button onclick="openQuoteModal('Brochure Download')" class="px-6 py-3.5 rounded-xl bg-antique-gold hover:bg-antique-goldHover text-white font-cinzel text-xs font-bold tracking-widest uppercase transition-all shadow-lg flex items-center justify-center gap-2">
+            <i data-lucide="download" class="w-4 h-4"></i> Download Lookbook (PDF)
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Heritage, History & Restoration Section -->
+  <section id="heritage" class="py-24 bg-antique-cream relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Master Restoration Image Showcase -->
+        <div class="lg:col-span-6 relative" data-aos="fade-right">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-2xl overflow-hidden shadow-lg border border-antique-gold/30">
+                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=600&q=80" alt="Antique Clock Workshop" class="w-full h-56 object-cover hover:scale-105 transition-transform duration-500">
+              </div>
+              <div class="rounded-2xl overflow-hidden shadow-lg border border-antique-gold/30 bg-antique-dark p-6 text-antique-sand">
+                <i data-lucide="award" class="w-8 h-8 text-antique-gold mb-3"></i>
+                <h4 class="font-cinzel font-bold text-lg text-white">Traditional Gilding</h4>
+                <p class="text-xs text-antique-muted mt-1">24-karat gold leaf restoration using original rabbit-skin glue and bole recipes.</p>
+              </div>
+            </div>
+            <div class="space-y-4 pt-8">
+              <div class="rounded-2xl overflow-hidden shadow-lg border border-antique-gold/30 bg-antique-sand p-6">
+                <span class="text-3xl font-cinzel font-bold text-antique-gold">100%</span>
+                <h4 class="font-cinzel font-bold text-sm text-antique-dark mt-1">Reversible Conservation</h4>
+                <p class="text-xs text-antique-muted mt-1">Following international museum-grade ethics without altering historical value.</p>
+              </div>
+              <div class="rounded-2xl overflow-hidden shadow-lg border border-antique-gold/30">
+                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=600&q=80" alt="Master Wood Restorer" class="w-full h-56 object-cover hover:scale-105 transition-transform duration-500">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Narrative Story -->
+        <div class="lg:col-span-6 space-y-6" data-aos="fade-left">
+          <div class="inline-flex items-center gap-2 text-antique-bronze text-xs font-cinzel font-bold tracking-widest uppercase">
+            <i data-lucide="feather" class="w-4 h-4 text-antique-gold"></i>
+            OUR HERITAGE & CRAFTSMANSHIP
+          </div>
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-antique-dark">Preserving the Soul of Centuries-Old Treasures</h2>
+          <p class="text-antique-muted leading-relaxed text-sm sm:text-base">
+            Founded with a deep reverence for classical antiquity, <strong class="text-antique-dark">Antique Designs</strong> travels across royal estates, European châteaux, and historic auction houses to uncover one-of-a-kind art pieces and architectural salvage.
+          </p>
+          <p class="text-antique-muted leading-relaxed text-sm sm:text-base">
+            Every creation in our vault goes through a comprehensive authentication protocol — including dendrochronology wood testing, metallurgical analysis, and archival provenance checks before it is offered to our private collectors.
+          </p>
+
+          <!-- List of Pillars -->
+          <div class="space-y-3 pt-2">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-antique-gold/20 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-antique-gold"></i>
+              </div>
+              <p class="text-xs sm:text-sm text-antique-dark"><strong class="font-cinzel">Complete Provenance Dossier:</strong> Backed by museum curators and historical documentation.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-antique-gold/20 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-antique-gold"></i>
+              </div>
+              <p class="text-xs sm:text-sm text-antique-dark"><strong class="font-cinzel">Bespoke Artisan Restoration:</strong> French polishing, marquetry repair, and authentic horology.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-antique-gold/20 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-antique-gold"></i>
+              </div>
+              <p class="text-xs sm:text-sm text-antique-dark"><strong class="font-cinzel">White-Glove International Delivery:</strong> Climate-controlled custom crating with full insurance.</p>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button onclick="openQuoteModal('Custom Restoration Inquiry')" class="px-8 py-3.5 rounded-xl bg-antique-gold hover:bg-antique-goldHover text-white font-cinzel text-xs font-bold tracking-widest uppercase transition-all shadow-md">
+              Consult Our Curators
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services & Bespoke Capabilities -->
+  <section id="services" class="py-20 bg-antique-sand/30 border-t border-antique-gold/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+        <span class="text-xs font-cinzel font-bold text-antique-bronze tracking-widest uppercase">CONCIERGE SERVICES</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-antique-dark mt-2">Specialist Offerings for Connoisseurs</h2>
+        <div class="w-16 h-0.5 bg-antique-gold mx-auto my-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Service Card 1 -->
+        <div class="bg-antique-cream p-8 rounded-2xl border border-antique-gold/30 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-14 h-14 rounded-2xl bg-antique-sand flex items-center justify-center text-antique-gold mb-6 border border-antique-gold/40">
+            <i data-lucide="search-check" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-cinzel text-xl font-bold text-antique-dark mb-3">Estate Appraisal & Valuation</h3>
+          <p class="text-antique-muted text-sm leading-relaxed mb-6">
+            Accredited valuations for insurance, estate planning, and private acquisitions. We provide comprehensive reports detailing historical context and market value.
+          </p>
+          <button onclick="openQuoteModal('Appraisal Service')" class="text-xs font-cinzel font-bold text-antique-gold tracking-wider hover:text-antique-goldHover flex items-center gap-1">
+            Book Valuation <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="bg-antique-cream p-8 rounded-2xl border border-antique-gold/30 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-14 h-14 rounded-2xl bg-antique-sand flex items-center justify-center text-antique-gold mb-6 border border-antique-gold/40">
+            <i data-lucide="hammer" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-cinzel text-xl font-bold text-antique-dark mb-3">Museum Restoration</h3>
+          <p class="text-antique-muted text-sm leading-relaxed mb-6">
+            Specialized repair of antique timbers, French polish revival, gilding reconditioning, porcelain stabilization, and horological movements.
+          </p>
+          <button onclick="openQuoteModal('Restoration Service')" class="text-xs font-cinzel font-bold text-antique-gold tracking-wider hover:text-antique-goldHover flex items-center gap-1">
+            Inquire About Restoration <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="bg-antique-cream p-8 rounded-2xl border border-antique-gold/30 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-14 h-14 rounded-2xl bg-antique-sand flex items-center justify-center text-antique-gold mb-6 border border-antique-gold/40">
+            <i data-lucide="compass" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-cinzel text-xl font-bold text-antique-dark mb-3">Private Art Acquisition</h3>
+          <p class="text-antique-muted text-sm leading-relaxed mb-6">
+            Looking for a specific dynasty relic or 18th-century writing bureau? Our international sourcing network hunts bespoke requests worldwide.
+          </p>
+          <button onclick="openQuoteModal('Private Acquisition Sourcing')" class="text-xs font-cinzel font-bold text-antique-gold tracking-wider hover:text-antique-goldHover flex items-center gap-1">
+            Submit Sourcing Request <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Appraisals / Testimonials -->
+  <section id="testimonials" class="py-20 bg-antique-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+        <span class="text-xs font-cinzel font-bold text-antique-bronze tracking-widest uppercase">COLLECTOR TESTIMONIALS</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-antique-dark mt-2">Trusted by Heritage Enthusiasts Worldwide</h2>
+        <div class="w-16 h-0.5 bg-antique-gold mx-auto my-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="bg-white p-8 rounded-2xl border border-antique-sand shadow-sm" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center gap-1 text-antique-gold mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-antique-dark/80 italic text-sm mb-6 leading-relaxed">
+            "The Edwardian roll-top desk arrived in Geneva with flawless custom crating and full provenance documentation. A truly regal addition to our library."
+          </p>
+          <div class="flex items-center gap-3 border-t border-antique-sand pt-4">
+            <div class="w-10 h-10 rounded-full bg-antique-gold/20 flex items-center justify-center font-cinzel font-bold text-antique-dark">
+              VG
+            </div>
+            <div>
+              <p class="font-cinzel font-bold text-xs text-antique-dark">Lord Victor G.</p>
+              <p class="text-[11px] text-antique-muted">Geneva, Switzerland</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl border border-antique-sand shadow-sm" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center gap-1 text-antique-gold mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-antique-dark/80 italic text-sm mb-6 leading-relaxed">
+            "Antique Designs restored our family's 1840 grandfather clock movement to chime perfection. Their passion for historical integrity is unmatched."
+          </p>
+          <div class="flex items-center gap-3 border-t border-antique-sand pt-4">
+            <div class="w-10 h-10 rounded-full bg-antique-gold/20 flex items-center justify-center font-cinzel font-bold text-antique-dark">
+              AH
+            </div>
+            <div>
+              <p class="font-cinzel font-bold text-xs text-antique-dark">Dr. Alistair Hastings</p>
+              <p class="text-[11px] text-antique-muted">Edinburgh, UK</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl border border-antique-sand shadow-sm" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center gap-1 text-antique-gold mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-antique-dark/80 italic text-sm mb-6 leading-relaxed">
+            "Their consultation made acquiring rare 18th-century bronze sculptures effortless. The white-glove shipping and insurance were utterly seamless."
+          </p>
+          <div class="flex items-center gap-3 border-t border-antique-sand pt-4">
+            <div class="w-10 h-10 rounded-full bg-antique-gold/20 flex items-center justify-center font-cinzel font-bold text-antique-dark">
+              RM
+            </div>
+            <div>
+              <p class="font-cinzel font-bold text-xs text-antique-dark">Radhika Menon</p>
+              <p class="text-[11px] text-antique-muted">Mumbai, India</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Direct Inquiry & Contact Form Section -->
+  <section id="contact" class="py-24 bg-antique-sand/40 border-t border-antique-gold/20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Contact Info Left Column -->
+        <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+          <div>
+            <span class="text-xs font-cinzel font-bold text-antique-bronze tracking-widest uppercase">CONCIERGE DESK</span>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-antique-dark mt-2">Connect With Our Senior Curators</h2>
+            <p class="text-antique-muted text-sm mt-3 leading-relaxed">
+              Whether you are looking to acquire a centerpiece, arrange a private gallery viewing, or sell an authenticated heirloom, we are at your service.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-antique-cream border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-antique-dark">Flagship Gallery & Vault</h4>
+                <p class="text-xs text-antique-muted mt-0.5">Heritage Lane, Antique Quarter, Central Gallery District</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-antique-cream border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-antique-dark">Telephone & Inquiries</h4>
+                <p class="text-xs text-antique-muted mt-0.5">+91 98765 43210 / +44 20 7946 0912</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-antique-cream border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-antique-dark">Private Correspondence</h4>
+                <p class="text-xs text-antique-muted mt-0.5">curator@antiquedesigns.com</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-antique-cream border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-antique-dark">Private Viewings by Appointment</h4>
+                <p class="text-xs text-antique-muted mt-0.5">Monday – Saturday: 10:00 AM – 7:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct WhatsApp Action -->
+          <div class="p-6 rounded-2xl bg-white border border-antique-gold/30 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="font-cinzel font-bold text-sm text-antique-dark">Prefer Instant Messaging?</p>
+              <p class="text-xs text-antique-muted">Get immediate replies on WhatsApp</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20Antique%20Designs,%20I%20would%20like%20to%20inquire%20about%20your%20collection." target="_blank" class="px-4 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-all flex items-center gap-1.5 shadow-md">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Chat Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form Right Column -->
+        <div class="lg:col-span-7" data-aos="fade-left">
+          <div class="bg-antique-cream p-8 sm:p-10 rounded-3xl border border-antique-gold/40 shadow-xl">
+            <h3 class="font-cinzel text-2xl font-bold text-antique-dark mb-2">Send an Inquiry or Acquisition Request</h3>
+            <p class="text-xs text-antique-muted mb-8">Our senior curator will respond with full dossiers, high-res photos, and pricing within 24 hours.</p>
+
+            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-dark mb-2">Full Name *</label>
+                  <input type="text" name="name" required placeholder="Lord / Lady / Mr. / Ms." class="w-full px-4 py-3 rounded-xl bg-white border border-antique-sand text-sm focus:outline-none focus:border-antique-gold">
+                </div>
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-dark mb-2">Email Address *</label>
+                  <input type="email" name="email" required placeholder="your.email@domain.com" class="w-full px-4 py-3 rounded-xl bg-white border border-antique-sand text-sm focus:outline-none focus:border-antique-gold">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-dark mb-2">Phone / WhatsApp *</label>
+                  <input type="tel" name="phone" required placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl bg-white border border-antique-sand text-sm focus:outline-none focus:border-antique-gold">
+                </div>
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-dark mb-2">Inquiry Type</label>
+                  <select name="type" class="w-full px-4 py-3 rounded-xl bg-white border border-antique-sand text-sm focus:outline-none focus:border-antique-gold text-antique-dark">
+                    <option value="acquisition">Artwork Acquisition / Buying</option>
+                    <option value="appraisal">Estate Valuation & Appraisal</option>
+                    <option value="restoration">Restoration & Conservation</option>
+                    <option value="selling">Consignment / Selling an Artefact</option>
+                    <option value="other">Other Inquiry</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-cinzel font-bold text-antique-dark mb-2">Message or Piece Description *</label>
+                <textarea name="message" rows="4" required placeholder="Please describe the artifact you are interested in, or give details regarding the restoration required..." class="w-full px-4 py-3 rounded-xl bg-white border border-antique-sand text-sm focus:outline-none focus:border-antique-gold"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-4 rounded-xl bg-antique-dark hover:bg-antique-gold text-antique-sand hover:text-white font-cinzel text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i> Submit Confidential Inquiry
+              </button>
+            </form>
+
+            <div id="formSuccessMessage" class="hidden mt-6 p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-center text-sm font-medium">
+              <i data-lucide="check-circle" class="w-5 h-5 text-green-600 inline-block mr-1"></i>
+              Thank you! Your inquiry has been submitted. Our concierge curator will reach out shortly.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-antique-dark text-antique-sand/80 pt-16 pb-12 border-t border-antique-gold/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-antique-sand/10">
+        
+        <!-- Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full border border-antique-gold flex items-center justify-center bg-antique-dark">
+              <i data-lucide="crown" class="w-5 h-5 text-antique-gold"></i>
+            </div>
+            <div>
+              <span class="font-cinzel text-lg font-bold tracking-wider text-white block">ANTIQUE</span>
+              <span class="font-playfair text-[10px] tracking-[0.2em] text-antique-gold uppercase">DESIGNS</span>
+            </div>
+          </div>
+          <p class="text-xs text-antique-muted leading-relaxed">
+            International purveyors of authenticated 17th to 20th-century antiques, vintage heirlooms, and museum-standard conservation.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-antique-sand hover:text-antique-gold hover:border-antique-gold transition-all" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-antique-sand hover:text-antique-gold hover:border-antique-gold transition-all" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-antique-sand hover:text-antique-gold hover:border-antique-gold transition-all" aria-label="Linkedin">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-3">
+          <h4 class="font-cinzel text-sm font-bold text-white tracking-wider">Navigation</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#home" class="hover:text-antique-gold transition-colors">Home Archive</a></li>
+            <li><a href="#collection" class="hover:text-antique-gold transition-colors">Vintage Catalog</a></li>
+            <li><a href="#heritage" class="hover:text-antique-gold transition-colors">Heritage & Craft</a></li>
+            <li><a href="#services" class="hover:text-antique-gold transition-colors">Appraisal Services</a></li>
+            <li><a href="#contact" class="hover:text-antique-gold transition-colors">Private Viewings</a></li>
+          </ul>
+        </div>
+
+        <!-- Curated Categories -->
+        <div class="space-y-3">
+          <h4 class="font-cinzel text-sm font-bold text-white tracking-wider">Specialties</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#collection" onclick="setCategory('furniture')" class="hover:text-antique-gold transition-colors">Victorian & French Rococo</a></li>
+            <li><a href="#collection" onclick="setCategory('clocks')" class="hover:text-antique-gold transition-colors">Horological Grandfather Clocks</a></li>
+            <li><a href="#collection" onclick="setCategory('sculpture')" class="hover:text-antique-gold transition-colors">Lost-Wax Bronze Sculptures</a></li>
+            <li><a href="#collection" onclick="setCategory('decor')" class="hover:text-antique-gold transition-colors">Giltwood Mirrors & Chandeliers</a></li>
+            <li><a href="#services" class="hover:text-antique-gold transition-colors">Historic Conservation & Care</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter & Concierge -->
+        <div class="space-y-3">
+          <h4 class="font-cinzel text-sm font-bold text-white tracking-wider">Collector Gazette</h4>
+          <p class="text-xs text-antique-muted">Receive private previews of newly arrived acquisitions prior to public release.</p>
+          <div class="flex items-center gap-2">
+            <input type="email" placeholder="Your email address" class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-white placeholder:text-stone-500 focus:outline-none focus:border-antique-gold">
+            <button onclick="alert('Thank you for subscribing to the Collector Gazette.')" class="px-4 py-2 bg-antique-gold hover:bg-antique-goldHover text-white text-xs font-bold rounded-lg transition-all">Join</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Bottom Info -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+        <p>&copy; 2026 Antique Designs. All Rights Reserved. Master Heritage Curations.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-antique-gold transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-antique-gold transition-colors">Terms of Provenance</a>
+          <a href="#" class="hover:text-antique-gold transition-colors">Shipping & Crating</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Floating Action Button -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <a 
+      href="https://wa.me/919876543210?text=Hello%20Antique%20Designs,%20I%20am%20interested%20in%20inquiring%20about%20your%20antique%20collection." 
+      target="_blank" 
+      class="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 relative group"
+      aria-label="Direct WhatsApp Contact"
+    >
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+      <!-- Tooltip -->
+      <span class="absolute right-16 bg-antique-dark text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none font-medium shadow-lg">
+        Chat with Curator
+      </span>
+    </a>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-antique-cream rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-antique-gold/40 relative max-h-[90vh] flex flex-col md:flex-row">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-antique-dark/80 text-white flex items-center justify-center hover:bg-antique-gold transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Image column -->
+      <div class="md:w-1/2 bg-antique-dark flex items-center justify-center relative">
+        <img id="modalImage" src="" alt="Antique Preview" class="w-full h-64 md:h-full object-cover">
+      </div>
+
+      <!-- Content column -->
+      <div class="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-4 overflow-y-auto">
+        <div>
+          <span id="modalCategory" class="text-[11px] font-cinzel font-bold text-antique-gold uppercase tracking-widest block"></span>
+          <h3 id="modalTitle" class="font-cinzel text-2xl font-bold text-antique-dark mt-1"></h3>
+          <p id="modalEra" class="text-xs text-antique-bronze font-semibold mt-1"></p>
+          <div class="w-12 h-0.5 bg-antique-gold my-3"></div>
+          <p id="modalDescription" class="text-xs sm:text-sm text-antique-muted leading-relaxed"></p>
+
+          <div class="mt-4 bg-antique-sand/60 p-3.5 rounded-xl border border-antique-gold/20 space-y-1">
+            <p class="text-xs text-antique-dark"><strong class="font-cinzel">Provenance:</strong> <span id="modalProvenance"></span></p>
+            <p class="text-xs text-antique-dark"><strong class="font-cinzel">Dimensions:</strong> <span id="modalDimensions"></span></p>
+            <p class="text-xs text-antique-dark"><strong class="font-cinzel">Condition:</strong> <span id="modalCondition">Museum Standard / Restored</span></p>
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row gap-3">
+          <button id="modalInquireBtn" onclick="inquireThisProduct()" class="flex-1 py-3 bg-antique-dark hover:bg-antique-gold text-antique-sand hover:text-white rounded-xl text-xs font-cinzel font-bold tracking-wider transition-all shadow-md">
+            Request Quote & Dossier
+          </button>
+          <a id="modalWhatsAppBtn" href="#" target="_blank" class="px-4 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- General Quote / Appraisal Modal -->
+  <div id="quoteModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-antique-cream rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-antique-gold/40 relative">
+      <button onclick="closeQuoteModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-antique-sand text-antique-dark flex items-center justify-center hover:bg-antique-gold hover:text-white transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">CONCIERGE INQUIRY</span>
+      <h3 id="quoteModalTitle" class="font-cinzel text-2xl font-bold text-antique-dark mt-1">Request Private Quote & Appraisal</h3>
+      <p class="text-xs text-antique-muted mt-1 mb-6">Receive detailed pricing, high-resolution condition photography, and certified certificates of authenticity.</p>
+
+      <form id="modalQuoteForm" onsubmit="handleQuoteSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-cinzel font-bold text-antique-dark mb-1">Your Full Name *</label>
+          <input type="text" name="modal_name" required placeholder="Lord / Lady / Mr. / Ms." class="w-full px-4 py-2.5 rounded-xl bg-white border border-antique-sand text-xs focus:outline-none focus:border-antique-gold">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-cinzel font-bold text-antique-dark mb-1">Email Address *</label>
+            <input type="email" name="modal_email" required placeholder="name@domain.com" class="w-full px-4 py-2.5 rounded-xl bg-white border border-antique-sand text-xs focus:outline-none focus:border-antique-gold">
+          </div>
+          <div>
+            <label class="block text-xs font-cinzel font-bold text-antique-dark mb-1">Phone / WhatsApp *</label>
+            <input type="tel" name="modal_phone" required placeholder="+91 98765 43210" class="w-full px-4 py-2.5 rounded-xl bg-white border border-antique-sand text-xs focus:outline-none focus:border-antique-gold">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-cinzel font-bold text-antique-dark mb-1">Item of Interest / Request Notes</label>
+          <input type="text" id="modalSubjectInput" name="modal_subject" placeholder="e.g. 19th-Century Victorian Suite / Private Consultation" class="w-full px-4 py-2.5 rounded-xl bg-white border border-antique-sand text-xs focus:outline-none focus:border-antique-gold">
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-antique-dark hover:bg-antique-gold text-antique-sand hover:text-white font-cinzel text-xs font-bold tracking-widest uppercase rounded-xl transition-all shadow-md">
+          Send Priority Request
+        </button>
+      </form>
+
+      <div id="modalSuccessMessage" class="hidden mt-4 p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-center text-xs font-medium">
+        Thank you! Our private client specialist will contact you with the complete dossier promptly.
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Code for Dynamic Catalog, Modals, and Interactions -->
+  <script>
+    // Product Database
+    const catalogData = [
+      {
+        id: 'victorian-suite',
+        title: 'Victorian Carved Walnut Suite',
+        category: 'furniture',
+        era: 'Circa 1885 • London, England',
+        description: 'An exceptional Victorian 3-piece parlour suite carved from selected English burr walnut with fine scrolled cabriole legs, buttoned backrest, and authentic golden silk upholstery.',
+        provenance: 'Acquired from Surrey Private Manor',
+        dimensions: 'Sofa: 180cm W x 95cm H x 85cm D',
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+        badge: 'Rare Find'
+      },
+      {
+        id: 'french-commode',
+        title: 'Louis XV Ormolu-Mounted Commode',
+        category: 'furniture',
+        era: 'Circa 1760 • Paris, France',
+        description: 'Magnificent kingwood and tulipwood marquetry bombe commode featuring exquisite chiseled fire-gilded ormolu mounts and an original Rouge Royale shaped marble top.',
+        provenance: 'Château de Dampierre Estate Sale',
+        dimensions: '124cm W x 86cm H x 58cm D',
+        image: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80',
+        badge: 'Museum Grade'
+      },
+      {
+        id: 'bronze-sculpture',
+        title: 'Mythological Bronze Deity Figurine',
+        category: 'sculpture',
+        era: 'Circa 18th Century • South Asian Heritage',
+        description: 'Remarkable lost-wax cast bronze statuette with intricate hand-engraved jewelry, rich patination, and serene meditative iconography reflecting master temple metallurgists.',
+        provenance: 'Private Dynasty Archive',
+        dimensions: '38cm H x 22cm W • 8.4 kg',
+        image: 'https://images.unsplash.com/photo-1569388330292-79cc1ec67270?auto=format&fit=crop&w=800&q=80',
+        badge: 'Authentic Patina'
+      },
+      {
+        id: 'grandfather-clock',
+        title: 'Mahogany Longcase Astronomical Clock',
+        category: 'clocks',
+        era: 'Circa 1795 • Edinburgh, Scotland',
+        description: 'Superb 8-day brass dial longcase clock by Scottish master horologist with moonphase dial, subsidiary seconds, calendar aperture, and flame mahogany arched hood.',
+        provenance: 'Highland Estate Collection',
+        dimensions: '220cm H x 48cm W x 28cm D',
+        image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+        badge: 'Working Horology'
+      },
+      {
+        id: 'gilt-mirror',
+        title: 'Rococo Carved Giltwood Pier Mirror',
+        category: 'decor',
+        era: 'Circa 1820 • Florence, Italy',
+        description: 'Imposing hand-carved limewood mirror with continuous scrolling acanthus leaves, pierced cresting with floral basket, and original mercury-silvered beveled plate.',
+        provenance: 'Tuscan Villa Repatriation',
+        dimensions: '165cm H x 95cm W',
+        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+        badge: '24k Gold Leaf'
+      },
+      {
+        id: 'porcelain-vases',
+        title: 'Pair of Famille Rose Palace Urns',
+        category: 'decor',
+        era: 'Qing Dynasty • 19th Century',
+        description: 'Baluster-form ceramic palace vases richly enameled with courtly procession scenes, gold gilded dragon handles, and vibrant floral brocade cartouches.',
+        provenance: 'Diplomatic Collection, London',
+        dimensions: '62cm H each',
+        image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80',
+        badge: 'Matched Pair'
+      }
+    ];
+
+    let currentCategory = 'all';
+    let currentSelectedProduct = null;
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({ once: true, duration: 800 });
+      lucide.createIcons();
+      renderCatalog(catalogData);
+    });
+
+    // Render Catalog Items
+    function renderCatalog(items) {
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center">
+            <i data-lucide="package-search" class="w-12 h-12 text-antique-gold mx-auto mb-3"></i>
+            <h4 class="font-cinzel text-lg font-bold text-antique-dark">No Artefacts Found</h4>
+            <p class="text-xs text-antique-muted">Try adjusting your keyword search or category filter.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = "bg-antique-cream rounded-2xl overflow-hidden border border-antique-gold/30 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group";
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', (index * 80).toString());
+
+        card.innerHTML = `
+          <div class="relative overflow-hidden bg-antique-dark cursor-pointer" onclick="openProductModal('${item.id}')">
+            <img 
+              src="${item.image}" 
+              alt="${item.title}" 
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100"
+            >
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-antique-dark/80 backdrop-blur-md text-antique-gold text-[10px] font-cinzel font-bold tracking-widest border border-antique-gold/30">
+              ${item.badge}
+            </span>
+            <div class="absolute inset-0 bg-antique-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full bg-antique-cream/90 text-antique-dark text-xs font-cinzel font-bold shadow-lg flex items-center gap-1.5">
+                <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-antique-gold"></i> Inspect Artefact
+              </span>
+            </div>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <span class="text-[10px] font-cinzel font-bold text-antique-bronze tracking-widest uppercase block">${item.era}</span>
+              <h3 class="font-cinzel font-bold text-lg text-antique-dark mt-1 group-hover:text-antique-gold transition-colors">${item.title}</h3>
+              <p class="text-xs text-antique-muted mt-2 line-clamp-2 leading-relaxed">${item.description}</p>
+            </div>
+
+            <div class="pt-4 border-t border-antique-sand/80 flex items-center justify-between">
+              <button onclick="openProductModal('${item.id}')" class="text-xs font-cinzel font-bold text-antique-dark hover:text-antique-gold transition-colors flex items-center gap-1">
+                View Details &rarr;
+              </button>
+              <button onclick="openQuoteModal('${item.title}')" class="px-3.5 py-1.5 rounded-lg bg-antique-sand hover:bg-antique-gold hover:text-white text-antique-dark text-xs font-cinzel font-semibold transition-all">
+                Inquire Price
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Filter Logic
+    function filterCatalog() {
+      const query = document.getElementById('catalogSearch').value.toLowerCase();
+      const filtered = catalogData.filter(item => {
+        const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+        const matchesQuery = item.title.toLowerCase().includes(query) || 
+                             item.description.toLowerCase().includes(query) || 
+                             item.era.toLowerCase().includes(query) ||
+                             item.provenance.toLowerCase().includes(query);
+        return matchesCategory && matchesQuery;
+      });
+      renderCatalog(filtered);
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      const buttons = document.querySelectorAll('.cat-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-category') === cat) {
+          btn.className = "cat-btn active px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-antique-dark text-white";
+        } else {
+          btn.className = "cat-btn px-4 py-2 rounded-lg text-xs font-cinzel font-semibold tracking-wider transition-all bg-white text-antique-dark hover:bg-antique-sand";
+        }
+      });
+      filterCatalog();
+    }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+    // Product Modal Handlers
+    function openProductModal(productId) {
+      const product = catalogData.find(p => p.id === productId);
+      if (!product) return;
+
+      currentSelectedProduct = product;
+      document.getElementById('modalImage').src = product.image;
+      document.getElementById('modalTitle').innerText = product.title;
+      document.getElementById('modalCategory').innerText = product.badge + ' • ' + product.category.toUpperCase();
+      document.getElementById('modalEra').innerText = product.era;
+      document.getElementById('modalDescription').innerText = product.description;
+      document.getElementById('modalProvenance').innerText = product.provenance;
+      document.getElementById('modalDimensions').innerText = product.dimensions;
+
+      const waText = encodeURIComponent(`Hello Antique Designs, I am inquiring about the ${product.title} (${product.era}). Please share price and provenance dossier.`);
+      document.getElementById('modalWhatsAppBtn').href = `https://wa.me/919876543210?text=${waText}`;
+
+      const modal = document.getElementById('productModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function inquireThisProduct() {
+      if (!currentSelectedProduct) return;
+      closeProductModal();
+      openQuoteModal(currentSelectedProduct.title);
+    }
+
+    // Quote Modal Handlers
+    function openQuoteModal(subject = '') {
+      const modal = document.getElementById('quoteModal');
+      const subjectInput = document.getElementById('modalSubjectInput');
+      if (subject) {
+        subjectInput.value = subject;
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeQuoteModal() {
+      const modal = document.getElementById('quoteModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.getElementById('modalSuccessMessage').classList.add('hidden');
+    }
+
+    // Form Handling
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const success = document.getElementById('formSuccessMessage');
+      success.classList.remove('hidden');
+      form.reset();
+      setTimeout(() => {
+        success.classList.add('hidden');
+      }, 6000);
+    }
+
+    function handleQuoteSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const success = document.getElementById('modalSuccessMessage');
+      success.classList.remove('hidden');
+      form.reset();
+      setTimeout(() => {
+        closeQuoteModal();
+      }, 3000);
+    }
+
+    // Close modals on escape key or backdrop click
+    window.addEventListener('click', (e) => {
+      const pModal = document.getElementById('productModal');
+      const qModal = document.getElementById('quoteModal');
+      if (e.target === pModal) closeProductModal();
+      if (e.target === qModal) closeQuoteModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProductModal();
+        closeQuoteModal();
+      }
+    });
+  </script>
+</body>
+</html>

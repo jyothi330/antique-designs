@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antique Designs Bengaluru | 3D Architectural Brass & White Metal Showroom</title>
+  <meta name="description" content="Antique Designs Bengaluru - Interactive 3D Architectural Studio for Grand Brass Main Doors, Pooja Room Embellishments, Ornate Brass Railings, 3D Wall Murals, and Luxury Partition Grills.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cinzel, Playfair Display, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js + OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- GSAP for realistic 3D Door Hinges & Lighting animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            antique: {
+              cream: '#FAF8F5',
+              sand: '#F2ECE1',
+              gold: '#D4AF37',
+              goldLight: '#F5E7B2',
+              goldDark: '#9E741E',
+              bronze: '#8C6239',
+              dark: '#12100E',
+              cardDark: '#1A1714',
+              surface: '#221E19',
+              muted: '#9E9589'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #12100E;
+      color: #FAF8F5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF6D6 0%, #D4AF37 50%, #9E741E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glass-dark {
+      background: rgba(18, 16, 14, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    
+    .glass-card {
+      background: rgba(26, 23, 20, 0.75);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .gold-border-glow {
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.15);
+    }
+
+    #hero-3d-canvas, #showroom-3d-canvas {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      display: block;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.5); }
+    }
+    .animate-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="selection:bg-antique-gold selection:text-antique-dark">
+
+  <!-- Top Announcement Bar with Live Contact details -->
+  <div class="bg-gradient-to-r from-antique-dark via-[#1F1912] to-antique-dark text-antique-goldLight text-xs py-2.5 px-4 tracking-widest font-cinzel border-b border-antique-gold/25 flex flex-wrap items-center justify-between gap-4 max-w-7xl mx-auto">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-antique-gold animate-ping"></span>
+      <span>ANTIQUE DESIGNS BENGALURU • 11+ YEARS IN BRASS & WHITE METAL ARCHITECTURE</span>
+    </div>
+    <div class="flex items-center gap-4 text-white/90">
+      <a href="tel:+918971305188" class="hover:text-antique-gold transition-colors flex items-center gap-1.5 font-bold">
+        <i data-lucide="phone" class="w-3.5 h-3.5 text-antique-gold"></i> +91 89713 05188
+      </a>
+      <span class="text-antique-gold/40">•</span>
+      <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="hover:text-antique-gold transition-colors flex items-center gap-1.5">
+        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-antique-gold"></i> Magadi Main Rd, Bengaluru
+      </a>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 glass-dark transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-full border border-antique-gold flex items-center justify-center bg-antique-cardDark group-hover:scale-105 transition-all duration-300 shadow-lg">
+            <i data-lucide="crown" class="w-6 h-6 text-antique-gold"></i>
+          </div>
+          <div>
+            <span class="font-cinzel text-xl md:text-2xl font-bold tracking-wider text-white block leading-none">ANTIQUE</span>
+            <span class="font-playfair text-[10px] tracking-[0.25em] text-antique-gold uppercase">DESIGNS • BENGALURU</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-7 font-cinzel text-xs tracking-widest text-antique-sand/80">
+          <a href="#hero" class="hover:text-antique-gold transition-colors">3D Experience</a>
+          <a href="#showroom3d" class="hover:text-antique-gold transition-colors">3D Architectural Studio</a>
+          <a href="#products" class="hover:text-antique-gold transition-colors">Our 5 Specialties</a>
+          <a href="#gallery" class="hover:text-antique-gold transition-colors">Original Works</a>
+          <a href="#location" class="hover:text-antique-gold transition-colors">Workshop Map</a>
+          <a href="#contact" class="hover:text-antique-gold transition-colors">Get 3D Quote</a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a 
+            href="https://www.instagram.com/antiquedesigns_bengaluru?igsh=MW16aXUydmIzY3Qybw%3D%3D&utm_source=qr" 
+            target="_blank" 
+            class="px-3.5 py-2 rounded-full border border-antique-gold/40 text-antique-gold text-xs font-semibold hover:bg-antique-gold hover:text-black transition-all flex items-center gap-1.5"
+            title="Follow on Instagram"
+          >
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+            <span class="hidden md:inline">@antiquedesigns_bengaluru</span>
+          </a>
+          <a 
+            href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20am%20interested%20in%20custom%20brass%20doors,%20pooja%20room%20embellishments,%20railings,%20or%20murals." 
+            target="_blank" 
+            class="px-4 py-2 rounded-full bg-[#25D366] text-white text-xs font-semibold hover:bg-[#1EBE5D] transition-all flex items-center gap-1.5 shadow-md hover:shadow-lg"
+          >
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="lg:hidden text-antique-sand p-2" aria-label="Toggle Navigation">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-antique-dark/95 border-t border-antique-gold/20 px-6 py-6 space-y-4">
+      <a href="#hero" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">3D Experience</a>
+      <a href="#showroom3d" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">3D Architectural Studio</a>
+      <a href="#products" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">Our 5 Specialties</a>
+      <a href="#gallery" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">Original Works</a>
+      <a href="#location" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">Workshop Location</a>
+      <a href="#contact" class="block font-cinzel tracking-wider text-antique-sand hover:text-antique-gold" onclick="toggleMobileMenu()">Contact</a>
+      <div class="pt-4 border-t border-antique-gold/20 space-y-3">
+        <a href="https://www.instagram.com/antiquedesigns_bengaluru?igsh=MW16aXUydmIzY3Qybw%3D%3D&utm_source=qr" target="_blank" class="w-full py-2.5 rounded-xl border border-antique-gold text-antique-gold text-xs font-cinzel font-bold flex items-center justify-center gap-2">
+          <i data-lucide="instagram" class="w-4 h-4"></i> Follow on Instagram
+        </a>
+        <a href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20am%20inquiring%20about%20your%20brass%20doors%20and%20architectural%20work." target="_blank" class="w-full py-3 rounded-xl bg-[#25D366] text-white font-semibold text-xs flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp (+91 89713 05188)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3D Hero Section -->
+  <section id="hero" class="relative min-h-[92vh] flex items-center overflow-hidden">
+    <!-- WebGL Canvas for 3D Main Entrance Double Doors -->
+    <canvas id="hero-3d-canvas" class="absolute inset-0 z-0"></canvas>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#12100E]/95 via-[#12100E]/75 to-transparent z-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Hero Text -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-antique-gold/15 border border-antique-gold/40 text-antique-gold text-xs font-cinzel font-bold tracking-widest">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          ESTABLISHED 2011 • 11+ YEARS IN BENGALURU
+        </div>
+
+        <h1 class="font-cinzel text-4xl sm:text-6xl font-extrabold text-white leading-[1.1] tracking-tight">
+          Bespoke <br>
+          <span class="gold-gradient-text font-playfair italic font-normal">Brass Architectural</span> <br>
+          Masterpieces in 3D
+        </h1>
+
+        <p class="text-antique-sand/90 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+          Specializing in handcrafted <strong class="text-white">Main Entrance Doors</strong>, sacred <strong class="text-white">Pooja Room Embellishments</strong>, ornate <strong class="text-white">Brass Railings</strong>, hand-hammered <strong class="text-white">Wall Murals</strong>, and luxury <strong class="text-white">Partition Grills</strong>.
+        </p>
+
+        <!-- 3D Interaction Badge -->
+        <div class="p-4 rounded-2xl glass-card max-w-lg flex items-center justify-between gap-4 text-xs border border-antique-gold/30">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-antique-gold/20 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="door-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="font-cinzel font-bold text-white block">Interactive 3D Main Door</span>
+              <span class="text-antique-muted">Drag to orbit 360° • Click button to swing open/close</span>
+            </div>
+          </div>
+          <button onclick="toggleHeroDoor()" id="heroDoorActionBtn" class="px-4 py-2 bg-antique-gold hover:bg-antique-goldDark text-antique-dark font-cinzel text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5 shrink-0">
+            <i data-lucide="lock-keyhole-open" class="w-3.5 h-3.5"></i> <span>Open Door</span>
+          </button>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+          <a href="#showroom3d" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-antique-gold hover:bg-antique-goldDark text-antique-dark font-cinzel text-xs font-bold tracking-widest uppercase transition-all shadow-xl flex items-center justify-center gap-2 group">
+            Explore 3D Architectural Studio
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20would%20like%20to%20send%20my%20door/wall%20measurements%20for%20a%20quote." target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-antique-gold/50 text-antique-sand hover:bg-antique-gold/15 font-cinzel text-xs font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4 text-[#25D366]"></i>
+            Send Measurements on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Right 3D Status Overlay -->
+      <div class="lg:col-span-5 flex flex-col items-end justify-center pointer-events-none">
+        <div class="glass-dark p-6 rounded-3xl border border-antique-gold/40 max-w-sm space-y-3 pointer-events-auto animate-glow">
+          <div class="flex items-center justify-between text-xs font-cinzel text-antique-gold font-bold">
+            <span>REAL-TIME 3D SHADER</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Pure Brass PBR</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white">Imperial Temple Brass Double Door</h3>
+          <p class="text-xs text-antique-muted leading-relaxed">Solid teak frame clad in 1.6mm hand-embossed pure brass sheet with celestial rosette studs & temple crest.</p>
+          <div class="pt-2 flex items-center justify-between border-t border-antique-gold/20">
+            <span class="text-[11px] font-cinzel text-antique-sand">Location: Bengaluru Workshop</span>
+            <a href="#location" class="text-xs font-cinzel font-bold text-antique-gold hover:underline">View Map &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3D ARCHITECTURAL STUDIO SHOWROOM (Core 5 Products) -->
+  <section id="showroom3d" class="py-24 bg-gradient-to-b from-[#12100E] via-[#1A1714] to-[#12100E] border-y border-antique-gold/25 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">REAL-TIME 3D ARCHITECTURAL STUDIO</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Inspect Our 5 Core Specializations in 3D</h2>
+        <div class="w-20 h-0.5 bg-antique-gold mx-auto my-4"></div>
+        <p class="text-antique-muted text-sm">Select any product category below to inspect full 3D geometry in 360°, switch metallic alloys, change lighting atmospheres, and test interactive door movements.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- 3D WebGL Studio Box -->
+        <div class="lg:col-span-8 rounded-3xl overflow-hidden glass-dark gold-border-glow relative min-h-[550px] flex flex-col justify-between">
+          <div class="absolute inset-0">
+            <canvas id="showroom-3d-canvas"></canvas>
+          </div>
+
+          <!-- Studio Top Info Bar & Lighting Toggles -->
+          <div class="relative z-10 p-6 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
+            <div class="glass-dark px-4 py-2.5 rounded-2xl border border-antique-gold/30 pointer-events-auto">
+              <span id="showroomItemTitle" class="font-cinzel text-sm sm:text-base font-bold text-antique-gold block">1. Grand Brass Main Entrance Door</span>
+              <span id="showroomItemSubtitle" class="text-xs text-antique-muted">Hand-embossed brass repoussé with carved architrave & lion knockers</span>
+            </div>
+
+            <!-- Lighting Mood Toggle -->
+            <div class="glass-dark p-1.5 rounded-2xl border border-antique-gold/30 flex items-center gap-1 pointer-events-auto">
+              <button onclick="setLightingMode('day')" class="light-btn active px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-gold text-antique-dark transition-all" data-light="day">
+                <i data-lucide="sun" class="w-3.5 h-3.5 inline mr-1"></i> Studio
+              </button>
+              <button onclick="setLightingMode('pooja')" class="light-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all" data-light="pooja">
+                <i data-lucide="flame" class="w-3.5 h-3.5 inline mr-1 text-orange-400"></i> Diya Glow
+              </button>
+              <button onclick="setLightingMode('luxury')" class="light-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all" data-light="luxury">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 inline mr-1 text-amber-300"></i> Spotlight
+              </button>
+            </div>
+          </div>
+
+          <!-- Studio Middle Interactive Actions (e.g. Swing Door) -->
+          <div id="doorInteractionControl" class="relative z-10 px-6 py-2 flex items-center justify-end pointer-events-none">
+            <button onclick="toggleShowroomDoor()" id="showroomDoorBtn" class="pointer-events-auto px-4 py-2.5 rounded-2xl glass-dark border border-antique-gold text-xs font-cinzel font-bold text-antique-gold hover:bg-antique-gold hover:text-antique-dark flex items-center gap-2 shadow-xl transition-all">
+              <i data-lucide="door-open" class="w-4 h-4"></i> <span id="showroomDoorBtnText">Swing Doors Open (3D)</span>
+            </button>
+          </div>
+
+          <!-- Studio Bottom Controls: Material Finishes & Order Button -->
+          <div class="relative z-10 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-none">
+            
+            <!-- 3D Material Finishes -->
+            <div class="glass-dark p-2 rounded-2xl border border-antique-gold/30 flex flex-wrap items-center gap-1.5 pointer-events-auto">
+              <span class="text-[11px] font-cinzel font-bold text-antique-gold px-2">ALLOY FINISH:</span>
+              <button onclick="setShowroomMaterial('brass')" class="mat-btn active px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-gold text-antique-dark transition-all" data-mat="brass">Pure Brass</button>
+              <button onclick="setShowroomMaterial('whitemetal')" class="mat-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all" data-mat="whitemetal">White Metal</button>
+              <button onclick="setShowroomMaterial('patina')" class="mat-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all" data-mat="patina">Antique Patina</button>
+              <button onclick="setShowroomMaterial('rosegold')" class="mat-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all" data-mat="rosegold">Copper / Rose</button>
+            </div>
+
+            <!-- Inquire custom size -->
+            <button onclick="inquireCurrentShowroomProduct()" class="px-5 py-3 rounded-xl bg-antique-gold hover:bg-antique-goldDark text-antique-dark font-cinzel text-xs font-bold tracking-widest uppercase transition-all shadow-lg flex items-center gap-2 pointer-events-auto">
+              <i data-lucide="ruler" class="w-4 h-4"></i> Request Custom Size Quote
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 Core Architectural Product Selection Cards -->
+        <div class="lg:col-span-4 flex flex-col justify-between space-y-3">
+          
+          <!-- Product 1: Main Doors -->
+          <div onclick="selectShowroomModel(0)" class="prod-card cursor-pointer p-4 rounded-2xl glass-card border border-antique-gold transition-all duration-300 flex items-center gap-4 bg-antique-gold/15">
+            <div class="w-12 h-12 rounded-xl bg-antique-dark border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="door-closed" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-cinzel text-antique-gold font-bold uppercase tracking-widest">3D Model 1</span>
+              <h4 class="font-cinzel font-bold text-sm text-white">Grand Main Entrance Doors</h4>
+              <p class="text-[11px] text-antique-muted">Solid embossed brass clad double doors.</p>
+            </div>
+          </div>
+
+          <!-- Product 2: Pooja Room Embellishments -->
+          <div onclick="selectShowroomModel(1)" class="prod-card cursor-pointer p-4 rounded-2xl glass-card border border-antique-gold/20 hover:border-antique-gold transition-all duration-300 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-antique-dark border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="sparkle" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-cinzel text-antique-gold font-bold uppercase tracking-widest">3D Model 2</span>
+              <h4 class="font-cinzel font-bold text-sm text-white">Pooja Room Embellishments</h4>
+              <p class="text-[11px] text-antique-muted">Temple gopuram, bells & sacred archways.</p>
+            </div>
+          </div>
+
+          <!-- Product 3: Brass Railings -->
+          <div onclick="selectShowroomModel(2)" class="prod-card cursor-pointer p-4 rounded-2xl glass-card border border-antique-gold/20 hover:border-antique-gold transition-all duration-300 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-antique-dark border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="fence" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-cinzel text-antique-gold font-bold uppercase tracking-widest">3D Model 3</span>
+              <h4 class="font-cinzel font-bold text-sm text-white">Decorative Brass Railings</h4>
+              <p class="text-[11px] text-antique-muted">Ornate staircase balustrades & balcony panels.</p>
+            </div>
+          </div>
+
+          <!-- Product 4: 3D Wall Murals -->
+          <div onclick="selectShowroomModel(3)" class="prod-card cursor-pointer p-4 rounded-2xl glass-card border border-antique-gold/20 hover:border-antique-gold transition-all duration-300 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-antique-dark border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="image" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-cinzel text-antique-gold font-bold uppercase tracking-widest">3D Model 4</span>
+              <h4 class="font-cinzel font-bold text-sm text-white">3D Embossed Wall Murals</h4>
+              <p class="text-[11px] text-antique-muted">Peacock, Tree of Life & spiritual relief art.</p>
+            </div>
+          </div>
+
+          <!-- Product 5: Partition Grills -->
+          <div onclick="selectShowroomModel(4)" class="prod-card cursor-pointer p-4 rounded-2xl glass-card border border-antique-gold/20 hover:border-antique-gold transition-all duration-300 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-antique-dark border border-antique-gold/40 flex items-center justify-center text-antique-gold shrink-0">
+              <i data-lucide="grid" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-cinzel text-antique-gold font-bold uppercase tracking-widest">3D Model 5</span>
+              <h4 class="font-cinzel font-bold text-sm text-white">Luxury Partition Jaali Grills</h4>
+              <p class="text-[11px] text-antique-muted">Geometric & floral laser-cut room dividers.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 SPECIALTIES DEEP-DIVE SECTION -->
+  <section id="products" class="py-24 bg-[#12100E] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">OUR ARCHITECTURAL CRAFTSMANSHIP</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Custom Handcrafted For Luxury Residences & Temples</h2>
+        <div class="w-20 h-0.5 bg-antique-gold mx-auto my-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Specialty 1 -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-antique-gold/20 border border-antique-gold/40 flex items-center justify-center text-antique-gold">
+              <i data-lucide="door-closed" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-white">Main Entrance Doors</h3>
+            <p class="text-xs text-antique-muted leading-relaxed">
+              Grand wooden core doors clad with heavy-gauge pure brass sheets, intricate repoussé patterns, high-relief lion and elephant brass knockers, and antique oxidized finishes.
+            </p>
+          </div>
+          <button onclick="selectShowroomModel(0); scrollToStudio();" class="text-xs font-cinzel font-bold text-antique-gold hover:underline flex items-center gap-1">
+            Inspect 3D Door Model &rarr;
+          </button>
+        </div>
+
+        <!-- Specialty 2 -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-antique-gold/20 border border-antique-gold/40 flex items-center justify-center text-antique-gold">
+              <i data-lucide="flame" class="w-7 h-7 text-orange-400"></i>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-white">Pooja Room Embellishments</h3>
+            <p class="text-xs text-antique-muted leading-relaxed">
+              Sacred temple gopurams, brass bell mandapam ceilings, engraved Ashtalakshmi & Kalasha brass panels, and traditional white metal mandir cladding.
+            </p>
+          </div>
+          <button onclick="selectShowroomModel(1); scrollToStudio();" class="text-xs font-cinzel font-bold text-antique-gold hover:underline flex items-center gap-1">
+            Inspect 3D Pooja Model &rarr;
+          </button>
+        </div>
+
+        <!-- Specialty 3 -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-antique-gold/20 border border-antique-gold/40 flex items-center justify-center text-antique-gold">
+              <i data-lucide="fence" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-white">Brass Railings & Balustrades</h3>
+            <p class="text-xs text-antique-muted leading-relaxed">
+              Custom forged brass baluster columns, intricate floral scrollwork, and glass-integrated antique brass staircase railings engineered for luxury villas.
+            </p>
+          </div>
+          <button onclick="selectShowroomModel(2); scrollToStudio();" class="text-xs font-cinzel font-bold text-antique-gold hover:underline flex items-center gap-1">
+            Inspect 3D Railing Model &rarr;
+          </button>
+        </div>
+
+        <!-- Specialty 4 -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-antique-gold/20 border border-antique-gold/40 flex items-center justify-center text-antique-gold">
+              <i data-lucide="image" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-white">3D Embossed Wall Murals</h3>
+            <p class="text-xs text-antique-muted leading-relaxed">
+              Living art in metal. High-relief Tree of Life, peacock motifs, spiritual mandalas, and contemporary geometric textures in dual-tone brass and white metal.
+            </p>
+          </div>
+          <button onclick="selectShowroomModel(3); scrollToStudio();" class="text-xs font-cinzel font-bold text-antique-gold hover:underline flex items-center gap-1">
+            Inspect 3D Mural Model &rarr;
+          </button>
+        </div>
+
+        <!-- Specialty 5 -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-antique-gold/20 border border-antique-gold/40 flex items-center justify-center text-antique-gold">
+              <i data-lucide="grid" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-white">Partition Jaali Grills</h3>
+            <p class="text-xs text-antique-muted leading-relaxed">
+              Architectural room dividers with traditional jaali lattice patterns, brushed brass border frames, and white metal accents for living rooms and foyer partitions.
+            </p>
+          </div>
+          <button onclick="selectShowroomModel(4); scrollToStudio();" class="text-xs font-cinzel font-bold text-antique-gold hover:underline flex items-center gap-1">
+            Inspect 3D Jaali Model &rarr;
+          </button>
+        </div>
+
+        <!-- Custom Sizing & Consultation Card -->
+        <div class="glass-card p-8 rounded-3xl border border-antique-gold/50 flex flex-col justify-between space-y-6 bg-gradient-to-br from-antique-gold/20 via-transparent to-transparent">
+          <div class="space-y-3">
+            <span class="px-3 py-1 bg-antique-gold/30 text-antique-gold text-[10px] font-cinzel font-bold rounded-full">CUSTOM CAD DESIGN</span>
+            <h3 class="font-cinzel text-2xl font-bold text-white">Have Custom Blueprint Dimensions?</h3>
+            <p class="text-xs text-antique-sand/80">We craft 100% bespoke architectural metalwork matching your architect's drawings with exact millimeter precision.</p>
+          </div>
+          <a 
+            href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20have%20custom%20drawings/dimensions%20for%20my%20home%20project." 
+            target="_blank" 
+            class="py-3 px-6 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-cinzel text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all"
+          >
+            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Blueprint (+91 89713 05188)
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGINAL WORKS GALLERY -->
+  <section id="gallery" class="py-24 bg-gradient-to-b from-[#12100E] via-[#1A1714] to-[#12100E] border-t border-antique-gold/20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">PHOTO REPERTORY</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Executed Masterpieces & Project Portfolio</h2>
+        <div class="w-20 h-0.5 bg-antique-gold mx-auto my-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Gallery 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 group">
+          <div class="relative h-64 overflow-hidden bg-black">
+            <img 
+              src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/Untitled-11.jpg-1.22ed52b2.jpeg" 
+              alt="Brass Door Design" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            >
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 text-antique-gold text-[10px] font-cinzel font-bold border border-antique-gold/30">
+              Main Entrance Door
+            </span>
+          </div>
+          <div class="p-6 space-y-2">
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-antique-gold transition-colors">Brass Door Design</h3>
+            <p class="text-xs text-antique-muted">Sacred and spiritual double door architecture in solid embossed brass.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 group">
+          <div class="relative h-64 overflow-hidden bg-black">
+            <img 
+              src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/WhatsApp_Image_2026-07-08_at_3.28.25_PM.a040ec18.jpeg" 
+              alt="Pooja Room & Wall Murals" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            >
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 text-antique-gold text-[10px] font-cinzel font-bold border border-antique-gold/30">
+              Pooja Room Embellishments
+            </span>
+          </div>
+          <div class="p-6 space-y-2">
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-antique-gold transition-colors">Premium Pooja Artistry</h3>
+            <p class="text-xs text-antique-muted">Temple gopuram bells, white metal and brass repoussé mandir cladding.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-antique-gold/30 hover:border-antique-gold transition-all duration-300 group">
+          <div class="relative h-64 overflow-hidden bg-black">
+            <img 
+              src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/18_gates-11.18e6a23a.png" 
+              alt="Gates & Railings" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            >
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 text-antique-gold text-[10px] font-cinzel font-bold border border-antique-gold/30">
+              Railings & Gates
+            </span>
+          </div>
+          <div class="p-6 space-y-2">
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-antique-gold transition-colors">Gates & Railings Collection</h3>
+            <p class="text-xs text-antique-muted">Heavy gauge ornamental brass staircase balustrades and entrance gates.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GOOGLE MAP & BENGALURU WORKSHOP LOCATION -->
+  <section id="location" class="py-24 bg-[#12100E] border-t border-antique-gold/25 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">VISIT OUR ATELIER & VAULT</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Workshop & Location in Bengaluru</h2>
+        <div class="w-20 h-0.5 bg-antique-gold mx-auto my-4"></div>
+        <p class="text-antique-muted text-sm">Experience our handcrafted metalworks live or consult directly with our master metalsmiths.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Contact details box -->
+        <div class="lg:col-span-5 glass-dark p-8 rounded-3xl border border-antique-gold/40 flex flex-col justify-between space-y-6">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-antique-gold/20 flex items-center justify-center text-antique-gold shrink-0 border border-antique-gold/30">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-white">Workshop & Registered Address</h4>
+                <p class="text-xs text-antique-sand/90 mt-1 leading-relaxed">
+                  39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Bengaluru, Karnataka 562130
+                </p>
+                <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-cinzel font-bold text-antique-gold mt-2 hover:underline">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Open in Google Maps App
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-antique-gold/20 flex items-center justify-center text-antique-gold shrink-0 border border-antique-gold/30">
+                <i data-lucide="phone-call" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-white">Direct Phone Numbers</h4>
+                <p class="text-xs text-antique-sand/90 mt-1"><strong class="text-antique-gold font-cinzel">Primary:</strong> +91 89713 05188</p>
+                <p class="text-xs text-antique-sand/90 mt-0.5"><strong class="text-antique-gold font-cinzel">Workshop:</strong> +91 96202 02221 / +91 96638 52454</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-antique-gold/20 flex items-center justify-center text-antique-gold shrink-0 border border-antique-gold/30">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-cinzel font-bold text-sm text-white">Email Address</h4>
+                <p class="text-xs text-antique-sand/90 mt-1">hello@antique-designs.com</p>
+                <p class="text-xs text-antique-muted">Official Site: www.antiquedesigns.in</p>
+              </div>
+            </div>
+          </div>
+
+          <a 
+            href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" 
+            target="_blank" 
+            class="w-full py-3.5 bg-antique-gold hover:bg-antique-goldDark text-antique-dark font-cinzel text-xs font-bold tracking-widest uppercase rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 text-center"
+          >
+            <i data-lucide="navigation" class="w-4 h-4"></i> Get Directions on Google Maps
+          </a>
+        </div>
+
+        <!-- Embedded Google Map -->
+        <div class="lg:col-span-7 rounded-3xl overflow-hidden glass-dark border border-antique-gold/40 shadow-2xl relative min-h-[420px]">
+          <iframe 
+            title="Antique Designs Location Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.276412176435!2d77.4429997!3d12.9861667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d84ecf97e65%3A0xb695e1ee749d748f!2sAntique%20Designs!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+            class="w-full h-full min-h-[420px] border-0" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & CUSTOM 3D CAD QUOTE FORM -->
+  <section id="contact" class="py-24 bg-gradient-to-b from-[#12100E] to-[#1A1714] border-t border-antique-gold/20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs font-cinzel font-bold text-antique-gold tracking-widest uppercase">CONCIERGE DESK</span>
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">Start Your Custom Metal Project</h2>
+          <p class="text-antique-sand/80 text-sm leading-relaxed">
+            Send us your door dimensions, pooja room sizes, railing running feet, or CAD layout. We provide realistic 3D renderings and transparent pricing.
+          </p>
+
+          <div class="p-6 rounded-2xl glass-dark border border-antique-gold/40 space-y-3">
+            <span class="text-xs font-cinzel font-bold text-antique-gold uppercase tracking-wider block">DIRECT INSTANT CHAT</span>
+            <p class="text-xs text-white/90">Click below to message our master craftsman on WhatsApp with your dimensions.</p>
+            <a href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20would%20like%20to%20get%20a%20quote%20for%20my%20project." target="_blank" class="w-full py-3 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg transition-all">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Chat on WhatsApp (+91 89713 05188)
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="p-8 sm:p-10 rounded-3xl glass-card border border-antique-gold/40 shadow-2xl">
+            <h3 class="font-cinzel text-2xl font-bold text-white mb-2">Request 3D Consultation & Quote</h3>
+            <p class="text-xs text-antique-muted mb-6">We respond with design catalogs and pricing within 24 hours.</p>
+
+            <form onsubmit="handleContactFormSubmit(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-gold mb-1">Your Full Name *</label>
+                  <input required type="text" placeholder="e.g. Ramesh Kumar" class="w-full px-4 py-2.5 bg-antique-dark rounded-xl border border-antique-gold/30 text-xs text-white focus:outline-none focus:border-antique-gold">
+                </div>
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-gold mb-1">Email Address *</label>
+                  <input required type="email" placeholder="ramesh@example.com" class="w-full px-4 py-2.5 bg-antique-dark rounded-xl border border-antique-gold/30 text-xs text-white focus:outline-none focus:border-antique-gold">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-gold mb-1">Phone Number (WhatsApp) *</label>
+                  <input required type="tel" placeholder="+91 98765 43210" class="w-full px-4 py-2.5 bg-antique-dark rounded-xl border border-antique-gold/30 text-xs text-white focus:outline-none focus:border-antique-gold">
+                </div>
+                <div>
+                  <label class="block text-xs font-cinzel font-bold text-antique-gold mb-1">Category of Interest</label>
+                  <select class="w-full px-4 py-2.5 bg-antique-dark rounded-xl border border-antique-gold/30 text-xs text-white focus:outline-none focus:border-antique-gold">
+                    <option>Main Entrance Door Cladding</option>
+                    <option>Pooja Room Embellishments</option>
+                    <option>Staircase / Balcony Brass Railings</option>
+                    <option>3D Embossed Wall Mural</option>
+                    <option>Partition Jaali Grill Screen</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-cinzel font-bold text-antique-gold mb-1">Dimensions & Requirements *</label>
+                <textarea required rows="4" placeholder="Mention approx height, width (e.g. 7ft x 4ft Double door), wood type or preferred metal finish..." class="w-full px-4 py-2.5 bg-antique-dark rounded-xl border border-antique-gold/30 text-xs text-white focus:outline-none focus:border-antique-gold"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-antique-gold hover:bg-antique-goldDark text-antique-dark font-cinzel text-xs font-bold tracking-widest uppercase rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i> Submit Project Request
+              </button>
+            </form>
+
+            <div id="formSuccessAlert" class="hidden mt-4 p-4 rounded-xl bg-green-950/60 border border-green-500/40 text-green-200 text-xs text-center font-cinzel">
+              <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 text-green-400"></i>
+              Thank you! Your inquiry has been registered. Our master artisan will connect on WhatsApp with 3D CAD options shortly.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-antique-dark text-antique-muted py-12 border-t border-antique-gold/20 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-3">
+            <i data-lucide="crown" class="w-5 h-5 text-antique-gold"></i>
+            <span class="font-cinzel text-white font-bold text-base">ANTIQUE DESIGNS</span>
+          </div>
+          <p class="text-xs text-antique-muted mt-2 leading-relaxed">
+            Crafting premium brass & white metal main doors, pooja room embellishments, railings, murals, and partition jaali grills in Bengaluru since 2011.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-cinzel font-bold text-white mb-2">Workshop Address</h4>
+          <p class="text-xs text-antique-sand/80 leading-relaxed">
+            39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130
+          </p>
+          <p class="text-xs text-antique-gold mt-1">+91 89713 05188 • hello@antique-designs.com</p>
+        </div>
+
+        <div>
+          <h4 class="font-cinzel font-bold text-white mb-2">Connect Social</h4>
+          <div class="flex items-center gap-3">
+            <a href="https://www.instagram.com/antiquedesigns_bengaluru?igsh=MW16aXUydmIzY3Qybw%3D%3D&utm_source=qr" target="_blank" class="w-9 h-9 rounded-full bg-white/5 border border-antique-gold/30 flex items-center justify-center text-antique-gold hover:bg-antique-gold hover:text-black transition-all">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="w-9 h-9 rounded-full bg-white/5 border border-antique-gold/30 flex items-center justify-center text-antique-gold hover:bg-antique-gold hover:text-black transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+            </a>
+            <a href="https://wa.me/918971305188" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:scale-110 transition-all">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between text-stone-500 gap-4">
+        <p>&copy; 2026 Antique Designs. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <span>Bangalore, Karnataka Jurisdiction</span>
+          <span>•</span>
+          <a href="https://www.antiquedesigns.in" class="hover:text-antique-gold">www.antiquedesigns.in</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <a 
+      href="https://wa.me/918971305188?text=Hello%20Antique%20Designs,%20I%20am%20exploring%20your%203D%20website%20and%20want%20to%20inquire%20about%20doors/pooja/railings/murals." 
+      target="_blank" 
+      class="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 relative group"
+      aria-label="Direct WhatsApp Contact"
+    >
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+      <span class="absolute right-16 bg-antique-dark text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none font-cinzel shadow-lg border border-antique-gold/30">
+        Chat with Master Artisan
+      </span>
+    </a>
+  </div>
+
+  <!-- REAL-TIME THREE.JS 3D ENGINE SCRIPTS -->
+  <script>
+    // -------------------------------------------------------------
+    // 1. THREE.JS 3D HERO CANVAS (Interactive Grand Double Door)
+    // -------------------------------------------------------------
+    let heroScene, heroCamera, heroRenderer, heroControls;
+    let heroLeftDoorHinge, heroRightDoorHinge;
+    let heroDoorOpen = false;
+
+    function initHero3D() {
+      const canvas = document.getElementById('hero-3d-canvas');
+      if (!canvas) return;
+
+      heroScene = new THREE.Scene();
+      heroScene.fog = new THREE.FogExp2(0x12100E, 0.035);
+
+      heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      heroCamera.position.set(2.4, 1.2, 5.2);
+
+      heroRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      heroRenderer.setSize(window.innerWidth, window.innerHeight);
+      heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Studio Lighting
+      const amb = new THREE.AmbientLight(0xfff0db, 1.0);
+      heroScene.add(amb);
+
+      const keyLight = new THREE.DirectionalLight(0xffdf99, 3.2);
+      keyLight.position.set(5, 7, 5);
+      heroScene.add(keyLight);
+
+      const rimLight = new THREE.DirectionalLight(0xd4af37, 1.5);
+      rimLight.position.set(-5, 4, -3);
+      heroScene.add(rimLight);
+
+      // Build 3D Grand Main Door
+      const doorRoot = new THREE.Group();
+      doorRoot.position.set(1.4, 0, 0);
+
+      const brassMat = new THREE.MeshStandardMaterial({
+        color: 0xD4AF37,
+        metalness: 0.92,
+        roughness: 0.22
+      });
+      const woodMat = new THREE.MeshStandardMaterial({
+        color: 0x2A1810,
+        metalness: 0.1,
+        roughness: 0.7
+      });
+
+      // Door Outer Architrave Frame
+      const frameTop = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.25, 0.35), brassMat);
+      frameTop.position.set(0, 1.7, 0);
+      const frameL = new THREE.Mesh(new THREE.BoxGeometry(0.25, 3.5, 0.35), brassMat);
+      frameL.position.set(-1.28, 0, 0);
+      const frameR = new THREE.Mesh(new THREE.BoxGeometry(0.25, 3.5, 0.35), brassMat);
+      frameR.position.set(1.28, 0, 0);
+      doorRoot.add(frameTop, frameL, frameR);
+
+      // Top Temple Gopuram Crest
+      const crestGeo = new THREE.ConeGeometry(0.45, 0.5, 4);
+      const crest = new THREE.Mesh(crestGeo, brassMat);
+      crest.rotation.y = Math.PI / 4;
+      crest.position.set(0, 2.05, 0);
+      doorRoot.add(crest);
+
+      // Left Door Leaf with Pivot Hinge at Left Frame
+      heroLeftDoorHinge = new THREE.Group();
+      heroLeftDoorHinge.position.set(-1.15, 0, 0);
+
+      const leafL = new THREE.Mesh(new THREE.BoxGeometry(1.1, 3.2, 0.12), woodMat);
+      leafL.position.set(0.55, 0, 0);
+      
+      // Brass Cladding Panels on Left Door
+      for (let y = -1.1; y <= 1.1; y += 0.75) {
+        const panel = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.55, 0.05), brassMat);
+        panel.position.set(0.55, y, 0.07);
+        heroLeftDoorHinge.add(panel);
+
+        const stud = new THREE.Mesh(new THREE.SphereGeometry(0.04, 16, 16), brassMat);
+        stud.position.set(0.55, y, 0.11);
+        heroLeftDoorHinge.add(stud);
+      }
+      // Left Handle
+      const handleL = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.02, 16, 32), brassMat);
+      handleL.position.set(0.95, 0, 0.12);
+      heroLeftDoorHinge.add(leafL, handleL);
+
+      // Right Door Leaf with Pivot Hinge at Right Frame
+      heroRightDoorHinge = new THREE.Group();
+      heroRightDoorHinge.position.set(1.15, 0, 0);
+
+      const leafR = new THREE.Mesh(new THREE.BoxGeometry(1.1, 3.2, 0.12), woodMat);
+      leafR.position.set(-0.55, 0, 0);
+
+      for (let y = -1.1; y <= 1.1; y += 0.75) {
+        const panel = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.55, 0.05), brassMat);
+        panel.position.set(-0.55, y, 0.07);
+        heroRightDoorHinge.add(panel);
+
+        const stud = new THREE.Mesh(new THREE.SphereGeometry(0.04, 16, 16), brassMat);
+        stud.position.set(-0.55, y, 0.11);
+        heroRightDoorHinge.add(stud);
+      }
+      const handleR = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.02, 16, 32), brassMat);
+      handleR.position.set(-0.95, 0, 0.12);
+      heroRightDoorHinge.add(leafR, handleR);
+
+      doorRoot.add(heroLeftDoorHinge, heroRightDoorHinge);
+      heroScene.add(doorRoot);
+
+      // Controls
+      heroControls = new THREE.OrbitControls(heroCamera, heroRenderer.domElement);
+      heroControls.enableDamping = true;
+      heroControls.dampingFactor = 0.05;
+      heroControls.enableZoom = false;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        heroControls.update();
+        heroRenderer.render(heroScene, heroCamera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        heroCamera.aspect = window.innerWidth / window.innerHeight;
+        heroCamera.updateProjectionMatrix();
+        heroRenderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    function toggleHeroDoor() {
+      heroDoorOpen = !heroDoorOpen;
+      const targetAngleL = heroDoorOpen ? -Math.PI / 2.2 : 0;
+      const targetAngleR = heroDoorOpen ? Math.PI / 2.2 : 0;
+
+      gsap.to(heroLeftDoorHinge.rotation, { y: targetAngleL, duration: 1.2, ease: "power2.inOut" });
+      gsap.to(heroRightDoorHinge.rotation, { y: targetAngleR, duration: 1.2, ease: "power2.inOut" });
+
+      const btn = document.getElementById('heroDoorActionBtn');
+      btn.innerHTML = heroDoorOpen 
+        ? '<i data-lucide="door-closed" class="w-3.5 h-3.5"></i> <span>Close Door</span>'
+        : '<i data-lucide="lock-keyhole-open" class="w-3.5 h-3.5"></i> <span>Open Door</span>';
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // 2. THREE.JS 3D ARCHITECTURAL STUDIO SHOWROOM (5 Products)
+    // -------------------------------------------------------------
+    let showroomScene, showroomCamera, showroomRenderer, showroomControls, showroomGroup;
+    let showroomCurrentModelIndex = 0;
+    let showroomMatKey = 'brass';
+    let showroomDoorOpened = false;
+    let showroomLeftHinge, showroomRightHinge;
+    let showroomDirLight, showroomDiyaLight, showroomSpotLight;
+
+    const showroomProducts = [
+      {
+        id: 'main-doors',
+        title: '1. Grand Brass Main Entrance Door',
+        subtitle: 'Solid teak frame with hand-embossed pure brass repoussé panels & lion knockers',
+        hasDoorAction: true
+      },
+      {
+        id: 'pooja-embellishments',
+        title: '2. Pooja Room Temple Embellishments',
+        subtitle: 'Temple Gopuram archway, hanging bells, kalasha & sanctum white metal plating',
+        hasDoorAction: false
+      },
+      {
+        id: 'brass-railings',
+        title: '3. Ornate Brass Staircase Railings',
+        subtitle: 'Custom cast brass balusters, floral scrollwork & polished handrail balustrades',
+        hasDoorAction: false
+      },
+      {
+        id: 'wall-murals',
+        title: '4. 3D Embossed Brass Wall Murals',
+        subtitle: 'High-relief Tree of Life & Peacock sheet-metal embossed architectural mural panel',
+        hasDoorAction: false
+      },
+      {
+        id: 'partition-grills',
+        title: '5. Luxury Partition Jaali Grill Screen',
+        subtitle: 'Architectural lattice divider with brushed brass border frames & white metal filigree',
+        hasDoorAction: false
+      }
+    ];
+
+    const alloyMaterials = {
+      brass: new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.94, roughness: 0.2 }),
+      whitemetal: new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.88, roughness: 0.18 }),
+      patina: new THREE.MeshStandardMaterial({ color: 0x6E4C2E, metalness: 0.82, roughness: 0.42 }),
+      rosegold: new THREE.MeshStandardMaterial({ color: 0xB86D52, metalness: 0.9, roughness: 0.25 })
+    };
+
+    function initShowroom3D() {
+      const canvas = document.getElementById('showroom-3d-canvas');
+      if (!canvas) return;
+
+      showroomScene = new THREE.Scene();
+      showroomScene.fog = new THREE.FogExp2(0x12100E, 0.04);
+
+      showroomCamera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      showroomCamera.position.set(0, 0.5, 4.8);
+
+      showroomRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      showroomRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      showroomRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Studio Lights
+      const amb = new THREE.AmbientLight(0xfff0db, 1.0);
+      showroomScene.add(amb);
+
+      showroomDirLight = new THREE.DirectionalLight(0xffdfa4, 3.2);
+      showroomDirLight.position.set(4, 6, 4);
+      showroomScene.add(showroomDirLight);
+
+      showroomDiyaLight = new THREE.PointLight(0xff7700, 0, 15);
+      showroomDiyaLight.position.set(0, -0.5, 2);
+      showroomScene.add(showroomDiyaLight);
+
+      showroomSpotLight = new THREE.SpotLight(0xfff4d6, 0, 20, Math.PI / 4, 0.5);
+      showroomSpotLight.position.set(0, 5, 3);
+      showroomScene.add(showroomSpotLight);
+
+      // Studio Pedestal
+      const pedestal = new THREE.Mesh(
+        new THREE.CylinderGeometry(2.6, 2.7, 0.25, 64),
+        new THREE.MeshStandardMaterial({ color: 0x181512, metalness: 0.5, roughness: 0.5 })
+      );
+      pedestal.position.y = -1.75;
+      showroomScene.add(pedestal);
+
+      showroomGroup = new THREE.Group();
+      showroomScene.add(showroomGroup);
+
+      showroomControls = new THREE.OrbitControls(showroomCamera, showroomRenderer.domElement);
+      showroomControls.enableDamping = true;
+      showroomControls.dampingFactor = 0.05;
+      showroomControls.autoRotate = false;
+
+      loadShowroomProductModel(0);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        showroomControls.update();
+        showroomRenderer.render(showroomScene, showroomCamera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        if (!canvas || !showroomCamera || !showroomRenderer) return;
+        showroomCamera.aspect = canvas.clientWidth / canvas.clientHeight;
+        showroomCamera.updateProjectionMatrix();
+        showroomRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      });
+    }
+
+    // -------------------------------------------------------------
+    // PROCEDURAL 3D ARCHITECTURAL MESH BUILDERS
+    // -------------------------------------------------------------
+
+    // 1. Grand Double Door
+    function build3DMainDoor(mat) {
+      const group = new THREE.Group();
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x2A1810, metalness: 0.1, roughness: 0.7 });
+
+      // Frame
+      const frameTop = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.2, 0.3), mat);
+      frameTop.position.set(0, 1.5, 0);
+      const frameL = new THREE.Mesh(new THREE.BoxGeometry(0.2, 3.2, 0.3), mat);
+      frameL.position.set(-1.2, 0, 0);
+      const frameR = new THREE.Mesh(new THREE.BoxGeometry(0.2, 3.2, 0.3), mat);
+      frameR.position.set(1.2, 0, 0);
+      group.add(frameTop, frameL, frameR);
+
+      // Hinges & Leaves
+      showroomLeftHinge = new THREE.Group();
+      showroomLeftHinge.position.set(-1.1, 0, 0);
+      const leafL = new THREE.Mesh(new THREE.BoxGeometry(1.05, 2.9, 0.1), woodMat);
+      leafL.position.set(0.525, 0, 0);
+
+      for (let y = -0.9; y <= 0.9; y += 0.6) {
+        const p = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.45, 0.04), mat);
+        p.position.set(0.525, y, 0.06);
+        showroomLeftHinge.add(p);
+      }
+      const handleL = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 16, 32), mat);
+      handleL.position.set(0.9, 0, 0.1);
+      showroomLeftHinge.add(leafL, handleL);
+
+      showroomRightHinge = new THREE.Group();
+      showroomRightHinge.position.set(1.1, 0, 0);
+      const leafR = new THREE.Mesh(new THREE.BoxGeometry(1.05, 2.9, 0.1), woodMat);
+      leafR.position.set(-0.525, 0, 0);
+
+      for (let y = -0.9; y <= 0.9; y += 0.6) {
+        const p = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.45, 0.04), mat);
+        p.position.set(-0.525, y, 0.06);
+        showroomRightHinge.add(p);
+      }
+      const handleR = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 16, 32), mat);
+      handleR.position.set(-0.9, 0, 0.1);
+      showroomRightHinge.add(leafR, handleR);
+
+      group.add(showroomLeftHinge, showroomRightHinge);
+      return group;
+    }
+
+    // 2. Pooja Room Temple Embellishments
+    function build3DPoojaRoom(mat) {
+      const group = new THREE.Group();
+      
+      // Temple Gopuram Archway
+      const archTop = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.12, 16, 48, Math.PI), mat);
+      archTop.position.set(0, 0.6, 0);
+      group.add(archTop);
+
+      // Pillar Columns
+      const colL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 2.2, 32), mat);
+      colL.position.set(-1.1, -0.5, 0);
+      const colR = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 2.2, 32), mat);
+      colR.position.set(1.1, -0.5, 0);
+      group.add(colL, colR);
+
+      // Hanging Temple Bells (Ghanti)
+      for (let x = -0.7; x <= 0.7; x += 0.35) {
+        const bellTop = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.4, 8), mat);
+        bellTop.position.set(x, 0.7, 0);
+        const bell = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.14, 16), mat);
+        bell.position.set(x, 0.45, 0);
+        group.add(bellTop, bell);
+      }
+
+      // Central Sanctum Kalasha
+      const kalasha = new THREE.Mesh(new THREE.SphereGeometry(0.35, 24, 24), mat);
+      kalasha.position.set(0, -0.5, 0);
+      const kalashaTop = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.3, 16), mat);
+      kalashaTop.position.set(0, -0.1, 0);
+      group.add(kalasha, kalashaTop);
+
+      return group;
+    }
+
+    // 3. Ornate Brass Railings & Balustrades
+    function build3DBrassRailings(mat) {
+      const group = new THREE.Group();
+
+      // Top Handrail
+      const handrail = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 3.2, 32), mat);
+      handrail.rotation.z = Math.PI / 2;
+      handrail.position.set(0, 0.8, 0);
+      group.add(handrail);
+
+      // Bottom Rail
+      const bottomRail = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.2, 32), mat);
+      bottomRail.rotation.z = Math.PI / 2;
+      bottomRail.position.set(0, -1.0, 0);
+      group.add(bottomRail);
+
+      // Vertical Baluster Spindles with Ornate Spheres
+      for (let x = -1.3; x <= 1.3; x += 0.32) {
+        const spindle = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.8, 16), mat);
+        spindle.position.set(x, -0.1, 0);
+
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), mat);
+        orb.position.set(x, -0.1, 0);
+
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.015, 16, 32), mat);
+        ring.position.set(x, 0.3, 0);
+
+        group.add(spindle, orb, ring);
+      }
+
+      return group;
+    }
+
+    // 4. 3D Embossed Wall Mural
+    function build3DWallMural(mat) {
+      const group = new THREE.Group();
+
+      // Background Backplate Panel
+      const panel = new THREE.Mesh(new THREE.BoxGeometry(2.8, 2.4, 0.08), mat);
+      group.add(panel);
+
+      // Outer Frame
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(3.0, 2.6, 0.12), mat);
+      frame.position.z = -0.02;
+      group.add(frame);
+
+      // Tree of Life / Sunburst High-Relief Spokes
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
+        const ray = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.9, 0.06), mat);
+        ray.position.set(Math.cos(a) * 0.5, Math.sin(a) * 0.5, 0.08);
+        ray.rotation.z = a;
+        group.add(ray);
+      }
+
+      // Central Mandala Lotus Medallion
+      const center = new THREE.Mesh(new THREE.TorusGeometry(0.35, 0.06, 16, 32), mat);
+      center.position.z = 0.12;
+      const core = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), mat);
+      core.position.z = 0.14;
+      group.add(center, core);
+
+      return group;
+    }
+
+    // 5. Luxury Partition Jaali Grill
+    function build3DPartitionGrill(mat) {
+      const group = new THREE.Group();
+
+      // Outer Tall Border Frame
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(1.8, 3.2, 0.14), mat);
+      group.add(frame);
+
+      // Inner Cutout Pattern Latticework
+      for (let x = -0.6; x <= 0.6; x += 0.3) {
+        for (let y = -1.2; y <= 1.2; y += 0.3) {
+          const diamond = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.06), mat);
+          diamond.rotation.z = Math.PI / 4;
+          diamond.position.set(x, y, 0.08);
+          group.add(diamond);
+
+          const innerRing = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.015, 12, 24), mat);
+          innerRing.position.set(x, y, 0.09);
+          group.add(innerRing);
+        }
+      }
+
+      return group;
+    }
+
+    function loadShowroomProductModel(index) {
+      showroomCurrentModelIndex = index;
+      const prod = showroomProducts[index];
+
+      document.getElementById('showroomItemTitle').innerText = prod.title;
+      document.getElementById('showroomItemSubtitle').innerText = prod.subtitle;
+
+      // Show/Hide Door open action
+      const doorActionDiv = document.getElementById('doorInteractionControl');
+      if (prod.hasDoorAction) {
+        doorActionDiv.classList.remove('hidden');
+      } else {
+        doorActionDiv.classList.add('hidden');
+      }
+
+      // Update Card Active states
+      const cards = document.querySelectorAll('.prod-card');
+      cards.forEach((c, i) => {
+        if (i === index) {
+          c.classList.add('bg-antique-gold/15', 'border-antique-gold');
+          c.classList.remove('border-antique-gold/20');
+        } else {
+          c.classList.remove('bg-antique-gold/15', 'border-antique-gold');
+          c.classList.add('border-antique-gold/20');
+        }
+      });
+
+      // Clear previous model
+      while (showroomGroup.children.length > 0) {
+        showroomGroup.remove(showroomGroup.children[0]);
+      }
+
+      const activeMat = alloyMaterials[showroomMatKey];
+      let mesh;
+      if (index === 0) mesh = build3DMainDoor(activeMat);
+      else if (index === 1) mesh = build3DPoojaRoom(activeMat);
+      else if (index === 2) mesh = build3DBrassRailings(activeMat);
+      else if (index === 3) mesh = build3DWallMural(activeMat);
+      else mesh = build3DPartitionGrill(activeMat);
+
+      mesh.scale.set(0.01, 0.01, 0.01);
+      showroomGroup.add(mesh);
+      gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.7, ease: "back.out(1.4)" });
+
+      showroomDoorOpened = false;
+      const btnText = document.getElementById('showroomDoorBtnText');
+      if (btnText) btnText.innerText = 'Swing Doors Open (3D)';
+    }
+
+    function selectShowroomModel(index) {
+      loadShowroomProductModel(index);
+    }
+
+    function setShowroomMaterial(matKey) {
+      showroomMatKey = matKey;
+      document.querySelectorAll('.mat-btn').forEach(btn => {
+        if (btn.getAttribute('data-mat') === matKey) {
+          btn.className = "mat-btn active px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-gold text-antique-dark transition-all";
+        } else {
+          btn.className = "mat-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all";
+        }
+      });
+      loadShowroomProductModel(showroomCurrentModelIndex);
+    }
+
+    function toggleShowroomDoor() {
+      if (!showroomLeftHinge || !showroomRightHinge) return;
+      showroomDoorOpened = !showroomDoorOpened;
+
+      const angleL = showroomDoorOpened ? -Math.PI / 2.2 : 0;
+      const angleR = showroomDoorOpened ? Math.PI / 2.2 : 0;
+
+      gsap.to(showroomLeftHinge.rotation, { y: angleL, duration: 1.2, ease: "power2.inOut" });
+      gsap.to(showroomRightHinge.rotation, { y: angleR, duration: 1.2, ease: "power2.inOut" });
+
+      document.getElementById('showroomDoorBtnText').innerText = showroomDoorOpened ? 'Close Doors' : 'Swing Doors Open (3D)';
+    }
+
+    function setLightingMode(mode) {
+      document.querySelectorAll('.light-btn').forEach(btn => {
+        if (btn.getAttribute('data-light') === mode) {
+          btn.className = "light-btn active px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-gold text-antique-dark transition-all";
+        } else {
+          btn.className = "light-btn px-3 py-1.5 rounded-xl text-xs font-cinzel font-bold bg-antique-dark/60 text-antique-sand hover:text-antique-gold transition-all";
+        }
+      });
+
+      if (mode === 'day') {
+        gsap.to(showroomDirLight, { intensity: 3.2, duration: 0.8 });
+        gsap.to(showroomDiyaLight, { intensity: 0, duration: 0.8 });
+        gsap.to(showroomSpotLight, { intensity: 0, duration: 0.8 });
+      } else if (mode === 'pooja') {
+        gsap.to(showroomDirLight, { intensity: 0.8, duration: 0.8 });
+        gsap.to(showroomDiyaLight, { intensity: 4.5, duration: 0.8 });
+        gsap.to(showroomSpotLight, { intensity: 1.0, duration: 0.8 });
+      } else {
+        gsap.to(showroomDirLight, { intensity: 0.5, duration: 0.8 });
+        gsap.to(showroomDiyaLight, { intensity: 0.5, duration: 0.8 });
+        gsap.to(showroomSpotLight, { intensity: 5.0, duration: 0.8 });
+      }
+    }
+
+    function inquireCurrentShowroomProduct() {
+      const prod = showroomProducts[showroomCurrentModelIndex];
+      const msg = encodeURIComponent(`Hello Antique Designs, I am inquiring about custom dimensions & pricing for: ${prod.title}`);
+      window.open(`https://wa.me/918971305188?text=${msg}`, '_blank');
+    }
+
+    function scrollToStudio() {
+      document.getElementById('showroom3d').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+    function handleContactFormSubmit(e) {
+      e.preventDefault();
+      const alertBox = document.getElementById('formSuccessAlert');
+      alertBox.classList.remove('hidden');
+      e.target.reset();
+      setTimeout(() => alertBox.classList.add('hidden'), 6000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initHero3D();
+      setTimeout(initShowroom3D, 200);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antique Designs Bengaluru | Bespoke Brass & White Metal Architectural Craft</title>
+  <meta name="description" content="Antique Designs Bengaluru — Premier artisanal atelier handcrafting bespoke Brass & White Metal Main Doors, Pooja Mandir Doors, Partition Grills, Railings, Name Plates and more since 2011.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://antiquedesign.figma.site">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #f9f5ef;
+      color: #1e1812;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f0ece4; }
+    ::-webkit-scrollbar-thumb { background: #c4940e; border-radius: 3px; }
+
+    /* ---- TYPOGRAPHY ---- */
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+
+    .gold-text {
+      background: linear-gradient(135deg, #d4a843 0%, #b8860b 40%, #8a6400 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gold-text-dark {
+      background: linear-gradient(135deg, #d4a843 0%, #9a7010 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---- ANNOUNCEMENT BAR ---- */
+    .ann-bar {
+      background: linear-gradient(90deg, #3d2200 0%, #5c3300 50%, #3d2200 100%);
+      border-bottom: 1px solid rgba(212,175,55,0.35);
+      padding: 9px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: #e8d0a0;
+    }
+    .ann-bar a { color: #f0c84a; text-decoration: none; }
+    .ann-bar a:hover { color: #ffe08a; }
+    .ann-dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:#22c55e; margin-right:6px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ---- NAVIGATION ---- */
+    nav#main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background 0.4s, box-shadow 0.4s, top 0.3s;
+    }
+    nav#main-nav.scrolled {
+      background: rgba(249,245,239,0.98);
+      /* backdrop-filter removed — triggers full compositing layer */
+      box-shadow: 0 2px 32px rgba(180,120,20,0.14);
+      border-bottom: 1px solid rgba(180,120,20,0.2);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 52px; height: 52px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000;
+    }
+    .nav-logo-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-logo-text { line-height: 1.2; }
+    .nav-logo-title { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 800; letter-spacing: 2px; }
+    .nav-logo-sub { font-size: 9px; letter-spacing: 3px; color: #9a7c50; text-transform: uppercase; display: block; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; color: #5c3d14; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover { color: #a06808; }
+    .nav-cta {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .btn-wa {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 50px;
+      background: rgba(37,211,102,0.12);
+      border: 1px solid rgba(37,211,102,0.4);
+      color: #22c55e; font-size: 12px; font-weight: 700;
+      text-decoration: none; transition: all 0.25s;
+      white-space: nowrap;
+    }
+    .btn-wa:hover { background: #22c55e; color: #fff; }
+    .btn-gold {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 22px; border-radius: 50px;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff; font-size: 12px; font-weight: 700;
+      text-decoration: none; transition: all 0.25s;
+      white-space: nowrap;
+      border: none; cursor: pointer;
+    }
+    .btn-gold:hover { filter: brightness(1.15); box-shadow: 0 4px 20px rgba(212,175,55,0.35); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; color: #a06808; }
+
+    /* ---- MOBILE MENU ---- */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 74px; left: 0; right: 0;
+      background: #f9f5ef;
+      /* backdrop-filter removed */
+      border-bottom: 1px solid rgba(180,120,20,0.2);
+      padding: 20px 28px 28px;
+      z-index: 999;
+    }
+    #mobile-menu.open { display: block; }
+    #mobile-menu a { display: block; padding: 12px 0; color: #5c3d14; text-decoration: none; font-size: 15px; font-weight: 600; border-bottom: 1px solid rgba(180,120,20,0.12); }
+    #mobile-menu a:last-child { border-bottom: none; }
+
+    /* ---- HERO SLIDER ---- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+    }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      display: flex; align-items: center; justify-content: center;
+      will-change: opacity;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      /* Ken Burns removed — was causing continuous GPU repaint on all 4 slides */
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(5,3,1,0.82) 0%, rgba(10,7,3,0.55) 60%, rgba(5,3,1,0.4) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 900px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 18px; border-radius: 50px;
+      border: 1px solid rgba(212,175,55,0.4);
+      background: rgba(20,12,4,0.55);
+      /* backdrop-filter removed — expensive GPU layer */
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      color: #d4af37; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(22px, 3.8vw, 48px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #faf7f2;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.6);
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px, 2vw, 26px);
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 15px; color: rgba(250,247,242,0.75);
+      max-width: 600px; margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Slider Dots */
+    .hero-dots {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 10px; z-index: 10;
+    }
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(212,175,55,0.35); border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .hero-dot.active { width: 28px; border-radius: 4px; background: #d4af37; }
+
+    /* Slider Arrows */
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: rgba(212,175,55,0.15);
+      border: 1px solid rgba(212,175,55,0.35);
+      color: #d4af37; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .hero-arrow:hover { background: rgba(212,175,55,0.35); }
+    .hero-arrow.prev { left: 24px; }
+    .hero-arrow.next { right: 24px; }
+
+    /* ---- STATS TICKER ---- */
+    .stats-strip {
+      background: linear-gradient(90deg, #f5f0e8 0%, #ede6d8 50%, #f5f0e8 100%);
+      border-top: 1px solid rgba(180,120,20,0.2);
+      border-bottom: 1px solid rgba(180,120,20,0.2);
+      padding: 18px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    /* fade edges */
+    .stats-strip::before, .stats-strip::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+      pointer-events: none;
+    }
+    .stats-strip::before { left: 0;  background: linear-gradient(90deg, #f5f0e8, transparent); }
+    .stats-strip::after  { right: 0; background: linear-gradient(-90deg, #f5f0e8, transparent); }
+
+    .stats-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: tickerScroll 28s linear infinite;
+    }
+    .stats-ticker-track:hover { animation-play-state: paused; }
+    @keyframes tickerScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 48px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stat-num { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 800; color: #7a4e05; line-height: 1; }
+    .stat-label { font-size: 11px; color: #9a7040; letter-spacing: 1.5px; text-transform: uppercase; }
+    .stat-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      flex-shrink: 0;
+      margin-left: 48px;
+    }
+
+    /* ---- SECTION COMMONS ---- */
+    .section { padding: 100px 0; }
+    .section-light { background: #f5f0e8; color: #1e1812; }
+    .section-dark { background: #f9f5ef; color: #1e1812; }
+    .section-mid { background: #f2ece0; color: #1e1812; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: #b8860b;
+      margin-bottom: 14px;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; display: block;
+      width: 30px; height: 1px; background: #b8860b;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(26px, 4vw, 46px);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .section-title.light { color: #1e1812; }
+    .section-title.dark { color: #1e1812; }
+    .section-desc { font-size: 15px; line-height: 1.75; max-width: 600px; }
+    .section-desc.light { color: #3a2c1a; }
+    .section-desc.dark { color: #3a2c1a; }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* ---- PRODUCT CAROUSEL ---- */
+    .carousel-wrap { position: relative; overflow: hidden; contain: layout; }
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      will-change: transform;
+    }
+    .carousel-card {
+      min-width: 340px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(180,120,20,0.2);
+      background: #faf7f2;
+      box-shadow: 0 4px 18px rgba(160,104,8,0.08);
+      transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .carousel-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(160,104,8,0.18);
+      border-color: rgba(160,104,8,0.45);
+    }
+    .carousel-card-img {
+      height: 240px;
+      overflow: hidden;
+      background: #f5ede0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      will-change: transform;
+    }
+    .carousel-card:hover .carousel-card-img img { transform: scale(1.05); }
+    .carousel-card-img .card-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #f5ede0 0%, #eedcc0 100%);
+      color: rgba(160,104,8,0.5);
+      font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .card-tag {
+      position: absolute; top: 14px; right: 14px;
+      padding: 5px 12px; border-radius: 50px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      background: rgba(253,248,242,0.92); backdrop-filter: blur(10px);
+      border: 1px solid rgba(160,104,8,0.35); color: #a06808;
+      text-transform: uppercase;
+    }
+    .carousel-card-body { padding: 22px 24px 24px; background: #faf7f2; }
+    .carousel-card-body h3 {
+      font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700;
+      color: #2c1f0e; margin-bottom: 8px;
+    }
+    .carousel-card-body p { font-size: 13px; color: #7a5830; line-height: 1.65; }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 18px; padding-top: 16px;
+      border-top: 1px solid rgba(160,104,8,0.12);
+    }
+    .card-footer span { font-size: 11px; color: #a06808; font-weight: 600; letter-spacing: 0.5px; }
+    .card-footer a {
+      font-size: 12px; font-weight: 700; color: #2c1f0e;
+      text-decoration: none; display: flex; align-items: center; gap: 5px;
+      transition: color 0.2s;
+    }
+    .card-footer a:hover { color: #a06808; }
+
+    .carousel-nav {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      margin-top: 40px;
+    }
+    .carousel-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(160,104,8,0.08);
+      border: 1px solid rgba(160,104,8,0.3);
+      color: #a06808; font-size: 18px;
+      cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-btn:hover { background: #a06808; color: #fff; }
+
+    /* Carousel Filter Tabs */
+    .filter-tabs {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-bottom: 44px;
+    }
+    .filter-tab {
+      padding: 9px 20px; border-radius: 50px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      background: #fff;
+      border: 1px solid rgba(160,104,8,0.25);
+      color: #9a6a30; cursor: pointer; transition: all 0.25s;
+    }
+    .filter-tab:hover, .filter-tab.active {
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      border-color: transparent; color: #fff;
+    }
+
+    /* ---- ABOUT SECTION ---- */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+    .about-feat {
+      padding: 18px; border-radius: 14px;
+      background: rgba(255,243,224,0.7);
+      border: 1px solid rgba(160,104,8,0.18);
+    }
+    .about-feat h4 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #a06808; margin-bottom: 5px; }
+    .about-feat p { font-size: 12px; color: #7a5830; line-height: 1.6; }
+    .about-card {
+      border-radius: 24px; overflow: hidden;
+      border: 1px solid rgba(160,104,8,0.2);
+      background: linear-gradient(160deg, #fff8ee 0%, #fdf0d8 100%);
+      box-shadow: 0 8px 32px rgba(160,104,8,0.1);
+    }
+    .about-card-header {
+      padding: 28px 28px 22px;
+      border-bottom: 1px solid rgba(160,104,8,0.15);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .about-card-body { padding: 24px 28px; }
+    .about-card-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid rgba(160,104,8,0.08);
+      font-size: 13px; color: #6b4c20;
+    }
+    .about-card-row:last-child { border-bottom: none; }
+    .about-card-row svg { flex-shrink: 0; margin-top: 2px; color: #a06808; }
+
+    /* ---- PROCESS SECTION ---- */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .process-card {
+      padding: 32px 24px;
+      border-radius: 20px;
+      background: #faf7f2;
+      border: 1px solid rgba(160,104,8,0.14);
+      box-shadow: 0 4px 18px rgba(160,104,8,0.07);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .process-card:hover { border-color: rgba(160,104,8,0.38); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(160,104,8,0.14); }
+    .process-num {
+      font-family: 'Cinzel', serif; font-size: 42px; font-weight: 900;
+      background: linear-gradient(135deg, rgba(160,104,8,0.35) 0%, rgba(160,104,8,0.1) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .process-card h3 { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #2c1f0e; margin-bottom: 10px; }
+    .process-card p { font-size: 13px; color: #7a5830; line-height: 1.65; }
+
+    /* ---- MATERIALS SECTION ---- */
+    .mat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .mat-card {
+      padding: 28px 22px; border-radius: 18px;
+      background: #faf7f2; border: 1px solid #ddd0b0;
+      box-shadow: 0 4px 16px rgba(160,104,8,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(160,104,8,0.15); }
+    .mat-swatch { width: 52px; height: 52px; border-radius: 50%; margin-bottom: 18px; border: 2px solid rgba(0,0,0,0.08); }
+    .mat-card h4 { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #2c1f0e; margin-bottom: 8px; }
+    .mat-card p { font-size: 12px; color: #7a5830; line-height: 1.65; }
+
+    /* ---- TESTIMONIALS SLIDER ---- */
+    .testi-slider { position: relative; overflow: hidden; }
+    .testi-track { display: flex; transition: transform 0.5s ease; }
+    .testi-card {
+      min-width: 100%;
+      padding: 48px 60px;
+      text-align: center;
+    }
+    .testi-stars { color: #c29320; font-size: 20px; margin-bottom: 20px; letter-spacing: 4px; }
+    .testi-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.5vw, 28px); font-style: italic;
+      color: #2c1f0e; line-height: 1.6; max-width: 780px; margin: 0 auto 28px;
+    }
+    .testi-author { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #a06808; }
+    .testi-location { font-size: 11px; color: #9a7040; margin-top: 4px; letter-spacing: 1px; }
+    .testi-nav { display: flex; gap: 10px; justify-content: center; margin-top: 36px; }
+
+    /* ---- GALLERY GRID ---- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: #f5ede0;
+      cursor: zoom-in;
+    }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; display:block; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item .g-overlay {
+      position: absolute; inset: 0;
+      background: rgba(44,20,4,0.45);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .g-overlay { opacity: 1; }
+    .gallery-item.hidden { display: none; }
+    .gallery-show-more {
+      display: flex; justify-content: center; margin-top: 28px;
+    }
+    .btn-show-more {
+      padding: 11px 32px; border-radius: 50px;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff; font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer; letter-spacing: 1px;
+      transition: filter 0.2s;
+    }
+    .btn-show-more:hover { filter: brightness(1.12); }
+
+    /* Gallery lightbox */
+    #glb {
+      display: none; position: fixed; inset: 0; z-index: 3000;
+      background: rgba(10,6,2,0.95);
+      align-items: center; justify-content: center;
+    }
+    #glb.open { display: flex; }
+    #glb img {
+      max-width: 92vw; max-height: 90vh;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    }
+    .glb-close {
+      position: fixed; top: 18px; right: 18px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3001;
+    }
+    .glb-close:hover { background: rgba(255,255,255,0.25); }
+    .glb-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3001; transition: background 0.2s;
+    }
+    .glb-nav:hover { background: rgba(255,255,255,0.28); }
+    .glb-prev { left: 14px; }
+    .glb-next { right: 14px; }
+    .glb-counter {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.6); font-size: 12px; letter-spacing: 1px;
+    }
+
+    /* ---- CONTACT / CTA ---- */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+    .contact-card {
+      display: flex; align-items: center; gap: 18px;
+      padding: 20px 22px; border-radius: 16px;
+      background: #f5f0e8;
+      border: 1px solid rgba(160,104,8,0.18);
+      text-decoration: none;
+      transition: border-color 0.25s, background 0.25s;
+      margin-bottom: 14px;
+    }
+    .contact-card:hover { border-color: rgba(160,104,8,0.45); background: #f2ece0; }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: rgba(160,104,8,0.1);
+      border: 1px solid rgba(160,104,8,0.22);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: #a06808;
+    }
+    .contact-label { font-size: 10px; color: #9a7040; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+    .contact-value { font-size: 15px; font-weight: 700; color: #2c1f0e; margin-top: 2px; }
+
+    /* Quote Form */
+    .quote-form { background: #faf7f2; border: 1px solid rgba(160,104,8,0.18); border-radius: 24px; padding: 36px; box-shadow: 0 8px 32px rgba(160,104,8,0.09); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #9a7040; margin-bottom: 7px; }
+    .form-control {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      background: #f5f1ea;
+      border: 1px solid rgba(160,104,8,0.22);
+      color: #2c1f0e; font-size: 14px; font-family: inherit;
+      transition: border-color 0.25s;
+    }
+    .form-control:focus { outline: none; border-color: rgba(160,104,8,0.55); }
+    .form-control::placeholder { color: #c8a878; }
+    select.form-control option { background: #fffdf9; color: #2c1f0e; }
+    .form-submit {
+      width: 100%; padding: 14px; border-radius: 50px;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      border: none; color: #fff; font-size: 13px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; transition: filter 0.25s, box-shadow 0.25s;
+    }
+    .form-submit:hover { filter: brightness(1.12); box-shadow: 0 6px 28px rgba(212,175,55,0.35); }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      background: linear-gradient(160deg, #3d2200 0%, #5c3300 60%, #3d2200 100%);
+      border-top: 1px solid rgba(212,175,55,0.25);
+      padding: 64px 0 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer h4 { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f0c84a; margin-bottom: 18px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { font-size: 13px; color: rgba(240,220,170,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0c84a; }
+    .footer-bottom {
+      padding-top: 28px; border-top: 1px solid rgba(212,175,55,0.18);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: rgba(240,200,140,0.45);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom a { color: #f0c84a; text-decoration: none; }
+
+    /* ---- FLOATING WHATSAPP ---- */
+    .float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: transform 0.25s, box-shadow 0.25s;
+      animation: bounceIn 0.6s ease 1s both;
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,0.55); }
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    /* ---- REVEAL ANIMATIONS ---- */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; contain: layout style; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ---- LIGHTBOX ---- */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(20,12,4,0.82);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    #lightbox.open { display: flex; }
+
+    /* Close button — top right of backdrop */
+    .lb-close {
+      position: fixed; top: 22px; right: 22px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #fff; font-weight: 300;
+      transition: background 0.2s;
+      z-index: 2001;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.25); }
+
+    /* Two-card container */
+    .lb-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    /* LEFT — photo card, tilted left */
+    .lb-photo-card {
+      width: 300px;
+      flex-shrink: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fdf8f0;
+      border: 3px solid #fff;
+      box-shadow: -8px 16px 48px rgba(0,0,0,0.55);
+      transform: rotate(-6deg) translateX(30px);
+      z-index: 1;
+      position: relative;
+    }
+    .lb-photo-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+    .lb-photo-label {
+      background: linear-gradient(135deg, #1e1208, #2c1a06);
+      padding: 14px 18px 10px;
+      text-align: center;
+    }
+    .lb-photo-label h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 16px; font-weight: 800;
+      color: #faf0d0; letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+    .lb-photo-label span {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: #c29320;
+    }
+    .lb-photo-stripe {
+      height: 6px;
+      background: linear-gradient(90deg, #c29320, #8a6205, #c29320);
+    }
+
+    /* RIGHT — info card, tilted right */
+    .lb-info-card {
+      flex: 1;
+      min-width: 0;
+      border-radius: 22px;
+      background: linear-gradient(160deg, #1e1a2e 0%, #15121f 100%);
+      border: 2px solid rgba(212,175,55,0.25);
+      box-shadow: 8px 16px 48px rgba(0,0,0,0.6);
+      transform: rotate(4deg) translateX(-10px);
+      z-index: 2;
+      padding: 32px 28px 28px;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+    .lb-tag {
+      font-size: 10px; font-weight: 800; letter-spacing: 3px;
+      text-transform: uppercase; color: #c29320;
+      margin-bottom: 6px; display: block;
+    }
+    .lb-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px; font-weight: 800;
+      color: #faf0d0; line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .lb-divider {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, #c29320, transparent);
+      margin-bottom: 16px;
+    }
+    .lb-desc {
+      font-size: 13px; color: rgba(240,228,200,0.8);
+      line-height: 1.78; margin-bottom: 20px;
+    }
+    .lb-material {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(212,175,55,0.08);
+      border: 1px solid rgba(212,175,55,0.2);
+      font-size: 11px; color: #9a8060;
+      font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 22px;
+    }
+    .lb-material-val { color: #f0d080; font-weight: 700; }
+    .lb-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .lb-btn-wa {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 18px; border-radius: 50px;
+      background: #22c55e; color: #fff;
+      font-size: 12px; font-weight: 700;
+      text-decoration: none; transition: filter 0.2s;
+      white-space: nowrap;
+    }
+    .lb-btn-wa:hover { filter: brightness(1.1); }
+    .lb-btn-call {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 18px; border-radius: 50px;
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff; font-size: 12px; font-weight: 700;
+      text-decoration: none; transition: filter 0.2s;
+      white-space: nowrap;
+    }
+    .lb-btn-call:hover { filter: brightness(1.12); }
+
+    @media (max-width: 640px) {
+      .lb-inner { flex-direction: column; gap: 0; align-items: center; }
+      .lb-photo-card { width: 85vw; transform: rotate(-4deg) translateX(0) translateY(20px); }
+      .lb-photo-card img { height: 220px; }
+      .lb-info-card { transform: rotate(2deg) translateY(-12px); padding: 22px 20px 24px; width: 90vw; }
+      .lb-title { font-size: 17px; }
+      .lb-desc { font-size: 12px; }
+    }
+
+    /* ---- LB HOVER HINT ---- */
+    .lb-trigger { cursor: zoom-in; }
+    /* card-tag must not swallow clicks */
+    .lb-trigger .card-tag { pointer-events: none; }
+    .lb-hint {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      background: rgba(44,31,14,0.78);
+      color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+      padding: 5px 13px; border-radius: 50px;
+      opacity: 0.85; /* always visible — no hover needed on touch */
+      transition: opacity 0.25s;
+      white-space: nowrap; pointer-events: none;
+    }
+    .lb-trigger:hover .lb-hint { opacity: 1; }
+
+    /* ---- DIVIDER ---- */
+    .gold-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, #a06808, transparent);
+      margin: 20px auto;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .mat-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-logo-title { font-size: 15px; letter-spacing: 1px; }
+      .nav-inner { height: 62px; padding: 0 16px; }
+      #mobile-menu { top: 62px; padding: 16px 20px 22px; }
+      #mobile-menu a { font-size: 14px; padding: 10px 0; }
+      .hero-title { font-size: clamp(18px, 5.5vw, 30px); }
+      .hero-subtitle { font-size: clamp(13px, 3vw, 18px); }
+      .hero-desc { font-size: 13px; margin-bottom: 28px; }
+      .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 18px; }
+      .hero-btns a { padding: 11px 18px !important; font-size: 12px !important; }
+      .section { padding: 64px 0; }
+      .section-title { font-size: clamp(20px, 6vw, 32px); }
+      .section-desc { font-size: 13px; }
+      .section-label { font-size: 10px; letter-spacing: 2px; }
+      .stat-num { font-size: 26px; }
+      .stat-label { font-size: 10px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-card { padding: 22px 18px; }
+      .process-num { font-size: 32px; }
+      .process-card h3 { font-size: 13px; }
+      .process-card p { font-size: 12px; }
+      .mat-grid { grid-template-columns: 1fr 1fr; }
+      .mat-card { padding: 18px 14px; }
+      .mat-card h4 { font-size: 13px; }
+      .mat-card p { font-size: 11px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer h4 { font-size: 11px; }
+      .footer-links a { font-size: 12px; }
+      .footer-bottom { font-size: 11px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .testi-card { padding: 28px 16px; }
+      .testi-stars { font-size: 16px; }
+      .testi-quote { font-size: clamp(15px, 4vw, 20px); }
+      .testi-author { font-size: 11px; }
+      .testi-location { font-size: 10px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-control { font-size: 13px; padding: 10px 13px; }
+      .form-label { font-size: 10px; }
+      .form-submit { font-size: 12px; padding: 12px; }
+      .carousel-card { min-width: 260px; }
+      .carousel-card-body h3 { font-size: 14px; }
+      .carousel-card-body p { font-size: 12px; }
+      .carousel-card-img { height: 190px; }
+      .hero-arrow { display: none; }
+      .contact-value { font-size: 13px; }
+      .contact-card { padding: 14px 16px; gap: 12px; }
+      .contact-icon { width: 40px; height: 40px; }
+      .quote-form { padding: 24px 18px; }
+    }
+    @media (max-width: 480px) {
+      .about-feat-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: clamp(16px, 5vw, 26px); }
+      .section-title { font-size: clamp(18px, 5.5vw, 28px); }
+      .about-feat h4 { font-size: 11px; }
+      .about-feat p { font-size: 11px; }
+      .filter-tab { font-size: 10px; padding: 7px 13px; }
+      .carousel-card { min-width: 88vw; }
+      .carousel-card-img { height: 200px; }
+      .mat-grid { grid-template-columns: 1fr; }
+      .section { padding: 48px 0; }
+      .container { padding: 0 16px; }
+    }
+  </style>
+
+  <style>
+    /* ======================================================
+       PROFESSIONAL POLISH — Live website premium look
+    ====================================================== */
+
+    /* ---- Announcement bar — ticker style ---- */
+    .ann-bar {
+      background: linear-gradient(90deg, #2a1500 0%, #4a2800 40%, #5c3300 60%, #2a1500 100%);
+      border-bottom: 1px solid rgba(212,175,55,0.4);
+      padding: 8px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .ann-bar::before, .ann-bar::after {
+      content: ''; position: absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none;
+    }
+    .ann-bar::before { left:0; background: linear-gradient(90deg, #2a1500, transparent); }
+    .ann-bar::after  { right:0; background: linear-gradient(-90deg, #2a1500, transparent); }
+    .ann-bar-inner {
+      display: flex; align-items: center; gap: 32px;
+      width: max-content;
+      animation: tickerScroll 22s linear infinite;
+      padding: 0 40px;
+    }
+    .ann-bar-inner:hover { animation-play-state: paused; }
+    .ann-bar-sep { color: rgba(212,175,55,0.5); font-size: 14px; flex-shrink: 0; }
+
+    /* ---- Nav — active underline indicator ---- */
+    .nav-links a {
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #c29320, #8a6205);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ---- Nav scrolled — glass blur ---- */
+    nav#main-nav.scrolled {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(249,245,239,0.94) !important;
+    }
+
+    /* ---- Hero — richer overlay gradient ---- */
+    .hero-overlay {
+      background: linear-gradient(
+        135deg,
+        rgba(5,3,1,0.88) 0%,
+        rgba(10,7,3,0.6) 50%,
+        rgba(5,3,1,0.45) 100%
+      ) !important;
+    }
+    /* Hero bottom fade into stats strip */
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, rgba(255,248,238,0.15));
+      z-index: 3; pointer-events: none;
+    }
+
+    /* ---- Section headings — decorative ornament ---- */
+    .section-ornament {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin: 0 auto 10px;
+    }
+    .section-ornament::before, .section-ornament::after {
+      content: '';
+      flex: 1; max-width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(160,104,8,0.4));
+    }
+    .section-ornament::after {
+      background: linear-gradient(-90deg, transparent, rgba(160,104,8,0.4));
+    }
+    .section-ornament span {
+      font-size: 18px; color: #c29320; line-height: 1;
+    }
+
+    /* ---- Section titles — decorative underline ---- */
+    .section-title-underline {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .section-title-underline::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, #c29320, #8a6205, #c29320);
+      border-radius: 3px;
+      animation: dividerGlow 3s ease-in-out infinite;
+    }
+
+    /* ---- Product section — richer background ---- */
+    .section-mid {
+      background: linear-gradient(160deg, #f2ece0 0%, #ede5d5 50%, #f2ece0 100%) !important;
+      position: relative;
+    }
+    .section-mid::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(212,175,55,0.04) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(160,104,8,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ---- About section — richer bg ---- */
+    .section-dark {
+      background: linear-gradient(160deg, #f9f5ef 0%, #f2ece2 60%, #f9f5ef 100%) !important;
+    }
+
+    /* ---- Carousel card — premium image overlay ---- */
+    .carousel-card-img { position: relative; }
+    .carousel-card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(20,12,4,0.55) 100%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .carousel-card:hover .carousel-card-img::after { opacity: 1; }
+
+    /* ---- Process section — premium dark bg ---- */
+    #process.section-dark {
+      background: linear-gradient(160deg, #12100e 0%, #1e1a14 50%, #12100e 100%) !important;
+    }
+    #process .section-title { color: #faf0d0 !important; }
+    #process .section-desc { color: rgba(240,220,180,0.7) !important; }
+    #process .section-label { color: #c29320 !important; }
+    #process .section-label::before, #process .section-label::after { background: #c29320 !important; }
+    #process .process-card {
+      background: rgba(255,255,255,0.04) !important;
+      border-color: rgba(212,175,55,0.15) !important;
+    }
+    #process .process-card:hover {
+      background: rgba(255,255,255,0.07) !important;
+      border-color: rgba(212,175,55,0.35) !important;
+    }
+    #process .process-card h3 { color: #faf0d0 !important; }
+    #process .process-card p  { color: rgba(240,220,180,0.65) !important; }
+
+    /* ---- Materials section — light luxury ---- */
+    .section-light {
+      background: linear-gradient(160deg, #f5f0e8 0%, #ede6d8 100%) !important;
+    }
+
+    /* ---- Testimonials — quote marks ---- */
+    .testi-quote { position: relative; }
+    .testi-quote::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px; line-height: 0.6;
+      color: rgba(194,147,32,0.15);
+      position: absolute; top: 10px; left: -10px;
+      pointer-events: none;
+    }
+
+    /* ---- Gallery section — subtle dot pattern ---- */
+    #instagram.section-mid::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(160,104,8,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none; z-index: 0;
+    }
+    #instagram .container { position: relative; z-index: 1; }
+
+    /* ---- Footer — richer gradient ---- */
+    .footer {
+      background: linear-gradient(160deg, #1a0800 0%, #2d1200 30%, #3d2200 60%, #2d1200 80%, #1a0800 100%) !important;
+      position: relative; overflow: hidden;
+    }
+    .footer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ---- Quote form — premium shadow ---- */
+    .quote-form {
+      box-shadow: 0 24px 80px rgba(160,104,8,0.14), 0 4px 16px rgba(0,0,0,0.06) !important;
+      border-color: rgba(160,104,8,0.22) !important;
+    }
+
+    /* ---- Form inputs — focus glow ---- */
+    .form-control:focus {
+      box-shadow: 0 0 0 3px rgba(160,104,8,0.12) !important;
+    }
+
+    /* ---- Scroll progress bar ---- */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 2000;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, #c29320, #f0c84a, #8a6205);
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(212,175,55,0.6);
+    }
+
+    /* ---- Back to top button ---- */
+    #back-to-top {
+      position: fixed; bottom: 28px; left: 28px; z-index: 998;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(249,245,239,0.92);
+      border: 1px solid rgba(160,104,8,0.3);
+      color: #a06808; font-size: 18px;
+      cursor: pointer; display: none;
+      align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(160,104,8,0.2);
+      transition: all 0.3s; backdrop-filter: blur(8px);
+    }
+    #back-to-top.visible { display: flex; }
+    #back-to-top:hover {
+      background: #a06808; color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(160,104,8,0.35);
+    }
+
+    /* ---- About feat boxes — hover ---- */
+    .about-feat {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    }
+    .about-feat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(160,104,8,0.12);
+      border-color: rgba(160,104,8,0.35) !important;
+    }
+
+    /* ---- Card footer enquire link — button style ---- */
+    .card-footer a {
+      background: linear-gradient(135deg, #c29320, #8a6205);
+      color: #fff !important;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 11px !important;
+      transition: filter 0.2s, transform 0.2s !important;
+    }
+    .card-footer a:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+      color: #fff !important;
+    }
+
+    /* ---- Section bg patterns — subtle luxury ---- */
+    #about {
+      background: linear-gradient(160deg, #f9f5ef 0%, #f2ebe0 60%, #f9f5ef 100%) !important;
+    }
+    #contact {
+      background: linear-gradient(160deg, #f9f5ef 0%, #f2ebe0 50%, #f9f5ef 100%) !important;
+    }
+
+    /* ---- Floating badge on hero ---- */
+    .hero-badge {
+      border: 1px solid rgba(212,175,55,0.5) !important;
+      background: rgba(10,6,2,0.65) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(212,175,55,0.2);
+    }
+
+    /* ---- Nav CTA button — glow ---- */
+    .btn-gold {
+      box-shadow: 0 4px 16px rgba(160,104,8,0.25);
+    }
+    .btn-gold:hover {
+      box-shadow: 0 6px 28px rgba(160,104,8,0.45) !important;
+    }
+
+  </style>
+
+  <style>
+    /* ======================================================
+       3D EFFECTS — depth, perspective, tilt, shimmer
+    ====================================================== */
+
+    /* ---- Perspective root for 3D children ---- */
+    .section, .stats-strip { perspective: 1200px; }
+
+    /* ---- Product carousel cards — tilt on hover ---- */
+    .carousel-card {
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+    }
+    .carousel-card:hover {
+      transform: translateY(-12px) rotateX(4deg) rotateY(-3deg) scale(1.02);
+      box-shadow: 0 32px 64px rgba(160,104,8,0.22), 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    /* ---- Process cards — lift with front shadow ---- */
+    .process-card {
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s, border-color 0.3s;
+    }
+    .process-card:hover {
+      transform: translateY(-10px) rotateX(5deg) scale(1.03);
+      box-shadow: 0 28px 56px rgba(160,104,8,0.18), 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    /* ---- Material cards — pop forward ---- */
+    .mat-card {
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+    }
+    .mat-card:hover {
+      transform: translateY(-10px) rotateX(6deg) rotateY(2deg) scale(1.04);
+      box-shadow: 0 28px 52px rgba(160,104,8,0.2), 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    /* ---- About card — gentle float ---- */
+    .about-card {
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s;
+    }
+    .about-card:hover {
+      transform: translateY(-8px) rotateX(3deg);
+      box-shadow: 0 32px 64px rgba(160,104,8,0.15);
+    }
+
+    /* ---- Gallery items — zoom + lift ---- */
+    .gallery-item {
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.04) rotateX(3deg);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.22);
+      z-index: 2;
+    }
+
+    /* ---- Stats strip numbers — pop on scroll ---- */
+    .stat-item {
+      transition: transform 0.3s ease;
+    }
+    .stat-item:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    /* ---- Testimonial card — float ---- */
+    .testi-card {
+      transition: transform 0.4s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ---- Hero content — subtle float animation ---- */
+    .hero-content {
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* ---- Gold shimmer on section labels ---- */
+    .section-label {
+      position: relative;
+      overflow: hidden;
+    }
+    .section-label::before, .section-label::after { z-index: 0; }
+    .section-label > * { position: relative; z-index: 1; }
+
+    /* ---- Shimmer sweep on gold buttons hover ---- */
+    .btn-gold, .form-submit, .btn-show-more, .lb-btn-call {
+      position: relative; overflow: hidden;
+    }
+    .btn-gold::after, .form-submit::after, .btn-show-more::after, .lb-btn-call::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+    .btn-gold:hover::after, .form-submit:hover::after,
+    .btn-show-more:hover::after, .lb-btn-call:hover::after {
+      left: 160%;
+    }
+
+    /* ---- Section divider — 3D ribbon effect ---- */
+    .stats-strip {
+      transform: perspective(800px) rotateX(1.5deg);
+      transform-origin: top center;
+      box-shadow: 0 12px 40px rgba(160,104,8,0.1);
+    }
+
+    /* ---- Gold divider — pulse glow ---- */
+    .gold-divider {
+      position: relative;
+      background: linear-gradient(90deg, transparent, #a06808, transparent);
+      animation: dividerGlow 3s ease-in-out infinite;
+    }
+    @keyframes dividerGlow {
+      0%,100% { box-shadow: none; opacity: 0.8; }
+      50%      { box-shadow: 0 0 12px rgba(160,104,8,0.6); opacity: 1; }
+    }
+
+    /* ---- Contact cards — slide forward ---- */
+    .contact-card {
+      transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.25s, background 0.25s, box-shadow 0.3s;
+    }
+    .contact-card:hover {
+      transform: translateX(6px) translateY(-2px);
+      box-shadow: 0 8px 28px rgba(160,104,8,0.14);
+    }
+
+    /* ---- Footer logo — subtle spin on hover ---- */
+    .nav-logo-icon, .footer .nav-logo-icon-footer {
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-logo:hover .nav-logo-icon {
+      transform: scale(1.08) rotate(-3deg);
+    }
+
+    /* ---- Floating WA button — 3D shadow ---- */
+    .float-wa {
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4), 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .float-wa:hover {
+      box-shadow: 0 14px 40px rgba(37,211,102,0.55), 0 4px 12px rgba(0,0,0,0.2);
+      transform: scale(1.12) translateY(-3px);
+    }
+
+    /* ---- Filter tabs — push-button 3D ---- */
+    .filter-tab {
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 0 rgba(160,104,8,0.2);
+    }
+    .filter-tab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 rgba(160,104,8,0.25);
+    }
+    .filter-tab:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 rgba(160,104,8,0.2);
+    }
+    .filter-tab.active {
+      box-shadow: 0 4px 16px rgba(160,104,8,0.35);
+    }
+
+    /* ---- Chatbot toggle — 3D depth ---- */
+    #chatbot-toggle {
+      box-shadow: 0 6px 24px rgba(160,104,8,0.45), 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #chatbot-toggle:hover {
+      transform: scale(1.12) translateY(-3px);
+      box-shadow: 0 14px 36px rgba(160,104,8,0.6), 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    /* ---- Disable heavy 3D on mobile for performance ---- */
+    @media (max-width: 768px) {
+      .carousel-card:hover,
+      .process-card:hover,
+      .mat-card:hover,
+      .gallery-item:hover {
+        transform: translateY(-6px) scale(1.02);
+      }
+      .stats-strip { transform: none; }
+      .hero-content { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS BAR -->
+<div id="scroll-progress"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar" id="ann-bar">
+  <div class="ann-bar-inner">
+    <span style="display:flex;align-items:center;gap:6px;color:#e8d090;white-space:nowrap;"><span class="ann-dot"></span><strong style="color:#f0d080;">Bengaluru Atelier Open</strong>&nbsp;— Mon–Sat 9:30 AM–7:30 PM</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="tel:+919620202221" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📞 +91 96202 02221</a>
+    <span class="ann-bar-sep">✦</span>
+    <span style="color:#e8d090;white-space:nowrap;">39/1, Channenahalli, Magadi Main Rd, Karnataka</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antiquedesigns_bengaluru</a>
+    <span class="ann-bar-sep">✦</span>
+    <span style="color:#e8d090;white-space:nowrap;">Bespoke Brass & White Metal Architectural Craft · Est. 2011</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;text-decoration:none;white-space:nowrap;">💬 WhatsApp Enquiry</a>
+    <span class="ann-bar-sep">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span style="display:flex;align-items:center;gap:6px;color:#e8d090;white-space:nowrap;"><span class="ann-dot"></span><strong style="color:#f0d080;">Bengaluru Atelier Open</strong>&nbsp;— Mon–Sat 9:30 AM–7:30 PM</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="tel:+919620202221" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📞 +91 96202 02221</a>
+    <span class="ann-bar-sep">✦</span>
+    <span style="color:#e8d090;white-space:nowrap;">39/1, Channenahalli, Magadi Main Rd, Karnataka</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antiquedesigns_bengaluru</a>
+    <span class="ann-bar-sep">✦</span>
+    <span style="color:#e8d090;white-space:nowrap;">Bespoke Brass & White Metal Architectural Craft · Est. 2011</span>
+    <span class="ann-bar-sep">✦</span>
+    <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;text-decoration:none;white-space:nowrap;">💬 WhatsApp Enquiry</a>
+    <span class="ann-bar-sep">✦</span>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="logo.jpeg" alt="Antique Designs Logo">
+      </div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title gold-text">ANTIQUE DESIGNS</span>
+        <span class="nav-logo-sub">Vintage Inspired Decorative Metal Art</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Atelier</a></li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#process">Craftsmanship</a></li>
+      <li><a href="#materials">Materials</a></li>
+      <li><a href="#instagram">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs,%20I%20want%20to%20enquire%20about%20custom%20metalwork." target="_blank" class="btn-wa">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.533 5.857L.057 23.886a.5.5 0 00.611.61l6.102-1.598A11.947 11.947 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.849 0-3.594-.494-5.103-1.361l-.366-.214-3.793.994.993-3.73-.23-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#contact" class="btn-gold">Get a Quote</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <a href="#about" onclick="closeMobileMenu()">Our Atelier</a>
+  <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+  <a href="#process" onclick="closeMobileMenu()">Craftsmanship</a>
+  <a href="#materials" onclick="closeMobileMenu()">Materials</a>
+  <a href="#instagram" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact & Quote</a>
+  <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;margin-top:6px;">💬 WhatsApp Concierge</a>
+</div>
+
+<!-- ======================================================
+     HERO FULL-SCREEN SLIDER
+====================================================== -->
+<section class="hero" style="margin-top:0;padding-top:0;">
+  <div class="hero-slides">
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active">
+      <div class="hero-slide-bg" style="background-image: url('gallery/g14.jpg'); background-position: center center;"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Authentic Offline Atelier · Est. 2011 · Bengaluru ✦</div>
+        <h1 class="hero-title">Handcrafted Brass &<br>White Metal Doors</h1>
+        <p class="hero-subtitle gold-text">Forged in Tradition, Built for Royalty</p>
+        <p class="hero-desc">From sacred Pooja mandirs to grand villa entrances — our Bengaluru master metalsmiths handcraft every panel with generational skill.</p>
+        <div class="hero-btns">
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore Collections</a>
+          <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs!" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="hero-slide">
+      <div class="hero-slide-bg" style="background-image: url('gallery/g05.jpg'); background-position: center center;"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ 9 Architectural Product Lines ✦</div>
+        <h1 class="hero-title">Pooja Mandir &<br>Temple Doors</h1>
+        <p class="hero-subtitle gold-text">Sacred Craftwork, Timeless Devotion</p>
+        <p class="hero-desc">Gopuram arches, kalasha motifs, and hand-embossed brass sheets create divine entrances for your spiritual sanctuary.</p>
+        <div class="hero-btns">
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">View Pooja Doors</a>
+          <a href="tel:+919620202221" class="btn-wa" style="padding:14px 28px;font-size:13px;">📞 Call Workshop</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="hero-slide">
+      <div class="hero-slide-bg" style="background-image: url('gallery/g16.jpg'); background-position: center center;"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Custom Architectural Metalwork ✦</div>
+        <h1 class="hero-title">Ornate Brass Railings<br>& Partition Grills</h1>
+        <p class="hero-subtitle gold-text">Architectural Elegance, Everlasting Metal</p>
+        <p class="hero-desc">Hand-turned spindles, cast acanthus balusters, laser-cut mandala partitions — crafted to complete luxury interiors.</p>
+        <div class="hero-btns">
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore All Products</a>
+          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;">Request Site Visit</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="hero-slide">
+      <div class="hero-slide-bg" style="background-image: url('gallery/g15.jpg'); background-position: center center;"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Bespoke Name Plates & Gates ✦</div>
+        <h1 class="hero-title">Cast Brass Name Plates<br>& Villa Gates</h1>
+        <p class="hero-subtitle gold-text">Your Identity, Immortalised in Metal</p>
+        <p class="hero-desc">Sand-cast family crests, deep-relief house names, and ornate compound gates — bespoke to your vision, lasting generations.</p>
+        <div class="hero-btns">
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">See Name Plates</a>
+          <a href="https://wa.me/919620202221" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 Get a Custom Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="hero-arrow prev" id="heroPrev" aria-label="Previous">&#8592;</button>
+  <button class="hero-arrow next" id="heroNext" aria-label="Next">&#8594;</button>
+
+  <!-- Dots -->
+  <div class="hero-dots">
+    <button class="hero-dot active" data-slide="0"></button>
+    <button class="hero-dot" data-slide="1"></button>
+    <button class="hero-dot" data-slide="2"></button>
+    <button class="hero-dot" data-slide="3"></button>
+  </div>
+</section>
+
+<!-- STATS TICKER -->
+<div class="stats-strip">
+  <div class="stats-ticker-track">
+    <!-- Set 1 -->
+    <div class="stat-item"><div class="stat-num gold-text">13+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">9</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">100%</div><div class="stat-label">Handcrafted in Bengaluru</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">4</div><div class="stat-label">Exclusive Metal Finishes</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">500+</div><div class="stat-label">Happy Clients</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">Est.</div><div class="stat-label">2011 · Bengaluru</div><div class="stat-dot"></div></div>
+    <!-- Set 2 — duplicate for seamless loop -->
+    <div class="stat-item"><div class="stat-num gold-text">13+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">9</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">100%</div><div class="stat-label">Handcrafted in Bengaluru</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">4</div><div class="stat-label">Exclusive Metal Finishes</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">500+</div><div class="stat-label">Happy Clients</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">Est.</div><div class="stat-label">2011 · Bengaluru</div><div class="stat-dot"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section section-dark" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal-left">
+        <div class="section-label">Generations of Authentic Craft</div>
+        <h2 class="section-title dark">Traditional Indian Metal Artistry,<br><em class="font-cormorant gold-text" style="font-weight:400;font-size:1.1em;">Engineered for Royal Architecture</em></h2>
+        <div class="gold-divider" style="margin:0 0 24px 0;"></div>
+        <p class="section-desc dark" style="margin-bottom:16px;">At <strong style="color:#7a4e05;">Antique Designs</strong>, everything is authentic and physically handcrafted. Established over 13 years ago on Magadi Main Road, Bengaluru, our atelier specialises in traditional sheet metal embossing (<em style="color:#a06808;">Repoussé & Chasing</em>), sand casting, laser lattice cutwork, and chemical metal patination.</p>
+        <p class="section-desc dark">Every main entrance door, pooja mandir entrance, staircase balustrade, and designer handle is physically shaped by hands with decades of generational craft experience. We collaborate directly with homeowners, luxury interior architects, and temple trusts across South India.</p>
+        <div class="about-feat-grid">
+          <div class="about-feat"><h4>🛡️ Tarnish Resistant</h4><p>Automotive-grade anti-oxidant lacquer prevents discolouration for decades.</p></div>
+          <div class="about-feat"><h4>✨ 4 Exclusive Alloys</h4><p>Pure Gold Brass, White Metal, Bronze Patina, and Copper Rose Gold.</p></div>
+          <div class="about-feat"><h4>📐 Site-Measured</h4><p>Our team visits your site in Bengaluru for precision measurements.</p></div>
+          <div class="about-feat"><h4>🏆 Est. 2011</h4><p>Over a decade serving villas, mansions and temples across South India.</p></div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="about-card">
+          <div class="about-card-header">
+            <div>
+              <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:4px;">Visit the Atelier</div>
+              <div class="font-cinzel" style="font-size:20px;font-weight:700;color:#2c1f0e;">Bangalore Workshop</div>
+            </div>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(160,104,8,0.1);border:1px solid rgba(160,104,8,0.22);display:flex;align-items:center;justify-content:center;font-size:20px;">🏛️</div>
+          </div>
+          <div class="about-card-body">
+            <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span><strong style="color:#2c1f0e;">Address:</strong> 39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</span></div>
+            <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong style="color:#2c1f0e;">Hours:</strong> Mon–Sat: 9:30 AM – 7:30 PM | Sunday by Appointment</span></div>
+            <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.36 6.36l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span><strong style="color:#2c1f0e;">Phone:</strong> +91 89713 05188 / +91 96202 02221 / +91 96638 52454</span></div>
+            <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><strong style="color:#2c1f0e;">Email:</strong> hello@antique-designs.com</span></div>
+          </div>
+          <div style="padding:0 28px 28px;">
+            <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="btn-gold" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;">📍 Open Google Maps Direction</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS CAROUSEL -->
+<section class="section section-mid" id="collections">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label mx-auto">Master Architectural Portfolio</div>
+      <h2 class="section-title dark">Our 9 Handcrafted Product Lines</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto" style="margin-bottom:48px;">Explore our comprehensive offline manufacturing catalog — filtered by category for easy browsing.</p>
+    </div>
+    <div class="filter-tabs reveal">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="main">Main Doors</button>
+      <button class="filter-tab" data-filter="pooja">Pooja Doors</button>
+      <button class="filter-tab" data-filter="partitions">Partition Grills</button>
+      <button class="filter-tab" data-filter="railings">Railings</button>
+      <button class="filter-tab" data-filter="nameplates">Name Plates</button>
+      <button class="filter-tab" data-filter="threequarter">3/4 Concept Door</button>
+      <button class="filter-tab" data-filter="gates">Villa Gates</button>
+      <button class="filter-tab" data-filter="murals">3D Wall Murals</button>
+      <button class="filter-tab" data-filter="handles">Vaskaals</button>
+    </div>
+    <div class="carousel-wrap reveal">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-card" data-category="main" data-title="Grand Brass Main Doors" data-desc="Full-clad 16-gauge embossed brass and white metal entrance doors with lion knockers, pyramid studs, and deep-relief heritage motifs. Each panel is hand-embossed by master artisans and anchored to seasoned teak frames." data-material="Heavy Gauge Pure Brass" data-wa="Main%20Doors">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/Main_Door_01-2.a37f71e7.PNG" alt="Grand Brass Main Door" loading="eager" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>Grand Main Doors</div></div>'">
+            <span class="card-tag">Main Doors</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Grand Brass Main Doors</h3>
+            <p>Full-clad 16-gauge embossed brass and white metal entrance doors with lion knockers, pyramid studs, and deep-relief heritage motifs.</p>
+            <div class="card-footer"><span>Heavy Gauge Pure Brass</span><a href="https://wa.me/919620202221?text=Main%20Doors" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="pooja" data-title="Pooja Mandir Doors" data-desc="Sacred Gopuram arches, kalasha tops, brass temple bell cutouts and pure white metal or brass sheet cladding. Handcrafted for spiritual serenity in home mandirs and temple sanctums." data-material="Bespoke Teak + Brass" data-wa="Pooja%20Doors">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g05.jpg" alt="Pooja Mandir Doors" loading="eager" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🛕</div><div>Pooja Doors</div></div>'">
+            <span class="card-tag">Pooja Doors</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Pooja Mandir Doors</h3>
+            <p>Sacred Gopuram arches, kalasha tops, brass temple bell cutouts and pure white metal or brass sheet cladding for spiritual serenity.</p>
+            <div class="card-footer"><span>Bespoke Teak + Brass</span><a href="https://wa.me/919620202221?text=Pooja%20Doors" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="main" data-title="Symmetrical Double Doors" data-desc="Regal two-leaf doors with mirror image relief work, matching brass medallions and ornate border embossing. Ideal for grand villa and mansion entrances that demand symmetry and presence." data-material="Mirror Matched Relief" data-wa="Double%20Doors">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g14.jpg" alt="Double Doors" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>Double Doors</div></div>'">
+            <span class="card-tag">Double Doors</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Symmetrical Double Doors</h3>
+            <p>Regal two-leaf doors with mirror image relief work, matching brass medallions and ornate border embossing for grand entrances.</p>
+            <div class="card-footer"><span>Mirror Matched Relief</span><a href="https://wa.me/919620202221?text=Double%20Doors" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="threequarter" data-title="3/4 Asymmetric Concept Door" data-desc="Modern asymmetric luxury entryways pairing a large operable primary leaf with a decorative fixed side metal panel. A contemporary statement piece for premium residences." data-material="Modern Luxury Design" data-wa="3%2F4%20Concept%20Door">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g48.jpg" alt="3/4 Concept Door" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🚪</div><div>3/4 Concept</div></div>'">
+            <span class="card-tag">3/4 Concept</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>3/4 Asymmetric Concept Door</h3>
+            <p>Modern asymmetric luxury entryways pairing a large operable primary leaf with a decorative fixed side metal panel for a majestic presence.</p>
+            <div class="card-footer"><span>Modern Luxury Design</span><a href="https://wa.me/919620202221?text=3/4%20Concept%20Door" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="partitions" data-title="Luxury Partition Jaali Grills" data-desc="Geometric Islamic latticework, traditional mandala fretwork, and laser-machined pure brass partitions. Used for dining, living, and mandir zone separation in luxury interiors." data-material="Architectural Space Dividers" data-wa="Partition%20Grills">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/op_2JPG.826d0320.PNG" alt="Partition Grills" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🔲</div><div>Partitions</div></div>'">
+            <span class="card-tag">Partitions</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Luxury Partition Jaali Grills</h3>
+            <p>Geometric Islamic latticework, traditional mandala fretwork, and laser-machined pure brass partitions for dining, living, and mandir zones.</p>
+            <div class="card-footer"><span>Architectural Space Dividers</span><a href="https://wa.me/919620202221?text=Partition%20Grills" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="railings" data-title="Forged Brass Railings & Balusters" data-desc="Hand-turned solid brass spindles, cast acanthus balusters, curved helical handrails and ornate floral scrollwork. Crafted for duplex staircases in villas and luxury apartments." data-material="Solid Forged & Cast Brass" data-wa="Railings">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g18.jpg" alt="Brass Railings" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🪜</div><div>Railings</div></div>'">
+            <span class="card-tag">Railings</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Forged Brass Railings & Balusters</h3>
+            <p>Hand-turned solid brass spindles, cast acanthus balusters, curved helical handrails and ornate floral scrollwork for duplex staircases.</p>
+            <div class="card-footer"><span>Solid Forged & Cast Brass</span><a href="https://wa.me/919620202221?text=Railings" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="nameplates" data-title="Bespoke Cast Brass Name Plates" data-desc="Deep-relief sand-cast letters, house insignia, family crests, and engraved brass plaques mounted on Burma Teak or natural marble. Completely custom typography and crest design." data-material="Custom Typography & Crests" data-wa="Name%20Plates">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g15.jpg" alt="Name Plates" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🏷️</div><div>Name Plates</div></div>'">
+            <span class="card-tag">Name Plates</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Bespoke Cast Brass Name Plates</h3>
+            <p>Deep-relief sand-cast letters, house insignia, family crests, and engraved brass plaques mounted on Burma Teak or natural marble.</p>
+            <div class="card-footer"><span>Custom Typography & Crests</span><a href="https://wa.me/919620202221?text=Name%20Plates" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="gates" data-title="Grand Compound & Villa Gates" data-desc="Heavy-duty iron frames with ornate brass inserts, decorative brass finials, and custom monogram medallions. Engineered for prestigious compound and villa entrances across South India." data-material="Iron Frame + Brass Ornaments" data-wa="Villa%20Gates">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/18_gates-11.18e6a23a.png" alt="Villa Gates" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🏛️</div><div>Villa Gates</div></div>'">
+            <span class="card-tag">Gates</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Grand Compound & Villa Gates</h3>
+            <p>Heavy-duty iron frames with ornate brass inserts, decorative brass finials, and custom monogram medallions for prestigious entrances.</p>
+            <div class="card-footer"><span>Iron Frame + Brass Ornaments</span><a href="https://wa.me/919620202221?text=Villa%20Gates" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="murals" data-title="High-Relief 3D Metal Wall Murals" data-desc="Hand-hammered repoussé Tree of Life, peacock, lotus, and Nataraja panels. Statement pieces for foyers, temples, and luxury living rooms. Each mural is a one-of-a-kind art commission." data-material="Hand-Hammered Repoussé" data-wa="Wall%20Murals">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="gallery/g49.jpg" alt="3D Wall Murals" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🌿</div><div>Wall Murals</div></div>'">
+            <span class="card-tag">3D Murals</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>High-Relief 3D Metal Wall Murals</h3>
+            <p>Hand-hammered repoussé Tree of Life, peacock, lotus, and Nataraja — statement pieces for foyers, temples, and luxury living rooms.</p>
+            <div class="card-footer"><span>Hand-Hammered Repoussé</span><a href="https://wa.me/919620202221?text=Wall%20Murals" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+        <div class="carousel-card" data-category="handles" data-title="Vaskaal Brass Handles & Hardware" data-desc="Heavy-duty solid cast brass Vaskaal pull handles, lion head knockers, ornate antique locks, tower bolts, and custom architectural door hardware. Designed to complement every door style." data-material="Solid Cast Brass Hardware" data-wa="Vaskaal%20Handles">
+          <div class="carousel-card-img lb-trigger" style="position:relative;">
+            <img src="https://antiquedesign.figma.site/_components/v2/7989ddfed5f219934d9782619bee0468a28ed494/MD_Vascal_3.5c3b2dc6.PNG" alt="Vaskaal Brass Handles" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=card-placeholder><div style=font-size:42px;margin-bottom:12px>🔑</div><div>Vaskaals</div></div>'">
+            <span class="card-tag">Vaskaals</span>
+            <div class="lb-hint">🔍 Tap to view</div>
+          </div>
+          <div class="carousel-card-body">
+            <h3>Vaskaal Brass Handles & Hardware</h3>
+            <p>Heavy-duty solid cast brass Vaskaal pull handles, lion head knockers, ornate antique locks, tower bolts, and custom architectural door hardware.</p>
+            <div class="card-footer"><span>Solid Cast Brass Hardware</span><a href="https://wa.me/919620202221?text=Vaskaal%20Handles" target="_blank">Enquire →</a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="carouselPrev">&#8592;</button>
+      <span id="carouselInfo" style="font-size:12px;color:#8a7560;letter-spacing:1px;"></span>
+      <button class="carousel-btn" id="carouselNext">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ARTISAN PROCESS -->
+<section class="section section-dark" id="process">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:60px;">
+      <div class="section-label mx-auto">Generations of Pure Metal Mastery</div>
+      <h2 class="section-title dark">How We Handcraft Your Artifact</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto">Every commissioned piece undergoes rigorous traditional metallurgic stages in our Bengaluru foundry.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card reveal" style="transition-delay:0.05s"><div class="process-num">01</div><h3>Architectural Drafting</h3><p>We review site dimensions, architectural elevations, and Vastu requirements to design 1:1 scale custom templates and approval drawings.</p></div>
+      <div class="process-card reveal" style="transition-delay:0.15s"><div class="process-num">02</div><h3>Manual Hand Embossing</h3><p>Master artisans chase and hammer virgin brass sheets over pitch blocks to raise intricate, deep-relief sculptures by hand — no machines.</p></div>
+      <div class="process-card reveal" style="transition-delay:0.25s"><div class="process-num">03</div><h3>Solid Wood Cladding</h3><p>Embossed metal panels are mechanically anchored to moisture-treated, seasoned teak wood frames with brass rivets and countersunk bolts.</p></div>
+      <div class="process-card reveal" style="transition-delay:0.35s"><div class="process-num">04</div><h3>Polish & Clear Coat</h3><p>Hand-buffed with jeweller's rouge and sealed with dual-component anti-oxidant lacquer for lifelong shine without maintenance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="section section-light" id="materials">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:56px;">
+      <div class="section-label mx-auto" style="color:#8a6205;">Available Alloys & Finishes</div>
+      <h2 class="section-title light">Pure Metals & Protective Coatings</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc light mx-auto">Every piece is crafted from certified metals, sealed with specialized anti-oxidant lacquer, available in four exclusive finishes.</p>
+    </div>
+    <div class="mat-grid">
+      <div class="mat-card reveal" style="transition-delay:0.05s"><div class="mat-swatch" style="background:linear-gradient(135deg,#FFD700,#B8860B);"></div><h4>Pure Gold Brass</h4><p>Traditional golden lustre reflecting timeless luxury and auspicious Indian temple aesthetics. Most popular for main doors.</p></div>
+      <div class="mat-card reveal" style="transition-delay:0.15s"><div class="mat-swatch" style="background:linear-gradient(135deg,#E8E8E8,#A8A8A8);"></div><h4>White Metal (Silver)</h4><p>Bright silver finish popular for pooja mandirs, temple sanctums, and contemporary minimalist luxury spaces.</p></div>
+      <div class="mat-card reveal" style="transition-delay:0.25s"><div class="mat-swatch" style="background:linear-gradient(135deg,#8C6239,#4A3020);"></div><h4>Antique Bronze Patina</h4><p>Hand-rubbed dark rustic patina creating deep shadow relief on carved and embossed panels — timeless heritage look.</p></div>
+      <div class="mat-card reveal" style="transition-delay:0.35s"><div class="mat-swatch" style="background:linear-gradient(135deg,#E8A87C,#B55E3C);"></div><h4>Rich Copper / Rose Gold</h4><p>Warm coppery tones offering an ultra-luxurious, majestic presence for statement entryways and accent pieces.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-dark" id="testimonials">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:48px;">
+      <div class="section-label mx-auto">What Our Clients Say</div>
+      <h2 class="section-title dark">Real Reviews from Google Maps</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="testi-slider reveal" style="max-width:960px;margin:0 auto;">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"It was a good experience with Antique Designs. Highly recommended for brass works and satisfied with the work — it is more than expected."</p>
+          <div class="testi-author">Anitha AVN</div>
+          <div class="testi-location">Google Review · 2 months ago</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"The team was prompt in response and delivered the brass door fittings on time as promised. Thank you and continue the good work. Special thanks to Jagadish."</p>
+          <div class="testi-author">Nischitha Ravi</div>
+          <div class="testi-location">Google Review · 2 months ago</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"I'm very satisfied with the brass prabhavali I purchased. The craftsmanship and finishing are excellent, and it fits perfectly on my pooja room door frame. The detailing and overall make reflect high-quality workmanship. Highly recommended! 🌸"</p>
+          <div class="testi-author">Srinivas Y L</div>
+          <div class="testi-location">Local Guide · 86 Reviews · 11 months ago</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Good experience, quality at best price for pooja room brass frame."</p>
+          <div class="testi-author">Vijayakrishnan S</div>
+          <div class="testi-location">Google Review · 2 months ago</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Just perfect as expected and on time delivery. Service was really good."</p>
+          <div class="testi-author">Shwetha R Gowda</div>
+          <div class="testi-location">Local Guide · 10 Reviews · 5 months ago</div>
+        </div>
+      </div>
+      <div class="testi-nav" id="testiNav">
+        <button class="hero-dot active" data-testi="0"></button>
+        <button class="hero-dot" data-testi="1"></button>
+        <button class="hero-dot" data-testi="2"></button>
+        <button class="hero-dot" data-testi="3"></button>
+        <button class="hero-dot" data-testi="4"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section section-mid" id="instagram">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label mx-auto">Our Craftsmanship in Photos</div>
+      <h2 class="section-title dark">Work Gallery</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto">Real handcrafted pieces from our Bengaluru atelier — doors, railings, murals and more.</p>
+    </div>
+    <div class="gallery-grid reveal" id="galleryGrid">
+      <div class="gallery-item" data-src="gallery/g01.jpg"><img loading="eager" decoding="async" src="gallery/g01.jpg" alt="Antique Designs Work 1"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item" data-src="gallery/g02.jpg"><img loading="eager" decoding="async" src="gallery/g02.jpg" alt="Antique Designs Work 2"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item" data-src="gallery/g03.jpg"><img loading="eager" decoding="async" src="gallery/g03.jpg" alt="Antique Designs Work 3"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item" data-src="gallery/g04.jpg"><img loading="eager" decoding="async" src="gallery/g04.jpg" alt="Antique Designs Work 4"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item" data-src="gallery/g05.jpg"><img loading="eager" decoding="async" src="gallery/g05.jpg" alt="Antique Designs Work 5"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item" data-src="gallery/g06.jpg"><img loading="eager" decoding="async" src="gallery/g06.jpg" alt="Antique Designs Work 6"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g07.jpg"><img loading="lazy" decoding="async" src="gallery/g07.jpg" alt="Antique Designs Work 7"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g08.jpg"><img loading="lazy" decoding="async" src="gallery/g08.jpg" alt="Antique Designs Work 8"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g09.jpg"><img loading="lazy" decoding="async" src="gallery/g09.jpg" alt="Antique Designs Work 9"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g10.jpg"><img loading="lazy" decoding="async" src="gallery/g10.jpg" alt="Antique Designs Work 10"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g11.jpg"><img loading="lazy" decoding="async" src="gallery/g11.jpg" alt="Antique Designs Work 11"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g12.jpg"><img loading="lazy" decoding="async" src="gallery/g12.jpg" alt="Antique Designs Work 12"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g13.jpg"><img loading="lazy" decoding="async" src="gallery/g13.jpg" alt="Antique Designs Work 13"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g14.jpg"><img loading="lazy" decoding="async" src="gallery/g14.jpg" alt="Antique Designs Work 14"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g15.jpg"><img loading="lazy" decoding="async" src="gallery/g15.jpg" alt="Antique Designs Work 15"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g16.jpg"><img loading="lazy" decoding="async" src="gallery/g16.jpg" alt="Antique Designs Work 16"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g17.jpg"><img loading="lazy" decoding="async" src="gallery/g17.jpg" alt="Antique Designs Work 17"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g18.jpg"><img loading="lazy" decoding="async" src="gallery/g18.jpg" alt="Antique Designs Work 18"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g19.jpg"><img loading="lazy" decoding="async" src="gallery/g19.jpg" alt="Antique Designs Work 19"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g20.jpg"><img loading="lazy" decoding="async" src="gallery/g20.jpg" alt="Antique Designs Work 20"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g21.jpg"><img loading="lazy" decoding="async" src="gallery/g21.jpg" alt="Antique Designs Work 21"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g22.jpg"><img loading="lazy" decoding="async" src="gallery/g22.jpg" alt="Antique Designs Work 22"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g23.jpg"><img loading="lazy" decoding="async" src="gallery/g23.jpg" alt="Antique Designs Work 23"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g24.jpg"><img loading="lazy" decoding="async" src="gallery/g24.jpg" alt="Antique Designs Work 24"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g25.jpg"><img loading="lazy" decoding="async" src="gallery/g25.jpg" alt="Antique Designs Work 25"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g26.jpg"><img loading="lazy" decoding="async" src="gallery/g26.jpg" alt="Antique Designs Work 26"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g27.jpg"><img loading="lazy" decoding="async" src="gallery/g27.jpg" alt="Antique Designs Work 27"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g28.jpg"><img loading="lazy" decoding="async" src="gallery/g28.jpg" alt="Antique Designs Work 28"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g29.jpg"><img loading="lazy" decoding="async" src="gallery/g29.jpg" alt="Antique Designs Work 29"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g30.jpg"><img loading="lazy" decoding="async" src="gallery/g30.jpg" alt="Antique Designs Work 30"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g31.jpg"><img loading="lazy" decoding="async" src="gallery/g31.jpg" alt="Antique Designs Work 31"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g32.jpg"><img loading="lazy" decoding="async" src="gallery/g32.jpg" alt="Antique Designs Work 32"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g33.jpg"><img loading="lazy" decoding="async" src="gallery/g33.jpg" alt="Antique Designs Work 33"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g34.jpg"><img loading="lazy" decoding="async" src="gallery/g34.jpg" alt="Antique Designs Work 34"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g35.jpg"><img loading="lazy" decoding="async" src="gallery/g35.jpg" alt="Antique Designs Work 35"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g36.jpg"><img loading="lazy" decoding="async" src="gallery/g36.jpg" alt="Antique Designs Work 36"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g37.jpg"><img loading="lazy" decoding="async" src="gallery/g37.jpg" alt="Antique Designs Work 37"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g38.jpg"><img loading="lazy" decoding="async" src="gallery/g38.jpg" alt="Antique Designs Work 38"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g39.jpg"><img loading="lazy" decoding="async" src="gallery/g39.jpg" alt="Antique Designs Work 39"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g40.jpg"><img loading="lazy" decoding="async" src="gallery/g40.jpg" alt="Antique Designs Work 40"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g41.jpg"><img loading="lazy" decoding="async" src="gallery/g41.jpg" alt="Antique Designs Work 41"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g42.jpg"><img loading="lazy" decoding="async" src="gallery/g42.jpg" alt="Antique Designs Work 42"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g43.jpg"><img loading="lazy" decoding="async" src="gallery/g43.jpg" alt="Antique Designs Work 43"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g44.jpg"><img loading="lazy" decoding="async" src="gallery/g44.jpg" alt="Antique Designs Work 44"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g45.jpg"><img loading="lazy" decoding="async" src="gallery/g45.jpg" alt="Antique Designs Work 45"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g46.jpg"><img loading="lazy" decoding="async" src="gallery/g46.jpg" alt="Antique Designs Work 46"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+      <div class="gallery-item hidden" data-src="gallery/g47.jpg"><img loading="lazy" decoding="async" src="gallery/g47.jpg" alt="Antique Designs Work 47"><div class="g-overlay"><svg width="26" height="26" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
+    </div>
+    <div class="gallery-show-more">
+      <button class="btn-show-more" id="galleryShowMore">View All 47 Photos ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY FULLSCREEN LIGHTBOX -->
+<div id="glb">
+  <button class="glb-close" id="glbClose">✕</button>
+  <button class="glb-nav glb-prev" id="glbPrev">&#8592;</button>
+  <img id="glbImg" src="" alt="">
+  <button class="glb-nav glb-next" id="glbNext">&#8594;</button>
+  <div class="glb-counter" id="glbCounter"></div>
+</div>
+
+<!-- CONTACT & QUOTE -->
+<section class="section section-dark" id="contact">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:60px;">
+      <div class="section-label mx-auto">Commission Your Custom Piece</div>
+      <h2 class="section-title dark">Get in Touch</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto">Whether you have blueprints, reference photos, or want our team to visit your site — reach out directly.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <h3 class="font-cinzel" style="font-size:22px;color:#2c1f0e;margin-bottom:28px;">Direct Workshop Contact</h3>
+        <a href="tel:+919620202221" class="contact-card"><div class="contact-icon">📞</div><div><div class="contact-label">Call Workshop Direct</div><div class="contact-value">+91 96202 02221</div></div></a>
+        <a href="tel:+919620202221" class="contact-card"><div class="contact-icon">📲</div><div><div class="contact-label">Second Line</div><div class="contact-value">+91 96202 02221 / 96638 52454</div></div></a>
+        <a href="https://wa.me/919620202221" target="_blank" class="contact-card"><div class="contact-icon" style="background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3);">💬</div><div><div class="contact-label">WhatsApp Concierge</div><div class="contact-value" style="color:#22c55e;">Chat with Design Head</div></div></a>
+        <a href="mailto:hello@antique-designs.com" class="contact-card"><div class="contact-icon">✉️</div><div><div class="contact-label">Email Us Drawings & Plans</div><div class="contact-value">hello@antique-designs.com</div></div></a>
+        <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="contact-card"><div class="contact-icon">📍</div><div><div class="contact-label">Workshop Address</div><div class="contact-value" style="font-size:13px;">39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</div></div></a>
+        <div style="margin-top:10px;padding:18px;border-radius:14px;background:#fff8ee;border:1px solid rgba(160,104,8,0.18);">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:6px;">Also Find Us Online</div>
+          <div style="font-size:13px;color:#6b4c20;">🌐 <a href="http://www.antiquedesigns.in" style="color:#a06808;">www.antiquedesigns.in</a><br>📸 <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#a06808;">@antiquedesigns_bengaluru</a></div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="quote-form">
+          <h3 class="font-cinzel" style="font-size:20px;color:#2c1f0e;margin-bottom:6px;">Request a Free Consultation</h3>
+          <p style="font-size:13px;color:#9a7040;margin-bottom:28px;">Our team will call you back within 4 business hours.</p>
+          <form onsubmit="submitQuote(event)">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Your Name *</label><input type="text" class="form-control" id="fname" placeholder="e.g. Ramesh Kumar" required></div>
+              <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" class="form-control" id="fphone" placeholder="+91 98765 43210" required></div>
+            </div>
+            <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-control" id="femail" placeholder="your@email.com"></div>
+            <div class="form-group"><label class="form-label">Product of Interest *</label>
+              <select class="form-control" id="fproduct" required>
+                <option value="" disabled selected>Select a product line...</option>
+                <option>Pooja Room / Mandir Doors</option>
+                <option>Grand Brass Main Entrance Doors</option>
+                <option>Symmetrical Double Doors</option>
+                <option>3/4 Asymmetric Concept Doors</option>
+                <option>Brass Railings & Balusters</option>
+                <option>Cast Brass Name Plates</option>
+                <option>Partition Jaali Grills</option>
+                <option>Villa Gates</option>
+                <option>3D Metal Wall Murals</option>
+                <option>Handles & Hardware</option>
+                <option>Multiple / Custom Project</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Project Details</label><textarea class="form-control" id="fdetails" rows="4" placeholder="Describe your space, size requirements, preferred metal finish, or reference images..."></textarea></div>
+            <button type="submit" class="form-submit">✦ Send Consultation Request ✦</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <div style="width:52px;height:52px;border-radius:8px;overflow:hidden;background:#000;flex-shrink:0;">
+            <img src="logo.jpeg" alt="Antique Designs Logo" style="width:100%;height:100%;object-fit:contain;display:block;">
+          </div>
+          <div>
+            <div class="font-cinzel" style="font-size:16px;font-weight:800;letter-spacing:2px;color:#f0c84a;">ANTIQUE DESIGNS</div>
+            <div style="font-size:9px;letter-spacing:2.5px;color:rgba(240,200,140,0.6);text-transform:uppercase;">Bengaluru · Est. 2011</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:rgba(240,210,160,0.65);line-height:1.7;max-width:280px;">Premier offline artisanal atelier handcrafting bespoke Brass & White Metal architectural masterpieces since 2011.</p>
+        <div style="margin-top:20px;display:flex;gap:12px;">
+          <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(240,200,100,0.12);border:1px solid rgba(240,200,100,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">📸</a>
+          <a href="https://wa.me/919620202221" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">💬</a>
+          <a href="tel:+919620202221" style="width:36px;height:36px;border-radius:50%;background:rgba(240,200,100,0.12);border:1px solid rgba(240,200,100,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">📞</a>
+        </div>
+      </div>
+      <div>
+        <h4>Product Lines</h4>
+        <ul class="footer-links">
+          <li><a href="#collections">Main Entrance Doors</a></li>
+          <li><a href="#collections">Pooja Mandir Doors</a></li>
+          <li><a href="#collections">3/4 Concept Doors</a></li>
+          <li><a href="#collections">Partition Grills</a></li>
+          <li><a href="#collections">Brass Railings</a></li>
+          <li><a href="#collections">Name Plates</a></li>
+          <li><a href="#collections">Villa Gates</a></li>
+          <li><a href="#collections">3D Wall Murals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Atelier</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#process">Craftsmanship Process</a></li>
+          <li><a href="#materials">Materials & Finishes</a></li>
+          <li><a href="#instagram">Instagram Gallery</a></li>
+          <li><a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank">@antiquedesigns_bengaluru</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+919620202221">+91 96202 02221</a></li>
+          <li><a href="tel:+919663852454">+91 96638 52454</a></li>
+          <li><a href="mailto:hello@antique-designs.com">hello@antique-designs.com</a></li>
+          <li><a href="http://www.antiquedesigns.in">www.antiquedesigns.in</a></li>
+          <li><a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank">📍 Get Directions</a></li>
+        </ul>
+        <div style="margin-top:18px;padding:14px;border-radius:10px;background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.2);">
+          <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;font-size:13px;font-weight:700;text-decoration:none;">💬 Chat on WhatsApp →</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Antique Designs Bengaluru. All rights reserved. | <a href="http://www.antiquedesigns.in">www.antiquedesigns.in</a></span>
+      <span>39/1, Channenahalli, Magadi Main Rd, Karnataka 562130</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs,%20I%20want%20to%20enquire%20about%20your%20brass%20metalwork." target="_blank" class="float-wa" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.533 5.857L.057 23.886a.5.5 0 00.611.61l6.102-1.598A11.947 11.947 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.849 0-3.594-.494-5.103-1.361l-.366-.214-3.793.994.993-3.73-.23-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  // SCROLL PROGRESS BAR
+  const scrollProgress = document.getElementById('scroll-progress');
+  const backToTop = document.getElementById('back-to-top');
+
+  // NAV SCROLL
+  const nav = document.getElementById('main-nav');
+  const annBar = document.getElementById('ann-bar');
+  function setNavTop() { nav.style.top = annBar ? annBar.offsetHeight + 'px' : '0'; }
+  setNavTop();
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollProgress) scrollProgress.style.width = (scrollTop / docHeight * 100) + '%';
+    if (backToTop) backToTop.classList.toggle('visible', scrollTop > 400);
+    if (scrollTop > 60) { nav.classList.add('scrolled'); nav.style.top = '0'; }
+    else { nav.classList.remove('scrolled'); setNavTop(); }
+  });
+
+  // MOBILE MENU
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+  // HERO SLIDER
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.hero-dot[data-slide]');
+  let currentSlide = 0;
+  let heroTimer;
+  function goToSlide(n) {
+    heroSlides[currentSlide].classList.remove('active');
+    heroDots[currentSlide].classList.remove('active');
+    currentSlide = (n + heroSlides.length) % heroSlides.length;
+    heroSlides[currentSlide].classList.add('active');
+    heroDots[currentSlide].classList.add('active');
+  }
+  function startHeroTimer() { heroTimer = setInterval(() => goToSlide(currentSlide + 1), 5500); }
+  function resetHeroTimer() { clearInterval(heroTimer); startHeroTimer(); }
+  document.getElementById('heroPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetHeroTimer(); });
+  document.getElementById('heroNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetHeroTimer(); });
+  heroDots.forEach(dot => dot.addEventListener('click', () => { goToSlide(+dot.dataset.slide); resetHeroTimer(); }));
+  startHeroTimer();
+
+  // PRODUCT CAROUSEL
+  const track = document.getElementById('carouselTrack');
+  const allCards = Array.from(track.children);
+  let filteredCards = [...allCards];
+  let carouselIndex = 0;
+  function getVisibleCount() {
+    if (window.innerWidth >= 1100) return 3;
+    if (window.innerWidth >= 720) return 2;
+    return 1;
+  }
+  function updateCarousel() {
+    const maxIndex = Math.max(0, filteredCards.length - getVisibleCount());
+    carouselIndex = Math.min(carouselIndex, maxIndex);
+    const visibleWidth = track.parentElement.offsetWidth;
+    const cardW = (visibleWidth - 24 * (getVisibleCount() - 1)) / getVisibleCount();
+    allCards.forEach(c => { c.style.minWidth = cardW + 'px'; });
+    const offset = filteredCards.slice(0, carouselIndex).reduce((acc, c) => acc + c.offsetWidth + 24, 0);
+    track.style.transform = `translateX(-${offset}px)`;
+    const info = document.getElementById('carouselInfo');
+    if (info && filteredCards.length > 0) {
+      info.textContent = `${carouselIndex + 1}–${Math.min(carouselIndex + getVisibleCount(), filteredCards.length)} of ${filteredCards.length}`;
+    }
+  }
+  document.getElementById('carouselPrev').addEventListener('click', () => { if (carouselIndex > 0) { carouselIndex--; updateCarousel(); } });
+  document.getElementById('carouselNext').addEventListener('click', () => { if (carouselIndex < filteredCards.length - getVisibleCount()) { carouselIndex++; updateCarousel(); } });
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      carouselIndex = 0;
+      filteredCards = [];
+      allCards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.style.display = show ? '' : 'none';
+        if (show) filteredCards.push(card);
+      });
+      updateCarousel();
+    });
+  });
+  updateCarousel();
+  window.addEventListener('resize', updateCarousel);
+
+  // TESTIMONIALS AUTO SLIDER
+  const testiTrack = document.getElementById('testiTrack');
+  const testiNavBtns = document.querySelectorAll('[data-testi]');
+  let testiIndex = 0;
+  let testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000);
+  function goToTesti(n) {
+    testiNavBtns[testiIndex].classList.remove('active');
+    testiIndex = (n + 5) % 5;
+    testiTrack.style.transform = `translateX(-${testiIndex * 100}%)`;
+    testiNavBtns[testiIndex].classList.add('active');
+  }
+  testiNavBtns.forEach(btn => btn.addEventListener('click', () => { clearInterval(testiTimer); goToTesti(+btn.dataset.testi); testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000); }));
+
+  // SCROLL REVEAL
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // GALLERY — show more / lightbox
+  (function() {
+    const showMoreBtn = document.getElementById('galleryShowMore');
+    if (showMoreBtn) {
+      showMoreBtn.addEventListener('click', function() {
+        document.querySelectorAll('.gallery-item.hidden').forEach(function(el) {
+          el.classList.remove('hidden');
+        });
+        showMoreBtn.parentElement.style.display = 'none';
+      });
+    }
+
+    // Gallery fullscreen lightbox
+    const glb = document.getElementById('glb');
+    const glbImg = document.getElementById('glbImg');
+    const glbCounter = document.getElementById('glbCounter');
+    let glbItems = [], glbIndex = 0;
+
+    function openGlb(items, idx) {
+      glbItems = items;
+      glbIndex = idx;
+      showGlb();
+      glb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function showGlb() {
+      glbImg.src = glbItems[glbIndex].dataset.src;
+      glbCounter.textContent = (glbIndex + 1) + ' / ' + glbItems.length;
+    }
+    function closeGlb() {
+      glb.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function() { glbImg.src = ''; }, 300);
+    }
+
+    document.getElementById('galleryGrid').addEventListener('click', function(e) {
+      const item = e.target.closest('.gallery-item');
+      if (!item) return;
+      const allVisible = Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
+      openGlb(allVisible, allVisible.indexOf(item));
+    });
+    document.getElementById('glbClose').addEventListener('click', closeGlb);
+    document.getElementById('glbPrev').addEventListener('click', function() {
+      glbIndex = (glbIndex - 1 + glbItems.length) % glbItems.length;
+      showGlb();
+    });
+    document.getElementById('glbNext').addEventListener('click', function() {
+      glbIndex = (glbIndex + 1) % glbItems.length;
+      showGlb();
+    });
+    glb.addEventListener('click', function(e) { if (e.target === glb) closeGlb(); });
+    document.addEventListener('keydown', function(e) {
+      if (!glb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeGlb();
+      if (e.key === 'ArrowLeft') { glbIndex = (glbIndex - 1 + glbItems.length) % glbItems.length; showGlb(); }
+      if (e.key === 'ArrowRight') { glbIndex = (glbIndex + 1) % glbItems.length; showGlb(); }
+    });
+  })();
+
+  // QUOTE FORM
+  function submitQuote(e) {
+    e.preventDefault();
+    const name = document.getElementById('fname').value;
+    const phone = document.getElementById('fphone').value;
+    const product = document.getElementById('fproduct').value;
+    const details = document.getElementById('fdetails').value;
+    const msg = encodeURIComponent(`Hello Antique Designs! 🙏\n\nName: ${name}\nPhone: ${phone}\nProduct: ${product}\nDetails: ${details}\n\nPlease contact me for a consultation.`);
+    window.open(`https://wa.me/919620202221?text=${msg}`, '_blank');
+  }
+
+  // LIGHTBOX — all DOM lookups deferred to click time so lightbox HTML is ready
+  function openLightbox(card) {
+    const imgEl = card.querySelector('img');
+    const c = card.closest('.carousel-card');
+    const title = c.dataset.title || (imgEl ? imgEl.alt : '');
+    const cat = (c.dataset.category || '')
+      .replace('threequarter','3/4 Concept')
+      .replace(/([a-z])([A-Z])/g,'$1 $2')
+      .toUpperCase();
+
+    document.getElementById('lbImg').src = imgEl ? imgEl.src : '';
+    document.getElementById('lbImg').alt = imgEl ? imgEl.alt : '';
+    document.getElementById('lbPhotoName').textContent = title;
+    document.getElementById('lbPhotoTag').textContent = cat;
+    document.getElementById('lbTag').textContent = cat;
+    document.getElementById('lbTitle').textContent = title;
+    document.getElementById('lbDesc').textContent = c.dataset.desc || '';
+    document.getElementById('lbMaterialVal').textContent = c.dataset.material || '';
+    document.getElementById('lbWa').href =
+      'https://wa.me/919620202221?text=Hello%20Antique%20Designs!%20I%20am%20interested%20in%20' + (c.dataset.wa || '');
+
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { document.getElementById('lbImg').src = ''; }, 300);
+  }
+
+  // Event delegation on track — survives filter tab switching
+  document.getElementById('carouselTrack').addEventListener('click', function(e) {
+    const trigger = e.target.closest('.lb-trigger');
+    if (trigger) openLightbox(trigger);
+  });
+
+  // Bind close controls after full DOM is ready
+  window.addEventListener('load', function() {
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <div class="lb-inner">
+    <!-- Left: Photo Card -->
+    <div class="lb-photo-card">
+      <img id="lbImg" src="" alt="">
+      <div class="lb-photo-label">
+        <h3 id="lbPhotoName"></h3>
+        <span id="lbPhotoTag"></span>
+      </div>
+      <div class="lb-photo-stripe"></div>
+    </div>
+    <!-- Right: Info Card -->
+    <div class="lb-info-card">
+      <span class="lb-tag" id="lbTag"></span>
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-divider"></div>
+      <div class="lb-desc" id="lbDesc"></div>
+      <div class="lb-material">
+        <svg width="14" height="14" fill="none" stroke="#c29320" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>Material: </span><span class="lb-material-val" id="lbMaterialVal"></span>
+      </div>
+      <div class="lb-btns">
+        <a id="lbWa" href="#" target="_blank" class="lb-btn-wa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.533 5.857L.057 23.886a.5.5 0 00.611.61l6.102-1.598A11.947 11.947 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.849 0-3.594-.494-5.103-1.361l-.366-.214-3.793.994.993-3.73-.23-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          WhatsApp Enquiry
+        </a>
+        <a href="tel:+919620202221" class="lb-btn-call">📞 Call Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CHATBOT WIDGET
+============================================================ -->
+<style>
+  /* Chatbot toggle button */
+  #chatbot-toggle {
+    position: fixed; bottom: 96px; right: 28px; z-index: 998;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #c29320, #8a6205);
+    box-shadow: 0 6px 24px rgba(160,104,8,0.45);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: bounceIn 0.6s ease 1.5s both;
+  }
+  #chatbot-toggle:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(160,104,8,0.6); }
+  #chatbot-toggle svg { transition: transform 0.3s; }
+  #chatbot-toggle.open svg { transform: rotate(45deg); }
+
+  /* Chat window */
+  #chatbot-window {
+    display: none;
+    position: fixed; bottom: 160px; right: 28px; z-index: 997;
+    width: 340px; max-width: calc(100vw - 40px);
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.25);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    animation: chatSlideIn 0.3s ease;
+  }
+  #chatbot-window.open { display: flex; flex-direction: column; }
+  @keyframes chatSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Header */
+  .cb-header {
+    background: linear-gradient(135deg, #3d2200, #5c3300);
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .cb-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(212,175,55,0.15);
+    border: 1.5px solid rgba(212,175,55,0.4);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 18px;
+  }
+  .cb-header-info { flex: 1; }
+  .cb-header-name { font-size: 13px; font-weight: 700; color: #f0c84a; letter-spacing: 0.5px; }
+  .cb-header-status { font-size: 10px; color: rgba(240,200,140,0.6); margin-top: 1px; display: flex; align-items: center; gap: 4px; }
+  .cb-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+
+  /* Messages area */
+  .cb-messages {
+    background: #f9f5ef;
+    padding: 16px 14px;
+    height: 280px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .cb-messages::-webkit-scrollbar { width: 4px; }
+  .cb-messages::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 2px; }
+
+  /* Message bubbles */
+  .cb-msg {
+    max-width: 85%;
+    padding: 9px 13px;
+    border-radius: 14px;
+    font-size: 13px; line-height: 1.55;
+    word-break: break-word;
+  }
+  .cb-msg.bot {
+    background: #ffffff;
+    border: 1px solid rgba(160,104,8,0.15);
+    color: #2c1f0e;
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+  }
+  .cb-msg.user {
+    background: linear-gradient(135deg, #c29320, #8a6205);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+  }
+  .cb-msg.bot .cb-msg-sender {
+    font-size: 10px; font-weight: 700; color: #a06808;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+
+  /* Quick reply chips */
+  .cb-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 14px 6px;
+    background: #f9f5ef;
+    border-top: 1px solid rgba(160,104,8,0.08);
+  }
+  .cb-chip {
+    padding: 6px 12px; border-radius: 50px;
+    font-size: 11px; font-weight: 700;
+    background: #fff; border: 1px solid rgba(160,104,8,0.3);
+    color: #a06808; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .cb-chip:hover { background: #a06808; color: #fff; border-color: #a06808; }
+
+  /* Input row */
+  .cb-input-row {
+    background: #fff;
+    padding: 10px 12px;
+    display: flex; gap: 8px; align-items: center;
+    border-top: 1px solid rgba(160,104,8,0.12);
+  }
+  .cb-input {
+    flex: 1; padding: 9px 13px; border-radius: 50px;
+    border: 1px solid rgba(160,104,8,0.25);
+    font-size: 13px; font-family: inherit;
+    background: #fffdf9; color: #2c1f0e;
+    outline: none;
+  }
+  .cb-input:focus { border-color: rgba(160,104,8,0.5); }
+  .cb-input::placeholder { color: #c8a878; }
+  .cb-send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #c29320, #8a6205);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: filter 0.2s;
+  }
+  .cb-send:hover { filter: brightness(1.15); }
+
+  /* Typing indicator */
+  .cb-typing {
+    display: flex; gap: 4px; align-items: center;
+    padding: 9px 13px;
+    background: #fff; border: 1px solid rgba(160,104,8,0.15);
+    border-radius: 14px; border-bottom-left-radius: 4px;
+    align-self: flex-start; width: fit-content;
+  }
+  .cb-typing span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #a06808; display: inline-block;
+    animation: typingDot 1.2s infinite;
+  }
+  .cb-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot {
+    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+</style>
+
+<!-- Chatbot toggle button -->
+<button id="chatbot-toggle" aria-label="Chat with us" title="Chat with Antique Designs">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <line x1="12" y1="10" x2="12" y2="10" stroke-width="3"/>
+    <line x1="8"  y1="10" x2="8"  y2="10" stroke-width="3"/>
+    <line x1="16" y1="10" x2="16" y2="10" stroke-width="3"/>
+  </svg>
+</button>
+
+<!-- Chat window -->
+<div id="chatbot-window">
+  <div class="cb-header">
+    <div class="cb-avatar">🏛️</div>
+    <div class="cb-header-info">
+      <div class="cb-header-name">Antique Designs — Concierge</div>
+      <div class="cb-header-status"><span class="cb-status-dot"></span>Typically replies in minutes</div>
+    </div>
+  </div>
+  <div class="cb-messages" id="cbMessages"></div>
+  <div class="cb-chips" id="cbChips"></div>
+  <div class="cb-input-row">
+    <input class="cb-input" id="cbInput" type="text" placeholder="Type a message…" autocomplete="off">
+    <button class="cb-send" id="cbSend" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var toggle   = document.getElementById('chatbot-toggle');
+  var window_  = document.getElementById('chatbot-window');
+  var messages = document.getElementById('cbMessages');
+  var chipsEl  = document.getElementById('cbChips');
+  var input    = document.getElementById('cbInput');
+  var sendBtn  = document.getElementById('cbSend');
+  var isOpen   = false;
+  var greeted  = false;
+
+  // ── KNOWLEDGE BASE ──────────────────────────────────────────
+  var KB = [
+    {
+      keys: ['hi','hello','hey','namaste','helo','hai'],
+      reply: "Namaste! 🙏 Welcome to <strong>Antique Designs Bengaluru</strong>.<br>I'm your virtual design concierge. How can I help you today?",
+      chips: ['Products', 'Location & Hours', 'Pricing', 'WhatsApp Us']
+    },
+    {
+      keys: ['product','products','what do you make','what do you sell','catalog','range','items'],
+      reply: "We handcraft <strong>9 product lines</strong> in Brass & White Metal:<br><br>🚪 Main Entrance Doors<br>🛕 Pooja Mandir Doors<br>🔲 Partition Jaali Grills<br>🪜 Brass Railings & Balusters<br>🏷️ Cast Brass Name Plates<br>🚧 Villa Gates<br>🌿 3D Wall Murals<br>🔑 Vaskaal Handles<br>🚪 3/4 Concept Doors",
+      chips: ['Main Doors', 'Pooja Doors', 'Name Plates', 'Pricing', 'WhatsApp Us']
+    },
+    {
+      keys: ['main door','main entrance','entrance door','brass door','front door'],
+      reply: "Our <strong>Grand Brass Main Doors</strong> are full-clad 16-gauge embossed brass & white metal panels with lion knockers, pyramid studs, and deep-relief heritage motifs — anchored to seasoned teak frames. 🚪<br><br>Completely custom — we visit your site for measurements.",
+      chips: ['Get a Quote', 'WhatsApp Us', 'View All Products']
+    },
+    {
+      keys: ['pooja','mandir','temple door','puja','pooja door','pooja room'],
+      reply: "Our <strong>Pooja Mandir Doors</strong> feature Gopuram arches, kalasha tops, brass temple bells, and pure white metal or brass sheet cladding. 🛕<br><br>Handcrafted for spiritual serenity in home mandirs and temple sanctums.",
+      chips: ['Get a Quote', 'WhatsApp Us', 'Location']
+    },
+    {
+      keys: ['railing','railings','baluster','staircase','stair','handrail'],
+      reply: "Our <strong>Forged Brass Railings</strong> include hand-turned spindles, cast acanthus balusters, curved helical handrails, and ornate floral scrollwork. 🪜<br><br>Crafted for duplex staircases in villas and luxury apartments.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['name plate','nameplate','house name','name board','sign board'],
+      reply: "Our <strong>Cast Brass Name Plates</strong> feature deep-relief sand-cast letters, family crests, and engraved plaques mounted on Burma Teak or natural marble. 🏷️<br><br>Completely custom typography and crest design.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['partition','grill','jaali','divider','screen','partition grill'],
+      reply: "Our <strong>Luxury Partition Jaali Grills</strong> include geometric Islamic latticework, traditional mandala fretwork, and laser-machined pure brass panels. 🔲<br><br>Perfect for dining, living, and mandir zone separation.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['gate','villa gate','compound gate','main gate'],
+      reply: "Our <strong>Grand Compound & Villa Gates</strong> are heavy-duty iron frames with ornate brass inserts, decorative finials, and custom monogram medallions. 🏛️<br><br>Engineered for prestigious compound and villa entrances.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['mural','wall mural','3d mural','wall art','wall decor','repousse'],
+      reply: "Our <strong>High-Relief 3D Metal Wall Murals</strong> include hand-hammered repoussé Tree of Life, peacock, lotus, and Nataraja panels. 🌿<br><br>Each mural is a one-of-a-kind art commission — a statement piece for any space.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['handle','handles','vaskaal','knob','door handle','hardware'],
+      reply: "Our <strong>Vaskaal Brass Handles & Hardware</strong> include heavy-duty solid cast brass pull handles, lion head knockers, ornate antique locks, and tower bolts. 🔑<br><br>Designed to complement every door style.",
+      chips: ['Get a Quote', 'WhatsApp Us']
+    },
+    {
+      keys: ['price','cost','how much','rate','charge','budget','expensive','affordable','pricing'],
+      reply: "Pricing varies by product, size, metal finish, and design complexity. We offer <strong>custom quotes</strong> for every project. 💰<br><br>The best way is to share your requirements on WhatsApp and our team will give you an accurate estimate within 4 hours.",
+      chips: ['WhatsApp Us', 'Get a Quote', 'Call Now']
+    },
+    {
+      keys: ['location','address','where','find you','directions','map','workshop','atelier'],
+      reply: "📍 <strong>Our Atelier:</strong><br>39/1, Channenahalli, Kadabagere Post<br>Magadi Main Road, Karnataka 562130<br><br>We're open <strong>Mon–Sat: 9:30 AM – 7:30 PM</strong><br>Sunday by appointment.",
+      chips: ['Get Directions', 'WhatsApp Us', 'Call Now']
+    },
+    {
+      keys: ['hours','timing','open','when','time','working hours','sunday'],
+      reply: "🕘 <strong>Working Hours:</strong><br>Monday – Saturday: 9:30 AM – 7:30 PM<br>Sunday: By appointment only<br><br>We're currently open! Feel free to visit or call ahead.",
+      chips: ['Call Now', 'WhatsApp Us', 'Location']
+    },
+    {
+      keys: ['phone','call','contact','number','telephone'],
+      reply: "📞 You can reach us at:<br><strong>+91 96202 02221</strong><br><strong>+91 96638 52454</strong><br><br>Or WhatsApp us directly — it's the fastest way to connect with our design team!",
+      chips: ['WhatsApp Us', 'Call Now', 'Location']
+    },
+    {
+      keys: ['whatsapp','wa','chat','message','enquire','enquiry'],
+      reply: "You can WhatsApp our design team directly at <strong>+91 96202 02221</strong>. 💬<br><br>Share your reference images, measurements, or just describe what you need — we respond within minutes!",
+      chips: ['Open WhatsApp', 'Call Now']
+    },
+    {
+      keys: ['material','brass','white metal','alloy','finish','copper','bronze','gold'],
+      reply: "We work with <strong>4 exclusive metal finishes:</strong><br><br>✨ Pure Gold Brass<br>⚪ White Metal (Silver)<br>🟤 Antique Bronze Patina<br>🟠 Rich Copper / Rose Gold<br><br>All sealed with dual-component anti-oxidant lacquer for lifelong shine.",
+      chips: ['View Products', 'WhatsApp Us']
+    },
+    {
+      keys: ['delivery','how long','timeline','days','weeks','how many days','lead time'],
+      reply: "Delivery timelines depend on the product complexity and size. Typical ranges:<br><br>🏷️ Name Plates: 7–14 days<br>🚪 Doors: 30–60 days<br>🪜 Railings: 21–45 days<br>🌿 Murals: 45–90 days<br><br>WhatsApp us with your requirement for an exact timeline.",
+      chips: ['WhatsApp Us', 'Get a Quote']
+    },
+    {
+      keys: ['install','installation','fitting','site visit','measurement'],
+      reply: "Yes! Our team <strong>visits your site</strong> in Bengaluru for precision measurements and fitting. 📐<br><br>We also provide professional installation services for all products. WhatsApp us to schedule a site visit.",
+      chips: ['WhatsApp Us', 'Call Now']
+    },
+    {
+      keys: ['thank','thanks','thank you','great','awesome','nice','ok','okay','good'],
+      reply: "You're welcome! 😊 Is there anything else I can help you with?<br><br>Feel free to visit our atelier or WhatsApp us anytime for a custom consultation.",
+      chips: ['Products', 'WhatsApp Us', 'Location']
+    },
+    {
+      keys: ['bye','goodbye','see you','later','done'],
+      reply: "Thank you for visiting <strong>Antique Designs</strong>! 🙏<br><br>We look forward to crafting something beautiful for your home. Don't hesitate to reach out anytime. ✨",
+      chips: ['WhatsApp Us']
+    }
+  ];
+
+  var quickChips = ['Products', 'Pricing', 'Location & Hours', 'WhatsApp Us'];
+  var waUrl = 'https://wa.me/919620202221?text=Hello%20Antique%20Designs!%20I%20want%20to%20enquire%20about%20custom%20metalwork.';
+
+  // ── HELPERS ─────────────────────────────────────────────────
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'cb-msg ' + who;
+    if (who === 'bot') {
+      div.innerHTML = '<span class="cb-msg-sender">Antique Designs</span>' + text;
+    } else {
+      div.textContent = text;
+    }
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'cb-typing'; el.id = 'cbTyping';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeTyping() {
+    var el = document.getElementById('cbTyping');
+    if (el) el.remove();
+  }
+
+  function setChips(chips) {
+    chipsEl.innerHTML = '';
+    (chips || quickChips).forEach(function(c) {
+      var btn = document.createElement('button');
+      btn.className = 'cb-chip';
+      btn.textContent = c;
+      btn.addEventListener('click', function() { handleInput(c); });
+      chipsEl.appendChild(btn);
+    });
+  }
+
+  function botReply(text, chips, delay) {
+    showTyping();
+    setTimeout(function() {
+      removeTyping();
+      addMsg(text, 'bot');
+      setChips(chips);
+    }, delay || 800);
+  }
+
+  function handleInput(text) {
+    var t = text.trim();
+    if (!t) return;
+    addMsg(t, 'user');
+    input.value = '';
+
+    // Special chips
+    if (t === 'WhatsApp Us' || t === 'Open WhatsApp') {
+      botReply('Opening WhatsApp now... 💬', ['Products', 'Pricing', 'Location & Hours']);
+      setTimeout(function() { window.open(waUrl, '_blank'); }, 600);
+      return;
+    }
+    if (t === 'Call Now') {
+      botReply('Calling our workshop... 📞<br><strong>+91 96202 02221</strong>', ['WhatsApp Us', 'Products']);
+      setTimeout(function() { window.location.href = 'tel:+919620202221'; }, 600);
+      return;
+    }
+    if (t === 'Get a Quote' || t === 'Get Directions') {
+      botReply(t === 'Get Directions'
+        ? 'Taking you to our workshop on Google Maps! 📍'
+        : 'Let me take you to our quote form! 📝', ['WhatsApp Us', 'Products']);
+      setTimeout(function() {
+        if (t === 'Get Directions') {
+          window.open('https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb', '_blank');
+        } else {
+          window_.classList.remove('open');
+          toggle.classList.remove('open');
+          isOpen = false;
+          document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 700);
+      return;
+    }
+    if (t === 'View Products' || t === 'View All Products') {
+      botReply('Scrolling to our product collections! 🛕', []);
+      setTimeout(function() {
+        window_.classList.remove('open');
+        toggle.classList.remove('open');
+        isOpen = false;
+        document.querySelector('#collections').scrollIntoView({ behavior: 'smooth' });
+      }, 700);
+      return;
+    }
+
+    // Keyword matching
+    var lower = t.toLowerCase();
+    for (var i = 0; i < KB.length; i++) {
+      var entry = KB[i];
+      for (var j = 0; j < entry.keys.length; j++) {
+        if (lower.indexOf(entry.keys[j]) !== -1) {
+          botReply(entry.reply, entry.chips);
+          return;
+        }
+      }
+    }
+
+    // Fallback
+    botReply("I'm not sure about that, but our design team can definitely help! 😊<br><br>WhatsApp us at <strong>+91 96202 02221</strong> or call us directly for a quick answer.", ['WhatsApp Us', 'Call Now', 'Products']);
+  }
+
+  // ── EVENTS ──────────────────────────────────────────────────
+  toggle.addEventListener('click', function() {
+    isOpen = !isOpen;
+    toggle.classList.toggle('open', isOpen);
+    if (isOpen) {
+      window_.classList.add('open');
+      if (!greeted) {
+        greeted = true;
+        setTimeout(function() {
+          botReply("Namaste! 🙏 Welcome to <strong>Antique Designs Bengaluru</strong>.<br><br>I'm your virtual design concierge. Ask me anything about our brass & metal products, pricing, location, or delivery! How can I help you today?", quickChips, 500);
+        }, 200);
+      }
+    } else {
+      window_.classList.remove('open');
+    }
+  });
+
+  sendBtn.addEventListener('click', function() { handleInput(input.value); });
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleInput(input.value); });
+})();
+</script>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+</body>
+</html>
