@@ -183,11 +183,12 @@
     }
     .hero-title {
       font-family: 'Cinzel', serif;
-      font-size: clamp(22px, 3.8vw, 48px);
+      font-size: clamp(26px, 4.5vw, 56px);
       font-weight: 800;
       line-height: 1.15;
+      letter-spacing: 2px;
       color: #faf7f2;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       text-shadow: 0 4px 32px rgba(0,0,0,0.6);
     }
     .hero-subtitle {
@@ -444,22 +445,62 @@
       box-shadow: 0 12px 36px rgba(160,104,8,0.4);
     }
 
-    /* Carousel Filter Tabs */
+    /* Carousel Filter Tabs - Premium Brass & Cream Styling */
     .filter-tabs {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      justify-content: center; margin-bottom: 44px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 48px;
+      padding: 8px 12px;
+      max-width: 1200px;
     }
     .filter-tab {
-      padding: 9px 20px; border-radius: 50px;
-      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      background: #fff;
-      border: 1px solid rgba(160,104,8,0.25);
-      color: #9a6a30; cursor: pointer; transition: all 0.25s;
+      background: #ffffff;
+      color: #6a4c28;
+      border: 1px solid rgba(196, 148, 14, 0.32);
+      box-shadow: 0 2px 10px rgba(120, 80, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.32s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    .filter-tab:hover, .filter-tab.active {
-      background: linear-gradient(135deg, #c29320, #8a6205);
-      border-color: transparent; color: #fff;
+    .filter-tab:hover {
+      background: #fffdf9;
+      color: #3e2406;
+      border-color: #c4940e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(180, 130, 20, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+    .filter-tab:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(180, 130, 20, 0.15);
+    }
+    .filter-tab.active {
+      background: linear-gradient(135deg, #e5b958 0%, #c4940e 38%, #8f6504 100%);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 20px rgba(160, 104, 8, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+    }
+    .filter-tab.active:hover {
+      background: linear-gradient(135deg, #ebb347 0%, #c99607 38%, #966700 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(160, 104, 8, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
     }
 
     /* ---- ABOUT SECTION ---- */
@@ -492,26 +533,78 @@
     .about-card-row:last-child { border-bottom: none; }
     .about-card-row svg { flex-shrink: 0; margin-top: 2px; color: #a06808; }
 
-    /* ---- PROCESS SECTION ---- */
-    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    /* ---- PROCESS / CRAFTSMANSHIP SECTION ---- */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
     .process-card {
-      padding: 32px 24px;
       border-radius: 20px;
-      background: #faf7f2;
-      border: 1px solid rgba(160,104,8,0.14);
-      box-shadow: 0 4px 18px rgba(160,104,8,0.07);
+      background: #ffffff;
+      border: 1px solid rgba(196,148,14,0.22);
+      box-shadow: 0 8px 28px rgba(120,80,20,0.06);
       transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
     }
-    .process-card:hover { border-color: rgba(160,104,8,0.38); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(160,104,8,0.14); }
-    .process-num {
-      font-family: 'Cinzel', serif; font-size: 42px; font-weight: 900;
-      background: linear-gradient(135deg, rgba(160,104,8,0.35) 0%, rgba(160,104,8,0.1) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
+    .process-card:hover {
+      border-color: #c4940e;
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px rgba(160,104,8,0.16);
     }
-    .process-card h3 { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #2c1f0e; margin-bottom: 10px; }
-    .process-card p { font-size: 13px; color: #7a5830; line-height: 1.65; }
+    .process-img-wrap {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      background: #1a0e04;
+    }
+    .process-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: block;
+    }
+    .process-card:hover .process-img {
+      transform: scale(1.08);
+    }
+    .process-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(196,148,14,0.95), rgba(120,80,10,0.95));
+      padding: 4px 12px;
+      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .process-card-content {
+      padding: 24px 22px 26px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .process-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #2c1f0e;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .process-card p {
+      font-size: 13px;
+      color: #6b4d24;
+      line-height: 1.65;
+    }
 
     /* ---- MATERIALS SECTION ---- */
     .mat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -688,6 +781,106 @@
       cursor: pointer; transition: filter 0.25s, box-shadow 0.25s;
     }
     .form-submit:hover { filter: brightness(1.12); box-shadow: 0 6px 28px rgba(212,175,55,0.35); }
+
+    /* ---- CUSTOM FABRICATION SECTION ---- */
+    .custom-fab-card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid rgba(196, 148, 14, 0.28);
+      border-radius: 28px;
+      padding: 48px 44px;
+      box-shadow: 0 20px 60px rgba(160, 104, 8, 0.1), 0 4px 16px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+    .custom-fab-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 40px; right: 40px; height: 3px;
+      background: linear-gradient(90deg, transparent, #c4940e, #e5b958, #c4940e, transparent);
+      border-radius: 3px;
+    }
+    .custom-fab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .custom-fab-grid .full-width {
+      grid-column: 1 / -1;
+    }
+    .file-upload-box {
+      position: relative;
+      border: 2px dashed rgba(196, 148, 14, 0.45);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      background: #fcfaf6;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .file-upload-box:hover, .file-upload-box.drag-over {
+      border-color: #c4940e;
+      background: #faf4e8;
+    }
+    .file-upload-box.has-file {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      border-style: solid;
+    }
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+    .file-upload-icon {
+      font-size: 28px;
+      color: #c4940e;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .file-upload-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #3e2406;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+    }
+    .file-upload-hint {
+      font-size: 11px;
+      color: #8c6a38;
+      pointer-events: none;
+    }
+    .file-selected-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #15803d;
+      margin-top: 4px;
+      display: none;
+      background: #dcfce7;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #86efac;
+      pointer-events: none;
+    }
+    .file-preview-thumb {
+      max-width: 120px;
+      max-height: 90px;
+      border-radius: 8px;
+      border: 1px solid #d4a843;
+      margin-top: 8px;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
 
     /* ---- FOOTER ---- */
     .footer {
@@ -945,10 +1138,10 @@
 
       /* ---- Process ---- */
       .process-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-      .process-card { padding: 20px 16px; }
-      .process-num { font-size: 30px; }
+      .process-img-wrap { height: 140px; }
+      .process-card-content { padding: 16px 14px 18px; }
       .process-card h3 { font-size: 13px; }
-      .process-card p { font-size: 11px; }
+      .process-card p { font-size: 11.5px; }
 
       /* ---- Materials ---- */
       .mat-grid { grid-template-columns: 1fr 1fr; }
@@ -956,17 +1149,25 @@
       .mat-card h4 { font-size: 13px; }
       .mat-card p { font-size: 11px; }
 
-      /* ---- Filter tabs — horizontal scroll ---- */
+      /* ---- Filter tabs — horizontal scroll on mobile ---- */
       .filter-tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
-        padding-bottom: 8px;
+        padding: 4px 16px 14px 16px;
+        margin-left: -16px;
+        margin-right: -16px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        gap: 8px;
       }
       .filter-tabs::-webkit-scrollbar { display: none; }
-      .filter-tab { flex-shrink: 0; font-size: 11px; padding: 8px 16px; }
+      .filter-tab {
+        flex-shrink: 0;
+        font-size: 11px;
+        padding: 9px 18px;
+        letter-spacing: 0.8px;
+      }
 
       /* ---- Product carousel ---- */
       .product-grid { gap: 14px; }
@@ -994,6 +1195,8 @@
       .contact-card { padding: 14px 16px; gap: 12px; }
       .contact-icon { width: 40px; height: 40px; }
       .quote-form { padding: 20px 16px; border-radius: 16px; }
+      .custom-fab-card { padding: 28px 18px; border-radius: 18px; }
+      .custom-fab-grid { grid-template-columns: 1fr; gap: 14px; }
       .form-row { grid-template-columns: 1fr; }
       .form-control { font-size: 14px; padding: 12px 14px; }
       .form-label { font-size: 10px; }
@@ -1028,7 +1231,8 @@
       .about-feat p { font-size: 11px; }
 
       /* ---- Process — single column on tiny phones ---- */
-      .process-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; gap: 16px; }
+      .process-img-wrap { height: 180px; }
 
       /* ---- Materials ---- */
       .mat-grid { grid-template-columns: 1fr; }
@@ -1171,22 +1375,22 @@
 
     /* ---- Process section — premium dark bg ---- */
     #process.section-dark {
-      background: linear-gradient(160deg, #12100e 0%, #1e1a14 50%, #12100e 100%) !important;
+      background: linear-gradient(160deg, #181109 0%, #24170c 50%, #181109 100%) !important;
     }
     #process .section-title { color: #faf0d0 !important; }
-    #process .section-desc { color: rgba(240,220,180,0.7) !important; }
-    #process .section-label { color: #c29320 !important; }
-    #process .section-label::before, #process .section-label::after { background: #c29320 !important; }
+    #process .section-desc { color: rgba(240,220,180,0.75) !important; }
+    #process .section-label { color: #d4a843 !important; }
+    #process .section-label::before, #process .section-label::after { background: #d4a843 !important; }
     #process .process-card {
-      background: rgba(255,255,255,0.04) !important;
-      border-color: rgba(212,175,55,0.15) !important;
+      background: #ffffff !important;
+      border-color: rgba(196,148,14,0.25) !important;
     }
     #process .process-card:hover {
-      background: rgba(255,255,255,0.07) !important;
-      border-color: rgba(212,175,55,0.35) !important;
+      border-color: #c4940e !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.24) !important;
     }
-    #process .process-card h3 { color: #faf0d0 !important; }
-    #process .process-card p  { color: rgba(240,220,180,0.65) !important; }
+    #process .process-card h3 { color: #2c1f0e !important; }
+    #process .process-card p  { color: #6b4d24 !important; }
 
     /* ---- Materials section — light luxury ---- */
     .section-light {
@@ -1468,22 +1672,6 @@
       transform: scale(1.12) translateY(-3px);
     }
 
-    /* ---- Filter tabs — push-button 3D ---- */
-    .filter-tab {
-      transition: all 0.2s ease;
-      box-shadow: 0 3px 0 rgba(160,104,8,0.2);
-    }
-    .filter-tab:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 0 rgba(160,104,8,0.25);
-    }
-    .filter-tab:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 0 rgba(160,104,8,0.2);
-    }
-    .filter-tab.active {
-      box-shadow: 0 4px 16px rgba(160,104,8,0.35);
-    }
 
     /* ---- Chatbot toggle — 3D depth ---- */
     #chatbot-toggle {
@@ -1813,7 +2001,9 @@
       <li><a href="#collections">Our Products</a></li>
       <li><a href="#process">Craftsmanship</a></li>
       <li><a href="#materials">Materials</a></li>
+      <li><a href="#custom-fabrication">Custom Orders</a></li>
       <li><a href="#instagram">Gallery</a></li>
+      <li><a href="configurator.html" style="color:#c29320;font-weight:700;">✦ 3D Configurator</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -1835,7 +2025,9 @@
   <a href="#collections" onclick="closeMobileMenu()">Our Products</a>
   <a href="#process" onclick="closeMobileMenu()">Craftsmanship</a>
   <a href="#materials" onclick="closeMobileMenu()">Materials</a>
+  <a href="#custom-fabrication" onclick="closeMobileMenu()">Custom Fabrication</a>
   <a href="#instagram" onclick="closeMobileMenu()">Gallery</a>
+  <a href="configurator.html" style="color:#c29320;font-weight:700;">✦ 3D Door Configurator</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact & Quote</a>
   <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;margin-top:6px;">💬 WhatsApp Concierge</a>
 </div>
@@ -1851,11 +2043,11 @@
       <div class="hero-slide-bg" style="background-image: url('gallery/hero1.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <h1 class="hero-title">Welcome to Antique Designs</h1>
-        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
+        <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
+        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
-          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore Collections</a>
-          <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs!" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 WhatsApp Us</a>
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
+          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
         </div>
       </div>
     </div>
@@ -1865,11 +2057,11 @@
       <div class="hero-slide-bg" style="background-image: url('gallery/hero2.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <h1 class="hero-title">Welcome to Antique Designs</h1>
-        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
+        <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
+        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
-          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">View Pooja Doors</a>
-          <a href="tel:+919620202221" class="btn-wa" style="padding:14px 28px;font-size:13px;">📞 Call Workshop</a>
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
+          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
         </div>
       </div>
     </div>
@@ -1879,11 +2071,11 @@
       <div class="hero-slide-bg" style="background-image: url('gallery/hero3.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <h1 class="hero-title">Welcome to Antique Designs</h1>
-        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
+        <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
+        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
-          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">Explore All Products</a>
-          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;">Request Site Visit</a>
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
+          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
         </div>
       </div>
     </div>
@@ -1893,11 +2085,11 @@
       <div class="hero-slide-bg" style="background-image: url('gallery/hero4.jpg'); background-position: center center;"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <h1 class="hero-title">Welcome to Antique Designs</h1>
-        <p class="hero-desc">Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.</p>
+        <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
+        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
-          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">See Name Plates</a>
-          <a href="https://wa.me/919620202221" target="_blank" class="btn-wa" style="padding:14px 28px;font-size:13px;">💬 Get a Custom Quote</a>
+          <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
+          <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
         </div>
       </div>
     </div>
@@ -1946,6 +2138,14 @@
         <div class="section-label">About Antique Designs</div>
         <h2 class="section-title dark">Where Craftsmanship Meets<br><em class="font-cormorant gold-text" style="font-weight:400;font-size:1.1em;">Creativity in Every Piece</em></h2>
         <div class="gold-divider" style="margin:0 0 28px 0;"></div>
+
+        <!-- Our Atelier -->
+        <div style="margin-bottom:22px;">
+          <h3 style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#2c1f0e;margin-bottom:8px;">Our Atelier</h3>
+          <p class="section-desc dark">
+            Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.
+          </p>
+        </div>
 
         <!-- Specialties -->
         <div style="margin-bottom:22px;">
@@ -2009,23 +2209,23 @@
       <div class="gold-divider"></div>
       <p class="section-desc dark mx-auto" style="margin-bottom:48px;">Handcrafted brass and white metal creations — browse our product range and find the perfect piece for your space.</p>
     </div>
-    <div class="filter-tabs reveal">
-      <button class="filter-tab active" data-filter="all">All</button>
-      <button class="filter-tab" data-filter="accessories">Accessories</button>
-      <button class="filter-tab" data-filter="doubledoor">Double Door</button>
-      <button class="filter-tab" data-filter="gates">Gates</button>
-      <button class="filter-tab" data-filter="internaldoors">Internal Doors</button>
-      <button class="filter-tab" data-filter="nameplates">Name Plates</button>
-      <button class="filter-tab" data-filter="poojaaccesories">Pooja Door Accessories</button>
-      <button class="filter-tab" data-filter="traderdoor">Trader Door</button>
-      <button class="filter-tab" data-filter="wallarts">Wall Arts</button>
-      <button class="filter-tab" data-filter="bannister">Bannister</button>
-      <button class="filter-tab" data-filter="handles">Handles</button>
-      <button class="filter-tab" data-filter="main">Main Doors New</button>
-      <button class="filter-tab" data-filter="newdoubledoor">New Double Door</button>
-      <button class="filter-tab" data-filter="pooja">Pooja Doors</button>
-      <button class="filter-tab" data-filter="railings">Railings</button>
-      <button class="filter-tab" data-filter="vaskaals">Vaskaals</button>
+    <div class="filter-tabs reveal" role="tablist" aria-label="Product categories">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-tab" data-filter="accessories" role="tab" aria-selected="false">Accessories</button>
+      <button class="filter-tab" data-filter="bannister" role="tab" aria-selected="false">Bannister</button>
+      <button class="filter-tab" data-filter="doubledoor" role="tab" aria-selected="false">Double Doors</button>
+      <button class="filter-tab" data-filter="gates" role="tab" aria-selected="false">Gates</button>
+      <button class="filter-tab" data-filter="handles" role="tab" aria-selected="false">Handles</button>
+      <button class="filter-tab" data-filter="internaldoors" role="tab" aria-selected="false">Internal Doors</button>
+      <button class="filter-tab" data-filter="main" role="tab" aria-selected="false">Main Doors</button>
+      <button class="filter-tab" data-filter="nameplates" role="tab" aria-selected="false">Name Plates</button>
+      <button class="filter-tab" data-filter="newdoubledoor" role="tab" aria-selected="false">New Double Door</button>
+      <button class="filter-tab" data-filter="pooja" role="tab" aria-selected="false">Pooja Doors</button>
+      <button class="filter-tab" data-filter="poojaaccesories" role="tab" aria-selected="false">Pooja Door Accessories</button>
+      <button class="filter-tab" data-filter="railings" role="tab" aria-selected="false">Railings</button>
+      <button class="filter-tab" data-filter="traderdoor" role="tab" aria-selected="false">Trader Doors</button>
+      <button class="filter-tab" data-filter="vaskaals" role="tab" aria-selected="false">Vaskaals</button>
+      <button class="filter-tab" data-filter="wallarts" role="tab" aria-selected="false">Wall Arts</button>
     </div>
     <!-- Product Carousel -->
     <div class="product-carousel-outer reveal">
@@ -2393,21 +2593,112 @@
   </div>
 </section>
 
-<!-- ARTISAN PROCESS -->
+<!-- CRAFTSMANSHIP PROCESS -->
 <section class="section section-dark" id="process">
   <div class="container">
-    <div class="text-center reveal" style="margin-bottom:60px;">
-      <div class="section-label mx-auto">Generations of Pure Metal Mastery</div>
-      <h2 class="section-title dark">How We Handcraft Your Artifact</h2>
+    <div class="text-center reveal" style="margin-bottom:56px;">
+      <div class="section-label mx-auto">Master Artisanal Journey</div>
+      <h2 class="section-title dark" style="letter-spacing:1px;">THE CRAFT BEHIND THE DETAIL</h2>
       <div class="gold-divider"></div>
-      <p class="section-desc dark mx-auto">Every commissioned piece undergoes rigorous traditional metallurgic stages in our Bengaluru foundry.</p>
+      <p class="section-desc dark mx-auto" style="max-width:700px;">Generations of pure metal mastery — from raw ingot and architectural drawings to handcrafted heirloom installations.</p>
     </div>
     <div class="process-grid">
-      <div class="process-card reveal" style="transition-delay:0.05s"><div class="process-num">01</div><h3>Architectural Drafting</h3><p>We review site dimensions, architectural elevations, and Vastu requirements to design 1:1 scale custom templates and approval drawings.</p></div>
-      <div class="process-card reveal" style="transition-delay:0.15s"><div class="process-num">02</div><h3>Manual Hand Embossing</h3><p>Master artisans chase and hammer virgin brass sheets over pitch blocks to raise intricate, deep-relief sculptures by hand — no machines.</p></div>
-      <div class="process-card reveal" style="transition-delay:0.25s"><div class="process-num">03</div><h3>Solid Wood Cladding</h3><p>Embossed metal panels are mechanically anchored to moisture-treated, seasoned teak wood frames with brass rivets and countersunk bolts.</p></div>
-      <div class="process-card reveal" style="transition-delay:0.35s"><div class="process-num">04</div><h3>Polish & Clear Coat</h3><p>Hand-buffed with jeweller's rouge and sealed with dual-component anti-oxidant lacquer for lifelong shine without maintenance.</p></div>
+
+      <!-- 01 DESIGN -->
+      <div class="process-card reveal" style="transition-delay:0.05s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step1_design.png" alt="01 Design - Reference, drawing or concept development" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">01</span>
+        </div>
+        <div class="process-card-content">
+          <h3>DESIGN</h3>
+          <p>Reference, drawing or concept development tailored precisely to your architectural elevations and spatial scale.</p>
+        </div>
+      </div>
+
+      <!-- 02 MATERIAL -->
+      <div class="process-card reveal" style="transition-delay:0.1s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step2_material.png" alt="02 Material - Selection of appropriate metal and finish" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">02</span>
+        </div>
+        <div class="process-card-content">
+          <h3>MATERIAL</h3>
+          <p>Selection of appropriate metal and finish — high-grade virgin brass alloys and solid white metal compositions.</p>
+        </div>
+      </div>
+
+      <!-- 03 FABRICATION -->
+      <div class="process-card reveal" style="transition-delay:0.15s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step3_fabrication.png" alt="03 Fabrication - Precision fabrication and forming" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">03</span>
+        </div>
+        <div class="process-card-content">
+          <h3>FABRICATION</h3>
+          <p>Precision fabrication and forming, creating robust sub-frames and tailored foundational structures.</p>
+        </div>
+      </div>
+
+      <!-- 04 EMBOSSING & DETAILING -->
+      <div class="process-card reveal" style="transition-delay:0.2s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step4_embossing.png" alt="04 Embossing & Detailing - Traditional decorative metal craftsmanship" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">04</span>
+        </div>
+        <div class="process-card-content">
+          <h3>EMBOSSING &amp; DETAILING</h3>
+          <p>Traditional decorative metal craftsmanship, hand-chased relief sculpting, repoussé and deep ornamental detailing.</p>
+        </div>
+      </div>
+
+      <!-- 05 FINISHING -->
+      <div class="process-card reveal" style="transition-delay:0.25s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step5_finishing.png" alt="05 Finishing - Polishing, patination and surface finishing" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">05</span>
+        </div>
+        <div class="process-card-content">
+          <h3>FINISHING</h3>
+          <p>Polishing, patination and surface finishing sealed with proprietary anti-oxidant coatings for lifelong lustre.</p>
+        </div>
+      </div>
+
+      <!-- 06 QUALITY CHECK -->
+      <div class="process-card reveal" style="transition-delay:0.3s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step6_quality_check.png" alt="06 Quality Check - Final inspection before delivery" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">06</span>
+        </div>
+        <div class="process-card-content">
+          <h3>QUALITY CHECK</h3>
+          <p>Final inspection before delivery, verifying metallurgical integrity, dimensional tolerance, and tactile perfection.</p>
+        </div>
+      </div>
+
+      <!-- 07 INSTALLATION -->
+      <div class="process-card reveal" style="transition-delay:0.35s">
+        <div class="process-img-wrap">
+          <img src="images/craftsmanship/step7_installation.png" alt="07 Installation - Professional installation where required" class="process-img" loading="lazy" decoding="async">
+          <span class="process-badge">07</span>
+        </div>
+        <div class="process-card-content">
+          <h3>INSTALLATION</h3>
+          <p>Professional installation where required, ensuring seamless architectural alignment and secure structural anchoring.</p>
+        </div>
+      </div>
+
     </div>
+
+    <!-- EXPLORE FULL CRAFTSMANSHIP STORY CTA -->
+    <div class="text-center reveal" style="margin-top:52px;">
+      <a href="craftsmanship.html" class="btn-gold" style="display:inline-flex;align-items:center;gap:10px;padding:15px 36px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-radius:50px;box-shadow:0 8px 28px rgba(196,148,14,0.35);">
+        <span>✦ Explore Full Craftsmanship Story ✦</span>
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p style="font-size:12px;color:rgba(240,220,180,0.6);margin-top:10px;">Deep dive into our 7-step metallurgical journey, foundry techniques &amp; high-resolution gallery</p>
+    </div>
+
   </div>
 </section>
 
@@ -2557,6 +2848,162 @@
   <button class="glb-nav glb-next" id="glbNext">&#8594;</button>
   <div class="glb-counter" id="glbCounter"></div>
 </div>
+
+<!-- ======================================================
+     8. CUSTOM FABRICATION SECTION
+====================================================== -->
+<section class="section section-light" id="custom-fabrication">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:52px;">
+      <div class="section-label mx-auto">Custom Fabrication</div>
+      <h2 class="section-title dark" style="letter-spacing:1.5px;">HAVE A REFERENCE?<br><span class="gold-text">WE CAN CRAFT IT.</span></h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto" style="max-width:720px;font-size:16px;line-height:1.75;color:#6b4d24;">
+        “Share your reference image, architectural drawing or concept. Our team can develop it into a customised architectural metal element.”
+      </p>
+    </div>
+
+    <div class="custom-fab-card reveal">
+      <form id="customFabForm" onsubmit="submitCustomFab(event)">
+        <div class="custom-fab-grid">
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label" for="cf_name">Name *</label>
+            <input type="text" class="form-control" id="cf_name" placeholder="e.g. Rajesh Sharma" required>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-label" for="cf_phone">Phone *</label>
+            <input type="tel" class="form-control" id="cf_phone" placeholder="e.g. +91 98765 43210" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="cf_email">Email</label>
+            <input type="email" class="form-control" id="cf_email" placeholder="your@email.com">
+          </div>
+
+          <!-- Project Location -->
+          <div class="form-group">
+            <label class="form-label" for="cf_location">Project Location *</label>
+            <input type="text" class="form-control" id="cf_location" placeholder="e.g. Bengaluru, Hyderabad, Chennai..." required>
+          </div>
+
+          <!-- Product Type -->
+          <div class="form-group">
+            <label class="form-label" for="cf_product_type">Product Type *</label>
+            <select class="form-control" id="cf_product_type" required>
+              <option value="" disabled selected>Select product type...</option>
+              <option value="Main Doors">Main Doors</option>
+              <option value="Double Doors">Double Doors</option>
+              <option value="Pooja Doors">Pooja Doors</option>
+              <option value="Internal Doors">Internal Doors</option>
+              <option value="Trader Doors">Trader Doors</option>
+              <option value="New Double Door">New Double Door</option>
+              <option value="Railings">Railings</option>
+              <option value="Bannister">Bannister</option>
+              <option value="Gates">Gates</option>
+              <option value="Handles">Handles</option>
+              <option value="Vaskaals">Vaskaals</option>
+              <option value="Wall Arts">Wall Arts</option>
+              <option value="Name Plates">Name Plates</option>
+              <option value="Pooja Door Accessories">Pooja Door Accessories</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Bespoke Metal Architectural Element">Bespoke Metal Architectural Element</option>
+              <option value="Other / Multiple Items">Other / Multiple Items</option>
+            </select>
+          </div>
+
+          <!-- Required Dimensions -->
+          <div class="form-group">
+            <label class="form-label" for="cf_dimensions">Required Dimensions</label>
+            <input type="text" class="form-control" id="cf_dimensions" placeholder="e.g. 7ft x 3.5ft / Custom site dimensions">
+          </div>
+
+          <!-- Material -->
+          <div class="form-group">
+            <label class="form-label" for="cf_material">Material</label>
+            <select class="form-control" id="cf_material">
+              <option value="" disabled selected>Select preferred material...</option>
+              <option value="Solid Brass">Solid Brass</option>
+              <option value="White Metal (German Silver)">White Metal (German Silver)</option>
+              <option value="Brass & White Metal Combination">Brass & White Metal Combination</option>
+              <option value="Solid Teakwood with Brass Inlay/Cladding">Solid Teakwood with Brass Inlay/Cladding</option>
+              <option value="Forged Wrought Iron with Brass Accents">Forged Wrought Iron with Brass Accents</option>
+              <option value="Consultatelier for Recommendation">Consult atelier for Recommendation</option>
+            </select>
+          </div>
+
+          <!-- Finish -->
+          <div class="form-group">
+            <label class="form-label" for="cf_finish">Finish</label>
+            <select class="form-control" id="cf_finish">
+              <option value="" disabled selected>Select preferred finish...</option>
+              <option value="Antique Brass / Vintage Patina">Antique Brass / Vintage Patina</option>
+              <option value="Polished High-Gloss Brass">Polished High-Gloss Brass</option>
+              <option value="Brushed / Satin Brass">Brushed / Satin Brass</option>
+              <option value="Antique White Metal / Silver Patina">Antique White Metal / Silver Patina</option>
+              <option value="Polished White Metal">Polished White Metal</option>
+              <option value="Oxidised Dark Bronze">Oxidised Dark Bronze</option>
+              <option value="Dual Tone (Brass + Silver)">Dual Tone (Brass + Silver)</option>
+              <option value="Custom Match to Reference">Custom Match to Reference</option>
+            </select>
+          </div>
+
+          <!-- Quantity -->
+          <div class="form-group">
+            <label class="form-label" for="cf_quantity">Quantity</label>
+            <input type="text" class="form-control" id="cf_quantity" placeholder="e.g. 1 Unit, 2 Sets, 50 Rft...">
+          </div>
+
+          <!-- Project Timeline -->
+          <div class="form-group">
+            <label class="form-label" for="cf_timeline">Project Timeline</label>
+            <select class="form-control" id="cf_timeline">
+              <option value="" disabled selected>Select expected timeline...</option>
+              <option value="Immediate (Within 2-3 weeks)">Immediate (Within 2-3 weeks)</option>
+              <option value="1 - 2 Months">1 - 2 Months</option>
+              <option value="2 - 4 Months">2 - 4 Months</option>
+              <option value="Planning / Concept Stage">Planning / Concept Stage</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group full-width">
+            <label class="form-label" for="cf_message">Message</label>
+            <textarea class="form-control" id="cf_message" rows="3" placeholder="Describe your concept, specific carving motifs, architectural style, or questions for our master craftsmen..."></textarea>
+          </div>
+
+          <!-- Upload Reference Image / Drawing -->
+          <div class="form-group full-width">
+            <label class="form-label">Upload Reference Image / Drawing</label>
+            <div class="file-upload-box" id="fileUploadBox">
+              <input type="file" id="cf_file" accept="image/*,.pdf,.dwg,.dxf" onchange="handleFileSelect(this)">
+              <div class="file-upload-icon">📂</div>
+              <div class="file-upload-title">Click or drag reference image / architectural drawing here</div>
+              <div class="file-upload-hint">Supports JPG, PNG, WEBP, PDF, CAD (Max 25MB)</div>
+              <img id="filePreviewThumb" class="file-preview-thumb" alt="Reference preview">
+              <div class="file-selected-name" id="fileSelectedName"></div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group full-width" style="margin-top:12px;margin-bottom:0;">
+            <button type="submit" class="form-submit" style="font-size:14px;padding:16px 28px;letter-spacing:2px;">
+              ✦ REQUEST CUSTOM FABRICATION ✦
+            </button>
+            <p style="text-align:center;font-size:12px;color:#8c6a38;margin-top:12px;">
+              🔒 Direct consultation with master artisans · Prompt technical estimation & 3D development support
+            </p>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 
 <!-- CONTACT & QUOTE -->
 <section class="section section-dark" id="contact">
@@ -3271,9 +3718,10 @@ function ibStart() {
         <h4>Our Atelier</h4>
         <ul class="footer-links">
           <li><a href="#about">About Us</a></li>
-          <li><a href="#process">Craftsmanship Process</a></li>
+          <li><a href="craftsmanship.html">Craftsmanship Journey (Full Page)</a></li>
           <li><a href="#materials">Materials & Finishes</a></li>
-          <li><a href="#instagram">Instagram Gallery</a></li>
+          <li><a href="#custom-fabrication">Custom Fabrication</a></li>
+          <li><a href="#instagram">Work Gallery</a></li>
           <li><a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank">@antiquedesigns_bengaluru</a></li>
         </ul>
       </div>
@@ -3433,8 +3881,12 @@ function ibStart() {
     // Filter tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
         renderFilter(tab.dataset.filter);
       });
     });
@@ -3600,6 +4052,110 @@ function ibStart() {
       if (e.key === 'ArrowRight') { glbIndex = (glbIndex + 1) % glbItems.length; showGlb(); }
     });
   })();
+
+  // CUSTOM FABRICATION FILE HANDLER & FORM
+  function handleFileSelect(input) {
+    const label = document.getElementById('fileSelectedName');
+    const thumb = document.getElementById('filePreviewThumb');
+    const box = document.getElementById('fileUploadBox');
+    
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      label.textContent = `✓ Attached: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+      label.style.display = 'inline-block';
+      if (box) box.classList.add('has-file');
+
+      // Show instant image preview if it's an image
+      if (thumb) {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            thumb.src = ev.target.result;
+            thumb.style.display = 'block';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          thumb.style.display = 'none';
+        }
+      }
+    } else {
+      label.textContent = '';
+      label.style.display = 'none';
+      if (thumb) thumb.style.display = 'none';
+      if (box) box.classList.remove('has-file');
+    }
+  }
+
+  async function submitCustomFab(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]') || document.querySelector('.form-submit');
+    const originalBtnText = submitBtn.innerHTML;
+
+    const name = document.getElementById('cf_name').value.trim();
+    const phone = document.getElementById('cf_phone').value.trim();
+    const email = document.getElementById('cf_email').value.trim();
+    const location = document.getElementById('cf_location').value.trim();
+    const productType = document.getElementById('cf_product_type').value;
+    const dimensions = document.getElementById('cf_dimensions').value.trim();
+    const material = document.getElementById('cf_material').value;
+    const finish = document.getElementById('cf_finish').value;
+    const quantity = document.getElementById('cf_quantity').value.trim();
+    const timeline = document.getElementById('cf_timeline').value;
+    const message = document.getElementById('cf_message').value.trim();
+    const fileInput = document.getElementById('cf_file');
+    const hasFile = fileInput.files && fileInput.files[0];
+    let uploadedImageUrl = null;
+
+    if (hasFile) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Uploading Image to WhatsApp...';
+      try {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('upload_preset', 'ml_default');
+        
+        // Free instant image hosting endpoint
+        const uploadRes = await fetch('https://tmpfiles.org/api/v1/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const uploadData = await uploadRes.json();
+        if (uploadData && uploadData.data && uploadData.data.url) {
+          // Format direct link for instant WhatsApp preview: https://tmpfiles.org/dl/...
+          uploadedImageUrl = uploadData.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+        }
+      } catch (err) {
+        console.warn('Image upload fallback:', err);
+      }
+    }
+
+    let customMsg = `🏛️ *CUSTOM FABRICATION REQUEST* 🏛️\n\n`;
+    customMsg += `*Name:* ${name}\n`;
+    customMsg += `*Phone:* ${phone}\n`;
+    if (email) customMsg += `*Email:* ${email}\n`;
+    customMsg += `*Project Location:* ${location}\n`;
+    customMsg += `*Product Type:* ${productType}\n`;
+    if (dimensions) customMsg += `*Dimensions:* ${dimensions}\n`;
+    if (material) customMsg += `*Material:* ${material}\n`;
+    if (finish) customMsg += `*Finish:* ${finish}\n`;
+    if (quantity) customMsg += `*Quantity:* ${quantity}\n`;
+    if (timeline) customMsg += `*Timeline:* ${timeline}\n`;
+    if (message) customMsg += `*Message:* ${message}\n`;
+    if (uploadedImageUrl) {
+      customMsg += `📸 *View Reference Image:* ${uploadedImageUrl}\n\n`;
+    } else if (hasFile) {
+      customMsg += `📎 *Reference File:* ${fileInput.files[0].name}\n\n`;
+    } else {
+      customMsg += `\n`;
+    }
+    customMsg += `Please provide quotation and technical feasibility for this custom metalwork commission.`;
+
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
+
+    const waUrl = `https://wa.me/919620202221?text=${encodeURIComponent(customMsg)}`;
+    window.open(waUrl, '_blank');
+  }
 
   // QUOTE FORM
   function submitQuote(e) {
