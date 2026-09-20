@@ -3650,7 +3650,11 @@ function ibStart() {
     }
     document.getElementById('bro-err').style.display = 'none';
 
-    // Save lead to Google Sheet
+    // Show step 2 (success screen) immediately
+    document.getElementById('bro-step1').style.display = 'none';
+    document.getElementById('bro-step2').style.display = 'block';
+
+    // Save lead to Google Sheet (keepalive ensures it survives page/navigation events on mobile)
     var params = new URLSearchParams({
       name:      name,
       phone:     phone,
@@ -3658,21 +3662,19 @@ function ibStart() {
       timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
       source:    'Brochure Download'
     });
-    fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+    fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors', keepalive: true })
       .catch(function() {});
 
-    // Show step 2 (success screen)
-    document.getElementById('bro-step1').style.display = 'none';
-    document.getElementById('bro-step2').style.display = 'block';
-
-    // Download the PDF
-    var a = document.createElement('a');
-    a.href = 'brochure.pdf';
-    a.download = 'Antique_Designs_Catalogue_2026.pdf';
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // Download the PDF (after sheet request is already dispatched)
+    setTimeout(function() {
+      var a = document.createElement('a');
+      a.href = 'brochure.pdf';
+      a.download = 'Antique_Designs_Catalogue_2026.pdf';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, 300);
   }
 
   document.addEventListener('keydown', function(e) {
