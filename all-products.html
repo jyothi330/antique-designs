@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products | Antique Designs Bengaluru</title>
+  <meta name="description" content="Browse all handcrafted brass and white metal products by Antique Designs Bengaluru — doors, gates, railings, handles, wall arts and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#f5f0e8;color:#1e1812;font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-thumb{background:#c4940e;border-radius:3px}
+
+    /* NAV */
+    .top-bar{background:linear-gradient(90deg,#1a0e04,#2a1608,#1a0e04);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid rgba(212,175,55,0.25);position:sticky;top:0;z-index:100}
+    .top-bar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-img{width:44px;height:44px;border-radius:6px;object-fit:contain;background:#000}
+    .logo-title{font-family:'Cinzel',serif;font-size:16px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#d4b050,#a07010);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .logo-sub{font-size:8px;letter-spacing:2.5px;color:rgba(240,200,140,0.6);text-transform:uppercase;display:block;margin-top:2px}
+    .top-bar-ctas{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-wa,.btn-call,.btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;transition:filter 0.2s;white-space:nowrap}
+    .btn-wa{background:#22c55e;color:#fff}
+    .btn-call{background:linear-gradient(135deg,#c29320,#8a6205);color:#fff}
+    .btn-back{background:rgba(212,175,55,0.15);color:#d4af37;border:1px solid rgba(212,175,55,0.3)}
+    .btn-wa:hover,.btn-call:hover,.btn-back:hover{filter:brightness(1.12)}
+
+    /* PAGE HEADER */
+    .page-header{background:linear-gradient(160deg,#1a0e04,#2e1a06);padding:40px 28px 32px;text-align:center;border-bottom:1px solid rgba(212,175,55,0.2)}
+    .page-tag{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c29320;margin-bottom:10px}
+    .page-title{font-family:'Cinzel',serif;font-size:clamp(26px,4vw,44px);font-weight:800;color:#faf0d0;margin-bottom:10px}
+    .gold-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,#c29320,transparent);margin:0 auto 14px}
+    .page-desc{font-size:14px;color:rgba(240,210,160,0.75);max-width:600px;margin:0 auto}
+
+    /* FILTER TABS */
+    .filter-bar{max-width:1400px;margin:0 auto;padding:24px 20px 0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+    .ftab{padding:7px 16px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(160,104,8,0.3);background:transparent;color:#a06808;transition:all 0.2s}
+    .ftab:hover{background:rgba(160,104,8,0.1)}
+    .ftab.active{background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;border-color:transparent}
+
+    /* PRODUCTS GRID */
+    .products-outer{max-width:1400px;margin:0 auto;padding:28px 20px 60px}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+    @media(max-width:680px){.products-grid{grid-template-columns:1fr}}
+
+    /* PRODUCT CARD */
+    .pcard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid rgba(160,104,8,0.14);transition:box-shadow 0.2s,transform 0.2s}
+    .pcard:hover{box-shadow:0 8px 32px rgba(160,104,8,0.18);transform:translateY(-3px)}
+    .pcard[data-hidden="true"]{display:none}
+    .pcard-imgs{display:grid;grid-template-columns:1fr 1fr;gap:3px;height:240px;position:relative}
+    .pcard-imgs img{width:100%;height:120px;object-fit:cover}
+    .card-tag{position:absolute;top:12px;right:12px;background:rgba(26,14,4,0.75);color:#f0dcb4;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:50px;text-transform:uppercase}
+    .pcard-body{padding:18px 18px 16px}
+    .pcard-body h3{font-family:'Cinzel',serif;font-size:16px;font-weight:800;color:#1e1208;margin-bottom:6px}
+    .pcard-body p{font-size:13px;color:#5a3e1e;line-height:1.65;margin-bottom:14px}
+    .pcard-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .material-tag{font-size:11px;font-weight:600;color:#a06808}
+    .pcard-btns{display:flex;gap:8px}
+    .btn-show{display:inline-flex;align-items:center;padding:7px 16px;border-radius:50px;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;transition:filter 0.2s}
+    .btn-enq{display:inline-flex;align-items:center;padding:7px 16px;border-radius:50px;border:1px solid #c29320;color:#8a6205;font-size:11px;font-weight:700;text-decoration:none;transition:all 0.2s}
+    .btn-show:hover{filter:brightness(1.12)}
+    .btn-enq:hover{background:#c29320;color:#fff}
+
+    /* NO RESULTS */
+    .no-results{text-align:center;padding:60px 20px;color:#9a7040;font-size:14px;display:none}
+
+    /* FOOTER */
+    .site-footer{background:#1a0e04;border-top:1px solid rgba(212,175,55,0.15);padding:20px 28px;text-align:center;font-size:11px;color:rgba(240,200,140,0.45)}
+    .site-footer a{color:#c29320;text-decoration:none}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="top-bar">
+  <a href="index.html" class="top-bar-logo">
+    <img src="logo.jpeg" alt="Antique Designs" class="logo-img">
+    <div>
+      <span class="logo-title">ANTIQUE DESIGNS</span>
+      <span class="logo-sub">Vintage Inspired Decorative Metal Art</span>
+    </div>
+  </a>
+  <div class="top-bar-ctas">
+    <a href="index.html" class="btn-back">← Home</a>
+    <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs,%20I%20want%20to%20enquire%20about%20your%20products." target="_blank" class="btn-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.845L0 24l6.347-1.507A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.032-1.386l-.36-.214-3.733.886.936-3.629-.235-.374A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      WhatsApp
+    </a>
+    <a href="tel:+919620202221" class="btn-call">📞 Call Us</a>
+  </div>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-tag">Complete Collection</div>
+  <h1 class="page-title">All Products</h1>
+  <div class="gold-line"></div>
+  <p class="page-desc">15 categories of handcrafted brass &amp; white metal metalwork — doors, gates, railings, handles, wall arts and more.</p>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+  <button class="ftab active" data-filter="all">All</button>
+  <button class="ftab" data-filter="accessories">Accessories</button>
+  <button class="ftab" data-filter="bannister">Bannister</button>
+  <button class="ftab" data-filter="doubledoor">Double Door</button>
+  <button class="ftab" data-filter="gates">Gates</button>
+  <button class="ftab" data-filter="handles">Handles</button>
+  <button class="ftab" data-filter="internaldoors">Internal Doors</button>
+  <button class="ftab" data-filter="main">Main Doors</button>
+  <button class="ftab" data-filter="nameplates">Name Plates</button>
+  <button class="ftab" data-filter="newdoubledoor">New Double Door</button>
+  <button class="ftab" data-filter="pooja">Pooja Doors</button>
+  <button class="ftab" data-filter="poojaaccesories">Pooja Door Accessories</button>
+  <button class="ftab" data-filter="railings">Railings</button>
+  <button class="ftab" data-filter="traderdoor">Trader Doors</button>
+  <button class="ftab" data-filter="vaskaals">Vaskaals</button>
+  <button class="ftab" data-filter="wallarts">Wall Arts</button>
+</div>
+
+<!-- PRODUCTS GRID -->
+<div class="products-outer">
+  <div class="products-grid" id="productsGrid">
+
+    <!-- ACCESSORIES -->
+    <div class="pcard" data-cat="accessories">
+      <div class="pcard-imgs">
+        <img src="products/accessories/acc_1.jpg" alt="Accessories 1" loading="lazy">
+        <img src="products/accessories/acc_2.jpg" alt="Accessories 2" loading="lazy">
+        <img src="products/accessories/acc_3.jpg" alt="Accessories 3" loading="lazy">
+        <img src="products/accessories/acc_4.jpg" alt="Accessories 4" loading="lazy">
+        <span class="card-tag">Accessories</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Accessories</h3>
+        <p>Handcrafted brass and white metal accessories crafted with precision and artistry by our Bengaluru artisans.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/accessories/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Accessories" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANNISTER -->
+    <div class="pcard" data-cat="bannister">
+      <div class="pcard-imgs">
+        <img src="products/bannister/bn_1.jpg" alt="Bannister 1" loading="lazy">
+        <img src="products/bannister/bn_2.jpg" alt="Bannister 2" loading="lazy">
+        <img src="products/bannister/bn_3.jpg" alt="Bannister 3" loading="lazy">
+        <img src="products/bannister/bn_4.jpg" alt="Bannister 4" loading="lazy">
+        <span class="card-tag">Bannister</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Bannister</h3>
+        <p>Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Forged Brass</span>
+          <div class="pcard-btns">
+            <a href="products/bannister/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Bannister" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOUBLE DOOR -->
+    <div class="pcard" data-cat="doubledoor">
+      <div class="pcard-imgs">
+        <img src="products/doubledoor/dd_1.jpg" alt="Double Door 1" loading="lazy">
+        <img src="products/doubledoor/dd_2.jpg" alt="Double Door 2" loading="lazy">
+        <img src="products/doubledoor/dd_3.jpg" alt="Double Door 3" loading="lazy">
+        <img src="products/doubledoor/dd_4.jpg" alt="Double Door 4" loading="lazy">
+        <span class="card-tag">Double Door</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Double Door</h3>
+        <p>Elegant symmetrical double doors handcrafted in brass and white metal for grand villa and mansion entrances.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/doubledoor/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Double%20Door" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GATES -->
+    <div class="pcard" data-cat="gates">
+      <div class="pcard-imgs">
+        <img src="products/gates/gate_1.jpg" alt="Gates 1" loading="lazy">
+        <img src="products/gates/gate_2.jpg" alt="Gates 2" loading="lazy">
+        <img src="products/gates/gate_3.jpg" alt="Gates 3" loading="lazy">
+        <img src="products/gates/gate_4.jpg" alt="Gates 4" loading="lazy">
+        <span class="card-tag">Gates</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Gates</h3>
+        <p>Ornate compound and villa gates with decorative brass fittings and finials for prestigious entrances.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; Iron</span>
+          <div class="pcard-btns">
+            <a href="products/gates/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Gates" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HANDLES -->
+    <div class="pcard" data-cat="handles">
+      <div class="pcard-imgs">
+        <img src="products/handles/hn_1.jpg" alt="Handles 1" loading="lazy">
+        <img src="products/handles/hn_2.jpg" alt="Handles 2" loading="lazy">
+        <img src="products/handles/hn_3.jpg" alt="Handles 3" loading="lazy">
+        <img src="products/handles/hn_4.jpg" alt="Handles 4" loading="lazy">
+        <span class="card-tag">Handles</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Handles</h3>
+        <p>Solid cast brass and white metal door handles, pull bars and architectural hardware crafted to last a lifetime.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Cast Brass</span>
+          <div class="pcard-btns">
+            <a href="products/handles/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Handles" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERNAL DOORS -->
+    <div class="pcard" data-cat="internaldoors">
+      <div class="pcard-imgs">
+        <img src="products/internaldoors/id_1.jpg" alt="Internal Doors 1" loading="lazy">
+        <img src="products/internaldoors/id_2.jpg" alt="Internal Doors 2" loading="lazy">
+        <img src="products/internaldoors/id_3.jpg" alt="Internal Doors 3" loading="lazy">
+        <img src="products/internaldoors/id_4.jpg" alt="Internal Doors 4" loading="lazy">
+        <span class="card-tag">Internal Doors</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Internal Doors</h3>
+        <p>Beautifully crafted internal doors with brass and white metal detailing to elevate every room.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/internaldoors/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Internal%20Doors" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN DOORS -->
+    <div class="pcard" data-cat="main">
+      <div class="pcard-imgs">
+        <img src="products/maindoors/md_1.jpg" alt="Main Doors 1" loading="lazy">
+        <img src="products/maindoors/md_2.jpg" alt="Main Doors 2" loading="lazy">
+        <img src="products/maindoors/md_3.jpg" alt="Main Doors 3" loading="lazy">
+        <img src="products/maindoors/md_4.jpg" alt="Main Doors 4" loading="lazy">
+        <span class="card-tag">Main Doors</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Main Doors</h3>
+        <p>Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/maindoors/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Main%20Doors" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAME PLATES -->
+    <div class="pcard" data-cat="nameplates">
+      <div class="pcard-imgs">
+        <img src="products/nameplates/np_1.jpg" alt="Name Plates 1" loading="lazy">
+        <img src="products/nameplates/np_2.jpg" alt="Name Plates 2" loading="lazy">
+        <img src="products/nameplates/np_3.jpg" alt="Name Plates 3" loading="lazy">
+        <img src="products/nameplates/np_4.jpg" alt="Name Plates 4" loading="lazy">
+        <span class="card-tag">Name Plates</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Name Plates</h3>
+        <p>Custom cast brass name plates with deep-relief lettering, house insignia and family crests.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Cast Brass</span>
+          <div class="pcard-btns">
+            <a href="products/nameplates/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Name%20Plates" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW DOUBLE DOOR -->
+    <div class="pcard" data-cat="newdoubledoor">
+      <div class="pcard-imgs">
+        <img src="products/newdoubledoor/ndd_1.jpg" alt="New Double Door 1" loading="lazy">
+        <img src="products/newdoubledoor/ndd_2.jpg" alt="New Double Door 2" loading="lazy">
+        <img src="products/newdoubledoor/ndd_3.jpg" alt="New Double Door 3" loading="lazy">
+        <img src="products/newdoubledoor/ndd_4.jpg" alt="New Double Door 4" loading="lazy">
+        <span class="card-tag">New Double Door</span>
+      </div>
+      <div class="pcard-body">
+        <h3>New Double Door</h3>
+        <p>New arrivals in double door designs — handcrafted brass and white metal statement entrances for your home.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/newdoubledoor/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20New%20Double%20Door" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POOJA DOORS -->
+    <div class="pcard" data-cat="pooja">
+      <div class="pcard-imgs">
+        <img src="products/poojaadoors/pd_1.jpg" alt="Pooja Doors 1" loading="lazy">
+        <img src="products/poojaadoors/pd_2.jpg" alt="Pooja Doors 2" loading="lazy">
+        <img src="products/poojaadoors/pd_3.jpg" alt="Pooja Doors 3" loading="lazy">
+        <img src="products/poojaadoors/pd_4.jpg" alt="Pooja Doors 4" loading="lazy">
+        <span class="card-tag">Pooja Doors</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Pooja Doors</h3>
+        <p>Sacred Gopuram arches, kalasha tops and brass temple cladding handcrafted for home mandirs and temple sanctums.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Teak + Brass</span>
+          <div class="pcard-btns">
+            <a href="products/poojaadoors/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Pooja%20Doors" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POOJA DOOR ACCESSORIES -->
+    <div class="pcard" data-cat="poojaaccesories">
+      <div class="pcard-imgs">
+        <img src="products/poojaaccesories/pa_1.jpg" alt="Pooja Door Accessories 1" loading="lazy">
+        <img src="products/poojaaccesories/pa_2.jpg" alt="Pooja Door Accessories 2" loading="lazy">
+        <img src="products/poojaaccesories/pa_3.jpg" alt="Pooja Door Accessories 3" loading="lazy">
+        <img src="products/poojaaccesories/pa_4.jpg" alt="Pooja Door Accessories 4" loading="lazy">
+        <span class="card-tag">Pooja Door Accessories</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Pooja Door Accessories</h3>
+        <p>Decorative brass accessories for pooja room doors — bells, kalasha motifs and divine embellishments.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/poojaaccesories/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Pooja%20Door%20Accessories" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAILINGS -->
+    <div class="pcard" data-cat="railings">
+      <div class="pcard-imgs">
+        <img src="products/railings/rl_1.jpg" alt="Railings 1" loading="lazy">
+        <img src="products/railings/rl_2.jpg" alt="Railings 2" loading="lazy">
+        <img src="products/railings/rl_3.jpg" alt="Railings 3" loading="lazy">
+        <img src="products/railings/rl_4.jpg" alt="Railings 4" loading="lazy">
+        <span class="card-tag">Railings</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Railings</h3>
+        <p>Hand-forged brass and white metal railings for staircases, balconies and terraces with ornate detailing.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Forged Brass</span>
+          <div class="pcard-btns">
+            <a href="products/railings/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Railings" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRADER DOORS -->
+    <div class="pcard" data-cat="traderdoor">
+      <div class="pcard-imgs">
+        <img src="products/traderdoor/td_1.jpg" alt="Trader Door 1" loading="lazy">
+        <img src="products/traderdoor/td_2.jpg" alt="Trader Door 2" loading="lazy">
+        <img src="products/traderdoor/td_3.jpg" alt="Trader Door 3" loading="lazy">
+        <img src="products/traderdoor/td_4.jpg" alt="Trader Door 4" loading="lazy">
+        <span class="card-tag">Trader Doors</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Trader Doors</h3>
+        <p>Sturdy and elegant trader doors crafted with brass and white metal embellishments for commercial and residential spaces.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/traderdoor/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Trader%20Doors" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VASKAALS -->
+    <div class="pcard" data-cat="vaskaals">
+      <div class="pcard-imgs">
+        <img src="products/vaskaals/vk_1.jpg" alt="Vaskaals 1" loading="lazy">
+        <img src="products/vaskaals/vk_2.jpg" alt="Vaskaals 2" loading="lazy">
+        <img src="products/vaskaals/vk_3.jpg" alt="Vaskaals 3" loading="lazy">
+        <img src="products/vaskaals/vk_4.jpg" alt="Vaskaals 4" loading="lazy">
+        <span class="card-tag">Vaskaals</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Vaskaals</h3>
+        <p>Traditional solid brass vaskaal pull handles and door hardware crafted by master artisans in Bengaluru.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Solid Cast Brass</span>
+          <div class="pcard-btns">
+            <a href="products/vaskaals/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Vaskaals" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALL ARTS -->
+    <div class="pcard" data-cat="wallarts">
+      <div class="pcard-imgs">
+        <img src="products/wallarts/wa_1.jpg" alt="Wall Arts 1" loading="lazy">
+        <img src="products/wallarts/wa_2.jpg" alt="Wall Arts 2" loading="lazy">
+        <img src="products/wallarts/wa_3.jpg" alt="Wall Arts 3" loading="lazy">
+        <img src="products/wallarts/wa_4.jpg" alt="Wall Arts 4" loading="lazy">
+        <span class="card-tag">Wall Arts</span>
+      </div>
+      <div class="pcard-body">
+        <h3>Wall Arts</h3>
+        <p>Hand-hammered brass and white metal wall art — relief panels, 3D murals and statement pieces for any space.</p>
+        <div class="pcard-footer">
+          <span class="material-tag">Brass &amp; White Metal</span>
+          <div class="pcard-btns">
+            <a href="products/wallarts/index.html" class="btn-show">Show More</a>
+            <a href="https://wa.me/919620202221?text=I%20want%20to%20enquire%20about%20Wall%20Arts" target="_blank" class="btn-enq">Enquire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#productsGrid -->
+  <div class="no-results" id="noResults">No products found for this category.</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>© 2026 Antique Designs Bengaluru — Handcrafted Brass &amp; White Metal Artistry &nbsp;|&nbsp; <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="https://wa.me/919620202221" target="_blank">WhatsApp</a></p>
+</footer>
+
+<script>
+  var tabs = document.querySelectorAll('.ftab');
+  var cards = document.querySelectorAll('.pcard');
+  var noResults = document.getElementById('noResults');
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      var filter = this.getAttribute('data-filter');
+      var visible = 0;
+      cards.forEach(function(card) {
+        if (filter === 'all' || card.getAttribute('data-cat') === filter) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
