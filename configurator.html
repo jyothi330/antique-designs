@@ -358,13 +358,21 @@ body { overflow: hidden; }
   #canvas-area { height: 60vw; min-height: 280px; max-height: 420px; order: -1; flex-shrink: 0; }
   #config-panel { width: 100%; overflow-y: visible; border-right: none; border-bottom: 1px solid rgba(180,140,40,0.12); }
   #specs-panel { width: 100%; border-left: none; border-top: 1px solid rgba(180,140,40,0.12); }
-  #view-controls { display: none; }
+  #view-controls {
+    display: flex;
+    flex-direction: row;
+    top: auto; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    gap: 6px;
+    white-space: nowrap;
+  }
   .topbar-center { display: none; }
   .product-grid { grid-template-columns: repeat(5, 1fr); }
 }
 @media (max-width: 520px) {
   .product-grid { grid-template-columns: repeat(3, 1fr); }
   .motif-grid { grid-template-columns: repeat(3, 1fr); }
+  .view-btn { font-size: 8px; padding: 5px 8px; }
 }
 </style>
 </head>
@@ -375,7 +383,7 @@ body { overflow: hidden; }
   <a href="index.html" class="brand">
     <div>
       <span class="brand-name">ANTIQUE DESIGNS</span>
-      <span class="brand-sub">BENGALURU · EST. 2011</span>
+      <span class="brand-sub">BENGALURU · EST. 2014</span>
     </div>
   </a>
   <span class="topbar-center">Design Your Own Door</span>

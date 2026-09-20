@@ -1,7 +1,7 @@
 # Antique Designs — Official Website Replacement Guide
 
 ## About the Business
-**Antique Designs** is an authentic, offline artisan manufacturing atelier and brass/white metal foundry based on Magadi Main Road, Bengaluru, Karnataka (Established 2011).
+**Antique Designs** is an authentic, offline artisan manufacturing atelier and brass/white metal foundry based on Magadi Main Road, Bengaluru, Karnataka (Established 2014).
 They handcraft, emboss, cast, and forge real architectural brass and metal pieces for villas, luxury residences, and temples.
 
 ---

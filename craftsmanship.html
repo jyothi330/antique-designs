@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Craftsmanship &amp; Artisan Process | Antique Designs Bengaluru</title>
-  <meta name="description" content="Explore the authentic 7-step craftsmanship process behind Antique Designs Bengaluru — from architectural drafting and alloy selection to hand-embossed metalwork, patination, and installation.">
+  <meta name="description" content="Explore the authentic 9-step craftsmanship process behind Antique Designs Bengaluru — from site visit and design consultation to dye making, casting, quality inspection, and architectural installation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -156,7 +156,65 @@
       width: 70px;
       height: 2px;
       background: linear-gradient(90deg, transparent, #c4940e, #fae092, #c4940e, transparent);
+      margin: 0 auto 28px;
+    }
+
+    /* Step Navigation Bar */
+    .step-nav-wrapper {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 0 16px;
+    }
+    .step-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 6px;
+      padding: 12px 16px;
+      background: rgba(22, 14, 7, 0.7);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 50px;
+    }
+    .step-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #e5cfac;
+      text-decoration: none;
+      background: rgba(212, 168, 67, 0.08);
+      border: 1px solid rgba(212, 168, 67, 0.22);
+      transition: all 0.25s;
+    }
+    .step-nav-link:hover {
+      background: rgba(212, 168, 67, 0.22);
+      border-color: #d4a843;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .step-nav-num {
+      background: #c4940e;
+      color: #1a1000;
+      font-weight: 800;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      flex-shrink: 0;
+    }
+    .step-nav-arrow {
+      color: #c4940e;
+      font-size: 11px;
+      opacity: 0.7;
     }
 
     /* Process Showcase Timeline */
@@ -467,7 +525,7 @@
       <img src="logo.jpeg" alt="Antique Designs Logo" class="brand-logo">
       <div>
         <span class="brand-title gold-gradient-text">ANTIQUE DESIGNS</span>
-        <span class="brand-sub">Bengaluru Atelier · Est. 2011</span>
+        <span class="brand-sub">Bengaluru Atelier · Est. 2014</span>
       </div>
     </a>
     <div class="nav-actions">
@@ -485,175 +543,246 @@
     <h1 class="craft-hero-title">THE CRAFT BEHIND <span class="gold-gradient-text">THE DETAIL</span></h1>
     <p class="craft-hero-subtitle">“Generations of pure metal mastery — from raw ingot and architectural drawings to handcrafted heirloom installations.”</p>
     <div class="gold-separator"></div>
+
+    <!-- Navigation Breadcrumbs Bar -->
+    <div class="step-nav-wrapper">
+      <nav class="step-nav-bar" aria-label="Craftsmanship Steps">
+        <a href="#step-1" class="step-nav-link"><span class="step-nav-num">01</span>SITE VISIT</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-2" class="step-nav-link"><span class="step-nav-num">02</span>DESIGN CONSULTATION</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-3" class="step-nav-link"><span class="step-nav-num">03</span>QUOTATION</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-4" class="step-nav-link"><span class="step-nav-num">04</span>APPROVAL</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-5" class="step-nav-link"><span class="step-nav-num">05</span>DYE MAKING</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-6" class="step-nav-link"><span class="step-nav-num">06</span>CASTING</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-7" class="step-nav-link"><span class="step-nav-num">07</span>FINISHING</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-8" class="step-nav-link"><span class="step-nav-num">08</span>QUALITY CHECK</a>
+        <span class="step-nav-arrow">→</span>
+        <a href="#step-9" class="step-nav-link"><span class="step-nav-num">09</span>INSTALLATION</a>
+      </nav>
+    </div>
   </section>
 
   <!-- TIMELINE / PROCESS STEPS -->
   <main class="showcase-container">
 
-    <!-- STEP 01 -->
+    <!-- STEP 01: SITE VISIT -->
     <article class="step-section" id="step-1">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step1_design.png', '01 DESIGN - Conceptual Drafting &amp; 3D Modeling')">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step1_site_visit.png', '01 SITE VISIT - On-Site Measurements &amp; Conditions Assessment')">
         <span class="step-badge">01</span>
-        <img src="images/craftsmanship/step1_design.png" alt="01 Design - Antique Designs Bengaluru Drafting Studio" loading="eager">
+        <img src="images/craftsmanship/step1_site_visit.png" alt="01 Site Visit - Understanding dimensions and installation conditions" loading="eager">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase One</div>
-        <h2 class="step-title">01 DESIGN</h2>
-        <div class="step-desc-lead">Reference, drawing or concept development.</div>
+        <div class="step-tag">Step 01</div>
+        <h2 class="step-title">01 — SITE VISIT</h2>
+        <div class="step-desc-lead">Understanding the site, dimensions, requirements and installation conditions.</div>
         <p class="step-desc-body">
-          We begin by understanding your vision. From sacred traditional temple motifs to bespoke contemporary concepts, our design team develops 1:1 scale detailed architectural drawings, elevation drafting, and photorealistic 3D visualisations to bring your idea to life with uncompromising precision.
+          Our technical experts conduct a comprehensive on-site survey to take exact millimeter dimensions, assess architectural structural conditions, review wall and floor load capacities, and understand specific installation prerequisites.
         </p>
         <ul class="step-highlights">
-          <li>1:1 Full Scale Templates</li>
-          <li>Vastu Alignment Study</li>
-          <li>Photorealistic 3D Renders</li>
+          <li>Precision Millimeter Measuring</li>
+          <li>Structural &amp; Load Verification</li>
+          <li>Vastu Alignment Assessment</li>
+          <li>Installation Environment Study</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- STEP 02: DESIGN CONSULTATION -->
+    <article class="step-section reverse" id="step-2">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step2_design_consultation.png', '02 DESIGN CONSULTATION - Requirements, Preferences, Materials &amp; Finishes')">
+        <span class="step-badge">02</span>
+        <img src="images/craftsmanship/step2_design_consultation.png" alt="02 Design Consultation - Discussing customer requirements and finishes" loading="lazy">
+        <div class="step-media-overlay"></div>
+        <div class="step-zoom-hint">🔍 Tap to Expand</div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step 02</div>
+        <h2 class="step-title">02 — DESIGN CONSULTATION</h2>
+        <div class="step-desc-lead">Discussing the customer's requirements, design preferences, materials and finishes.</div>
+        <p class="step-desc-body">
+          We collaborate closely with clients, architects, and interior designers to explore bespoke patterns, auspicious motifs, material selections (Pure Brass or White Metal), and custom antique, patina, or polished surface treatments.
+        </p>
+        <ul class="step-highlights">
+          <li>Bespoke Motif Exploration</li>
+          <li>Alloy &amp; Finish Sample Review</li>
+          <li>CAD / Elevation Concepting</li>
           <li>Architectural Coordination</li>
         </ul>
       </div>
     </article>
 
-    <!-- STEP 02 -->
-    <article class="step-section reverse" id="step-2">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step2_material.png', '02 MATERIAL - Selection of High-Grade Alloys')">
-        <span class="step-badge">02</span>
-        <img src="images/craftsmanship/step2_material.png" alt="02 Material - Antique Designs Alloy Swatches" loading="lazy">
-        <div class="step-media-overlay"></div>
-        <div class="step-zoom-hint">🔍 Tap to Expand</div>
-      </div>
-      <div class="step-content">
-        <div class="step-tag">Phase Two</div>
-        <h2 class="step-title">02 MATERIAL</h2>
-        <div class="step-desc-lead">Selection of appropriate metal and finish.</div>
-        <p class="step-desc-body">
-          Certified virgin alloys and seasoned hardwood foundations are carefully curated. Whether solid golden brass, German silver (white metal), architectural bronze, or hand-matched alloy compositions, every substrate is tested for metallurgical purity, longevity, and structural rigidity.
-        </p>
-        <ul class="step-highlights">
-          <li>Certified Virgin Brass</li>
-          <li>Pure German White Metal</li>
-          <li>Seasoned Grade-A Teak</li>
-          <li>Multi-Alloy Formulations</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- STEP 03 -->
+    <!-- STEP 03: QUOTATION -->
     <article class="step-section" id="step-3">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step3_fabrication.png', '03 FABRICATION - Precision Forming &amp; Joinery')">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step3_quotation.png', '03 QUOTATION - Detailed Specifications &amp; Commercial Estimate')">
         <span class="step-badge">03</span>
-        <img src="images/craftsmanship/step3_fabrication.png" alt="03 Fabrication - Precision Metal Forming" loading="lazy">
+        <img src="images/craftsmanship/step3_quotation.png" alt="03 Quotation - Preparing detailed estimate based on approved design" loading="lazy">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase Three</div>
-        <h2 class="step-title">03 FABRICATION</h2>
-        <div class="step-desc-lead">Precision fabrication and forming.</div>
+        <div class="step-tag">Step 03</div>
+        <h2 class="step-title">03 — QUOTATION</h2>
+        <div class="step-desc-lead">Preparing a detailed quotation based on the approved design, dimensions and specifications.</div>
         <p class="step-desc-body">
-          Core frames, internal reinforcements, and foundational metal plates are shaped, cut, and welded to exact millimeter tolerances. Sub-frames undergo structural load stress assessments to ensure large-format grand doors, railings, and heavy architectural panels operate smoothly for decades.
+          We deliver a fully itemized commercial proposal covering metallurgical specifications, gauge weights, woodwork integration, die-making overheads, surface treatments, transit packing, and installation timelines with complete transparency.
         </p>
         <ul class="step-highlights">
-          <li>Heavy-Gauge Sub-frames</li>
-          <li>Seamless Structural Welds</li>
-          <li>Laser Precision Cutting</li>
-          <li>Zero-Sag Engineering</li>
+          <li>Itemized Material Breakdown</li>
+          <li>Dimensional Specifications</li>
+          <li>Transparent Pricing Schedule</li>
+          <li>Clear Production Milestones</li>
         </ul>
       </div>
     </article>
 
-    <!-- STEP 04 -->
+    <!-- STEP 04: CUSTOMER APPROVAL -->
     <article class="step-section reverse" id="step-4">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step4_embossing.png', '04 EMBOSSING &amp; DETAILING - Traditional Hand Carving &amp; Repoussé')">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step4_approval.png', '04 CUSTOMER APPROVAL - Finalizing Design, Specs &amp; Quotation')">
         <span class="step-badge">04</span>
-        <img src="images/craftsmanship/step4_embossing.png" alt="04 Embossing - Master Artisans Hand Detailing" loading="lazy">
+        <img src="images/craftsmanship/step4_approval.png" alt="04 Customer Approval - Final sign-off on design and specifications" loading="lazy">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase Four</div>
-        <h2 class="step-title">04 EMBOSSING &amp; DETAILING</h2>
-        <div class="step-desc-lead">Traditional decorative metal craftsmanship.</div>
+        <div class="step-tag">Step 04</div>
+        <h2 class="step-title">04 — CUSTOMER APPROVAL</h2>
+        <div class="step-desc-lead">Finalizing the design, specifications and quotation after customer review and approval.</div>
         <p class="step-desc-body">
-          The soul of our atelier. Master craftsmen use ancestral chisels, pitch blocks, and repoussé hammers to chase and hand-emboss high-relief sculptures, sacred kalashas, intricate floral arabesques, and customized family emblems entirely by human hand.
+          The client reviews and gives final approval on 1:1 scale templates, finish swatches, technical drawings, and quotation terms. Once signed off, the project officially enters the master foundry and artisanal production queue.
         </p>
         <ul class="step-highlights">
-          <li>100% Hand-Chased Relief</li>
-          <li>Traditional Pitch Block Work</li>
-          <li>Heritage Sculptural Motifs</li>
-          <li>Bespoke Custom Emblems</li>
+          <li>1:1 Blueprint Sign-Off</li>
+          <li>Finish Swatch Confirmation</li>
+          <li>Scope &amp; Timeline Agreement</li>
+          <li>Production Scheduling</li>
         </ul>
       </div>
     </article>
 
-    <!-- STEP 05 -->
+    <!-- STEP 05: DYE MAKING -->
     <article class="step-section" id="step-5">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step5_finishing.png', '05 FINISHING - Polishing, Patination &amp; Sealing')">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step5_dye_making.png', '05 DYE MAKING - Creating Dies, Moulds &amp; Master Patterns')">
         <span class="step-badge">05</span>
-        <img src="images/craftsmanship/step5_finishing.png" alt="05 Finishing - Surface Patination &amp; Buffing" loading="lazy">
+        <img src="images/craftsmanship/step5_dye_making.png" alt="05 Dye Making - Creating required dies, moulds and patterns" loading="lazy">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase Five</div>
-        <h2 class="step-title">05 FINISHING</h2>
-        <div class="step-desc-lead">Polishing, patination and surface finishing.</div>
+        <div class="step-tag">Step 05</div>
+        <h2 class="step-title">05 — DYE MAKING</h2>
+        <div class="step-desc-lead">Creating the required dies, moulds or patterns for the approved design.</div>
         <p class="step-desc-body">
-          Surfaces receive manual jeweller's rouge buffing, chemical patination baths, antique shading, or high-gloss satin polishing. Each piece is hermetically sealed with dual-component anti-oxidant coatings to permanently lock in lustre and protect against environmental tarnish.
+          Master mould-makers hand-sculpt precision master dies, hardwood patterns, and foundry sand/investment moulds for every intricate relief, panel border, sacred emblem, and bespoke hardware component.
         </p>
         <ul class="step-highlights">
-          <li>Jeweller's Rouge Buffing</li>
-          <li>Hand-Rubbed Dark Patina</li>
-          <li>Anti-Tarnish Sealant</li>
-          <li>Maintenance-Free Coating</li>
+          <li>Custom Hand-Sculpted Dies</li>
+          <li>Precision Hardwood Patterns</li>
+          <li>Foundry Mould Preparation</li>
+          <li>High-Relief Master Tooling</li>
         </ul>
       </div>
     </article>
 
-    <!-- STEP 06 -->
+    <!-- STEP 06: CASTING -->
     <article class="step-section reverse" id="step-6">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step6_quality_check.png', '06 QUALITY CHECK - Comprehensive Final Inspection')">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step6_casting.png', '06 CASTING - Metal Casting &amp; Forming Components')">
         <span class="step-badge">06</span>
-        <img src="images/craftsmanship/step6_quality_check.png" alt="06 Quality Check - Final Workshop Inspection" loading="lazy">
+        <img src="images/craftsmanship/step6_casting.png" alt="06 Casting - Casting and forming metal components according to design" loading="lazy">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase Six</div>
-        <h2 class="step-title">06 QUALITY CHECK</h2>
-        <div class="step-desc-lead">Final inspection before delivery.</div>
+        <div class="step-tag">Step 06</div>
+        <h2 class="step-title">06 — CASTING</h2>
+        <div class="step-desc-lead">Casting and forming the metal components according to the finalized design.</div>
         <p class="step-desc-body">
-          Before leaving our Bangalore atelier, every door, panel, and hardware fitting undergoes exhaustive quality verification. We inspect tactile smoothness, joinery tightness, finish uniformity, and trial-assemble components to ensure effortless installation on site.
+          Certified virgin brass and white metal alloys are melted at high temperatures and cast into prepared moulds. Structural frames and heavy metal sheets are precision forged, welded, and formed to exact specifications.
+        </p>
+        <ul class="step-highlights">
+          <li>Virgin Alloy Ingot Smelting</li>
+          <li>High-Density Sand &amp; Die Casting</li>
+          <li>Structural Metal Forming</li>
+          <li>Precision Weld Joinery</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- STEP 07: FINISHING -->
+    <article class="step-section" id="step-7">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step5_finishing.png', '07 FINISHING - Polishing, Colouring &amp; Patination')">
+        <span class="step-badge">07</span>
+        <img src="images/craftsmanship/step5_finishing.png" alt="07 Finishing - Polishing, colouring and patination surface treatments" loading="lazy">
+        <div class="step-media-overlay"></div>
+        <div class="step-zoom-hint">🔍 Tap to Expand</div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step 07</div>
+        <h2 class="step-title">07 — FINISHING</h2>
+        <div class="step-desc-lead">Applying the selected finish through polishing, colouring, patination or other surface treatments.</div>
+        <p class="step-desc-body">
+          Surfaces receive manual jeweller's rouge buffing, antique shading baths, chemical patina oxidation, or brass/copper/white metal finishing, followed by protective anti-tarnish lacquering.
+        </p>
+        <ul class="step-highlights">
+          <li>Antique &amp; Patina Treatments</li>
+          <li>Multi-Stage Rouge Polishing</li>
+          <li>Brass, White Metal &amp; Copper Finishes</li>
+          <li>Anti-Oxidant Protective Lacquer</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- STEP 08: QUALITY CHECK -->
+    <article class="step-section reverse" id="step-8">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step6_quality_check.png', '08 QUALITY CHECK - Dimensions, Detailing, Finish &amp; Workmanship Inspection')">
+        <span class="step-badge">08</span>
+        <img src="images/craftsmanship/step6_quality_check.png" alt="08 Quality Check - Inspecting dimensions, detailing, finish and workmanship" loading="lazy">
+        <div class="step-media-overlay"></div>
+        <div class="step-zoom-hint">🔍 Tap to Expand</div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step 08</div>
+        <h2 class="step-title">08 — QUALITY CHECK</h2>
+        <div class="step-desc-lead">Inspecting dimensions, detailing, finish and overall workmanship before dispatch.</div>
+        <p class="step-desc-body">
+          Before dispatch, senior master artisans inspect every millimeter of the piece — checking tactile smoothness, relief precision, structural squareness, finish uniformity, and hardware trial assemblies.
         </p>
         <ul class="step-highlights">
           <li>Dimensional Calibration</li>
-          <li>Tactile Surface Check</li>
-          <li>Full Trial Assembly</li>
+          <li>Tactile Finish Verification</li>
+          <li>Trial Assembly Testing</li>
           <li>Multi-Layer Transit Packing</li>
         </ul>
       </div>
     </article>
 
-    <!-- STEP 07 -->
-    <article class="step-section" id="step-7">
-      <div class="step-media" onclick="openLightbox('images/craftsmanship/step7_installation.png', '07 INSTALLATION - Architectural On-Site Fitting')">
-        <span class="step-badge">07</span>
-        <img src="images/craftsmanship/step7_installation.png" alt="07 Installation - On-Site Master Installation" loading="lazy">
+    <!-- STEP 09: INSTALLATION -->
+    <article class="step-section" id="step-9">
+      <div class="step-media" onclick="openLightbox('images/craftsmanship/step7_installation.png', '09 INSTALLATION - Professional On-Site Fitting &amp; Alignment')">
+        <span class="step-badge">09</span>
+        <img src="images/craftsmanship/step7_installation.png" alt="09 Installation - Professional on-site installation with alignment and fit" loading="lazy">
         <div class="step-media-overlay"></div>
         <div class="step-zoom-hint">🔍 Tap to Expand</div>
       </div>
       <div class="step-content">
-        <div class="step-tag">Phase Seven</div>
-        <h2 class="step-title">07 INSTALLATION</h2>
-        <div class="step-desc-lead">Professional installation where required.</div>
+        <div class="step-tag">Step 09</div>
+        <h2 class="step-title">09 — INSTALLATION</h2>
+        <div class="step-desc-lead">Professional installation at the site with attention to alignment, fit and final detailing.</div>
         <p class="step-desc-body">
-          Our specialized team coordinates site logistics and executes on-site structural anchoring, brass pivot alignments, and final touch-ups across India. We ensure your architectural metalwork integrates flawlessly into your sanctuary, villa, or heritage residence.
+          Our specialized installation team executes flawless on-site fitting, structural anchoring, heavy-duty pivot alignment, and final detailing to ensure perfect operation and enduring architectural beauty.
         </p>
         <ul class="step-highlights">
-          <li>Pan-India Site Teams</li>
+          <li>Pan-India Expert Installation</li>
           <li>Heavy-Duty Pivot Alignment</li>
-          <li>Flawless Architectural Fit</li>
-          <li>Post-Handover Support</li>
+          <li>Precision Gap &amp; Latch Calibration</li>
+          <li>Handover &amp; Care Guidance</li>
         </ul>
       </div>
     </article>

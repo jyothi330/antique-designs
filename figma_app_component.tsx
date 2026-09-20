@@ -186,7 +186,7 @@ export default function App() {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E3D7C5] bg-white text-[#8F6506] text-xs font-semibold tracking-widest uppercase mb-6 shadow-sm">
             <Hammer className="w-3.5 h-3.5 text-[#C59B27]" />
-            <span>Handcrafted Brass & White Metal Foundry • Bengaluru (Est. 2011)</span>
+            <span>Handcrafted Brass & White Metal Foundry • Bengaluru (Est. 2014)</span>
           </div>
           <h1 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-[#24201B] mb-6 leading-tight">
             Handmade Brass & White Metal <br />
@@ -211,7 +211,7 @@ export default function App() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
             <div className="p-5 rounded-2xl bg-white border border-[#E3D7C5] shadow-sm">
               <div className="text-2xl font-serif font-bold text-[#8F6506]">11+ Years</div>
-              <div className="text-xs text-[#6E6559] mt-1 font-medium">Bengaluru Atelier (Est. 2011)</div>
+              <div className="text-xs text-[#6E6559] mt-1 font-medium">Bengaluru Atelier (Est. 2014)</div>
             </div>
             <div className="p-5 rounded-2xl bg-white border border-[#E3D7C5] shadow-sm">
               <div className="text-2xl font-serif font-bold text-[#8F6506]">100% Solid</div>
@@ -505,7 +505,7 @@ export default function App() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <span className="font-serif text-lg font-bold text-[#8F6506] block">ANTIQUE DESIGNS</span>
-              <span className="text-[11px] text-[#8C8274]">Traditional Brass & White Metal Architectural Atelier • Established 2011</span>
+              <span className="text-[11px] text-[#8C8274]">Traditional Brass & White Metal Architectural Atelier • Established 2014</span>
             </div>
             <div className="flex items-center gap-6 font-medium">
               <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" rel="noreferrer" className="hover:text-[#8F6506] transition-colors flex items-center gap-1">

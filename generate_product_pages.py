@@ -109,7 +109,7 @@ PAGE_TEMPLATE = """\
     <img src="../logo.jpeg" alt="Antique Designs Logo" class="logo-img">
     <div>
       <div class="logo-title">ANTIQUE DESIGNS</div>
-      <span class="logo-sub">Bengaluru &middot; Est. 2011</span>
+      <span class="logo-sub">Bengaluru &middot; Est. 2014</span>
     </div>
   </a>
   <div class="top-bar-ctas">
