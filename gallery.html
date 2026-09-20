@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Gallery | Antique Designs Bengaluru</title>
+  <meta name="description" content="Full work gallery of handcrafted brass and white metal pieces by Antique Designs Bengaluru — doors, railings, murals, wall arts and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#f5f0e8;color:#1e1812;font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-thumb{background:#c4940e;border-radius:3px}
+
+    /* NAV */
+    .top-bar{background:linear-gradient(90deg,#1a0e04,#2a1608,#1a0e04);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid rgba(212,175,55,0.25);position:sticky;top:0;z-index:100}
+    .top-bar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-img{width:44px;height:44px;border-radius:6px;object-fit:contain;background:#000}
+    .logo-title{font-family:'Cinzel',serif;font-size:16px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#d4b050,#a07010);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .logo-sub{font-size:8px;letter-spacing:2.5px;color:rgba(240,200,140,0.6);text-transform:uppercase;display:block;margin-top:2px}
+    .top-bar-ctas{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-wa,.btn-call,.btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;transition:filter 0.2s;white-space:nowrap}
+    .btn-wa{background:#22c55e;color:#fff}
+    .btn-call{background:linear-gradient(135deg,#c29320,#8a6205);color:#fff}
+    .btn-back{background:rgba(212,175,55,0.15);color:#d4af37;border:1px solid rgba(212,175,55,0.3)}
+    .btn-wa:hover,.btn-call:hover,.btn-back:hover{filter:brightness(1.12)}
+
+    /* PAGE HEADER */
+    .page-header{background:linear-gradient(160deg,#1a0e04,#2e1a06);padding:40px 28px 32px;text-align:center;border-bottom:1px solid rgba(212,175,55,0.2)}
+    .page-tag{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c29320;margin-bottom:10px}
+    .page-title{font-family:'Cinzel',serif;font-size:clamp(26px,4vw,44px);font-weight:800;color:#faf0d0;margin-bottom:10px}
+    .gold-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,#c29320,transparent);margin:0 auto 14px}
+    .page-desc{font-size:14px;color:rgba(240,210,160,0.75);max-width:600px;margin:0 auto}
+
+    /* MASONRY GALLERY */
+    .gallery-outer{max-width:1400px;margin:0 auto;padding:32px 20px 60px}
+    .gallery-count{font-size:12px;color:#9a7040;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;text-align:center}
+    .photo-grid{columns:4;column-gap:12px}
+    @media(max-width:1100px){.photo-grid{columns:3}}
+    @media(max-width:700px){.photo-grid{columns:2}}
+    @media(max-width:420px){.photo-grid{columns:1}}
+    .photo-item{break-inside:avoid;margin-bottom:12px;border-radius:10px;overflow:hidden;cursor:zoom-in;background:#f0e8d8;position:relative}
+    .photo-item img{width:100%;display:block;transition:transform 0.35s;border-radius:10px}
+    .photo-item:hover img{transform:scale(1.03)}
+    .photo-num{position:absolute;top:8px;left:8px;background:rgba(26,14,4,0.6);color:rgba(255,240,200,0.9);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:50px}
+
+    /* LIGHTBOX */
+    #lbox{display:none;position:fixed;inset:0;z-index:3000;background:rgba(5,3,1,0.96);align-items:center;justify-content:center}
+    #lbox.open{display:flex}
+    #lbox img{max-width:90vw;max-height:88vh;border-radius:8px;object-fit:contain}
+    .lbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#f0dcb4;font-size:28px;cursor:pointer;z-index:10;line-height:1}
+    .lbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(212,175,55,0.18);border:1px solid rgba(212,175,55,0.35);color:#f0dcb4;font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+    .lbox-nav:hover{background:rgba(212,175,55,0.38)}
+    .lbox-prev{left:16px}
+    .lbox-next{right:16px}
+    .lbox-counter{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(240,220,180,0.7);font-size:12px;letter-spacing:1px}
+
+    /* FOOTER */
+    .site-footer{background:#1a0e04;border-top:1px solid rgba(212,175,55,0.15);padding:20px 28px;text-align:center;font-size:11px;color:rgba(240,200,140,0.45)}
+    .site-footer a{color:#c29320;text-decoration:none}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="top-bar">
+  <a href="index.html" class="top-bar-logo">
+    <img src="logo.jpeg" alt="Antique Designs" class="logo-img">
+    <div>
+      <span class="logo-title">ANTIQUE DESIGNS</span>
+      <span class="logo-sub">Vintage Inspired Decorative Metal Art</span>
+    </div>
+  </a>
+  <div class="top-bar-ctas">
+    <a href="index.html" class="btn-back">← Home</a>
+    <a href="https://wa.me/919620202221?text=Hello%20Antique%20Designs,%20I%20saw%20your%20gallery%20and%20want%20to%20enquire." target="_blank" class="btn-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.845L0 24l6.347-1.507A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.032-1.386l-.36-.214-3.733.886.936-3.629-.235-.374A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      WhatsApp
+    </a>
+    <a href="tel:+919620202221" class="btn-call">📞 Call Us</a>
+  </div>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-tag">Our Craftsmanship in Photos</div>
+  <h1 class="page-title">Work Gallery</h1>
+  <div class="gold-line"></div>
+  <p class="page-desc">Real handcrafted pieces from our Bengaluru atelier — doors, railings, murals and more.</p>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-outer">
+  <p class="gallery-count">47 works — click any photo to enlarge</p>
+  <div class="photo-grid" id="photoGrid"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lbox">
+  <button class="lbox-close" id="lboxClose">✕</button>
+  <button class="lbox-nav lbox-prev" id="lboxPrev">&#8592;</button>
+  <img id="lboxImg" src="" alt="">
+  <button class="lbox-nav lbox-next" id="lboxNext">&#8594;</button>
+  <div class="lbox-counter" id="lboxCounter"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>© 2026 Antique Designs Bengaluru — Handcrafted Brass &amp; White Metal Artistry &nbsp;|&nbsp; <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="https://wa.me/919620202221" target="_blank">WhatsApp</a></p>
+</footer>
+
+<script>
+  var total = 47;
+  var imgs = [];
+  for (var i = 1; i <= total; i++) {
+    var n = i < 10 ? '0' + i : '' + i;
+    imgs.push('gallery/g' + n + '.jpg');
+  }
+
+  // Build masonry grid
+  var grid = document.getElementById('photoGrid');
+  imgs.forEach(function(src, idx) {
+    var item = document.createElement('div');
+    item.className = 'photo-item';
+    item.innerHTML =
+      '<img src="' + src + '" alt="Work ' + (idx + 1) + '" loading="' + (idx < 8 ? 'eager' : 'lazy') + '" decoding="async">' +
+      '<span class="photo-num">' + (idx + 1 < 10 ? '0' + (idx + 1) : idx + 1) + '</span>';
+    item.addEventListener('click', function() { openLbox(idx); });
+    grid.appendChild(item);
+  });
+
+  // Lightbox
+  var lbox = document.getElementById('lbox');
+  var lboxImg = document.getElementById('lboxImg');
+  var lboxCounter = document.getElementById('lboxCounter');
+  var current = 0;
+
+  function openLbox(idx) {
+    current = idx;
+    lboxImg.src = imgs[idx];
+    lboxCounter.textContent = (idx + 1) + ' / ' + total;
+    lbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLbox() {
+    lbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lboxImg.src = '';
+  }
+  function prevImg() { current = (current - 1 + total) % total; openLbox(current); }
+  function nextImg() { current = (current + 1) % total; openLbox(current); }
+
+  document.getElementById('lboxClose').addEventListener('click', closeLbox);
+  document.getElementById('lboxPrev').addEventListener('click', prevImg);
+  document.getElementById('lboxNext').addEventListener('click', nextImg);
+  lbox.addEventListener('click', function(e) { if (e.target === lbox) closeLbox(); });
+  document.addEventListener('keydown', function(e) {
+    if (!lbox.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') prevImg();
+    if (e.key === 'ArrowRight') nextImg();
+    if (e.key === 'Escape') closeLbox();
+  });
+</script>
+</body>
+</html>
