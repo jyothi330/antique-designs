@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Antique Designs — Quotation Generator</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f4; color: #1a1a1a; font-size: 14px; }
+
+  /* ── App Shell ── */
+  .app-header {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .app-header h1 { font-size: 18px; font-weight: 700; letter-spacing: .04em; }
+  .app-header h1 span { color: #e85d04; }
+  .app-header .btn-gen {
+    background: #e85d04; color: #fff; border: none; padding: 10px 24px;
+    border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer;
+    letter-spacing: .03em; transition: background .2s;
+  }
+  .app-header .btn-gen:hover { background: #c94e00; }
+
+  /* ── Layout ── */
+  .workspace {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 56px);
+  }
+
+  /* ── Form Panel ── */
+  .form-panel {
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+    padding: 24px;
+    max-height: calc(100vh - 56px);
+    position: sticky; top: 0;
+  }
+  .form-section { margin-bottom: 20px; }
+  .form-section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: #e85d04;
+    margin-bottom: 10px; padding-bottom: 5px;
+    border-bottom: 1px solid #f0e8e2;
+  }
+  label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 3px; }
+  input[type=text], input[type=date], input[type=number], select, textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid #ddd;
+    border-radius: 5px; font-size: 13px; color: #1a1a1a;
+    background: #fafafa; outline: none; transition: border .2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: #e85d04; background: #fff; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .form-field { margin-bottom: 10px; }
+
+  /* ── Items Section ── */
+  .items-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .btn-add-item {
+    background: #e85d04; color: #fff; border: none;
+    padding: 6px 12px; border-radius: 5px; font-size: 12px;
+    font-weight: 700; cursor: pointer;
+  }
+  .btn-add-item:hover { background: #c94e00; }
+
+  .item-card {
+    background: #fdf6f2; border: 1px solid #f0ddd4;
+    border-radius: 7px; padding: 12px; margin-bottom: 10px;
+  }
+  .item-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .item-card-title { font-size: 12px; font-weight: 700; color: #e85d04; }
+  .btn-remove-item {
+    background: none; border: none; color: #aaa; font-size: 16px;
+    cursor: pointer; line-height: 1; padding: 0 4px;
+  }
+  .btn-remove-item:hover { color: #e85d04; }
+  .item-name-row { margin-bottom: 8px; }
+
+  /* Sub-item rows */
+  .sub-items { margin-top: 6px; }
+  .sub-item-row {
+    display: grid; grid-template-columns: 2fr 1fr 80px 80px 24px;
+    gap: 5px; align-items: center; margin-bottom: 5px;
+  }
+  .sub-item-row input { padding: 6px 8px; font-size: 12px; }
+  .sub-item-row .amount-display {
+    font-size: 12px; font-weight: 700; color: #1a1a1a;
+    text-align: right; padding: 6px 4px;
+  }
+  .btn-remove-sub {
+    background: none; border: none; color: #ccc; cursor: pointer;
+    font-size: 14px; text-align: center;
+  }
+  .btn-remove-sub:hover { color: #e85d04; }
+  .btn-add-sub {
+    background: none; border: 1px dashed #e85d04; color: #e85d04;
+    border-radius: 4px; padding: 4px 10px; font-size: 11px;
+    font-weight: 600; cursor: pointer; margin-top: 4px;
+  }
+  .btn-add-sub:hover { background: #fdf6f2; }
+  .sub-headers {
+    display: grid; grid-template-columns: 2fr 1fr 80px 80px 24px;
+    gap: 5px; margin-bottom: 3px;
+  }
+  .sub-headers span {
+    font-size: 10px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: .05em;
+  }
+
+  /* ── Totals ── */
+  .totals-section { margin-top: 4px; }
+  .totals-row {
+    display: grid; grid-template-columns: 1fr 120px;
+    gap: 8px; margin-bottom: 8px; align-items: center;
+  }
+  .totals-row label { margin: 0; font-size: 12px; }
+  .totals-row input { font-size: 12px; padding: 6px 8px; }
+
+  /* ── Preview Panel ── */
+  .preview-panel {
+    background: #e8e8e8;
+    overflow-y: auto;
+    padding: 32px 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+  }
+
+  /* ── Quotation Document ── */
+  .quotation-doc {
+    background: #fff;
+    width: 794px;
+    min-height: 1123px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.15);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    color: #1a1a1a;
+    padding: 0;
+    position: relative;
+  }
+  .quotation-doc.page2 { min-height: auto; }
+
+  /* Doc: top bar */
+  .doc-topbar {
+    background: #e85d04;
+    height: 6px;
+    width: 100%;
+  }
+
+  /* Doc: title */
+  .doc-title {
+    text-align: center;
+    padding: 18px 40px 12px;
+    border-bottom: 1px solid #eee;
+  }
+  .doc-title h2 {
+    font-size: 22px; font-weight: 900; letter-spacing: .2em;
+    color: #e85d04; text-transform: uppercase;
+  }
+
+  /* Doc: company header */
+  .doc-company {
+    text-align: center;
+    padding: 18px 40px 14px;
+    border-bottom: 1px solid #eee;
+  }
+  .doc-company .company-name {
+    font-size: 32px; font-weight: 900; letter-spacing: .05em;
+    color: #1a1a1a; display: flex; align-items: center;
+    justify-content: center; gap: 12px;
+  }
+  .doc-company .company-name .lotus { font-size: 28px; }
+  .doc-company .tagline { font-size: 12px; color: #555; margin: 4px 0 6px; }
+  .doc-company .address {
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    color: #1a1a1a; text-transform: uppercase;
+  }
+
+  /* Doc: meta strip */
+  .doc-meta-strip {
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #e0e0e0; margin: 0 32px;
+    border-radius: 6px; padding: 8px 16px; margin-top: 14px;
+    font-size: 11px; background: #fafafa;
+  }
+  .doc-meta-strip span { color: #888; }
+  .doc-meta-strip strong { color: #1a1a1a; }
+
+  /* Doc: date row */
+  .doc-date-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    margin: 10px 32px 0;
+    border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden;
+    font-size: 11px;
+  }
+  .doc-date-cell {
+    padding: 10px 16px; text-align: center;
+    border-right: 1px solid #e0e0e0;
+  }
+  .doc-date-cell:last-child { border-right: none; }
+  .doc-date-cell .label { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; }
+  .doc-date-cell .value { font-weight: 700; font-size: 12px; color: #1a1a1a; margin-top: 2px; }
+
+  /* Doc: bill to */
+  .doc-bill-to {
+    margin: 12px 32px 0;
+    border: 1px solid #e0e0e0; border-radius: 6px;
+    padding: 10px 16px; font-size: 12px; background: #fafafa;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .doc-bill-to .label {
+    font-weight: 900; font-size: 11px; letter-spacing: .06em;
+    text-transform: uppercase; color: #1a1a1a;
+    border-right: 2px solid #e85d04; padding-right: 12px;
+  }
+  .doc-bill-to .field { display: flex; gap: 6px; align-items: center; }
+  .doc-bill-to .field span { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+  .doc-bill-to .field strong { font-size: 13px; font-weight: 700; }
+
+  /* Doc: items table */
+  .doc-table { margin: 14px 32px 0; border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; }
+  .doc-table-head {
+    display: grid; grid-template-columns: 30px 1fr 90px 60px 90px;
+    background: #f7f7f7; border-bottom: 1px solid #e0e0e0;
+    padding: 8px 14px; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .07em; color: #888;
+  }
+  .doc-table-head .col-right, .col-right { text-align: right; }
+  .doc-table-head .col-center, .col-center { text-align: center; }
+
+  .doc-item-group { border-bottom: 1px solid #f0f0f0; }
+  .doc-item-main {
+    display: grid; grid-template-columns: 30px 1fr 90px 60px 90px;
+    padding: 8px 14px; font-size: 12px; font-weight: 700; color: #e85d04;
+    background: #fff9f6;
+  }
+  .doc-item-sub {
+    display: grid; grid-template-columns: 30px 1fr 90px 60px 90px;
+    padding: 5px 14px; font-size: 12px; color: #1a1a1a;
+  }
+  .doc-item-sub .sub-label { color: #555; font-weight: 600; }
+  .doc-item-sub-size {
+    display: grid; grid-template-columns: 30px 1fr 90px 60px 90px;
+    padding: 2px 14px 6px; font-size: 11px; color: #555;
+  }
+
+  /* Doc: bottom split */
+  .doc-bottom {
+    display: grid; grid-template-columns: 1fr 1fr;
+    margin: 14px 32px 0; gap: 14px;
+  }
+  .doc-bank {
+    border: 1px solid #e0e0e0; border-radius: 6px;
+    padding: 12px 14px; font-size: 11px;
+  }
+  .doc-bank .bank-title {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #888; margin-bottom: 8px;
+  }
+  .doc-bank .bank-row { display: flex; gap: 8px; margin-bottom: 4px; }
+  .doc-bank .bank-row .key { color: #888; width: 46px; flex-shrink: 0; font-weight: 700; font-size: 10px; text-transform: uppercase; }
+  .doc-bank .bank-row .val { font-weight: 700; color: #1a1a1a; }
+
+  .doc-totals {
+    border: 1px solid #e0e0e0; border-radius: 6px;
+    padding: 12px 14px; font-size: 12px;
+  }
+  .doc-totals-row {
+    display: flex; justify-content: space-between;
+    margin-bottom: 6px; color: #555;
+  }
+  .doc-totals-row.grand {
+    border-top: 1.5px solid #e85d04; margin-top: 8px; padding-top: 8px;
+    color: #e85d04; font-weight: 900; font-size: 14px;
+  }
+
+  /* Doc: terms */
+  .doc-terms {
+    margin: 16px 32px 0; padding-bottom: 20px;
+  }
+  .doc-terms .terms-title {
+    font-size: 11px; font-weight: 900; color: #e85d04;
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px;
+  }
+  .doc-terms ol { padding-left: 16px; }
+  .doc-terms li { font-size: 11px; color: #333; line-height: 1.7; }
+  .doc-terms li .hl { color: #e85d04; font-weight: 700; }
+
+  /* Doc: footer */
+  .doc-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 32px;
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: #aaa;
+    margin-top: 16px;
+  }
+
+  /* Page 2 */
+  .doc-page2-title {
+    text-align: center;
+    padding: 28px 40px 18px;
+    border-bottom: 2px solid #e85d04;
+  }
+  .doc-page2-title h2 {
+    font-size: 18px; font-weight: 900; letter-spacing: .1em;
+    color: #e85d04; text-transform: uppercase;
+  }
+  .doc-spec-item {
+    margin: 18px 32px 0;
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+  }
+  .doc-spec-header {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #f7f7f7; padding: 8px 14px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .07em; color: #555;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .doc-spec-header .item-name-label { font-size: 12px; color: #e85d04; font-weight: 700; text-transform: none; letter-spacing: 0; }
+  .doc-spec-body {
+    display: flex; gap: 0;
+  }
+  .doc-spec-img {
+    width: 160px; min-height: 120px; background: #f0f0f0;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; border-right: 1px solid #e0e0e0;
+    font-size: 11px; color: #aaa;
+  }
+  .doc-spec-img img { width: 100%; height: 100%; object-fit: cover; }
+  .doc-spec-details { padding: 14px 16px; flex: 1; }
+  .doc-spec-details .spec-subtitle {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    color: #888; letter-spacing: .08em; margin-bottom: 8px;
+  }
+  .doc-spec-details ul { list-style: none; padding: 0; }
+  .doc-spec-details ul li {
+    font-size: 11px; color: #333; margin-bottom: 5px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+  }
+  .doc-spec-details ul li::before {
+    content: '•'; color: #e85d04; font-weight: 900; margin-right: 4px;
+  }
+  .doc-spec-details ul li strong { font-weight: 700; color: #1a1a1a; }
+  .spec-tag {
+    display: inline-block; border: 1px solid #ccc; border-radius: 4px;
+    padding: 1px 7px; font-size: 10px; color: #333; font-weight: 600;
+  }
+
+  /* ── Print styles ── */
+  @media print {
+    .app-header, .form-panel { display: none !important; }
+    .preview-panel { background: #fff; padding: 0; }
+    .quotation-doc { box-shadow: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════ APP HEADER -->
+<header class="app-header">
+  <h1><span>Antique Designs</span> — Quotation Generator</h1>
+  <div style="display:flex;gap:10px">
+    <button class="btn-gen" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+</header>
+
+<div class="workspace">
+
+  <!-- ══════════════════════════════════════════ FORM PANEL -->
+  <aside class="form-panel" id="formPanel">
+
+    <!-- Customer Info -->
+    <div class="form-section">
+      <div class="form-section-title">Customer Info</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Customer Name</label>
+          <input type="text" id="custName" placeholder="MAHADEVA A S" oninput="render()"/>
+        </div>
+        <div class="form-field">
+          <label>Place</label>
+          <input type="text" id="custPlace" placeholder="MYSORE" oninput="render()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotation Details -->
+    <div class="form-section">
+      <div class="form-section-title">Quotation Details</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Quotation No.</label>
+          <input type="text" id="qNo" placeholder="007_26-27_AB_MYO_..." oninput="render()"/>
+        </div>
+        <div class="form-field">
+          <label>HSN Code</label>
+          <input type="text" id="hsnCode" value="74199930" oninput="render()"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Date</label>
+          <input type="date" id="qDate" oninput="render()"/>
+        </div>
+        <div class="form-field">
+          <label>Valid Until</label>
+          <input type="date" id="qValid" oninput="render()"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Approved By</label>
+          <input type="text" id="approvedBy" value="ABHISHEK" oninput="render()"/>
+        </div>
+        <div class="form-field">
+          <label>Approver Phone</label>
+          <input type="text" id="approverPhone" value="9620202221" oninput="render()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items -->
+    <div class="form-section">
+      <div class="items-header">
+        <div class="form-section-title" style="margin:0;border:none;padding:0">Line Items</div>
+        <button class="btn-add-item" onclick="addItem()">+ Add Item</button>
+      </div>
+      <div id="itemsList"></div>
+    </div>
+
+    <!-- Charges & GST -->
+    <div class="form-section">
+      <div class="form-section-title">Charges &amp; Tax</div>
+      <div class="totals-section">
+        <div class="totals-row">
+          <label>Packing &amp; Transport (₹)</label>
+          <input type="number" id="packingCharge" value="1000" min="0" oninput="render()"/>
+        </div>
+        <div class="totals-row">
+          <label>GST (%)</label>
+          <input type="number" id="gstPct" value="5" min="0" max="100" step="0.1" oninput="render()"/>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ══════════════════════════════════════════ PREVIEW PANEL -->
+  <main class="preview-panel" id="previewPanel">
+
+    <!-- PAGE 1 -->
+    <div class="quotation-doc" id="qPage1">
+      <div class="doc-topbar"></div>
+
+      <div class="doc-title"><h2>Quotation</h2></div>
+
+      <div class="doc-company">
+        <div class="company-name">ANTIQUE <span class="lotus">🪷</span> DESIGNS</div>
+        <div class="tagline">Vintage inspired decorative metal art</div>
+        <div class="address">#39/1 CHANNENAHALLI, KADABAGERE POST, MAGADI MAIN ROAD, BANGALORE SOUTH - 562130</div>
+      </div>
+
+      <div class="doc-meta-strip">
+        <div><span>GST: </span><strong>29ABTFA2399G1ZT</strong></div>
+        <div><strong id="d-qno">—</strong></div>
+        <div><span>EMAIL: </span><strong>hello@antique-designs.com</strong></div>
+      </div>
+
+      <div class="doc-date-row">
+        <div class="doc-date-cell">
+          <div class="label">Approved By</div>
+          <div class="value" id="d-approvedBy">ABHISHEK (9620202221)</div>
+        </div>
+        <div class="doc-date-cell">
+          <div class="label">HSN Code</div>
+          <div class="value" id="d-hsn">74199930</div>
+        </div>
+        <div class="doc-date-cell" style="display:grid;grid-template-columns:1fr 1fr;text-align:left;">
+          <div style="padding-right:8px">
+            <div class="label">Date</div>
+            <div class="value" id="d-date">—</div>
+          </div>
+          <div>
+            <div class="label">Valid Until</div>
+            <div class="value" id="d-valid">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-bill-to">
+        <div class="label">Bill To</div>
+        <div class="field"><span>Name:</span> <strong id="d-name">—</strong></div>
+        <div class="field" style="margin-left:24px"><span>Place:</span> <strong id="d-place">—</strong></div>
+      </div>
+
+      <div class="doc-table">
+        <div class="doc-table-head">
+          <div>#</div>
+          <div>Description</div>
+          <div class="col-right">Unit Price</div>
+          <div class="col-center">Qty</div>
+          <div class="col-right">Amount</div>
+        </div>
+        <div id="d-items"></div>
+      </div>
+
+      <div class="doc-bottom">
+        <div class="doc-bank">
+          <div class="bank-title">Bank Details</div>
+          <div class="bank-row"><span class="key">Bank</span><span class="val">UNION BANK OF INDIA</span></div>
+          <div class="bank-row"><span class="key">A/C No</span><span class="val">317225140000004</span></div>
+          <div class="bank-row"><span class="key">IFSC</span><span class="val">UBIN0931721</span></div>
+          <div class="bank-row"><span class="key">Branch</span><span class="val">CHANNENAHALLI</span></div>
+        </div>
+        <div class="doc-totals">
+          <div class="doc-totals-row"><span>Subtotal</span><span id="d-subtotal">₹0.00</span></div>
+          <div class="doc-totals-row"><span>Packing &amp; Transport</span><span id="d-packing">₹1,000</span></div>
+          <div class="doc-totals-row"><span id="d-gst-label">GST (5%)</span><span id="d-gst">₹0.00</span></div>
+          <div class="doc-totals-row grand"><span>Grand Total</span><span id="d-grand">₹0.00</span></div>
+        </div>
+      </div>
+
+      <div class="doc-terms">
+        <div class="terms-title">Terms &amp; Conditions</div>
+        <ol>
+          <li>The delivery period is <span class="hl">45 days</span> from the approval date of the decorative metal artwork, subject to receipt of advance payment and templates.</li>
+          <li><span class="hl">75%</span> must be paid in advance, and the remaining balance is due before delivery.</li>
+          <li>Once an order is placed, <span class="hl">it cannot be cancelled</span>.</li>
+          <li>We will supply the materials only. Installation/fixing must be carried out by your <span class="hl">own carpenter</span>.</li>
+          <li>We hope the above meets your requirements and look forward to serving you with your valued order.</li>
+          <li>Kindly issue all cheques in favour of "<span class="hl">ANTIQUE DESIGNS</span>."</li>
+        </ol>
+      </div>
+
+      <div class="doc-footer">
+        <span>GENERATED VIA ANTIQUE DESIGNS</span>
+        <span>PAGE 1 OF 2</span>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="quotation-doc page2" id="qPage2">
+      <div class="doc-topbar"></div>
+
+      <div class="doc-page2-title">
+        <h2>Product Specifications &amp; Images</h2>
+      </div>
+
+      <div id="d-specs"></div>
+
+      <div class="doc-footer" style="margin-top:24px">
+        <span>GENERATED VIA ANTIQUE DESIGNS</span>
+        <span>PAGE 2 OF 2</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   DATA MODEL
+   Each item:  { name, subs: [{desc, size, unitPrice, qty}] }
+════════════════════════════════════════════════════════════ */
+var items = [];
+
+function addItem() {
+  items.push({
+    name: '',
+    subs: [{ desc: '', size: '', unitPrice: '', qty: 1 }]
+  });
+  renderForm();
+  render();
+}
+
+function removeItem(i) {
+  items.splice(i, 1);
+  renderForm();
+  render();
+}
+
+function addSub(i) {
+  items[i].subs.push({ desc: '', size: '', unitPrice: '', qty: 1 });
+  renderForm();
+  render();
+}
+
+function removeSub(i, j) {
+  items[i].subs.splice(j, 1);
+  renderForm();
+  render();
+}
+
+function syncItem(i, field, val) {
+  items[i][field] = val;
+  render();
+}
+
+function syncSub(i, j, field, val) {
+  items[i].subs[j][field] = val;
+  render();
+}
+
+/* ── Form Renderer ── */
+function renderForm() {
+  var html = '';
+  items.forEach(function(item, i) {
+    html += '<div class="item-card">';
+    html += '<div class="item-card-header">';
+    html += '<span class="item-card-title">Item ' + (i + 1) + '</span>';
+    html += '<button class="btn-remove-item" onclick="removeItem(' + i + ')">✕</button>';
+    html += '</div>';
+
+    // Item name
+    html += '<div class="item-name-row"><label>Item Name / Description</label>';
+    html += '<input type="text" value="' + esc(item.name) + '" placeholder="e.g. Main Door : in Brass metal casting..." oninput="syncItem(' + i + ',\'name\',this.value)"/></div>';
+
+    // Sub-items header
+    html += '<div class="sub-headers">';
+    html += '<span>Description / Size</span><span>Size</span><span>Unit ₹</span><span>Qty</span><span></span>';
+    html += '</div>';
+
+    html += '<div class="sub-items">';
+    item.subs.forEach(function(sub, j) {
+      var amt = (parseFloat(sub.unitPrice) || 0) * (parseFloat(sub.qty) || 0);
+      html += '<div class="sub-item-row">';
+      html += '<input type="text" value="' + esc(sub.desc) + '" placeholder="Panel Accessories : 10mm" oninput="syncSub(' + i + ',' + j + ',\'desc\',this.value)"/>';
+      html += '<input type="text" value="' + esc(sub.size) + '" placeholder=\'18"×24"\' oninput="syncSub(' + i + ',' + j + ',\'size\',this.value)"/>';
+      html += '<input type="number" value="' + esc(sub.unitPrice) + '" placeholder="0" min="0" oninput="syncSub(' + i + ',' + j + ',\'unitPrice\',this.value)"/>';
+      html += '<input type="number" value="' + esc(sub.qty) + '" placeholder="1" min="0" oninput="syncSub(' + i + ',' + j + ',\'qty\',this.value)"/>';
+      html += '<button class="btn-remove-sub" onclick="removeSub(' + i + ',' + j + ')">✕</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<button class="btn-add-sub" onclick="addSub(' + i + ')">+ Add row</button>';
+    html += '</div>';
+  });
+  document.getElementById('itemsList').innerHTML = html;
+}
+
+function esc(v) {
+  return (v || '').toString().replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+/* ── Formatters ── */
+function fmtDate(d) {
+  if (!d) return '—';
+  var p = d.split('-');
+  return p[2] + '-' + p[1] + '-' + p[0];
+}
+
+function fmtINR(n) {
+  if (!n && n !== 0) return '—';
+  return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+/* ── Main Render ── */
+function render() {
+  // Customer / meta
+  var custName  = document.getElementById('custName').value.trim() || '—';
+  var custPlace = document.getElementById('custPlace').value.trim() || '—';
+  var qNo       = document.getElementById('qNo').value.trim() || '—';
+  var hsn       = document.getElementById('hsnCode').value.trim() || '74199930';
+  var qDate     = document.getElementById('qDate').value;
+  var qValid    = document.getElementById('qValid').value;
+  var approvedBy    = document.getElementById('approvedBy').value.trim() || 'ABHISHEK';
+  var approverPhone = document.getElementById('approverPhone').value.trim() || '9620202221';
+  var packing   = parseFloat(document.getElementById('packingCharge').value) || 0;
+  var gstPct    = parseFloat(document.getElementById('gstPct').value) || 0;
+
+  document.getElementById('d-name').textContent    = custName.toUpperCase();
+  document.getElementById('d-place').textContent   = custPlace.toUpperCase();
+  document.getElementById('d-qno').textContent     = qNo;
+  document.getElementById('d-hsn').textContent     = hsn;
+  document.getElementById('d-date').textContent    = fmtDate(qDate);
+  document.getElementById('d-valid').textContent   = fmtDate(qValid);
+  document.getElementById('d-approvedBy').textContent = approvedBy + ' (' + approverPhone + ')';
+
+  // Items table
+  var subtotal = 0;
+  var itemsHtml = '';
+  var specsHtml = '';
+
+  items.forEach(function(item, i) {
+    var itemTotal = 0;
+    item.subs.forEach(function(s) {
+      itemTotal += (parseFloat(s.unitPrice) || 0) * (parseFloat(s.qty) || 0);
+    });
+    subtotal += itemTotal;
+
+    // Table rows
+    itemsHtml += '<div class="doc-item-group">';
+    itemsHtml += '<div class="doc-item-main">';
+    itemsHtml += '<div>' + (i + 1) + '.</div>';
+    itemsHtml += '<div>' + (item.name || '—') + '</div>';
+    itemsHtml += '<div></div><div></div><div></div>';
+    itemsHtml += '</div>';
+
+    var subLabels = ['a','b','c','d','e','f','g','h'];
+    item.subs.forEach(function(sub, j) {
+      var amt = (parseFloat(sub.unitPrice) || 0) * (parseFloat(sub.qty) || 0);
+      itemsHtml += '<div class="doc-item-sub">';
+      itemsHtml += '<div style="color:#e85d04;font-weight:700;padding-left:8px">' + (subLabels[j] || j+1) + '.</div>';
+      itemsHtml += '<div class="sub-label">' + (sub.desc || '') + (sub.size ? '<br><span style="color:#888;font-weight:400;font-size:11px">Size: ' + sub.size + '</span>' : '') + '</div>';
+      itemsHtml += '<div class="col-right">' + (sub.unitPrice ? fmtINR(sub.unitPrice).replace('₹','') : '') + '</div>';
+      itemsHtml += '<div class="col-center">' + (sub.qty || '') + '</div>';
+      itemsHtml += '<div class="col-right">' + (amt > 0 ? fmtINR(amt).replace('₹','') : '') + '</div>';
+      itemsHtml += '</div>';
+    });
+    itemsHtml += '</div>';
+
+    // Spec page
+    specsHtml += '<div class="doc-spec-item">';
+    specsHtml += '<div class="doc-spec-header">';
+    specsHtml += '<span>ITEM ' + (i + 1) + '</span>';
+    specsHtml += '<span class="item-name-label">' + (item.name || '') + '</span>';
+    specsHtml += '</div>';
+    specsHtml += '<div class="doc-spec-body">';
+    specsHtml += '<div class="doc-spec-img"><span>No image</span></div>';
+    specsHtml += '<div class="doc-spec-details">';
+    specsHtml += '<div class="spec-subtitle">list_alt SPECIFICATIONS</div>';
+    specsHtml += '<ul>';
+    item.subs.forEach(function(sub) {
+      if (!sub.desc) return;
+      specsHtml += '<li><strong>' + sub.desc + '</strong>';
+      if (sub.size) specsHtml += ' <span class="spec-tag">' + sub.size + ' × ' + (sub.qty||1) + ' Nos</span>';
+      specsHtml += '</li>';
+    });
+    specsHtml += '</ul></div></div></div>';
+  });
+
+  document.getElementById('d-items').innerHTML = itemsHtml || '<div style="padding:16px;text-align:center;color:#aaa;font-size:12px">No items added yet</div>';
+  document.getElementById('d-specs').innerHTML = specsHtml || '<div style="padding:24px;text-align:center;color:#aaa;font-size:12px">No items added yet</div>';
+
+  // Totals
+  var gstAmt   = (subtotal + packing) * gstPct / 100;
+  var grand    = subtotal + packing + gstAmt;
+
+  document.getElementById('d-subtotal').textContent  = fmtINR(subtotal);
+  document.getElementById('d-packing').textContent   = fmtINR(packing);
+  document.getElementById('d-gst-label').textContent = 'GST (' + gstPct + '%)';
+  document.getElementById('d-gst').textContent       = fmtINR(gstAmt);
+  document.getElementById('d-grand').textContent     = fmtINR(grand);
+}
+
+/* ── Init ── */
+(function() {
+  // Set today's date
+  var today = new Date();
+  var pad   = function(n){ return n < 10 ? '0'+n : n; };
+  var todayStr = today.getFullYear() + '-' + pad(today.getMonth()+1) + '-' + pad(today.getDate());
+  var nextMonth = new Date(today);
+  nextMonth.setMonth(nextMonth.getMonth() + 1);
+  var nextStr = nextMonth.getFullYear() + '-' + pad(nextMonth.getMonth()+1) + '-' + pad(nextMonth.getDate());
+
+  document.getElementById('qDate').value  = todayStr;
+  document.getElementById('qValid').value = nextStr;
+
+  // Seed with example from PDF
+  items = [
+    {
+      name: 'Main Door : in Brass metal casting with antique finish',
+      subs: [
+        { desc: 'Panel Accessories : in 10mm Thickness', size: '18" × 24"', unitPrice: 40500, qty: 1 },
+        { desc: 'Grill Accessories : in 8mm Thickness',  size: '18" × 5"',  unitPrice: 5938,  qty: 2 },
+        { desc: 'Studs : in 15mm Thickness',             size: '1.5" × 1.5"', unitPrice: 547, qty: 10 },
+        { desc: 'Vaskal Accessories : in 6mm Thickness', size: '36" × 10"', unitPrice: 28750, qty: 1 },
+        { desc: 'Vaskal Accessories : in 6mm Thickness', size: '42" × 3"',  unitPrice: 10063, qty: 1 },
+        { desc: 'Vaskal Accessories : in 6mm Thickness', size: '3" × 6"',   unitPrice: 1438,  qty: 2 },
+        { desc: 'Vaskal Accessories : in 6mm Thickness', size: '10" × 6"',  unitPrice: 4792,  qty: 2 }
+      ]
+    }
+  ];
+
+  // Seed header fields
+  document.getElementById('custName').value    = 'MAHADEVA A S';
+  document.getElementById('custPlace').value   = 'MYSORE';
+  document.getElementById('qNo').value         = '007_26-27_AB_MYO_MAHADEVA_A_S';
+
+  renderForm();
+  render();
+})();
+</script>
+</body>
+</html>

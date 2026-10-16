@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50:  #fdf8ee;
+  --color-brand-100: #f9edcf;
+  --color-brand-200: #f2d898;
+  --color-brand-300: #e9be5e;
+  --color-brand-400: #e1a530;
+  --color-brand-500: #c98d1a;
+  --color-brand-600: #a87014;
+  --color-brand-700: #875412;
+  --color-brand-800: #6e4315;
+  --color-brand-900: #5c3813;
+  --color-brand-950: #341d07;
+
+  --font-sans:  'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cinzel', ui-serif, Georgia, serif;
+}
+
+/* ── Scrollbar ── */
+* { box-sizing: border-box; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c98d1a; border-radius: 3px; }
+
+body {
+  margin: 0;
+  background: #f7f3ec;
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { min-height: 100vh; }
+
+/* ── Sidebar active state ── */
+.sidebar-link-active {
+  background: rgba(201,141,26,.18);
+  color: #a87014;
+  font-weight: 600;
+}
+
+/* ── Fade in ── */
+.fade-in {
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}

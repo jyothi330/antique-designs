@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Antique Designs — Admin Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50:  '#fdf8ee',
+          100: '#f9edcf',
+          200: '#f2d898',
+          300: '#e9be5e',
+          400: '#e1a530',
+          500: '#c98d1a',
+          600: '#a87014',
+          700: '#875412',
+          800: '#6e4315',
+          900: '#5c3813',
+          950: '#341d07',
+        },
+        dark: '#1a1208',
+      },
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui'],
+        serif: ['Cinzel', 'ui-serif', 'Georgia'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f7f3ec; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #f0ece4; }
+  ::-webkit-scrollbar-thumb { background: #c98d1a; border-radius: 3px; }
+  .sidebar-link { transition: all .15s; }
+  .sidebar-link:hover { background: rgba(201,141,26,.12); }
+  .sidebar-link.active { background: rgba(201,141,26,.18); color: #a87014; font-weight: 600; }
+  .card { background: #fff; border: 1px solid #ede5d4; border-radius: 12px; }
+  .btn-primary { background: linear-gradient(135deg,#c98d1a,#a87014); color: #fff; border: none; cursor: pointer; transition: opacity .2s; }
+  .btn-primary:hover { opacity: .88; }
+  .btn-outline { background: transparent; border: 1.5px solid #c98d1a; color: #a87014; cursor: pointer; transition: all .2s; }
+  .btn-outline:hover { background: #c98d1a; color: #fff; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .badge-green  { background: #d1fae5; color: #065f46; }
+  .badge-yellow { background: #fef3c7; color: #92400e; }
+  .badge-red    { background: #fee2e2; color: #991b1b; }
+  .badge-blue   { background: #dbeafe; color: #1e40af; }
+  .badge-gray   { background: #f3f4f6; color: #374151; }
+  .table-row { border-bottom: 1px solid #f0ece4; transition: background .12s; }
+  .table-row:hover { background: #fdf8ee; }
+  input, select, textarea { outline: none; transition: border .2s; }
+  input:focus, select:focus, textarea:focus { border-color: #c98d1a !important; }
+  .mobile-nav { display: none; }
+  @media(max-width:768px) {
+    .sidebar { display: none; }
+    .sidebar.open { display: flex; position: fixed; z-index: 50; top: 0; left: 0; height: 100vh; width: 260px; }
+    .mobile-nav { display: flex; }
+    .main-content { margin-left: 0 !important; }
+  }
+  .fade-in { animation: fadeIn .25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ APP ROOT ═══════════════════════ -->
+<div id="app"></div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   SAMPLE DATA  (clearly marked — replace with real data)
+════════════════════════════════════════════════════ */
+const SAMPLE = {
+  user: { name: 'Abhishek', role: 'Admin', initials: 'AB' },
+
+  stats: [
+    { label: 'Total Quotations', value: '128', delta: '+12 this month', up: true, icon: '📋' },
+    { label: 'Active Customers', value: '84',  delta: '+5 this month',  up: true, icon: '👥' },
+    { label: 'Pending Orders',   value: '17',  delta: '3 overdue',      up: false,icon: '📦' },
+    { label: 'Revenue (₹)',      value: '18.4L',delta: '+₹2.1L vs last',up: true, icon: '💰' },
+  ],
+
+  quotations: [
+    { id:'Q-001', customer:'Mahadeva A S',  place:'Mysore',     date:'06-04-2026', valid:'06-05-2026', amount:'₹1,15,574', status:'Approved' },
+    { id:'Q-002', customer:'Rajesh Kumar',  place:'Bengaluru',  date:'10-04-2026', valid:'10-05-2026', amount:'₹88,200',   status:'Pending' },
+    { id:'Q-003', customer:'Priya Sharma',  place:'Hubli',      date:'14-04-2026', valid:'14-05-2026', amount:'₹2,34,000', status:'Draft' },
+    { id:'Q-004', customer:'Anand Reddy',   place:'Hyderabad',  date:'18-04-2026', valid:'18-05-2026', amount:'₹56,800',   status:'Approved' },
+    { id:'Q-005', customer:'Sunita Patil',  place:'Pune',       date:'22-04-2026', valid:'22-05-2026', amount:'₹1,02,400', status:'Rejected' },
+    { id:'Q-006', customer:'Vikram Nair',   place:'Kochi',      date:'25-04-2026', valid:'25-05-2026', amount:'₹3,10,500', status:'Pending' },
+  ],
+
+  products: [
+    { id:'P-001', name:'Main Door — Brass Casting Antique Finish', category:'Main Doors',       price:'₹40,500+', unit:'per panel', stock:'Available' },
+    { id:'P-002', name:'Pooja Room Door — Temple Arch',            category:'Pooja Doors',      price:'₹28,000+', unit:'per door',  stock:'Available' },
+    { id:'P-003', name:'Partition Grill — Mandala Fretwork',       category:'Partition Grills', price:'₹12,000+', unit:'per sqft', stock:'Available' },
+    { id:'P-004', name:'Staircase Railing — Acanthus Baluster',    category:'Railings',         price:'₹8,500+',  unit:'per rft',  stock:'Available' },
+    { id:'P-005', name:'Name Plate — Sand Cast Brass Letters',     category:'Name Plates',      price:'₹5,000+',  unit:'per plate',stock:'Available' },
+    { id:'P-006', name:'3/4 Concept Door — Asymmetric',            category:'Concept Doors',    price:'₹65,000+', unit:'per set',  stock:'On Order' },
+    { id:'P-007', name:'Vaskal Accessory — 6mm Thickness',         category:'Accessories',      price:'₹1,438+',  unit:'per nos',  stock:'Available' },
+    { id:'P-008', name:'Grill Accessory — 8mm Thickness',          category:'Accessories',      price:'₹5,938+',  unit:'per nos',  stock:'Available' },
+  ],
+
+  customers: [
+    { id:'C-001', name:'Mahadeva A S',  place:'Mysore',    phone:'+91 98765 00001', email:'mahadeva@email.com',  quotes:3, orders:1, since:'Jan 2026' },
+    { id:'C-002', name:'Rajesh Kumar',  place:'Bengaluru', phone:'+91 98765 00002', email:'rajesh@email.com',    quotes:2, orders:2, since:'Feb 2026' },
+    { id:'C-003', name:'Priya Sharma',  place:'Hubli',     phone:'+91 98765 00003', email:'priya@email.com',     quotes:1, orders:0, since:'Mar 2026' },
+    { id:'C-004', name:'Anand Reddy',   place:'Hyderabad', phone:'+91 98765 00004', email:'anand@email.com',     quotes:4, orders:3, since:'Dec 2025' },
+    { id:'C-005', name:'Sunita Patil',  place:'Pune',      phone:'+91 98765 00005', email:'sunita@email.com',    quotes:1, orders:0, since:'Apr 2026' },
+    { id:'C-006', name:'Vikram Nair',   place:'Kochi',     phone:'+91 98765 00006', email:'vikram@email.com',    quotes:2, orders:1, since:'Apr 2026' },
+  ],
+
+  orders: [
+    { id:'O-001', customer:'Mahadeva A S',  quotation:'Q-001', product:'Main Door — Brass',   date:'08-04-2026', delivery:'23-05-2026', amount:'₹1,15,574', status:'In Production' },
+    { id:'O-002', customer:'Anand Reddy',   quotation:'Q-004', product:'Railing — Acanthus',  date:'20-04-2026', delivery:'05-06-2026', amount:'₹56,800',   status:'Materials Ordered' },
+    { id:'O-003', customer:'Rajesh Kumar',  quotation:'Q-002', product:'Partition Grill',      date:'12-04-2026', delivery:'27-05-2026', amount:'₹88,200',   status:'Ready to Ship' },
+    { id:'O-004', customer:'Vikram Nair',   quotation:'Q-006', product:'Double Door Set',      date:'26-04-2026', delivery:'10-06-2026', amount:'₹3,10,500', status:'Design Review' },
+  ],
+
+  payments: [
+    { id:'PAY-001', customer:'Mahadeva A S', order:'O-001', date:'08-04-2026', amount:'₹86,681', type:'75% Advance',   mode:'NEFT',   status:'Received' },
+    { id:'PAY-002', customer:'Anand Reddy',  order:'O-002', date:'20-04-2026', amount:'₹42,600', type:'75% Advance',   mode:'Cheque', status:'Received' },
+    { id:'PAY-003', customer:'Rajesh Kumar', order:'O-003', date:'12-04-2026', amount:'₹66,150', type:'75% Advance',   mode:'UPI',    status:'Received' },
+    { id:'PAY-004', customer:'Mahadeva A S', order:'O-001', date:'22-05-2026', amount:'₹28,893', type:'25% Balance',   mode:'NEFT',   status:'Pending' },
+    { id:'PAY-005', customer:'Vikram Nair',  order:'O-004', date:'26-04-2026', amount:'₹2,32,875',type:'75% Advance', mode:'RTGS',   status:'Received' },
+  ],
+};
+
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
+let state = {
+  screen: 'login',       // login | dashboard | quotations | create-quotation | products | customers | orders | payments | settings
+  loggedIn: false,
+  sidebarOpen: false,
+  loginEmail: '',
+  loginPass: '',
+  loginError: '',
+  searchQ: '',
+};
+
+function navigate(screen) {
+  state.screen = screen;
+  state.sidebarOpen = false;
+  state.searchQ = '';
+  render();
+  window.scrollTo(0,0);
+}
+
+/* ════════════════════════════════════════════════════
+   RENDER ENGINE
+════════════════════════════════════════════════════ */
+function render() {
+  document.getElementById('app').innerHTML = state.loggedIn
+    ? renderShell()
+    : renderLogin();
+}
+
+/* ── ICONS (inline SVG) ── */
+const ICONS = {
+  dashboard: `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+  quotations: `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>`,
+  products:   `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>`,
+  customers:  `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`,
+  orders:     `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`,
+  payments:   `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+  settings:   `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
+  plus:       `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+  logout:     `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>`,
+  menu:       `<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`,
+  close:      `<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+  search:     `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  arrow_up:   `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>`,
+  arrow_down: `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`,
+};
+
+const NAV_ITEMS = [
+  { id:'dashboard',        label:'Dashboard',       icon:'dashboard' },
+  { id:'quotations',       label:'Quotations',      icon:'quotations' },
+  { id:'create-quotation', label:'Create Quotation',icon:'plus' },
+  { id:'products',         label:'Products',        icon:'products' },
+  { id:'customers',        label:'Customers',       icon:'customers' },
+  { id:'orders',           label:'Orders',          icon:'orders' },
+  { id:'payments',         label:'Payments',        icon:'payments' },
+  { id:'settings',         label:'Settings',        icon:'settings' },
+];
+
+/* ── STATUS BADGE ── */
+function badge(status) {
+  const map = {
+    'Approved':'green','Received':'green','Available':'green','In Production':'blue','Ready to Ship':'blue',
+    'Pending':'yellow','Materials Ordered':'yellow','Design Review':'yellow','On Order':'yellow',
+    'Draft':'gray','Rejected':'red',
+  };
+  const cls = map[status] || 'gray';
+  return `<span class="badge badge-${cls}">${status}</span>`;
+}
+
+/* ════════════════════════════════════════════════════
+   LOGIN PAGE
+════════════════════════════════════════════════════ */
+function renderLogin() {
+  return `
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#fdf8ee] to-[#ede5d4] px-4">
+    <div class="w-full max-w-sm">
+
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full border-2 border-brand-400 bg-white shadow mb-4">
+          <svg viewBox="0 0 80 80" class="w-10 h-10" fill="none">
+            <path d="M40 6L48 28H72L53 42L61 64L40 52L19 64L27 42L8 28H32Z" stroke="#c98d1a" stroke-width="3" fill="none"/>
+            <circle cx="40" cy="40" r="10" fill="#c98d1a"/>
+          </svg>
+        </div>
+        <h1 class="font-serif text-2xl font-bold text-brand-700 tracking-wider">ANTIQUE DESIGNS</h1>
+        <p class="text-xs text-gray-500 tracking-widest uppercase mt-1">Admin Portal</p>
+      </div>
+
+      <!-- Card -->
+      <div class="card p-8 shadow-xl">
+        <h2 class="text-lg font-bold text-gray-800 mb-1">Welcome back</h2>
+        <p class="text-sm text-gray-500 mb-6">Sign in to manage quotations & operations</p>
+
+        ${state.loginError ? `<div class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3 mb-4">${state.loginError}</div>` : ''}
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Email Address</label>
+            <input type="email" id="loginEmail" value="${state.loginEmail}"
+              class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-gray-50"
+              placeholder="admin@antique-designs.com"
+              oninput="state.loginEmail=this.value"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Password</label>
+            <input type="password" id="loginPass" value="${state.loginPass}"
+              class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-gray-50"
+              placeholder="••••••••"
+              oninput="state.loginPass=this.value"
+              onkeydown="if(event.key==='Enter')doLogin()"/>
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" class="rounded"/> Remember me
+            </label>
+            <a href="#" class="text-brand-600 hover:underline">Forgot password?</a>
+          </div>
+          <button onclick="doLogin()" class="btn-primary w-full py-2.5 rounded-lg text-sm font-bold tracking-wide">
+            Sign In
+          </button>
+        </div>
+
+        <p class="text-center text-xs text-gray-400 mt-6">
+          Authorised personnel only
+        </p>
+      </div>
+
+      <p class="text-center text-xs text-gray-400 mt-6">
+        © 2026 Antique Designs, Bengaluru. All rights reserved.
+      </p>
+    </div>
+  </div>`;
+}
+
+function doLogin() {
+  const e = document.getElementById('loginEmail');
+  const p = document.getElementById('loginPass');
+  const email = (e ? e.value : state.loginEmail).trim();
+  const pass  = (p ? p.value : state.loginPass).trim();
+  if (!email) { state.loginError = 'Please enter your email.'; render(); return; }
+  if (!pass)  { state.loginError = 'Please enter your password.'; render(); return; }
+  if (email !== 'antiquedesigns123@gmail.com' || pass !== 'Antique123') {
+    state.loginError = 'Invalid email or password. Please try again.';
+    render(); return;
+  }
+  state.loggedIn   = true;
+  state.loginError = '';
+  state.screen     = 'dashboard';
+  render();
+}
+
+/* ════════════════════════════════════════════════════
+   APP SHELL (Sidebar + TopBar + Content)
+════════════════════════════════════════════════════ */
+function renderShell() {
+  return `
+  <!-- Mobile overlay -->
+  ${state.sidebarOpen ? `<div onclick="state.sidebarOpen=false;render()" class="fixed inset-0 bg-black/40 z-40 md:hidden"></div>` : ''}
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar ${state.sidebarOpen ? 'open' : 'hidden md:flex'} flex-col fixed top-0 left-0 h-screen w-64 bg-[#1a1208] text-white z-50 overflow-y-auto">
+
+    <!-- Brand -->
+    <div class="px-5 py-5 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-brand-500/20 border border-brand-400/40 flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 80 80" class="w-5 h-5" fill="none">
+            <path d="M40 6L48 28H72L53 42L61 64L40 52L19 64L27 42L8 28H32Z" stroke="#c98d1a" stroke-width="4" fill="none"/>
+            <circle cx="40" cy="40" r="10" fill="#c98d1a"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-serif text-sm font-bold text-brand-400 tracking-wider leading-tight">ANTIQUE DESIGNS</div>
+          <div class="text-[10px] text-gray-500 tracking-widest uppercase">Admin Portal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 px-3 py-4 space-y-0.5">
+      ${NAV_ITEMS.map(n => `
+        <button onclick="navigate('${n.id}')"
+          class="sidebar-link ${state.screen===n.id?'active':''} w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-300 hover:text-white">
+          <span class="opacity-75">${ICONS[n.icon]||''}</span>
+          <span>${n.label}</span>
+        </button>`).join('')}
+    </nav>
+
+    <!-- User -->
+    <div class="px-4 py-4 border-t border-white/10">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-xs font-bold text-white">${SAMPLE.user.initials}</div>
+        <div>
+          <div class="text-sm font-semibold text-white">${SAMPLE.user.name}</div>
+          <div class="text-xs text-gray-400">${SAMPLE.user.role}</div>
+        </div>
+      </div>
+      <button onclick="doLogout()"
+        class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-gray-400 hover:text-red-400 hover:bg-red-900/20 transition-colors">
+        ${ICONS.logout} Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div class="main-content md:ml-64 min-h-screen flex flex-col">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-30 bg-white/90 border-b border-[#ede5d4] px-4 md:px-6 py-3 flex items-center justify-between gap-4 backdrop-blur">
+      <div class="flex items-center gap-3">
+        <button class="mobile-nav p-1.5 rounded-lg hover:bg-gray-100" onclick="state.sidebarOpen=true;render()">
+          ${ICONS.menu}
+        </button>
+        <div>
+          <h1 class="text-base font-bold text-gray-800 leading-tight">${screenTitle()}</h1>
+          <p class="text-xs text-gray-400">Antique Designs · Admin</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        ${state.screen!=='create-quotation' ? `
+        <div class="hidden sm:flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-500 w-52">
+          ${ICONS.search}
+          <input type="text" placeholder="Search…" value="${state.searchQ}"
+            class="bg-transparent border-none text-sm w-full outline-none"
+            oninput="state.searchQ=this.value;render()"/>
+        </div>` : ''}
+        ${state.screen==='quotations' ? `<button onclick="navigate('create-quotation')" class="btn-primary flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold">${ICONS.plus} New Quotation</button>` : ''}
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1 p-4 md:p-6 fade-in">
+      ${renderScreen()}
+    </main>
+  </div>`;
+}
+
+function screenTitle() {
+  const map = { dashboard:'Dashboard', quotations:'Quotations', 'create-quotation':'Create Quotation',
+    products:'Products', customers:'Customers', orders:'Orders', payments:'Payments', settings:'Settings' };
+  return map[state.screen] || '';
+}
+
+function doLogout() {
+  state.loggedIn = false;
+  state.screen   = 'login';
+  state.loginEmail = '';
+  state.loginPass  = '';
+  render();
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN ROUTER
+════════════════════════════════════════════════════ */
+function renderScreen() {
+  switch(state.screen) {
+    case 'dashboard':        return screenDashboard();
+    case 'quotations':       return screenQuotations();
+    case 'create-quotation': return screenCreateQuotation();
+    case 'products':         return screenProducts();
+    case 'customers':        return screenCustomers();
+    case 'orders':           return screenOrders();
+    case 'payments':         return screenPayments();
+    case 'settings':         return screenSettings();
+    default:                 return screenDashboard();
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: DASHBOARD
+════════════════════════════════════════════════════ */
+function screenDashboard() {
+  const recentQ = SAMPLE.quotations.slice(0,4);
+  const recentO = SAMPLE.orders.slice(0,3);
+  return `
+  <!-- Sample data notice -->
+  <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5 text-xs text-amber-700 font-medium mb-5 flex items-center gap-2">
+    ⚠️ <span>All figures below are <strong>sample data</strong> for UI demonstration only.</span>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    ${SAMPLE.stats.map(s=>`
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-start justify-between mb-2">
+        <span class="text-2xl">${s.icon}</span>
+        <span class="flex items-center gap-0.5 text-xs font-semibold ${s.up?'text-green-600':'text-red-500'}">
+          ${s.up ? ICONS.arrow_up : ICONS.arrow_down} ${s.delta}
+        </span>
+      </div>
+      <div class="text-2xl font-bold text-gray-800">${s.value}</div>
+      <div class="text-xs text-gray-500 mt-0.5">${s.label}</div>
+    </div>`).join('')}
+  </div>
+
+  <!-- Two column -->
+  <div class="grid lg:grid-cols-5 gap-5">
+
+    <!-- Recent Quotations -->
+    <div class="lg:col-span-3 card overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h3 class="font-semibold text-gray-800 text-sm">Recent Quotations</h3>
+        <button onclick="navigate('quotations')" class="text-xs text-brand-600 hover:underline font-medium">View all →</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide">
+            <th class="px-5 py-3 text-left font-semibold">ID</th>
+            <th class="px-5 py-3 text-left font-semibold">Customer</th>
+            <th class="px-5 py-3 text-left font-semibold hidden sm:table-cell">Amount</th>
+            <th class="px-5 py-3 text-left font-semibold">Status</th>
+          </tr></thead>
+          <tbody>
+            ${recentQ.map(q=>`
+            <tr class="table-row cursor-pointer" onclick="navigate('quotations')">
+              <td class="px-5 py-3 font-mono text-xs text-gray-500">${q.id}</td>
+              <td class="px-5 py-3 font-medium text-gray-800">${q.customer}<div class="text-xs text-gray-400">${q.place}</div></td>
+              <td class="px-5 py-3 text-gray-700 hidden sm:table-cell">${q.amount}</td>
+              <td class="px-5 py-3">${badge(q.status)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="lg:col-span-2 card overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h3 class="font-semibold text-gray-800 text-sm">Active Orders</h3>
+        <button onclick="navigate('orders')" class="text-xs text-brand-600 hover:underline font-medium">View all →</button>
+      </div>
+      <div class="divide-y divide-gray-100">
+        ${recentO.map(o=>`
+        <div class="px-5 py-3.5 cursor-pointer hover:bg-amber-50 transition-colors" onclick="navigate('orders')">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="text-sm font-semibold text-gray-800">${o.customer}</div>
+              <div class="text-xs text-gray-500 mt-0.5 truncate max-w-[160px]">${o.product}</div>
+              <div class="text-xs text-gray-400 mt-1">Due: ${o.delivery}</div>
+            </div>
+            <div>${badge(o.status)}</div>
+          </div>
+        </div>`).join('')}
+        <div class="px-5 py-3 text-xs text-center text-gray-400">+ ${SAMPLE.orders.length - recentO.length} more orders</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+    ${[
+      {label:'New Quotation', screen:'create-quotation', color:'bg-brand-600', emoji:'📋'},
+      {label:'Add Product',   screen:'products',         color:'bg-emerald-600', emoji:'📦'},
+      {label:'Add Customer',  screen:'customers',        color:'bg-blue-600',   emoji:'👤'},
+      {label:'View Payments', screen:'payments',         color:'bg-purple-600', emoji:'💳'},
+    ].map(a=>`
+    <button onclick="navigate('${a.screen}')"
+      class="${a.color} text-white rounded-xl p-4 text-left hover:opacity-90 transition-opacity">
+      <div class="text-2xl mb-2">${a.emoji}</div>
+      <div class="text-sm font-semibold">${a.label}</div>
+    </button>`).join('')}
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: QUOTATIONS LIST
+════════════════════════════════════════════════════ */
+function screenQuotations() {
+  const q = state.searchQ.toLowerCase();
+  const rows = SAMPLE.quotations.filter(r =>
+    !q || r.customer.toLowerCase().includes(q) || r.id.toLowerCase().includes(q) || r.place.toLowerCase().includes(q)
+  );
+  return `
+  <div class="mb-4 flex flex-wrap items-center gap-3">
+    <div class="flex gap-2 flex-wrap">
+      ${['All','Approved','Pending','Draft','Rejected'].map(s=>`
+        <button class="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all
+          ${s==='All'?'bg-brand-600 text-white border-brand-600':'border-gray-200 text-gray-600 hover:border-brand-400 hover:text-brand-600'}">
+          ${s}
+        </button>`).join('')}
+    </div>
+    <div class="ml-auto text-xs text-gray-400">${rows.length} quotation${rows.length!==1?'s':''}</div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+          <th class="px-5 py-3.5 text-left font-semibold">Quot. ID</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Customer</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Date</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Valid Until</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Amount</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Status</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Actions</th>
+        </tr></thead>
+        <tbody>
+          ${rows.length ? rows.map(r=>`
+          <tr class="table-row">
+            <td class="px-5 py-3.5 font-mono text-xs text-brand-700 font-semibold">${r.id}</td>
+            <td class="px-5 py-3.5">
+              <div class="font-semibold text-gray-800">${r.customer}</div>
+              <div class="text-xs text-gray-400">${r.place}</div>
+            </td>
+            <td class="px-5 py-3.5 text-gray-600 hidden md:table-cell">${r.date}</td>
+            <td class="px-5 py-3.5 text-gray-600 hidden md:table-cell">${r.valid}</td>
+            <td class="px-5 py-3.5 font-semibold text-gray-800">${r.amount}</td>
+            <td class="px-5 py-3.5">${badge(r.status)}</td>
+            <td class="px-5 py-3.5">
+              <div class="flex items-center gap-2">
+                <button onclick="navigate('create-quotation')" class="text-xs text-brand-600 hover:underline font-medium">Edit</button>
+                <span class="text-gray-300">|</span>
+                <button class="text-xs text-gray-500 hover:underline">Print</button>
+              </div>
+            </td>
+          </tr>`).join('') : `
+          <tr><td colspan="7" class="px-5 py-12 text-center text-gray-400 text-sm">No quotations match your search.</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+      <span>Showing ${rows.length} of ${SAMPLE.quotations.length} quotations · <em>Sample data</em></span>
+      <div class="flex gap-1">
+        <button class="px-2.5 py-1 border border-gray-200 rounded hover:border-brand-400 text-gray-500">←</button>
+        <button class="px-2.5 py-1 bg-brand-600 text-white rounded font-semibold">1</button>
+        <button class="px-2.5 py-1 border border-gray-200 rounded hover:border-brand-400 text-gray-500">→</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: CREATE QUOTATION
+════════════════════════════════════════════════════ */
+function screenCreateQuotation() {
+  return `
+  <div class="max-w-5xl mx-auto">
+    <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5 text-xs text-blue-700 font-medium mb-5">
+      ℹ️ This form captures quotation data. <strong>PDF generation</strong> and <strong>database saving</strong> will be connected in Step 2.
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-5">
+
+      <!-- Left: Form -->
+      <div class="lg:col-span-2 space-y-5">
+
+        <!-- Customer & Meta -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-gray-700 text-sm mb-4 pb-3 border-b border-gray-100">Customer & Quotation Details</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Customer Name *</label>
+              <input type="text" placeholder="e.g. Mahadeva A S" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Place / City *</label>
+              <input type="text" placeholder="e.g. Mysore" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Quotation No. *</label>
+              <input type="text" placeholder="e.g. 008_26-27_AB_BLR_..." class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50" value="008_26-27_AB_"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">HSN Code</label>
+              <input type="text" placeholder="74199930" value="74199930" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Date</label>
+              <input type="date" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Valid Until</label>
+              <input type="date" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Approved By</label>
+              <input type="text" value="ABHISHEK" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Approver Phone</label>
+              <input type="text" value="9620202221" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Items -->
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+            <h3 class="font-semibold text-gray-700 text-sm">Line Items</h3>
+            <button class="btn-primary flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold">${ICONS.plus} Add Item</button>
+          </div>
+
+          <!-- Item 1 (sample) -->
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-3">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-brand-700">Item 1</span>
+              <button class="text-gray-400 hover:text-red-500 text-sm">✕</button>
+            </div>
+            <input type="text" value="Main Door : in Brass metal casting with antique finish"
+              class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm bg-white mb-3"/>
+            <!-- Sub-item header -->
+            <div class="grid grid-cols-12 gap-2 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wide px-1">
+              <div class="col-span-5">Description</div>
+              <div class="col-span-3">Size</div>
+              <div class="col-span-2">Unit ₹</div>
+              <div class="col-span-1">Qty</div>
+              <div class="col-span-1"></div>
+            </div>
+            <!-- Sub rows -->
+            ${[
+              ['Panel Accessories : 10mm Thickness','18"×24"','40,500','1'],
+              ['Grill Accessories : 8mm Thickness', '18"×5"', '5,938', '2'],
+              ['Studs : 15mm Thickness',            '1.5"×1.5"','547','10'],
+            ].map(r=>`
+            <div class="grid grid-cols-12 gap-2 mb-2">
+              <input class="col-span-5 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white" value="${r[0]}"/>
+              <input class="col-span-3 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white" value="${r[1]}"/>
+              <input class="col-span-2 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white text-right" value="${r[2]}"/>
+              <input class="col-span-1 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white text-center" value="${r[3]}"/>
+              <button class="col-span-1 text-gray-300 hover:text-red-400 text-sm flex items-center justify-center">✕</button>
+            </div>`).join('')}
+            <button class="text-xs text-brand-600 border border-dashed border-brand-300 rounded px-3 py-1 hover:bg-brand-50 font-medium">+ Add row</button>
+          </div>
+
+          <div class="border-2 border-dashed border-gray-200 rounded-lg p-6 text-center text-sm text-gray-400 hover:border-brand-300 cursor-pointer transition-colors">
+            + Click "Add Item" to add another product line
+          </div>
+        </div>
+
+        <!-- Charges -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-gray-700 text-sm mb-4 pb-3 border-b border-gray-100">Charges & Tax</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Packing & Transport (₹)</label>
+              <input type="number" value="1000" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">GST (%)</label>
+              <input type="number" value="5" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Summary -->
+      <div class="space-y-4">
+        <div class="card p-5 sticky top-20">
+          <h3 class="font-semibold text-gray-700 text-sm mb-4 pb-3 border-b border-gray-100">Summary</h3>
+
+          <div class="space-y-2.5 text-sm">
+            <div class="flex justify-between text-gray-500">
+              <span>Subtotal</span><span class="font-medium text-gray-800">₹1,09,119</span>
+            </div>
+            <div class="flex justify-between text-gray-500">
+              <span>Packing & Transport</span><span class="font-medium text-gray-800">₹1,000</span>
+            </div>
+            <div class="flex justify-between text-gray-500">
+              <span>GST (5%)</span><span class="font-medium text-gray-800">₹5,455.95</span>
+            </div>
+            <div class="h-px bg-gray-200 my-2"></div>
+            <div class="flex justify-between font-bold text-base">
+              <span class="text-gray-800">Grand Total</span>
+              <span class="text-brand-700">₹1,15,574.95</span>
+            </div>
+          </div>
+
+          <div class="mt-5 space-y-2.5">
+            <button class="btn-primary w-full py-2.5 rounded-lg text-sm font-bold">
+              💾 Save Quotation
+            </button>
+            <button onclick="navigate('quotation')" class="btn-outline w-full py-2.5 rounded-lg text-sm font-bold">
+              🖨 Preview & Print PDF
+            </button>
+            <button onclick="navigate('quotations')" class="w-full py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 border border-gray-200 transition-colors">
+              Cancel
+            </button>
+          </div>
+
+          <div class="mt-4 bg-gray-50 rounded-lg p-3 text-xs text-gray-400 leading-relaxed">
+            <strong class="text-gray-600">Terms applied:</strong><br>
+            45-day delivery · 75% advance · No cancellation · Customer installs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: PRODUCTS
+════════════════════════════════════════════════════ */
+/* ── Product store (localStorage) ───────────────────────────────────────── */
+var PRODUCT_CATEGORIES_LIST = ['Main Doors','Panel Accessories','Grill Accessories','Studs','Vaskal Accessories','Pooja Doors','Railings','Name Plates','Concept Doors','Other'];
+
+function loadProducts() {
+  try {
+    var saved = localStorage.getItem('ad_products');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  // Seed from SAMPLE on first load
+  return SAMPLE.products.map(function(p) {
+    return {
+      id:          p.id,
+      name:        p.name,
+      category:    p.category,
+      description: '',
+      dimensions:  '',
+      thickness:   '',
+      unit:        p.unit,
+      price:       p.price.replace('₹','').replace('+','').replace(/,/g,'').trim(),
+      hsnCode:     '74199930',
+      imageData:   null,
+      status:      p.stock === 'Available' ? 'active' : 'inactive',
+      createdAt:   new Date().toLocaleDateString('en-IN'),
+    };
+  });
+}
+
+function saveProducts(list) {
+  try { localStorage.setItem('ad_products', JSON.stringify(list)); } catch(e) {}
+}
+
+function genProductId() {
+  var list = loadProducts();
+  var max = list.reduce(function(m, p) {
+    var n = parseInt((p.id || '0').replace(/\D/g,'')) || 0;
+    return Math.max(m, n);
+  }, 0);
+  return 'P-' + String(max + 1).padStart(3,'0');
+}
+
+/* ── Modal state ─────────────────────────────────────────────────────────── */
+var productModal = {
+  open:     false,
+  mode:     'add',   // 'add' | 'edit'
+  editId:   null,
+  form:     { name:'', category:'', description:'', dimensions:'', thickness:'', unit:'', price:'', hsnCode:'74199930', imageData:null },
+  errors:   {},
+  catFilter:'All',
+  statusFilter:'all',
+  previewImg: null,
+};
+
+function openAddProduct() {
+  productModal.open   = true;
+  productModal.mode   = 'add';
+  productModal.editId = null;
+  productModal.errors = {};
+  productModal.previewImg = null;
+  productModal.form = { name:'', category:'', description:'', dimensions:'', thickness:'', unit:'', price:'', hsnCode:'74199930', imageData:null };
+  render();
+  setTimeout(function(){ var el=document.getElementById('pm_name'); if(el) el.focus(); },50);
+}
+
+function openEditProduct(id) {
+  var list = loadProducts();
+  var p = list.find(function(x){ return x.id === id; });
+  if (!p) return;
+  productModal.open   = true;
+  productModal.mode   = 'edit';
+  productModal.editId = id;
+  productModal.errors = {};
+  productModal.previewImg = p.imageData || null;
+  productModal.form = {
+    name:        p.name        || '',
+    category:    p.category    || '',
+    description: p.description || '',
+    dimensions:  p.dimensions  || '',
+    thickness:   p.thickness   || '',
+    unit:        p.unit        || '',
+    price:       p.price       || '',
+    hsnCode:     p.hsnCode     || '',
+    imageData:   p.imageData   || null,
+  };
+  render();
+  setTimeout(function(){ var el=document.getElementById('pm_name'); if(el) el.focus(); },50);
+}
+
+function closeProductModal() {
+  productModal.open = false;
+  productModal.previewImg = null;
+  render();
+}
+
+function pmField(field, val) {
+  productModal.form[field] = val;
+  if (productModal.errors[field]) { delete productModal.errors[field]; }
+  // live re-render only the error span to avoid losing focus
+  var errEl = document.getElementById('pm_err_' + field);
+  if (errEl) errEl.textContent = '';
+  // live-update price display
+  if (field === 'price') {
+    var disp = document.getElementById('pm_price_disp');
+    if (disp) {
+      var n = parseFloat(val);
+      disp.textContent = (!isNaN(n) && n >= 0) ? '= ' + fmtINR(n) : '';
+    }
+  }
+}
+
+function pmImagePick(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var allowed = ['image/jpeg','image/png','image/webp'];
+  if (!allowed.includes(file.type)) {
+    alert('Only JPG, PNG or WebP images are allowed.'); input.value=''; return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Image must be smaller than 5 MB.'); input.value=''; return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    productModal.form.imageData = e.target.result;
+    productModal.previewImg = e.target.result;
+    var prev = document.getElementById('pm_img_preview');
+    var placeholder = document.getElementById('pm_img_placeholder');
+    if (prev) { prev.src = e.target.result; prev.style.display='block'; }
+    if (placeholder) placeholder.style.display='none';
+    var removeBtn = document.getElementById('pm_img_remove');
+    if (removeBtn) removeBtn.style.display='inline-flex';
+  };
+  reader.readAsDataURL(file);
+}
+
+function pmRemoveImage() {
+  productModal.form.imageData = null;
+  productModal.previewImg = null;
+  var prev = document.getElementById('pm_img_preview');
+  var placeholder = document.getElementById('pm_img_placeholder');
+  var removeBtn = document.getElementById('pm_img_remove');
+  if (prev) { prev.src=''; prev.style.display='none'; }
+  if (placeholder) placeholder.style.display='flex';
+  if (removeBtn) removeBtn.style.display='none';
+  var fileInput = document.getElementById('pm_file_input');
+  if (fileInput) fileInput.value='';
+}
+
+function fmtINR(n) {
+  return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function validateProductForm() {
+  var f = productModal.form;
+  var e = {};
+  if (!f.name.trim())     e.name     = 'Product name is required.';
+  if (!f.category.trim()) e.category = 'Please select a category.';
+  if (!f.unit.trim())     e.unit     = 'Unit of measurement is required.';
+  var price = parseFloat(f.price);
+  if (!f.price.trim())           e.price = 'Unit price is required.';
+  else if (isNaN(price)||price<0) e.price = 'Enter a valid price (0 or above).';
+  else if (price > 10000000)     e.price = 'Price cannot exceed ₹1,00,00,000.';
+  return e;
+}
+
+function submitProductForm() {
+  var errors = validateProductForm();
+  productModal.errors = errors;
+  if (Object.keys(errors).length > 0) { render(); return; }
+
+  var list = loadProducts();
+  var f = productModal.form;
+  var now = new Date().toLocaleDateString('en-IN');
+
+  if (productModal.mode === 'add') {
+    list.unshift({
+      id:          genProductId(),
+      name:        f.name.trim(),
+      category:    f.category,
+      description: f.description.trim(),
+      dimensions:  f.dimensions.trim(),
+      thickness:   f.thickness.trim(),
+      unit:        f.unit.trim(),
+      price:       f.price.trim(),
+      hsnCode:     f.hsnCode.trim(),
+      imageData:   f.imageData || null,
+      status:      'active',
+      createdAt:   now,
+    });
+  } else {
+    list = list.map(function(p) {
+      if (p.id !== productModal.editId) return p;
+      return Object.assign({}, p, {
+        name:        f.name.trim(),
+        category:    f.category,
+        description: f.description.trim(),
+        dimensions:  f.dimensions.trim(),
+        thickness:   f.thickness.trim(),
+        unit:        f.unit.trim(),
+        price:       f.price.trim(),
+        hsnCode:     f.hsnCode.trim(),
+        imageData:   f.imageData !== undefined ? f.imageData : p.imageData,
+        updatedAt:   now,
+      });
+    });
+  }
+  saveProducts(list);
+  closeProductModal();
+  showProductToast(productModal.mode === 'add' ? 'Product added successfully!' : 'Product updated successfully!');
+}
+
+function deleteProduct(id) {
+  var list = loadProducts();
+  var p = list.find(function(x){ return x.id===id; });
+  if (!p) return;
+  if (!confirm('"' + p.name + '" will be removed. This cannot be undone.\n\nAre you sure?')) return;
+  list = list.filter(function(x){ return x.id !== id; });
+  saveProducts(list);
+  render();
+}
+
+function toggleProductStatus(id) {
+  var list = loadProducts();
+  list = list.map(function(p) {
+    if (p.id !== id) return p;
+    var next = p.status === 'active' ? 'inactive' : 'active';
+    return Object.assign({}, p, { status: next });
+  });
+  saveProducts(list);
+  render();
+}
+
+var _productToastTimer = null;
+function showProductToast(msg) {
+  var t = document.getElementById('product_toast');
+  if (!t) { render(); setTimeout(function(){ showProductToast(msg); }, 50); return; }
+  t.textContent = msg;
+  t.classList.remove('opacity-0');
+  t.classList.add('opacity-100');
+  clearTimeout(_productToastTimer);
+  _productToastTimer = setTimeout(function(){
+    t.classList.remove('opacity-100');
+    t.classList.add('opacity-0');
+  }, 3000);
+}
+
+function screenProducts() {
+  var allProducts = loadProducts();
+  var q = state.searchQ.toLowerCase();
+  var cf = productModal.catFilter;
+  var sf = productModal.statusFilter;
+
+  var rows = allProducts.filter(function(p) {
+    if (cf !== 'All' && p.category !== cf) return false;
+    if (sf !== 'all' && p.status !== sf)   return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q) && !(p.description||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  var activeCount   = allProducts.filter(function(p){ return p.status==='active'; }).length;
+  var inactiveCount = allProducts.filter(function(p){ return p.status==='inactive'; }).length;
+
+  // ── Modal HTML ──────────────────────────────────────────────────────────────
+  var modalHtml = '';
+  if (productModal.open) {
+    var f = productModal.form;
+    var e = productModal.errors;
+    var isEdit = productModal.mode === 'edit';
+    modalHtml = `
+    <!-- Backdrop -->
+    <div onclick="closeProductModal()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;"></div>
+    <!-- Modal -->
+    <div style="position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;">
+      <div style="background:#fff;border-radius:16px;box-shadow:0 25px 50px rgba(0,0,0,.2);width:100%;max-width:640px;margin:32px auto;">
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #f0ece4;">
+          <h3 style="font-weight:700;font-size:16px;color:#1a1a1a;">${isEdit ? 'Edit Product' : 'Add New Product'}</h3>
+          <button onclick="closeProductModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#aaa;line-height:1;">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:24px;max-height:70vh;overflow-y:auto;">
+          ${e.name||e.category||e.unit||e.price ? '<div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;font-size:12px;color:#dc2626;margin-bottom:16px;">Please fix the errors below before saving.</div>' : ''}
+
+          <!-- Name -->
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Product Name *</label>
+            <input id="pm_name" type="text" value="${esc(f.name)}" oninput="pmField('name',this.value)"
+              placeholder="e.g. Panel Accessory — Brass 10mm"
+              style="width:100%;border:1px solid ${e.name?'#f87171':'#e0e0e0'};border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+            <span id="pm_err_name" style="font-size:11px;color:#dc2626;display:block;margin-top:3px;">${e.name||''}</span>
+          </div>
+
+          <!-- Category + Unit -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Category *</label>
+              <select id="pm_cat" onchange="pmField('category',this.value)"
+                style="width:100%;border:1px solid ${e.category?'#f87171':'#e0e0e0'};border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;">
+                <option value="">— Select —</option>
+                ${PRODUCT_CATEGORIES_LIST.map(function(c){ return '<option value="'+c+'"'+(f.category===c?' selected':'')+'>'+c+'</option>'; }).join('')}
+              </select>
+              <span id="pm_err_category" style="font-size:11px;color:#dc2626;display:block;margin-top:3px;">${e.category||''}</span>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Unit *</label>
+              <input id="pm_unit" type="text" value="${esc(f.unit)}" oninput="pmField('unit',this.value)"
+                list="pm_unit_list" placeholder="per panel"
+                style="width:100%;border:1px solid ${e.unit?'#f87171':'#e0e0e0'};border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+              <datalist id="pm_unit_list">
+                <option value="per panel"/><option value="per door"/><option value="per set"/>
+                <option value="per sqft"/><option value="per rft"/><option value="per nos"/>
+                <option value="per plate"/><option value="per meter"/>
+              </datalist>
+              <span id="pm_err_unit" style="font-size:11px;color:#dc2626;display:block;margin-top:3px;">${e.unit||''}</span>
+            </div>
+          </div>
+
+          <!-- Price + HSN -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Unit Price (₹) *</label>
+              <div style="position:relative;">
+                <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#888;font-weight:600;font-size:13px;">₹</span>
+                <input id="pm_price" type="number" min="0" step="1" value="${esc(f.price)}" oninput="pmField('price',this.value)"
+                  placeholder="40500"
+                  style="width:100%;border:1px solid ${e.price?'#f87171':'#e0e0e0'};border-radius:8px;padding:9px 12px 9px 24px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+              </div>
+              <span id="pm_price_disp" style="font-size:11px;color:#a87014;display:block;margin-top:3px;">
+                ${f.price && !isNaN(parseFloat(f.price)) ? '= ' + fmtINR(parseFloat(f.price)) : ''}
+              </span>
+              <span id="pm_err_price" style="font-size:11px;color:#dc2626;display:block;">${e.price||''}</span>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">HSN Code</label>
+              <input id="pm_hsn" type="text" value="${esc(f.hsnCode)}" oninput="pmField('hsnCode',this.value)"
+                placeholder="74199930"
+                style="width:100%;border:1px solid #e0e0e0;border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+            </div>
+          </div>
+
+          <!-- Dimensions + Thickness -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Dimensions</label>
+              <input id="pm_dim" type="text" value="${esc(f.dimensions)}" oninput="pmField('dimensions',this.value)"
+                placeholder='18" × 24"'
+                style="width:100%;border:1px solid #e0e0e0;border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Thickness (mm)</label>
+              <input id="pm_thick" type="text" value="${esc(f.thickness)}" oninput="pmField('thickness',this.value)"
+                placeholder="10"
+                style="width:100%;border:1px solid #e0e0e0;border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;box-sizing:border-box;"/>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Description</label>
+            <textarea id="pm_desc" oninput="pmField('description',this.value)"
+              placeholder="Optional product description…" rows="2"
+              style="width:100%;border:1px solid #e0e0e0;border-radius:8px;padding:9px 12px;font-size:13px;background:#fafafa;outline:none;resize:none;box-sizing:border-box;">${esc(f.description)}</textarea>
+          </div>
+
+          <!-- Image upload -->
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Product Image (JPG, PNG, WebP · max 5 MB)</label>
+            <div style="position:relative;width:100%;height:130px;border:2px dashed #e0d8cc;border-radius:10px;overflow:hidden;background:#fdf8ee;display:flex;align-items:center;justify-content:center;cursor:pointer;"
+              onclick="document.getElementById('pm_file_input').click()">
+              <img id="pm_img_preview" src="${f.imageData||''}"
+                style="width:100%;height:100%;object-fit:cover;display:${f.imageData?'block':'none'};"/>
+              <div id="pm_img_placeholder" style="display:${f.imageData?'none':'flex'};flex-direction:column;align-items:center;gap:6px;color:#c98d1a;pointer-events:none;">
+                <span style="font-size:28px;">📁</span>
+                <span style="font-size:12px;font-weight:600;">Click to upload image</span>
+                <span style="font-size:11px;color:#aaa;">JPG, PNG, WebP · max 5 MB</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
+              <button type="button" onclick="document.getElementById('pm_file_input').click()"
+                style="font-size:12px;font-weight:600;color:#a87014;border:1px solid #c98d1a;background:none;border-radius:6px;padding:5px 12px;cursor:pointer;">
+                Choose File
+              </button>
+              <button id="pm_img_remove" type="button" onclick="pmRemoveImage()"
+                style="font-size:12px;font-weight:600;color:#dc2626;border:1px solid #fca5a5;background:none;border-radius:6px;padding:5px 12px;cursor:pointer;display:${f.imageData?'inline-flex':'none'};">
+                Remove Image
+              </button>
+            </div>
+            <input id="pm_file_input" type="file" accept="image/jpeg,image/png,image/webp" style="display:none;"
+              onchange="pmImagePick(this)"/>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="display:flex;gap:10px;justify-content:flex-end;padding:16px 24px;border-top:1px solid #f0ece4;background:#fafafa;border-radius:0 0 16px 16px;">
+          <button onclick="closeProductModal()"
+            style="padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid #e0e0e0;background:#fff;color:#555;cursor:pointer;">
+            Cancel
+          </button>
+          <button onclick="submitProductForm()"
+            style="padding:9px 24px;border-radius:8px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#c98d1a,#a87014);color:#fff;border:none;cursor:pointer;">
+            ${isEdit ? 'Save Changes' : 'Add Product'}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ── Main screen HTML ────────────────────────────────────────────────────────
+  return `
+  ${modalHtml}
+
+  <!-- Toast -->
+  <div id="product_toast" class="opacity-0"
+    style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:60;
+           background:#16a34a;color:#fff;font-size:13px;font-weight:600;
+           padding:10px 20px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);
+           transition:opacity .3s;pointer-events:none;white-space:nowrap;">
+  </div>
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div>
+      <h2 class="text-xl font-bold text-gray-800">Products</h2>
+      <p class="text-xs text-gray-400 mt-0.5">${activeCount} active · ${inactiveCount} inactive · ${allProducts.length} total</p>
+    </div>
+    <button onclick="openAddProduct()"
+      class="btn-primary flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold">
+      ${ICONS.plus} Add Product
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="flex flex-wrap items-center gap-2 mb-5">
+    <select onchange="productModal.catFilter=this.value;render()"
+      class="border border-gray-200 rounded-lg px-3 py-2 text-xs font-semibold text-gray-600 bg-white"
+      style="outline:none;">
+      <option value="All">All Categories</option>
+      ${PRODUCT_CATEGORIES_LIST.map(function(c){ return '<option value="'+c+'"'+(productModal.catFilter===c?' selected':'')+'>'+c+'</option>'; }).join('')}
+    </select>
+    ${['all','active','inactive'].map(function(s){
+      return '<button onclick="productModal.statusFilter=\''+s+'\';render()" class="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all capitalize '+(productModal.statusFilter===s?'bg-brand-600 text-white border-brand-600':'border-gray-200 text-gray-600 hover:border-brand-400')+'">'+( s==='all'?'All Status':s)+'</button>';
+    }).join('')}
+    <span class="text-xs text-gray-400 ml-auto">${rows.length} product${rows.length!==1?'s':''}</span>
+  </div>
+
+  <!-- Table (desktop) -->
+  <div class="card overflow-hidden hidden md:block mb-4">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+          <th class="px-4 py-3 text-left font-semibold w-14">Image</th>
+          <th class="px-4 py-3 text-left font-semibold">Product</th>
+          <th class="px-4 py-3 text-left font-semibold">Category</th>
+          <th class="px-4 py-3 text-right font-semibold">Price</th>
+          <th class="px-4 py-3 text-left font-semibold">Unit</th>
+          <th class="px-4 py-3 text-left font-semibold">Status</th>
+          <th class="px-4 py-3 text-left font-semibold">Actions</th>
+        </tr></thead>
+        <tbody>
+          ${rows.length === 0 ? '<tr><td colspan="7" class="px-5 py-10 text-center text-gray-400">No products match your filters.</td></tr>' :
+            rows.map(function(p) {
+              var isActive = p.status === 'active';
+              return '<tr class="table-row' + (!isActive ? ' opacity-60' : '') + '">'
+                + '<td class="px-4 py-3">'
+                + '<div class="w-12 h-10 rounded-lg overflow-hidden bg-amber-50 border border-amber-100 flex items-center justify-center">'
+                + (p.imageData ? '<img src="' + p.imageData + '" style="width:100%;height:100%;object-fit:cover;"/>' : '<span style="font-size:18px;">🪔</span>')
+                + '</div></td>'
+                + '<td class="px-4 py-3">'
+                + '<div class="font-semibold text-gray-800">' + esc(p.name) + '</div>'
+                + (p.dimensions ? '<div class="text-xs text-gray-400">' + esc(p.dimensions) + (p.thickness ? ' · ' + p.thickness + 'mm' : '') + '</div>' : '')
+                + '</td>'
+                + '<td class="px-4 py-3 text-gray-600 text-xs">' + esc(p.category) + '</td>'
+                + '<td class="px-4 py-3 text-right font-bold text-amber-700">' + (p.price ? fmtINR(parseFloat(p.price)||0) : '—') + '</td>'
+                + '<td class="px-4 py-3 text-gray-500 text-xs">' + esc(p.unit) + '</td>'
+                + '<td class="px-4 py-3"><span class="badge ' + (isActive ? 'badge-green' : 'badge-gray') + '">' + (isActive ? 'Active' : 'Inactive') + '</span></td>'
+                + '<td class="px-4 py-3"><div class="flex items-center gap-2 text-xs">'
+                + '<button onclick="openEditProduct(\'' + p.id + '\')" class="text-brand-600 hover:underline font-medium">Edit</button>'
+                + '<span class="text-gray-300">|</span>'
+                + '<button onclick="toggleProductStatus(\'' + p.id + '\')" class="font-medium ' + (isActive ? 'text-gray-500 hover:text-red-600' : 'text-green-700 hover:underline') + '">' + (isActive ? 'Deactivate' : 'Activate') + '</button>'
+                + '<span class="text-gray-300">|</span>'
+                + '<button onclick="deleteProduct(\'' + p.id + '\')" class="text-red-400 hover:text-red-600">Delete</button>'
+                + '</div></td></tr>';
+            }).join('')
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Cards (mobile) -->
+  <div class="grid sm:grid-cols-2 gap-4 md:hidden">
+    ${rows.map(function(p){
+      var isActive = p.status==='active';
+      return '<div class="card p-4' + (!isActive ? ' opacity-60' : '') + '">'
+        + '<div class="w-full h-32 rounded-lg mb-3 overflow-hidden bg-amber-50 border border-amber-100 flex items-center justify-center">'
+        + (p.imageData ? '<img src="' + p.imageData + '" style="width:100%;height:100%;object-fit:cover;"/>' : '<span style="font-size:36px;">🪔</span>')
+        + '</div>'
+        + '<div class="font-semibold text-gray-800 text-sm mb-1">' + esc(p.name) + '</div>'
+        + '<div class="text-xs text-gray-400 mb-2">' + esc(p.category) + '</div>'
+        + '<div class="flex items-center justify-between mb-3">'
+        + '<span class="text-amber-700 font-bold text-sm">' + (p.price ? fmtINR(parseFloat(p.price)||0) : '—') + '</span>'
+        + '<span class="badge ' + (isActive ? 'badge-green' : 'badge-gray') + '">' + (isActive ? 'Active' : 'Inactive') + '</span>'
+        + '</div>'
+        + '<div class="flex gap-2 text-xs pt-2 border-t border-gray-100">'
+        + '<button onclick="openEditProduct(\'' + p.id + '\')" class="text-brand-600 font-semibold hover:underline">Edit</button>'
+        + '<span class="text-gray-300">|</span>'
+        + '<button onclick="toggleProductStatus(\'' + p.id + '\')" class="font-medium ' + (isActive ? 'text-gray-500' : 'text-green-700') + '">' + (isActive ? 'Deactivate' : 'Activate') + '</button>'
+        + '<span class="text-gray-300">|</span>'
+        + '<button onclick="deleteProduct(\'' + p.id + '\')" class="text-red-400">Delete</button>'
+        + '</div></div>';
+    }).join('')}
+
+    <div onclick="openAddProduct()" class="card p-4 border-dashed border-2 border-gray-200 flex flex-col items-center justify-center text-gray-300 cursor-pointer hover:border-brand-300 hover:text-brand-300 transition-all min-h-[160px]">
+      <div class="text-4xl mb-2">+</div>
+      <div class="text-sm font-medium">Add Product</div>
+    </div>
+  </div>
+
+  <p class="text-xs text-gray-400 text-center mt-4">Products are saved in your browser's local storage.</p>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: CUSTOMERS
+════════════════════════════════════════════════════ */
+function screenCustomers() {
+  const q = state.searchQ.toLowerCase();
+  const rows = SAMPLE.customers.filter(r =>
+    !q || r.name.toLowerCase().includes(q) || r.place.toLowerCase().includes(q) || r.phone.includes(q)
+  );
+  return `
+  <div class="mb-4 flex items-center justify-between gap-3">
+    <span class="text-xs text-gray-400">${rows.length} customer${rows.length!==1?'s':''}</span>
+    <button class="btn-primary flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold">${ICONS.plus} Add Customer</button>
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+          <th class="px-5 py-3.5 text-left font-semibold">Customer</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden sm:table-cell">Phone</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden lg:table-cell">Email</th>
+          <th class="px-5 py-3.5 text-center font-semibold">Quotes</th>
+          <th class="px-5 py-3.5 text-center font-semibold">Orders</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Since</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Actions</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(c=>`
+          <tr class="table-row">
+            <td class="px-5 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                  ${c.name.split(' ').map(w=>w[0]).slice(0,2).join('')}
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800">${c.name}</div>
+                  <div class="text-xs text-gray-400">${c.place}</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-4 text-gray-600 hidden sm:table-cell">${c.phone}</td>
+            <td class="px-5 py-4 text-gray-500 text-xs hidden lg:table-cell">${c.email}</td>
+            <td class="px-5 py-4 text-center">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">${c.quotes}</span>
+            </td>
+            <td class="px-5 py-4 text-center">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-xs font-bold">${c.orders}</span>
+            </td>
+            <td class="px-5 py-4 text-gray-500 text-xs hidden md:table-cell">${c.since}</td>
+            <td class="px-5 py-4">
+              <div class="flex items-center gap-2 text-xs">
+                <button onclick="navigate('create-quotation')" class="text-brand-600 hover:underline font-medium">New Quote</button>
+                <span class="text-gray-300">|</span>
+                <button class="text-gray-500 hover:underline">Edit</button>
+              </div>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 text-center">
+      <em>Sample data — connect to database in Step 2</em>
+    </div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: ORDERS
+════════════════════════════════════════════════════ */
+function screenOrders() {
+  const q = state.searchQ.toLowerCase();
+  const rows = SAMPLE.orders.filter(r =>
+    !q || r.customer.toLowerCase().includes(q) || r.id.toLowerCase().includes(q) || r.product.toLowerCase().includes(q)
+  );
+  return `
+  <div class="mb-4 flex flex-wrap items-center gap-3">
+    <div class="flex gap-2 flex-wrap text-xs">
+      ${['All','In Production','Materials Ordered','Ready to Ship','Design Review'].map(s=>`
+        <button class="px-3 py-1.5 rounded-lg font-semibold border transition-all
+          ${s==='All'?'bg-brand-600 text-white border-brand-600':'border-gray-200 text-gray-600 hover:border-brand-400 hover:text-brand-600'}">
+          ${s}
+        </button>`).join('')}
+    </div>
+    <div class="ml-auto text-xs text-gray-400">${rows.length} order${rows.length!==1?'s':''}</div>
+  </div>
+
+  <div class="space-y-3">
+    ${rows.map(o=>`
+    <div class="card p-5 hover:shadow-md transition-shadow">
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl flex-shrink-0">📦</div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-mono text-xs text-gray-400">${o.id}</span>
+              <span class="text-gray-300">·</span>
+              <span class="font-mono text-xs text-brand-600">${o.quotation}</span>
+            </div>
+            <div class="font-bold text-gray-800 mt-0.5">${o.customer}</div>
+            <div class="text-sm text-gray-500 mt-0.5">${o.product}</div>
+          </div>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+          ${badge(o.status)}
+          <span class="text-brand-700 font-bold">${o.amount}</span>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-500">
+        <span>📅 Ordered: <strong>${o.date}</strong></span>
+        <span>🚚 Delivery: <strong>${o.delivery}</strong></span>
+        <div class="ml-auto flex gap-2">
+          <button class="btn-outline px-3 py-1 rounded-lg text-xs font-semibold">Update Status</button>
+          <button class="text-xs text-gray-400 hover:underline">View Details</button>
+        </div>
+      </div>
+    </div>`).join('')}
+  </div>
+  <div class="mt-4 text-xs text-gray-400 text-center"><em>Sample data — ${rows.length} orders shown</em></div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: PAYMENTS
+════════════════════════════════════════════════════ */
+function screenPayments() {
+  const q = state.searchQ.toLowerCase();
+  const rows = SAMPLE.payments.filter(r =>
+    !q || r.customer.toLowerCase().includes(q) || r.id.toLowerCase().includes(q)
+  );
+  const totalReceived = '₹4,27,306';
+  const totalPending  = '₹28,893';
+  return `
+  <!-- Summary cards -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+    ${[
+      { label:'Total Received', value:totalReceived, color:'text-green-700', bg:'bg-green-50', border:'border-green-200' },
+      { label:'Pending Balance',value:totalPending,  color:'text-amber-700', bg:'bg-amber-50', border:'border-amber-200' },
+      { label:'Transactions',   value:'5',           color:'text-blue-700',  bg:'bg-blue-50',  border:'border-blue-200'  },
+      { label:'Advances Taken', value:'4',           color:'text-purple-700',bg:'bg-purple-50',border:'border-purple-200'},
+    ].map(c=>`
+    <div class="card ${c.bg} ${c.border} p-4">
+      <div class="text-xs text-gray-500 mb-1">${c.label}</div>
+      <div class="text-xl font-bold ${c.color}">${c.value}</div>
+    </div>`).join('')}
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="font-semibold text-gray-700 text-sm">Payment Transactions</h3>
+      <button class="btn-primary flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold">${ICONS.plus} Record Payment</button>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+          <th class="px-5 py-3.5 text-left font-semibold">Pay ID</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Customer</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Order</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden sm:table-cell">Date</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Amount</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden lg:table-cell">Type</th>
+          <th class="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Mode</th>
+          <th class="px-5 py-3.5 text-left font-semibold">Status</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(p=>`
+          <tr class="table-row">
+            <td class="px-5 py-3.5 font-mono text-xs text-brand-700 font-semibold">${p.id}</td>
+            <td class="px-5 py-3.5 font-medium text-gray-800">${p.customer}</td>
+            <td class="px-5 py-3.5 font-mono text-xs text-gray-500 hidden md:table-cell">${p.order}</td>
+            <td class="px-5 py-3.5 text-gray-500 hidden sm:table-cell">${p.date}</td>
+            <td class="px-5 py-3.5 font-bold text-gray-800">${p.amount}</td>
+            <td class="px-5 py-3.5 text-xs text-gray-500 hidden lg:table-cell">${p.type}</td>
+            <td class="px-5 py-3.5 hidden md:table-cell"><span class="badge badge-gray">${p.mode}</span></td>
+            <td class="px-5 py-3.5">${badge(p.status)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 text-center">
+      <em>Sample data — connect to database in Step 2</em>
+    </div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN: SETTINGS
+════════════════════════════════════════════════════ */
+function screenSettings() {
+  return `
+  <div class="max-w-2xl mx-auto space-y-5">
+
+    <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5 text-xs text-blue-700 font-medium">
+      ℹ️ Settings saving will be connected to the database in Step 2.
+    </div>
+
+    <!-- Company Info -->
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-800 text-sm mb-4 pb-3 border-b border-gray-100">Company Information</h3>
+      <div class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Company Name</label>
+            <input type="text" value="ANTIQUE DESIGNS" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">GST Number</label>
+            <input type="text" value="29ABTFA2399G1ZT" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Address</label>
+          <textarea rows="2" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 resize-none">#39/1 CHANNENAHALLI, KADABAGERE POST, MAGADI MAIN ROAD, BANGALORE SOUTH - 562130</textarea>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Email</label>
+            <input type="email" value="hello@antique-designs.com" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Website</label>
+            <input type="text" value="www.antiquedesigns.in" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bank Details -->
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-800 text-sm mb-4 pb-3 border-b border-gray-100">Bank Details</h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Bank Name</label>
+          <input type="text" value="UNION BANK OF INDIA" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Account Number</label>
+          <input type="text" value="317225140000004" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">IFSC Code</label>
+          <input type="text" value="UBIN0931721" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Branch</label>
+          <input type="text" value="CHANNENAHALLI" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotation Defaults -->
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-800 text-sm mb-4 pb-3 border-b border-gray-100">Quotation Defaults</h3>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">HSN Code</label>
+          <input type="text" value="74199930" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Default GST (%)</label>
+          <input type="number" value="5" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Validity (days)</label>
+          <input type="number" value="30" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Packing Charge (₹)</label>
+          <input type="number" value="1000" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Advance Required (%)</label>
+          <input type="number" value="75" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 mb-1.5">Delivery Lead Time</label>
+          <input type="text" value="45 days" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+        <h3 class="font-semibold text-gray-800 text-sm">Team Members</h3>
+        <button class="btn-primary px-3 py-1.5 rounded-lg text-xs font-bold">+ Invite</button>
+      </div>
+      <div class="space-y-3">
+        ${[
+          { name:'Abhishek', role:'Admin', email:'abhishek@antique-designs.com', active:true },
+          { name:'Sales Team', role:'Staff', email:'sales@antique-designs.com',  active:true },
+        ].map(m=>`
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-200 text-brand-800 flex items-center justify-center text-xs font-bold">
+              ${m.name[0]}
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-gray-800">${m.name}</div>
+              <div class="text-xs text-gray-400">${m.email}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="badge ${m.active?'badge-green':'badge-gray'}">${m.role}</span>
+            <button class="text-xs text-gray-400 hover:text-red-500">Remove</button>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button class="btn-outline px-6 py-2.5 rounded-lg text-sm font-semibold">Cancel</button>
+      <button class="btn-primary px-6 py-2.5 rounded-lg text-sm font-bold">Save Settings</button>
+    </div>
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   BOOT
+════════════════════════════════════════════════════ */
+render();
+</script>
+</body>
+</html>

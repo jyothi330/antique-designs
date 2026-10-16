@@ -1,0 +1,71 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Antique Designs — Firebase Storage Security Rules
+//
+// Deploy with:  firebase deploy --only storage
+//
+// Bucket layout:
+//   products/{productId}/{filename}   — product images
+//   quotations/{quotationId}/{filename} — generated PDF quotations
+//   temp/{uid}/{filename}              — temporary uploads before processing
+// ─────────────────────────────────────────────────────────────────────────────
+
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // NOTE: Storage rules cannot call Firestore.
+    // Role-level checks must be done in the client / Cloud Functions.
+    // Here we ensure that at minimum the user is authenticated before any access.
+
+    // ── DENY ALL by default ───────────────────────────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // ── Product images ────────────────────────────────────────────────────────
+    // Authenticated staff may read, upload (create/update), and delete product images.
+    // Enforced constraints: signed in, max 5 MB, image MIME types only.
+    // Note: Storage rules cannot check Firestore roles; the Firestore document
+    //       itself enforces which images are referenced.
+    match /products/{productId}/{filename} {
+      allow read:   if isSignedIn();
+
+      allow create: if isSignedIn()
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+
+      allow update: if isSignedIn()
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+
+      // Allow authenticated users to delete their own uploads.
+      // The Firestore document is the source of truth for which images belong.
+      allow delete: if isSignedIn();
+    }
+
+    // ── Quotation PDFs ────────────────────────────────────────────────────────
+    // Only the generating user may read their own PDF; owner reads all.
+    // Writes must come from Cloud Functions (server-side PDF generation, Step 3).
+    // These documents must NOT be publicly readable.
+    match /quotations/{quotationId}/{filename} {
+      allow read:  if isSignedIn();   // tighten with role check via Cloud Function
+      allow write: if false;          // Cloud Function only
+    }
+
+    // ── Temporary upload staging ──────────────────────────────────────────────
+    // Each user may write to their own temp folder; Cloud Function processes and moves the file.
+    match /temp/{uid}/{filename} {
+      allow read:   if isSignedIn() && request.auth.uid == uid;
+      allow create: if isSignedIn() && request.auth.uid == uid
+        && request.resource.size <= 10 * 1024 * 1024;
+      allow delete: if isSignedIn() && request.auth.uid == uid;
+    }
+  }
+}
