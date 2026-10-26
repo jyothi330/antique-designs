@@ -6,6 +6,7 @@ import LoginPage                 from './pages/LoginPage';
 import DashboardPage             from './pages/DashboardPage';
 import QuotationsPage            from './pages/QuotationsPage';
 import CreateQuotationPage       from './pages/CreateQuotationPage';
+import EditQuotationPage         from './pages/EditQuotationPage';
 import ProductsPage              from './pages/ProductsPage';
 import CustomersPage             from './pages/CustomersPage';
 import OrdersPage                from './pages/OrdersPage';
@@ -32,7 +33,8 @@ export default function App() {
           >
             <Route index                    element={<DashboardPage />} />
             <Route path="quotations"        element={<QuotationsPage />} />
-            <Route path="quotations/new"    element={<CreateQuotationPage />} />
+            <Route path="quotations/new"         element={<CreateQuotationPage />} />
+            <Route path="quotations/:id/edit"     element={<EditQuotationPage />} />
             <Route path="products"          element={<ProductsPage />} />
             <Route path="customers"         element={<CustomersPage />} />
             <Route path="orders"            element={<OrdersPage />} />

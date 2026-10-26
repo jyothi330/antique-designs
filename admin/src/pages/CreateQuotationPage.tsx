@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
 import { createQuotation } from '../lib/quotations';
 import { useAuth } from '../contexts/AuthContext';
 import type { QuotationItem, QuotationSubItem } from '../types';
+import logoB64 from '../assets/logo.jpeg?inline';
+import { loadPdfSettings } from '../lib/quotationPdf';
+import type { PdfSettings } from '../lib/quotationPdf';
 
-// ── local form types ──────────────────────────────────────────────────────────
+// -- local form types ---------------------------------------------------------
 interface SubRow { desc: string; size: string; unitPrice: string; qty: string; }
-interface Item   { name: string; subs: SubRow[]; }
+interface Item   { name: string; subs: SubRow[]; imageB64: string; }
 
 const EMPTY_SUB: SubRow = { desc: '', size: '', unitPrice: '', qty: '1' };
 
@@ -18,23 +23,38 @@ function calcSubtotal(items: Item[]): number {
 }
 
 function fmtINR(n: number): string {
-  return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return '\u20B9' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function fmtDate(d: string): string {
-  if (!d) return '—';
+  if (!d) return '--';
   const [y, m, day] = d.split('-');
   return `${day}-${m}-${y}`;
 }
 
-// ── PDF generation (mirrors quotation.html logic) ─────────────────────────────
+// -- PDF generation -----------------------------------------------------------
+
+const PDF_FALLBACK = {
+  companyName:      'ANTIQUE DESIGNS',
+  gstNumber:        '29ABTFA2399G1ZT',
+  address:          '#39/1 CHANNENAHALLI, KADABAGERE POST, MAGADI MAIN ROAD, BANGALORE SOUTH - 562130',
+  email:            'hello@antique-designs.com',
+  bankName:         'UNION BANK OF INDIA',
+  bankAccount:      '317225140000004',
+  bankIfsc:         'UBIN0931721',
+  bankBranch:       'CHANNENAHALLI',
+  advancePercent:   75,
+  deliveryLeadDays: 45,
+};
 
 function buildPdfHtml(params: {
   custName: string; custPlace: string; qNo: string; hsn: string;
   qDate: string; qValid: string; approvedBy: string; approverPhone: string;
   packing: number; gstPct: number; items: Item[];
+  settings: PdfSettings | null;
 }): string {
   const { custName, custPlace, qNo, hsn, qDate, qValid, approvedBy, approverPhone, packing, gstPct, items } = params;
+  const s = params.settings ?? PDF_FALLBACK;
 
   let subtotal = 0;
   let itemsHtml = '';
@@ -69,15 +89,18 @@ function buildPdfHtml(params: {
         <span style="font-size:12px;color:#e85d04;font-weight:700;text-transform:none;letter-spacing:0;">${esc(item.name)}</span>
       </div>
       <div style="display:flex;">
-        <div style="width:160px;min-height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-right:1px solid #e0e0e0;font-size:11px;color:#aaa;">No image</div>
+        ${item.imageB64
+          ? `<img src="${item.imageB64}" style="width:160px;min-height:120px;max-height:180px;object-fit:cover;flex-shrink:0;border-right:1px solid #e0e0e0;" />`
+          : `<div style="width:160px;min-height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-right:1px solid #e0e0e0;font-size:11px;color:#aaa;">No image</div>`
+        }
         <div style="padding:14px 16px;flex:1;">
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#888;letter-spacing:.08em;margin-bottom:8px;">SPECIFICATIONS</div>
           <ul style="list-style:none;padding:0;">
             ${item.subs.filter(s=>s.desc).map(sub =>
               `<li style="font-size:11px;color:#333;margin-bottom:5px;display:flex;flex-wrap:wrap;align-items:center;gap:5px;">
-                <span style="color:#e85d04;font-weight:900;margin-right:4px;">•</span>
+                <span style="color:#e85d04;font-weight:900;margin-right:4px;">&bull;</span>
                 <strong>${esc(sub.desc)}</strong>
-                ${sub.size ? `<span style="display:inline-block;border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#333;font-weight:600;">${esc(sub.size)} × ${sub.qty||1} Nos</span>` : ''}
+                ${sub.size ? `<span style="display:inline-block;border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#333;font-weight:600;">${esc(sub.size)} &times; ${sub.qty||1} Nos</span>` : ''}
               </li>`
             ).join('')}
           </ul>
@@ -93,7 +116,7 @@ function buildPdfHtml(params: {
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<title>Quotation — ${esc(qNo)}</title>
+<title>Quotation - ${esc(qNo)}</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; font-size: 14px; background: #f4f4f4; }
@@ -111,25 +134,29 @@ function buildPdfHtml(params: {
 <div class="page">
   <div style="height:6px;background:linear-gradient(90deg,#e85d04,#ff8c42);"></div>
 
-  <div style="text-align:center;padding:28px 40px 20px;border-bottom:2px solid #f0f0f0;">
-    <h2 style="font-size:26px;font-weight:900;letter-spacing:.08em;color:#1a1a1a;text-transform:uppercase;">Quotation</h2>
+  <div style="text-align:center;padding:28px 40px 20px;border-bottom:1px solid #e8e8e8;">
+    <h2 style="font-size:30px;font-weight:900;letter-spacing:.12em;color:#e85d04;text-transform:uppercase;">Quotation</h2>
   </div>
 
-  <div style="text-align:center;padding:20px 40px 16px;border-bottom:1px solid #f0f0f0;">
-    <div style="font-size:22px;font-weight:900;letter-spacing:.12em;color:#1a1a1a;text-transform:uppercase;">ANTIQUE 🪷 DESIGNS</div>
-    <div style="font-size:12px;color:#888;margin-top:4px;letter-spacing:.06em;">Vintage inspired decorative metal art</div>
-    <div style="font-size:11px;color:#aaa;margin-top:6px;">#39/1 CHANNENAHALLI, KADABAGERE POST, MAGADI MAIN ROAD, BANGALORE SOUTH - 562130</div>
+  <div style="text-align:center;padding:24px 40px 18px;border-bottom:1px solid #f0f0f0;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;">
+      <span style="font-size:28px;font-weight:900;letter-spacing:.14em;color:#1a1a1a;text-transform:uppercase;">${esc(s.companyName.split(' ')[0])}</span>
+      <img src="${logoB64}" alt="logo" style="height:48px;width:auto;object-fit:contain;" />
+      <span style="font-size:28px;font-weight:900;letter-spacing:.14em;color:#1a1a1a;text-transform:uppercase;">${esc(s.companyName.split(' ').slice(1).join(' ') || '')}</span>
+    </div>
+    <div style="font-size:12px;color:#888;margin-top:6px;letter-spacing:.06em;">Vintage inspired decorative metal art</div>
+    <div style="font-size:11px;color:#aaa;margin-top:5px;">${esc(s.address)}</div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;">
     <div style="padding:10px 20px;border-right:1px solid #f0f0f0;font-size:12px;">
-      <span style="color:#888;">GST: </span><strong>29ABTFA2399G1ZT</strong>
+      <span style="color:#888;">GST: </span><strong>${esc(s.gstNumber)}</strong>
     </div>
     <div style="padding:10px 20px;border-right:1px solid #f0f0f0;text-align:center;font-size:13px;font-weight:700;">
       ${esc(qNo)}
     </div>
     <div style="padding:10px 20px;font-size:12px;text-align:right;">
-      <span style="color:#888;">EMAIL: </span><strong>hello@antique-designs.com</strong>
+      <span style="color:#888;">EMAIL: </span><strong>${esc(s.email)}</strong>
     </div>
   </div>
 
@@ -176,8 +203,8 @@ function buildPdfHtml(params: {
   <div style="display:grid;grid-template-columns:1fr 260px;border-top:2px solid #f0f0f0;margin-top:8px;">
     <div style="padding:16px 20px;border-right:1px solid #f0f0f0;">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#888;letter-spacing:.06em;margin-bottom:8px;">Bank Details</div>
-      ${[['Bank','UNION BANK OF INDIA'],['A/C No','317225140000004'],['IFSC','UBIN0931721'],['Branch','CHANNENAHALLI']].map(([k,v])=>
-        `<div style="display:flex;gap:10px;font-size:12px;margin-bottom:3px;"><span style="color:#888;min-width:52px;">${k}</span><span style="font-weight:600;">${v}</span></div>`
+      ${[['Bank', s.bankName],['A/C No', s.bankAccount],['IFSC', s.bankIfsc],['Branch', s.bankBranch]].map(([k,v])=>
+        `<div style="display:flex;gap:10px;font-size:12px;margin-bottom:3px;"><span style="color:#888;min-width:52px;">${esc(k)}</span><span style="font-weight:600;">${esc(v)}</span></div>`
       ).join('')}
     </div>
     <div style="padding:16px 20px;">
@@ -193,19 +220,19 @@ function buildPdfHtml(params: {
 
   <!-- Terms -->
   <div style="padding:16px 24px;background:#fdf8f4;border-top:1px solid #f0e8e2;">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#e85d04;letter-spacing:.06em;margin-bottom:8px;">Terms & Conditions</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#e85d04;letter-spacing:.06em;margin-bottom:8px;">Terms &amp; Conditions</div>
     <ol style="padding-left:18px;font-size:11px;color:#555;line-height:1.7;">
-      <li>The delivery period is <strong>45 days</strong> from the approval date of the decorative metal artwork, subject to receipt of advance payment and templates.</li>
-      <li><strong>75%</strong> must be paid in advance, and the remaining balance is due before delivery.</li>
+      <li>The delivery period is <strong>${s.deliveryLeadDays} days</strong> from the approval date of the decorative metal artwork, subject to receipt of advance payment and templates.</li>
+      <li><strong>${s.advancePercent}%</strong> must be paid in advance, and the remaining balance is due before delivery.</li>
       <li>Once an order is placed, <strong>it cannot be cancelled</strong>.</li>
       <li>We will supply the materials only. Installation/fixing must be carried out by your <strong>own carpenter</strong>.</li>
       <li>We hope the above meets your requirements and look forward to serving you with your valued order.</li>
-      <li>Kindly issue all cheques in favour of "<strong>ANTIQUE DESIGNS</strong>."</li>
+      <li>Kindly issue all cheques in favour of "<strong>${esc(s.companyName)}</strong>."</li>
     </ol>
   </div>
 
   <div style="border-top:1px solid #f0f0f0;padding:10px 24px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;">
-    <span>GENERATED VIA ANTIQUE DESIGNS</span><span>PAGE 1 OF 2</span>
+    <span>GENERATED VIA ${esc(s.companyName.toUpperCase())}</span><span>PAGE 1 OF 2</span>
   </div>
 </div>
 
@@ -220,7 +247,7 @@ function buildPdfHtml(params: {
   ${specsHtml || '<div style="padding:24px;text-align:center;color:#aaa;font-size:12px;">No items</div>'}
 
   <div style="border-top:1px solid #f0f0f0;padding:10px 24px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;margin-top:24px;">
-    <span>GENERATED VIA ANTIQUE DESIGNS</span><span>PAGE 2 OF 2</span>
+    <span>GENERATED VIA ${esc(s.companyName.toUpperCase())}</span><span>PAGE 2 OF 2</span>
   </div>
 </div>
 
@@ -240,14 +267,13 @@ function fmtINRraw(n: number): string {
   return n.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
-// ── Component ────────────────────────────────────────────────────────────────
+// -- Component ----------------------------------------------------------------
 
 export default function CreateQuotationPage() {
   const navigate    = useNavigate();
   const location    = useLocation();
   const { firebaseUser } = useAuth();
 
-  // Pre-fill from Customers page "New Quote" button
   const locState = (location.state || {}) as { customerName?: string; customerPlace?: string; customerId?: string };
 
   const [custName,  setCustName]  = useState(locState.customerName  || '');
@@ -266,17 +292,32 @@ export default function CreateQuotationPage() {
   const [gstPct,        setGstPct]        = useState('5');
   const [items,         setItems]         = useState<Item[]>([]);
   const [saving,        setSaving]        = useState(false);
+  const [generatingPdf, setGeneratingPdf] = useState(false);
+  const [pdfSettings,   setPdfSettings]   = useState<PdfSettings | null>(null);
+
+  // Load Settings from Firestore to pre-fill defaults and use in PDF
+  useEffect(() => {
+    loadPdfSettings().then(s => {
+      setPdfSettings(s);
+      // Pre-fill form defaults from Settings (only on first mount)
+      setHsn(p => p === '74199930' ? s.companyName ? '74199930' : p : p);
+      setPackingCharge('1000'); // keep form default; Settings only affects PDF content
+      setGstPct('5');
+    });
+  }, []);
 
   const subtotal = calcSubtotal(items);
   const packing  = parseFloat(packingCharge) || 0;
   const gstAmt   = (subtotal + packing) * (parseFloat(gstPct) || 0) / 100;
   const grand    = subtotal + packing + gstAmt;
 
-  // ── Item helpers ────────────────────────────────────────────────────────────
-  function addItem()             { setItems(p => [...p, { name: '', subs: [{ ...EMPTY_SUB }] }]); }
+  function addItem()             { setItems(p => [...p, { name: '', subs: [{ ...EMPTY_SUB }], imageB64: '' }]); }
   function removeItem(i: number) { setItems(p => p.filter((_, idx) => idx !== i)); }
   function setItemName(i: number, v: string) {
     setItems(p => p.map((it, idx) => idx === i ? { ...it, name: v } : it));
+  }
+  function setItemImage(i: number, b64: string) {
+    setItems(p => p.map((it, idx) => idx === i ? { ...it, imageB64: b64 } : it));
   }
   function addSub(i: number) {
     setItems(p => p.map((it, idx) => idx === i ? { ...it, subs: [...it.subs, { ...EMPTY_SUB }] } : it));
@@ -290,7 +331,6 @@ export default function CreateQuotationPage() {
     }));
   }
 
-  // ── Save to Firestore ───────────────────────────────────────────────────────
   async function saveQuotation() {
     if (!custName.trim() || !custPlace.trim()) {
       alert('Customer name and place are required.');
@@ -334,44 +374,101 @@ export default function CreateQuotationPage() {
     }
   }
 
-  // ── PDF helpers ──────────────────────────────────────────────────────────────
   function getPdfHtml() {
     return buildPdfHtml({
       custName, custPlace, qNo, hsn, qDate, qValid,
       approvedBy, approverPhone,
       packing, gstPct: parseFloat(gstPct) || 0,
       items,
+      settings: pdfSettings,
     });
   }
 
-  // Opens a new window and immediately triggers the browser's Print → Save as PDF dialog
   function previewPdf() {
     const html = getPdfHtml();
-    const win = window.open('', '_blank');
-    if (!win) { alert('Pop-up blocked. Allow pop-ups for this site and try again.'); return; }
-    win.document.write(html);
-    win.document.close();
-    // Small delay lets the browser fully render before print dialog
-    win.addEventListener('load', () => win.print(), { once: true });
-    // Fallback if load already fired
-    setTimeout(() => { try { win.print(); } catch {} }, 800);
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const win  = window.open(url, '_blank');
+    if (!win) {
+      URL.revokeObjectURL(url);
+      alert('Pop-up blocked. Allow pop-ups for this site and try again.');
+      return;
+    }
+    win.addEventListener('load', () => {
+      win.focus();
+      win.print();
+      // revoke after a delay to allow the print dialog to open
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    }, { once: true });
   }
 
-  // Direct download as .html file (opens perfectly in any browser, printable as PDF from there)
-  function downloadPdf() {
-    const html = getPdfHtml();
-    const blob = new Blob([html], { type: 'text/html' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    const filename = [
-      custName.trim().replace(/\s+/g, '_').toUpperCase() || 'QUOTATION',
-      custPlace.trim().replace(/\s+/g, '_').toUpperCase() || '',
-      new Date(qDate).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }).replace(/ /g, ''),
-    ].filter(Boolean).join('_') + '.html';
-    a.href     = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+  async function downloadPdf() {
+    setGeneratingPdf(true);
+    try {
+      const html = getPdfHtml();
+
+      // Render the HTML in a hidden off-screen iframe
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:900px;height:1px;border:none;visibility:hidden;';
+      document.body.appendChild(iframe);
+
+      await new Promise<void>(resolve => {
+        iframe.onload = () => resolve();
+        iframe.srcdoc = html;
+      });
+
+      // Wait for images (logo) to load inside iframe
+      const iDoc = iframe.contentDocument!;
+      await Promise.all(
+        Array.from(iDoc.images).map(img =>
+          img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; })
+        )
+      );
+
+      // Give a short paint settle
+      await new Promise(r => setTimeout(r, 300));
+
+      const pages = Array.from(iDoc.querySelectorAll<HTMLElement>('.page'));
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const A4_W = 210;
+      const A4_H = 297;
+
+      for (let i = 0; i < pages.length; i++) {
+        const canvas = await html2canvas(pages[i], {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          windowWidth: 900,
+        });
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const imgW = A4_W;
+        const imgH = (canvas.height / canvas.width) * A4_W;
+
+        if (i > 0) pdf.addPage();
+
+        // If page content is taller than A4, scale it to fit
+        if (imgH <= A4_H) {
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
+        } else {
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgW, A4_H);
+        }
+      }
+
+      document.body.removeChild(iframe);
+
+      const filename = [
+        custName.trim().replace(/\s+/g, '_').toUpperCase() || 'QUOTATION',
+        custPlace.trim().replace(/\s+/g, '_').toUpperCase() || '',
+        new Date(qDate).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }).replace(/ /g, ''),
+      ].filter(Boolean).join('_') + '.pdf';
+
+      pdf.save(filename);
+    } catch (e) {
+      alert('PDF generation failed: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setGeneratingPdf(false);
+    }
   }
 
   const subAlpha = ['a','b','c','d','e','f','g','h','i','j'];
@@ -382,12 +479,12 @@ export default function CreateQuotationPage() {
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-xl font-bold text-gray-800">Create Quotation</h2>
-        <button onClick={() => navigate('/quotations')} className="text-sm text-gray-500 hover:underline">← Back</button>
+        <button onClick={() => navigate('/quotations')} className="text-sm text-gray-500 hover:underline">&larr; Back</button>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-5">
 
-        {/* ── Form ── */}
+        {/* -- Form -- */}
         <div className="lg:col-span-2 space-y-5">
 
           {/* Customer & Meta */}
@@ -456,17 +553,49 @@ export default function CreateQuotationPage() {
               <div key={i} className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-3">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-bold text-amber-700">Item {i + 1}</span>
-                  <button onClick={() => removeItem(i)} className="text-gray-400 hover:text-red-500 text-sm leading-none">✕</button>
+                  <button onClick={() => removeItem(i)} className="text-gray-400 hover:text-red-500 text-sm leading-none">&times;</button>
                 </div>
                 <input type="text" value={item.name} onChange={e => setItemName(i, e.target.value)}
-                  placeholder="e.g. Main Door : in Brass metal casting with antique finish"
+                  placeholder='e.g. Main Door : in Brass metal casting with antique finish'
                   className="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm bg-white mb-3 focus:outline-none focus:border-amber-500" />
+
+                {/* Photo upload */}
+                <div className="mb-3">
+                  {item.imageB64 ? (
+                    <div className="relative inline-block">
+                      <img src={item.imageB64} alt="Item" className="h-24 w-32 object-cover rounded-lg border border-amber-200" />
+                      <button
+                        onClick={() => setItemImage(i, '')}
+                        className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs leading-none hover:bg-red-600"
+                        title="Remove photo"
+                      >&times;</button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-2 cursor-pointer w-fit px-3 py-1.5 rounded-lg border border-dashed border-amber-300 text-xs text-amber-700 hover:bg-amber-50 transition-colors">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      Upload photo
+                      <input type="file" accept="image/*" className="hidden"
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = ev => setItemImage(i, ev.target?.result as string);
+                          reader.readAsDataURL(file);
+                          e.target.value = '';
+                        }}
+                      />
+                    </label>
+                  )}
+                </div>
 
                 <div className="grid grid-cols-12 gap-2 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wide px-1">
                   <div className="col-span-1"></div>
                   <div className="col-span-4">Description</div>
                   <div className="col-span-3">Size</div>
-                  <div className="col-span-2">Unit ₹</div>
+                  <div className="col-span-2">Unit &#8377;</div>
                   <div className="col-span-1">Qty</div>
                   <div className="col-span-1 text-right">Amt</div>
                 </div>
@@ -479,16 +608,16 @@ export default function CreateQuotationPage() {
                       <input className="col-span-4 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white focus:outline-none focus:border-amber-400"
                         value={sub.desc} onChange={e => setSub(i, j, 'desc', e.target.value)} placeholder="Description" />
                       <input className="col-span-3 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white focus:outline-none focus:border-amber-400"
-                        value={sub.size} onChange={e => setSub(i, j, 'size', e.target.value)} placeholder='18"×24"' />
+                        value={sub.size} onChange={e => setSub(i, j, 'size', e.target.value)} placeholder='18"x24"' />
                       <input type="number" className="col-span-2 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white text-right focus:outline-none focus:border-amber-400"
                         value={sub.unitPrice} onChange={e => setSub(i, j, 'unitPrice', e.target.value)} placeholder="0" />
                       <input type="number" className="col-span-1 border border-gray-200 rounded px-2 py-1.5 text-xs bg-white text-center focus:outline-none focus:border-amber-400"
                         value={sub.qty} onChange={e => setSub(i, j, 'qty', e.target.value)} min="1" />
                       <div className="col-span-1 flex items-center justify-between gap-1">
                         <span className="text-xs font-semibold text-gray-700 text-right flex-1">
-                          {amt > 0 ? amt.toLocaleString('en-IN') : '—'}
+                          {amt > 0 ? amt.toLocaleString('en-IN') : '--'}
                         </span>
-                        <button onClick={() => removeSub(i, j)} className="text-gray-300 hover:text-red-400 text-sm leading-none">✕</button>
+                        <button onClick={() => removeSub(i, j)} className="text-gray-300 hover:text-red-400 text-sm leading-none">&times;</button>
                       </div>
                     </div>
                   );
@@ -507,7 +636,7 @@ export default function CreateQuotationPage() {
             <h3 className="font-semibold text-gray-700 text-sm mb-4 pb-3 border-b border-gray-100">Charges &amp; Tax</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className={lbl}>Packing &amp; Transport (₹)</label>
+                <label className={lbl}>Packing &amp; Transport (&#8377;)</label>
                 <input type="number" value={packingCharge} onChange={e => setPackingCharge(e.target.value)} className={inp} />
               </div>
               <div>
@@ -518,7 +647,7 @@ export default function CreateQuotationPage() {
           </div>
         </div>
 
-        {/* ── Summary panel ── */}
+        {/* -- Summary panel -- */}
         <div>
           <div className="bg-white border border-[#ede5d4] rounded-xl p-5 sticky top-20">
             <h3 className="font-semibold text-gray-700 text-sm mb-4 pb-3 border-b border-gray-100">Summary</h3>
@@ -542,15 +671,15 @@ export default function CreateQuotationPage() {
             <div className="mt-5 space-y-2.5">
               <button onClick={saveQuotation} disabled={saving}
                 className="w-full py-2.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-amber-700 hover:opacity-90 disabled:opacity-50">
-                {saving ? 'Saving…' : '💾 Save Quotation'}
+                {saving ? 'Saving...' : 'Save Quotation'}
               </button>
-              <button onClick={downloadPdf}
-                className="w-full py-2.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:opacity-90 transition-colors">
-                ⬇ Download PDF
+              <button onClick={downloadPdf} disabled={generatingPdf}
+                className="w-full py-2.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:opacity-90 transition-colors disabled:opacity-50">
+                {generatingPdf ? 'Generating PDF...' : 'Download PDF'}
               </button>
               <button onClick={previewPdf}
                 className="w-full py-2.5 rounded-lg text-sm font-bold border border-amber-600 text-amber-700 hover:bg-amber-50 transition-colors">
-                🖨 Preview &amp; Print
+                Preview &amp; Print
               </button>
               <button onClick={() => navigate('/quotations')}
                 className="w-full py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 border border-gray-200 transition-colors">
@@ -560,7 +689,7 @@ export default function CreateQuotationPage() {
 
             <div className="mt-4 bg-gray-50 rounded-lg p-3 text-xs text-gray-400 leading-relaxed">
               <strong className="text-gray-600">Terms applied:</strong><br/>
-              45-day delivery · 75% advance · No cancellation · Customer installs
+              45-day delivery &middot; 75% advance &middot; No cancellation &middot; Customer installs
             </div>
           </div>
         </div>

@@ -62,7 +62,7 @@ function RecordPaymentModal({ onClose, onSaved }: ModalProps) {
     }
     setSaving(true);
     try {
-      await addPayment({
+      const payload: Parameters<typeof addPayment>[0] = {
         orderId:      form.orderId.trim(),
         customerId:   '',
         customerName: form.customerName.trim(),
@@ -70,11 +70,12 @@ function RecordPaymentModal({ onClose, onSaved }: ModalProps) {
         type:         form.type,
         mode:         form.mode,
         status:       'received',
-        referenceNo:  form.referenceNo.trim() || undefined,
-        notes:        form.notes.trim() || undefined,
         date:         Timestamp.fromDate(new Date(form.date)),
         createdBy:    firebaseUser!.uid,
-      });
+      };
+      if (form.referenceNo.trim()) payload.referenceNo = form.referenceNo.trim();
+      if (form.notes.trim())       payload.notes       = form.notes.trim();
+      await addPayment(payload);
       onSaved();
       onClose();
     } catch (e) {
@@ -279,7 +280,7 @@ export default function PaymentsPage() {
             <thead>
               <tr className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
                 <th className="px-5 py-3.5 text-left font-semibold">Customer</th>
-                <th className="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Order Ref</th>
+                <th className="px-5 py-3.5 text-left font-semibold hidden md:table-cell">Quotation / Order</th>
                 <th className="px-5 py-3.5 text-left font-semibold hidden sm:table-cell">Date</th>
                 <th className="px-5 py-3.5 text-right font-semibold">Amount</th>
                 <th className="px-5 py-3.5 text-left font-semibold hidden lg:table-cell">Type</th>
@@ -302,7 +303,7 @@ export default function PaymentsPage() {
                       <div className="font-semibold text-gray-800">{p.customerName}</div>
                       {p.referenceNo && <div className="text-xs text-gray-400">Ref: {p.referenceNo}</div>}
                     </td>
-                    <td className="px-5 py-3.5 font-mono text-xs text-gray-500 hidden md:table-cell">
+                    <td className="px-5 py-3.5 font-mono text-xs text-amber-700 font-semibold hidden md:table-cell">
                       {p.orderId || '—'}
                     </td>
                     <td className="px-5 py-3.5 text-gray-500 text-xs hidden sm:table-cell">{fmtTs(p.date)}</td>
@@ -319,18 +320,47 @@ export default function PaymentsPage() {
                       </span>
                     </td>
                     <td className="px-5 py-3.5">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-1.5">
+
+                        {/* pending → received */}
                         {p.status === 'pending' && (
                           <button onClick={() => markStatus(p.id, 'received')}
-                            className="text-xs text-green-700 border border-green-400 rounded-lg px-2.5 py-1 hover:bg-green-50 font-semibold">
-                            Mark Received
+                            className="text-xs text-green-700 border border-green-200 rounded px-2 py-1 hover:bg-green-50 font-semibold transition-colors">
+                            Received
                           </button>
                         )}
-                        {p.status === 'received' && (
-                          <span className="text-xs text-green-600 font-medium">✓</span>
+
+                        {/* pending / received → failed */}
+                        {(p.status === 'pending' || p.status === 'received') && (
+                          <button onClick={() => markStatus(p.id, 'failed')}
+                            className="text-xs text-red-600 border border-red-200 rounded px-2 py-1 hover:bg-red-50 font-semibold transition-colors">
+                            Failed
+                          </button>
                         )}
+
+                        {/* received → refunded */}
+                        {p.status === 'received' && (
+                          <button onClick={() => markStatus(p.id, 'refunded')}
+                            className="text-xs text-purple-700 border border-purple-200 rounded px-2 py-1 hover:bg-purple-50 font-semibold transition-colors">
+                            Refunded
+                          </button>
+                        )}
+
+                        {/* failed → received (retry) */}
+                        {p.status === 'failed' && (
+                          <button onClick={() => markStatus(p.id, 'received')}
+                            className="text-xs text-green-700 border border-green-200 rounded px-2 py-1 hover:bg-green-50 font-semibold transition-colors">
+                            Retry
+                          </button>
+                        )}
+
+                        {/* refunded — terminal state */}
+                        {p.status === 'refunded' && (
+                          <span className="text-xs text-purple-500 font-medium">Refunded</span>
+                        )}
+
                         <button onClick={() => { setConfirmId(p.id); setConfirmName(p.customerName); }}
-                          className="text-red-400 hover:text-red-600 text-xs font-semibold">
+                          className="text-xs text-red-400 border border-red-100 rounded px-2 py-1 hover:bg-red-50 hover:text-red-600 font-semibold transition-colors">
                           Delete
                         </button>
                       </div>

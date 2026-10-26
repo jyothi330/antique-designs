@@ -52,19 +52,27 @@ export default function CustomerForm({ customer, onClose, onSaved }: Props) {
     setSaving(true);
     try {
       if (isEdit) {
-        await updateCustomer(customer.docId, {
-          name: form.name.trim(), place: form.place.trim(), phone: form.phone.trim(),
-          email: form.email.trim() || undefined, address: form.address.trim() || undefined,
-          notes: form.notes.trim() || undefined,
-        });
+        const payload: Parameters<typeof updateCustomer>[1] = {
+          name:  form.name.trim(),
+          place: form.place.trim(),
+          phone: form.phone.trim(),
+        };
+        if (form.email.trim())   payload.email   = form.email.trim();
+        if (form.address.trim()) payload.address = form.address.trim();
+        if (form.notes.trim())   payload.notes   = form.notes.trim();
+        await updateCustomer(customer.docId, payload);
         onSaved('Customer updated');
       } else {
-        await addCustomer({
-          name: form.name.trim(), place: form.place.trim(), phone: form.phone.trim(),
-          email: form.email.trim() || undefined, address: form.address.trim() || undefined,
-          notes: form.notes.trim() || undefined,
+        const payload: Parameters<typeof addCustomer>[0] = {
+          name:  form.name.trim(),
+          place: form.place.trim(),
+          phone: form.phone.trim(),
           createdBy: firebaseUser!.uid,
-        });
+        };
+        if (form.email.trim())   payload.email   = form.email.trim();
+        if (form.address.trim()) payload.address = form.address.trim();
+        if (form.notes.trim())   payload.notes   = form.notes.trim();
+        await addCustomer(payload);
         onSaved('Customer added');
       }
       onClose();

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Timestamp, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useOrders } from '../hooks/useOrders';
@@ -36,23 +37,42 @@ const STATUS_CLASSES: Record<string, string> = {
 const STATUS_FILTERS = ['All', ...STATUS_STEPS] as const;
 
 function fmtINR(n: number) {
-  return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+  return '\u20B9' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
 function fmtTs(ts: Order['createdAt'] | undefined): string {
-  if (!ts) return '—';
+  if (!ts) return '\u2014';
   return ts.toDate().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-// ── Add Order Modal ───────────────────────────────────────────────────────────
-interface AddOrderModalProps { onClose: () => void; onSaved: () => void; }
+// ── Pre-fill state passed from QuotationsPage ─────────────────────────────────
+interface FromQuotationState {
+  fromQuotation: boolean;
+  quotationId:   string;
+  quotationNo:   string;
+  customerId:    string;
+  customerName:  string;
+  amount:        number;
+  productSummary: string;
+}
 
-function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
+// ── Add Order Modal ───────────────────────────────────────────────────────────
+interface AddOrderModalProps {
+  onClose: () => void;
+  onSaved: () => void;
+  prefill?: FromQuotationState;
+}
+
+function AddOrderModal({ onClose, onSaved, prefill }: AddOrderModalProps) {
   const { firebaseUser } = useAuth();
   const [form, setForm] = useState({
-    customerName: '', quotationNo: '', productSummary: '',
-    amount: '', status: 'design_review' as OrderStatus,
+    customerName:    prefill?.customerName    ?? '',
+    quotationNo:     prefill?.quotationNo     ?? '',
+    productSummary:  prefill?.productSummary  ?? '',
+    amount:          prefill?.amount != null  ? String(prefill.amount) : '',
+    status:          'design_review' as OrderStatus,
     expectedDelivery: '',
+    notes:           '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -62,10 +82,10 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
     }
     setSaving(true);
     try {
-      await addOrder({
-        quotationId:     '',
+      const payload: Omit<Order, 'id' | 'createdAt' | 'updatedAt'> = {
+        quotationId:     prefill?.quotationId ?? '',
         quotationNo:     form.quotationNo.trim(),
-        customerId:      '',
+        customerId:      prefill?.customerId ?? '',
         customerName:    form.customerName.trim(),
         productSummary:  form.productSummary.trim(),
         amount:          parseFloat(form.amount) || 0,
@@ -74,7 +94,10 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
           ? Timestamp.fromDate(new Date(form.expectedDelivery))
           : Timestamp.fromDate(new Date()),
         createdBy: firebaseUser!.uid,
-      });
+      };
+      if (form.notes.trim()) payload.notes = form.notes.trim();
+
+      await addOrder(payload);
       onSaved();
       onClose();
     } catch (e) {
@@ -93,10 +116,22 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
       <div className="fixed inset-0 z-50 flex items-start justify-center p-4 overflow-y-auto">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg my-8">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-            <h3 className="text-base font-bold text-gray-800">Add Order</h3>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+            <div>
+              <h3 className="text-base font-bold text-gray-800">Add Order</h3>
+              {prefill?.fromQuotation && (
+                <p className="text-xs text-amber-600 mt-0.5 font-medium">
+                  Pre-filled from quotation {prefill.quotationNo}
+                </p>
+              )}
+            </div>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
           </div>
           <div className="px-6 py-5 space-y-4">
+            {prefill?.fromQuotation && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 text-xs text-amber-800">
+                Creating order linked to quotation <strong>{prefill.quotationNo}</strong>
+              </div>
+            )}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className={lbl}>Customer Name *</label>
@@ -108,18 +143,19 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
                 <label className={lbl}>Quotation No.</label>
                 <input type="text" value={form.quotationNo}
                   onChange={e => setForm(p => ({ ...p, quotationNo: e.target.value }))}
-                  placeholder="e.g. 001_26-27" className={inp} />
+                  placeholder="e.g. 001_26-27" className={inp}
+                  readOnly={!!prefill?.fromQuotation} />
               </div>
             </div>
             <div>
               <label className={lbl}>Product Summary *</label>
               <input type="text" value={form.productSummary}
                 onChange={e => setForm(p => ({ ...p, productSummary: e.target.value }))}
-                placeholder="e.g. Main Door — Brass casting" className={inp} />
+                placeholder="e.g. Main Door &#8212; Brass casting" className={inp} />
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className={lbl}>Order Amount (₹)</label>
+                <label className={lbl}>Order Amount (&#8377;)</label>
                 <input type="number" value={form.amount}
                   onChange={e => setForm(p => ({ ...p, amount: e.target.value }))}
                   placeholder="115574" className={inp} />
@@ -141,6 +177,12 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
                 ))}
               </select>
             </div>
+            <div>
+              <label className={lbl}>Notes (optional)</label>
+              <input type="text" value={form.notes}
+                onChange={e => setForm(p => ({ ...p, notes: e.target.value }))}
+                placeholder="Any internal notes..." className={inp} />
+            </div>
           </div>
           <div className="flex gap-3 justify-end px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
             <button onClick={onClose} disabled={saving}
@@ -149,7 +191,7 @@ function AddOrderModal({ onClose, onSaved }: AddOrderModalProps) {
             </button>
             <button onClick={submit} disabled={saving}
               className="px-5 py-2 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-amber-700 hover:opacity-90 disabled:opacity-50">
-              {saving ? 'Saving…' : 'Add Order'}
+              {saving ? 'Saving\u2026' : 'Add Order'}
             </button>
           </div>
         </div>
@@ -173,7 +215,7 @@ function StatusPicker({ orderId, current, onDone }: { orderId: string; current: 
     <div className="relative">
       <button onClick={() => setOpen(p => !p)} disabled={saving}
         className="border border-amber-500 text-amber-700 rounded-lg px-3 py-1 text-xs font-semibold hover:bg-amber-50 transition-colors disabled:opacity-50">
-        {saving ? 'Saving…' : 'Update Status'}
+        {saving ? 'Saving\u2026' : 'Update Status'}
       </button>
       {open && (
         <>
@@ -194,13 +236,26 @@ function StatusPicker({ orderId, current, onDone }: { orderId: string; current: 
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function OrdersPage() {
+  const location = useLocation();
   const { orders, loading, error } = useOrders();
   const [filter,    setFilter]    = useState<string>('All');
   const [search,    setSearch]    = useState('');
   const [showAdd,   setShowAdd]   = useState(false);
+  const [prefill,   setPrefill]   = useState<FromQuotationState | undefined>(undefined);
   const [toast,     setToast]     = useState('');
   const [confirmId, setConfirmId] = useState<string | null>(null);
   const [confirmName, setConfirmName] = useState('');
+
+  // Auto-open modal when navigated from QuotationsPage with state
+  useEffect(() => {
+    const state = location.state as FromQuotationState | null;
+    if (state?.fromQuotation) {
+      setPrefill(state);
+      setShowAdd(true);
+      // Clear the navigation state so back/forward doesn't re-trigger
+      window.history.replaceState({}, '');
+    }
+  }, [location.state]);
 
   async function handleDelete() {
     if (!confirmId) return;
@@ -210,6 +265,11 @@ export default function OrdersPage() {
     } catch (e) {
       alert('Delete failed: ' + (e instanceof Error ? e.message : String(e)));
     } finally { setConfirmId(null); }
+  }
+
+  function handleCloseModal() {
+    setShowAdd(false);
+    setPrefill(undefined);
   }
 
   const rows = orders.filter(o => {
@@ -228,17 +288,17 @@ export default function OrdersPage() {
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div>
           <h2 className="text-xl font-bold text-gray-800">Orders</h2>
-          <p className="text-xs text-gray-400 mt-0.5">{orders.length} total · live from Firestore</p>
+          <p className="text-xs text-gray-400 mt-0.5">{orders.length} total &middot; live from Firestore</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 text-sm text-gray-500">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            <input type="text" placeholder="Search…" value={search} onChange={e => setSearch(e.target.value)}
+            <input type="text" placeholder="Search&hellip;" value={search} onChange={e => setSearch(e.target.value)}
               className="bg-transparent border-none text-sm w-32 outline-none" />
           </div>
-          <button onClick={() => setShowAdd(true)}
+          <button onClick={() => { setPrefill(undefined); setShowAdd(true); }}
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-amber-700 hover:opacity-90">
             + Add Order
           </button>
@@ -262,10 +322,10 @@ export default function OrdersPage() {
 
       {/* Cards */}
       {loading ? (
-        <div className="text-center py-16 text-gray-400 text-sm">Loading orders…</div>
+        <div className="text-center py-16 text-gray-400 text-sm">Loading orders&hellip;</div>
       ) : rows.length === 0 ? (
         <div className="bg-white border-2 border-dashed border-gray-200 rounded-xl py-16 text-center">
-          <div className="text-4xl mb-3">📦</div>
+          <div className="text-4xl mb-3">&#128230;</div>
           <p className="text-gray-500 text-sm font-medium">
             {search || filter !== 'All' ? 'No orders match your filters.' : 'No orders yet. Add your first one!'}
           </p>
@@ -276,17 +336,20 @@ export default function OrdersPage() {
             <div key={o.id} className="bg-white border border-[#ede5d4] rounded-xl p-5 hover:shadow-md transition-shadow">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl flex-shrink-0">📦</div>
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl flex-shrink-0">&#128230;</div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-mono text-xs text-gray-400">{o.id.slice(0, 8)}</span>
                       {o.quotationNo && <>
-                        <span className="text-gray-300">·</span>
+                        <span className="text-gray-300">&middot;</span>
                         <span className="font-mono text-xs text-amber-700">{o.quotationNo}</span>
                       </>}
                     </div>
                     <div className="font-bold text-gray-800 mt-0.5">{o.customerName}</div>
                     <div className="text-sm text-gray-500 mt-0.5">{o.productSummary}</div>
+                    {o.notes && (
+                      <div className="text-xs text-gray-400 mt-1 italic">{o.notes}</div>
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
@@ -299,8 +362,8 @@ export default function OrdersPage() {
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-500">
-                <span>📅 Ordered: <strong>{fmtTs(o.createdAt)}</strong></span>
-                <span>🚚 Delivery: <strong>{fmtTs(o.expectedDelivery)}</strong></span>
+                <span>&#128197; Ordered: <strong>{fmtTs(o.createdAt)}</strong></span>
+                <span>&#128666; Delivery: <strong>{fmtTs(o.expectedDelivery)}</strong></span>
                 <div className="ml-auto flex items-center gap-2">
                   <StatusPicker orderId={o.id} current={o.status} onDone={() => setToast('Status updated')} />
                   <button onClick={() => { setConfirmId(o.id); setConfirmName(o.customerName); }}
@@ -315,7 +378,11 @@ export default function OrdersPage() {
       )}
 
       {showAdd && (
-        <AddOrderModal onClose={() => setShowAdd(false)} onSaved={() => setToast('Order added')} />
+        <AddOrderModal
+          onClose={handleCloseModal}
+          onSaved={() => setToast('Order added')}
+          prefill={prefill}
+        />
       )}
 
       {confirmId && (

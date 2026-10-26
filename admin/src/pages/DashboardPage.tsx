@@ -8,19 +8,24 @@ import type { Quotation } from '../types';
 // ── live stats hook ───────────────────────────────────────────────────────────
 function useDashboardStats() {
   const [stats, setStats] = useState({
-    quotations: 0,
-    customers:  0,
-    revenue:    0,
-    loading:    true,
+    quotations:   0,
+    customers:    0,
+    revenue:      0,
+    orders:       0,
+    activeOrders: 0,
+    loading:      true,
   });
 
   useEffect(() => {
     async function load() {
       try {
-        const [qSnap, cSnap, revSnap] = await Promise.all([
+        const ACTIVE_STATUSES = ['design_review', 'materials_ordered', 'in_production', 'quality_check', 'ready_to_ship'];
+        const [qSnap, cSnap, oSnap, revSnap, activeSnap] = await Promise.all([
           getCountFromServer(collection(db, 'quotations')),
           getCountFromServer(collection(db, 'customers')),
+          getCountFromServer(collection(db, 'orders')),
           getDocs(query(collection(db, 'quotations'), where('status', '!=', 'rejected'))),
+          getDocs(query(collection(db, 'orders'), where('status', 'in', ACTIVE_STATUSES))),
         ]);
 
         const revenue = revSnap.docs.reduce((sum, d) => {
@@ -29,10 +34,12 @@ function useDashboardStats() {
         }, 0);
 
         setStats({
-          quotations: qSnap.data().count,
-          customers:  cSnap.data().count,
+          quotations:   qSnap.data().count,
+          customers:    cSnap.data().count,
+          orders:       oSnap.data().count,
+          activeOrders: activeSnap.size,
           revenue,
-          loading:    false,
+          loading:      false,
         });
       } catch {
         setStats(s => ({ ...s, loading: false }));
@@ -91,10 +98,10 @@ export default function DashboardPage() {
   const recent      = useRecentQuotations();
 
   const statCards = [
-    { label: 'Total Quotations', value: stats.loading ? '…' : String(stats.quotations), icon: '📋', color: 'text-amber-700' },
-    { label: 'Total Customers',  value: stats.loading ? '…' : String(stats.customers),  icon: '👥', color: 'text-blue-700'  },
-    { label: 'Revenue (₹)',      value: stats.loading ? '…' : fmtRevenue(stats.revenue), icon: '💰', color: 'text-green-700' },
-    { label: 'Products',         value: '—',  icon: '🪔', color: 'text-purple-700' },
+    { label: 'Total Quotations', value: stats.loading ? '\u2026' : String(stats.quotations), icon: '&#128203;', color: 'text-amber-700', path: '/quotations' },
+    { label: 'Total Customers',  value: stats.loading ? '\u2026' : String(stats.customers),  icon: '&#128101;', color: 'text-blue-700',   path: '/customers'  },
+    { label: 'Active Orders',    value: stats.loading ? '\u2026' : String(stats.activeOrders) + ' / ' + String(stats.orders), icon: '&#128230;', color: 'text-emerald-700', path: '/orders' },
+    { label: 'Revenue (&#8377;)',value: stats.loading ? '\u2026' : fmtRevenue(stats.revenue), icon: '&#128176;', color: 'text-green-700',  path: '/quotations' },
   ];
 
   return (
@@ -110,13 +117,14 @@ export default function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {statCards.map(s => (
-          <div key={s.label} className="bg-white border border-[#ede5d4] rounded-xl p-4 hover:shadow-md transition-shadow">
+          <div key={s.label} onClick={() => navigate(s.path)}
+            className="bg-white border border-[#ede5d4] rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer">
             <div className="flex items-start justify-between mb-3">
-              <span className="text-2xl">{s.icon}</span>
+              <span className="text-2xl" dangerouslySetInnerHTML={{ __html: s.icon }} />
               <span className="text-xs text-gray-400 font-medium">Live</span>
             </div>
             <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{s.label}</div>
+            <div className="text-xs text-gray-500 mt-0.5" dangerouslySetInnerHTML={{ __html: s.label }} />
           </div>
         ))}
       </div>

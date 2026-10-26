@@ -1,19 +1,20 @@
+import logoSrc from '../assets/logo.jpeg';
 
 interface Props {
   className?: string;
+  /** px height for the img tag (used when className alone isn't enough) */
+  style?: React.CSSProperties;
 }
 
-/** Antique Designs star / lotus brand mark — inline SVG, no external assets */
-export function BrandLogo({ className = 'w-8 h-8' }: Props) {
+/** Antique Designs brand logo — actual logo image */
+export function BrandLogo({ className = 'h-8 w-auto', style }: Props) {
   return (
-    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
-      <path
-        d="M40 6L48 28H72L53 42L61 64L40 52L19 64L27 42L8 28H32Z"
-        stroke="#c98d1a"
-        strokeWidth="3.5"
-        fill="none"
-      />
-      <circle cx="40" cy="40" r="10" fill="#c98d1a" />
-    </svg>
+    <img
+      src={logoSrc}
+      alt="Antique Designs logo"
+      className={className}
+      style={style}
+      draggable={false}
+    />
   );
 }
