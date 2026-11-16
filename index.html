@@ -783,105 +783,20 @@
     }
     .form-submit:hover { filter: brightness(1.12); box-shadow: 0 6px 28px rgba(212,175,55,0.35); }
 
-    /* ---- CUSTOM FABRICATION SECTION ---- */
-    .custom-fab-card {
-      max-width: 960px;
-      margin: 0 auto;
-      background: #ffffff;
-      border: 1px solid rgba(196, 148, 14, 0.28);
-      border-radius: 28px;
-      padding: 48px 44px;
-      box-shadow: 0 20px 60px rgba(160, 104, 8, 0.1), 0 4px 16px rgba(0, 0, 0, 0.04);
-      position: relative;
-    }
-    .custom-fab-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 40px; right: 40px; height: 3px;
-      background: linear-gradient(90deg, transparent, #c4940e, #e5b958, #c4940e, transparent);
-      border-radius: 3px;
-    }
-    .custom-fab-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .custom-fab-grid .full-width {
-      grid-column: 1 / -1;
-    }
-    .file-upload-box {
-      position: relative;
-      border: 2px dashed rgba(196, 148, 14, 0.45);
-      border-radius: 14px;
-      padding: 24px 20px;
-      text-align: center;
-      background: #fcfaf6;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .file-upload-box:hover, .file-upload-box.drag-over {
-      border-color: #c4940e;
-      background: #faf4e8;
-    }
-    .file-upload-box.has-file {
-      border-color: #22c55e;
-      background: #f0fdf4;
-      border-style: solid;
-    }
-    .file-upload-box input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-    }
-    .file-upload-icon {
-      font-size: 28px;
-      color: #c4940e;
-      line-height: 1;
-      pointer-events: none;
-    }
-    .file-upload-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #3e2406;
-      letter-spacing: 0.5px;
-      pointer-events: none;
-    }
-    .file-upload-hint {
-      font-size: 11px;
-      color: #8c6a38;
-      pointer-events: none;
-    }
-    .file-selected-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: #15803d;
-      margin-top: 4px;
-      display: none;
-      background: #dcfce7;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid #86efac;
-      pointer-events: none;
-    }
-    .file-preview-thumb {
-      max-width: 120px;
-      max-height: 90px;
-      border-radius: 8px;
-      border: 1px solid #d4a843;
-      margin-top: 8px;
-      display: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      pointer-events: none;
-    }
+    /* ---- INSTAGRAM REELS CAROUSEL ---- */
+    .reels-outer { position: relative; max-width: 1100px; margin: 0 auto; }
+    .reels-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 6px 4px 14px; }
+    .reels-viewport::-webkit-scrollbar { display: none; }
+    .reels-track { display: flex; gap: 20px; }
+    .reel-card { position: relative; flex: 0 0 calc((100% - 40px) / 3); aspect-ratio: 9 / 16; max-height: 560px; border-radius: 16px; overflow: hidden; background: #1a1208; scroll-snap-align: start; box-shadow: 0 10px 30px rgba(60,35,5,0.18); border: 1px solid rgba(196,148,14,0.3); }
+    .reel-card video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .reel-sound { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(0,0,0,0.55); color: #fff; font-size: 17px; cursor: pointer; z-index: 2; }
+    .reel-link { position: absolute; left: 12px; bottom: 12px; padding: 7px 14px; border-radius: 50px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; z-index: 2; }
+    .reel-link:hover, .reel-sound:hover { background: rgba(194,147,32,0.9); }
+    .reels-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(196,148,14,0.5); background: #fff; color: #8a6205; font-size: 22px; cursor: pointer; z-index: 3; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .reels-arrow.prev { left: -14px; } .reels-arrow.next { right: -14px; }
+    @media (max-width: 900px) { .reel-card { flex-basis: calc((100% - 20px) / 2); } }
+    @media (max-width: 520px) { .reel-card { flex-basis: 78%; } .reels-arrow.prev { left: 2px; } .reels-arrow.next { right: 2px; } }
 
     /* ---- FOOTER ---- */
     .footer {
@@ -1196,8 +1111,6 @@
       .contact-card { padding: 14px 16px; gap: 12px; }
       .contact-icon { width: 40px; height: 40px; }
       .quote-form { padding: 20px 16px; border-radius: 16px; }
-      .custom-fab-card { padding: 28px 18px; border-radius: 18px; }
-      .custom-fab-grid { grid-template-columns: 1fr; gap: 14px; }
       .form-row { grid-template-columns: 1fr; }
       .form-control { font-size: 14px; padding: 12px 14px; }
       .form-label { font-size: 10px; }
@@ -1963,7 +1876,7 @@
     <span class="ann-bar-sep">✦</span>
     <span style="color:#e8d090;white-space:nowrap;">39/1, Channenahalli, Magadi Main Rd, Karnataka</span>
     <span class="ann-bar-sep">✦</span>
-    <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antiquedesigns_bengaluru</a>
+    <a href="https://www.instagram.com/antique_designs_india" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antique_designs_india</a>
     <span class="ann-bar-sep">✦</span>
     <span style="color:#e8d090;white-space:nowrap;">Bespoke Brass & White Metal Architectural Craft · Est. 2014</span>
     <span class="ann-bar-sep">✦</span>
@@ -1976,7 +1889,7 @@
     <span class="ann-bar-sep">✦</span>
     <span style="color:#e8d090;white-space:nowrap;">39/1, Channenahalli, Magadi Main Rd, Karnataka</span>
     <span class="ann-bar-sep">✦</span>
-    <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antiquedesigns_bengaluru</a>
+    <a href="https://www.instagram.com/antique_designs_india" target="_blank" style="color:#f0c84a;text-decoration:none;white-space:nowrap;">📸 @antique_designs_india</a>
     <span class="ann-bar-sep">✦</span>
     <span style="color:#e8d090;white-space:nowrap;">Bespoke Brass & White Metal Architectural Craft · Est. 2014</span>
     <span class="ann-bar-sep">✦</span>
@@ -2002,9 +1915,7 @@
       <li><a href="#collections">Products</a></li>
       <li><a href="craftsmanship.html">Craftsmanship</a></li>
       <li><a href="#materials">Materials</a></li>
-      <li><a href="#custom-fabrication">Custom Orders</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="configurator.html" style="color:#c29320;font-weight:700;">✦ 3D</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -2027,9 +1938,7 @@
   <a href="#collections" onclick="closeMobileMenu()">Our Products</a>
   <a href="craftsmanship.html">Craftsmanship</a>
   <a href="#materials" onclick="closeMobileMenu()">Materials</a>
-  <a href="#custom-fabrication" onclick="closeMobileMenu()">Custom Fabrication</a>
   <a href="gallery.html">Gallery</a>
-  <a href="configurator.html" style="color:#c29320;font-weight:700;">✦ 3D Door Configurator</a>
   <a href="blog.html">Blog</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact & Quote</a>
   <a href="https://wa.me/919620202221" target="_blank" style="color:#22c55e;margin-top:6px;">💬 WhatsApp Concierge</a>
@@ -2047,7 +1956,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
-        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
+        <p class="hero-desc">Traditional Indian craftsmanship, made with precision for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
           <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
@@ -2065,7 +1974,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
-        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
+        <p class="hero-desc">Traditional Indian craftsmanship, made with precision for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
           <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
@@ -2083,7 +1992,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
-        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
+        <p class="hero-desc">Traditional Indian craftsmanship, made with precision for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
           <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
@@ -2101,7 +2010,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 class="hero-title">BESPOKE<br><span class="gold-text">ARCHITECTURAL METALWORK</span></h1>
-        <p class="hero-desc">Traditional Indian craftsmanship, precisely crafted for doors, gates, railings, hardware and distinctive architectural details.</p>
+        <p class="hero-desc">Traditional Indian craftsmanship, made with precision for doors, gates, railings, hardware and distinctive architectural details.</p>
         <div class="hero-btns">
           <a href="#collections" class="btn-gold" style="padding:14px 32px;font-size:13px;letter-spacing:1.5px;">EXPLORE PRODUCTS</a>
           <a href="#contact" class="btn-wa" style="padding:14px 28px;font-size:13px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#f0c84a;">REQUEST CUSTOM WORK</a>
@@ -2131,15 +2040,15 @@
 <div class="stats-strip">
   <div class="stats-ticker-track">
     <!-- Set 1 -->
-    <div class="stat-item"><div class="stat-num gold-text">11+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
-    <div class="stat-item"><div class="stat-num gold-text">9</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">12+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">14</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">100%</div><div class="stat-label">Handcrafted in Bengaluru</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">5</div><div class="stat-label">Exclusive Metal Finishes</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">500+</div><div class="stat-label">Happy Clients</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">Est.</div><div class="stat-label">2014 · Bengaluru</div><div class="stat-dot"></div></div>
     <!-- Set 2 — duplicate for seamless loop -->
-    <div class="stat-item"><div class="stat-num gold-text">11+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
-    <div class="stat-item"><div class="stat-num gold-text">9</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">12+</div><div class="stat-label">Years of Mastery</div><div class="stat-dot"></div></div>
+    <div class="stat-item"><div class="stat-num gold-text">14</div><div class="stat-label">Product Lines</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">100%</div><div class="stat-label">Handcrafted in Bengaluru</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">5</div><div class="stat-label">Exclusive Metal Finishes</div><div class="stat-dot"></div></div>
     <div class="stat-item"><div class="stat-num gold-text">500+</div><div class="stat-label">Happy Clients</div><div class="stat-dot"></div></div>
@@ -2162,7 +2071,7 @@
         <div style="margin-bottom:22px;">
           <h3 style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#2c1f0e;margin-bottom:8px;">Our Atelier</h3>
           <p class="section-desc dark">
-            Where craftsmanship meets creativity in every piece of metal art we create. Established over 8 years ago, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.
+            Where craftsmanship meets creativity in every piece of metal art we create. Established in 2014, we specialise in the exquisite artistry of brass and white metal. Our passion lies in transforming ordinary spaces into extraordinary masterpieces through intricate designs and superior craftsmanship.
           </p>
         </div>
 
@@ -2197,7 +2106,7 @@
           <div class="about-card-header">
             <div>
               <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:4px;">Visit Our Workshop</div>
-              <div class="font-cinzel" style="font-size:20px;font-weight:700;color:#2c1f0e;">Bangalore Atelier</div>
+              <div class="font-cinzel" style="font-size:20px;font-weight:700;color:#2c1f0e;">Bengaluru Atelier</div>
             </div>
             <div style="width:48px;height:48px;border-radius:12px;background:rgba(160,104,8,0.1);border:1px solid rgba(160,104,8,0.22);display:flex;align-items:center;justify-content:center;font-size:20px;">🎨</div>
           </div>
@@ -2209,7 +2118,7 @@
             <div class="about-card-row"><svg width="16" height="16" fill="none" stroke="#a06808" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span><strong style="color:#2c1f0e;">Specialties:</strong> Brass Metal Antique Finish, White Metal Antique Finish, White Metal Brass Finish, White Metal Copper Finish & Patina Finishes — crafted for Main Doors, Pooja Doors, Gates, Railings, Partition Grills, Wall Art, Name Plates & Handles.</span></div>
           </div>
           <div style="padding:0 28px 28px;display:flex;flex-direction:column;gap:10px;">
-            <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="btn-gold" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;">📍 Open Google Maps Direction</a>
+            <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="btn-gold" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;">📍 Get Directions on Google Maps</a>
             <a href="#contact" class="btn-wa" style="width:100%;justify-content:center;border-radius:12px;padding:14px;display:flex;font-size:13px;font-weight:700;">✉️ Get a Free Consultation</a>
           </div>
         </div>
@@ -2230,21 +2139,19 @@
     </div>
     <div class="filter-tabs reveal" role="tablist" aria-label="Product categories">
       <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
-      <button class="filter-tab" data-filter="accessories" role="tab" aria-selected="false">Accessories</button>
-      <button class="filter-tab" data-filter="bannister" role="tab" aria-selected="false">Bannister</button>
+      <button class="filter-tab" data-filter="main" role="tab" aria-selected="false">Main Doors</button>
+      <button class="filter-tab" data-filter="pooja" role="tab" aria-selected="false">Pooja Doors</button>
       <button class="filter-tab" data-filter="doubledoor" role="tab" aria-selected="false">Double Doors</button>
+      <button class="filter-tab" data-filter="traderdoor" role="tab" aria-selected="false">3/4 Doors</button>
+      <button class="filter-tab" data-filter="internaldoors" role="tab" aria-selected="false">Internal Doors</button>
+      <button class="filter-tab" data-filter="railings" role="tab" aria-selected="false">Railings</button>
+      <button class="filter-tab" data-filter="bannister" role="tab" aria-selected="false">Banister</button>
       <button class="filter-tab" data-filter="gates" role="tab" aria-selected="false">Gates</button>
       <button class="filter-tab" data-filter="handles" role="tab" aria-selected="false">Handles</button>
-      <button class="filter-tab" data-filter="internaldoors" role="tab" aria-selected="false">Internal Doors</button>
-      <button class="filter-tab" data-filter="main" role="tab" aria-selected="false">Main Doors</button>
-      <button class="filter-tab" data-filter="nameplates" role="tab" aria-selected="false">Name Plates</button>
-      <button class="filter-tab" data-filter="newdoubledoor" role="tab" aria-selected="false">New Double Door</button>
-      <button class="filter-tab" data-filter="pooja" role="tab" aria-selected="false">Pooja Doors</button>
-      <button class="filter-tab" data-filter="poojaaccesories" role="tab" aria-selected="false">Pooja Door Accessories</button>
-      <button class="filter-tab" data-filter="railings" role="tab" aria-selected="false">Railings</button>
-      <button class="filter-tab" data-filter="traderdoor" role="tab" aria-selected="false">Trader Doors</button>
-      <button class="filter-tab" data-filter="vaskaals" role="tab" aria-selected="false">Vaskaals</button>
       <button class="filter-tab" data-filter="wallarts" role="tab" aria-selected="false">Wall Arts</button>
+      <button class="filter-tab" data-filter="vaskaals" role="tab" aria-selected="false">Vaskaals</button>
+      <button class="filter-tab" data-filter="nameplates" role="tab" aria-selected="false">Name Plates</button>
+      <button class="filter-tab" data-filter="accessories,poojaaccesories" role="tab" aria-selected="false">All Accessories</button>
     </div>
     <!-- Product Carousel -->
     <div class="product-carousel-outer reveal">
@@ -2253,64 +2160,43 @@
       <div class="product-carousel-viewport">
         <div class="product-grid" id="productGrid">
 
-      <div class="product-card" data-category="accessories" data-title="Accessories" data-desc="Handcrafted brass and white metal accessories — beautifully crafted by master artisans in Bengaluru." data-material="Brass & White Metal" data-wa="Accessories">
+      <div class="product-card" data-category="main" data-title="Main Doors" data-desc="Latest collection of handcrafted brass and white metal main doors for grand entrances." data-material="Brass & White Metal" data-wa="Main%20Doors">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/accessories/acc_2.jpg" alt="Accessories 2" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/accessories/acc_31.jpg" alt="Accessories 31" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/maindoors/md_15.jpg" alt="Main Doors 15" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/maindoors/md_18.jpg" alt="Main Doors 18" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
           </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Accessories</span>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Main Doors</span>
         </div>
         <div class="product-card-body">
-          <h3>Accessories</h3>
-          <p>Handcrafted brass and white metal accessories crafted with precision and artistry by our Bengaluru artisans.</p>
+          <h3>Main Doors</h3>
+          <p>Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.</p>
           <div class="card-footer">
             <span>Brass & White Metal</span>
             <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/accessories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Accessories" target="_blank">Enquire →</a>
+              <a href="products/maindoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Main%20Doors" target="_blank">Enquire →</a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="product-card" data-category="bannister" data-title="Bannister" data-desc="Ornate brass and white metal banisters handcrafted for staircases and balconies." data-material="Forged Brass" data-wa="Bannister">
+      <div class="product-card" data-category="pooja" data-title="Pooja Doors" data-desc="Sacred Gopuram arches, kalasha tops and brass temple cladding for home mandirs and temples." data-material="Teak + Brass" data-wa="Pooja%20Doors">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/bannister/bn_4.jpg" alt="Bannister 4" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/bannister/bn_5.jpg" alt="Bannister 5" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaadoors/pd_1.jpg" alt="Pooja Doors 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaadoors/pd_22.jpg" alt="Pooja Doors 22" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
           </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Bannister</span>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Doors</span>
         </div>
         <div class="product-card-body">
-          <h3>Bannister</h3>
-          <p>Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.</p>
+          <h3>Pooja Doors</h3>
+          <p>Sacred Gopuram arches, kalasha tops and brass temple cladding handcrafted for home mandirs and temple sanctums.</p>
           <div class="card-footer">
-            <span>Forged Brass</span>
+            <span>Teak + Brass</span>
             <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/bannister/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Bannister" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="handles" data-title="Handles" data-desc="Solid cast brass and white metal door handles, pull bars and architectural hardware." data-material="Cast Brass" data-wa="Handles">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/handles/hn_1.jpg" alt="Handles 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/handles/hn_6.jpg" alt="Handles 6" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Handles</span>
-        </div>
-        <div class="product-card-body">
-          <h3>Handles</h3>
-          <p>Solid cast brass and white metal door handles, pull bars and architectural hardware crafted to last a lifetime.</p>
-          <div class="card-footer">
-            <span>Cast Brass</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/handles/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Handles" target="_blank">Enquire →</a>
+              <a href="products/poojaadoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Pooja%20Doors" target="_blank">Enquire →</a>
             </div>
           </div>
         </div>
@@ -2337,6 +2223,27 @@
         </div>
       </div>
 
+      <div class="product-card" data-category="traderdoor" data-title="3/4 Doors" data-desc="Elegant 3/4 concept doors crafted with brass and white metal embellishments." data-material="Brass & White Metal" data-wa="3%2F4%20Doors">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
+            <img src="products/traderdoor/td_1.jpg" alt="3/4 Doors 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/traderdoor/td_2.jpg" alt="3/4 Doors 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">3/4 Doors</span>
+        </div>
+        <div class="product-card-body">
+          <h3>3/4 Doors</h3>
+          <p>Elegant 3/4 concept doors crafted with brass and white metal embellishments for commercial and residential spaces.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/traderdoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=3%2F4%20Doors" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="product-card" data-category="internaldoors" data-title="Internal Doors" data-desc="Beautifully crafted internal doors with brass and white metal detailing." data-material="Brass & White Metal" data-wa="Internal%20Doors">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
@@ -2358,64 +2265,43 @@
         </div>
       </div>
 
-      <div class="product-card" data-category="poojaaccesories" data-title="Pooja Door Accessories" data-desc="Decorative brass accessories for pooja room doors." data-material="Brass & White Metal" data-wa="Pooja%20Door%20Accessories">
+      <div class="product-card" data-category="railings" data-title="Railings" data-desc="Hand-forged brass and white metal railings for staircases, balconies and terraces." data-material="Forged Brass" data-wa="Railings">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/poojaaccesories/pa_14.jpg" alt="Pooja Door Accessories 14" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/poojaaccesories/pa_28.jpg" alt="Pooja Door Accessories 28" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/railings/rl_1.jpg" alt="Railings 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/railings/rl_28.jpg" alt="Railings 28" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
           </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Door Accessories</span>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Railings</span>
         </div>
         <div class="product-card-body">
-          <h3>Pooja Door Accessories</h3>
-          <p>Decorative brass accessories for pooja room doors — bells, kalasha motifs and divine embellishments.</p>
+          <h3>Railings</h3>
+          <p>Hand-forged brass and white metal railings for staircases, balconies and terraces with ornate detailing.</p>
           <div class="card-footer">
-            <span>Brass & White Metal</span>
+            <span>Forged Brass</span>
             <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/poojaaccesories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Pooja%20Door%20Accessories" target="_blank">Enquire →</a>
+              <a href="products/railings/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Railings" target="_blank">Enquire →</a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="product-card" data-category="main" data-title="Main Doors New" data-desc="Latest collection of handcrafted brass and white metal main doors for grand entrances." data-material="Brass & White Metal" data-wa="Main%20Doors%20New">
+      <div class="product-card" data-category="bannister" data-title="Banister" data-desc="Ornate brass and white metal banisters handcrafted for staircases and balconies." data-material="Forged Brass" data-wa="Banister">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/maindoors/md_15.jpg" alt="Main Doors New 15" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/maindoors/md_18.jpg" alt="Main Doors New 18" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/bannister/bn_4.jpg" alt="Banister 4" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/bannister/bn_5.jpg" alt="Banister 5" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
           </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Main Doors New</span>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Banister</span>
         </div>
         <div class="product-card-body">
-          <h3>Main Doors New</h3>
-          <p>Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.</p>
+          <h3>Banister</h3>
+          <p>Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.</p>
           <div class="card-footer">
-            <span>Brass & White Metal</span>
+            <span>Forged Brass</span>
             <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/maindoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Main%20Doors%20New" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="nameplates" data-title="Name Plates" data-desc="Custom cast brass name plates with deep-relief lettering and family crests." data-material="Cast Brass" data-wa="Name%20Plates">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/nameplates/np_29.jpg" alt="Name Plates 29" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/nameplates/np_30.jpg" alt="Name Plates 30" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Name Plates</span>
-        </div>
-        <div class="product-card-body">
-          <h3>Name Plates</h3>
-          <p>Custom cast brass name plates with deep-relief lettering, house insignia and family crests.</p>
-          <div class="card-footer">
-            <span>Cast Brass</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/nameplates/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Name%20Plates" target="_blank">Enquire →</a>
+              <a href="products/bannister/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Banister" target="_blank">Enquire →</a>
             </div>
           </div>
         </div>
@@ -2443,6 +2329,27 @@
         </div>
       </div>
 
+      <div class="product-card" data-category="handles" data-title="Handles" data-desc="Solid cast brass and white metal door handles, pull bars and architectural hardware." data-material="Cast Brass" data-wa="Handles">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
+            <img src="products/handles/hn_1.jpg" alt="Handles 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/handles/hn_6.jpg" alt="Handles 6" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Handles</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Handles</h3>
+          <p>Solid cast brass and white metal door handles, pull bars and architectural hardware crafted to last a lifetime.</p>
+          <div class="card-footer">
+            <span>Cast Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/handles/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Handles" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="product-card" data-category="wallarts" data-title="Wall Arts" data-desc="Hand-hammered brass and white metal wall art pieces." data-material="Brass & White Metal" data-wa="Wall%20Arts">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
@@ -2464,90 +2371,6 @@
         </div>
       </div>
 
-      <div class="product-card" data-category="traderdoor" data-title="Trader Door" data-desc="Sturdy and elegant trader doors crafted with brass and white metal embellishments." data-material="Brass & White Metal" data-wa="Trader%20Door">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/traderdoor/td_1.jpg" alt="Trader Door 1" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/traderdoor/td_2.jpg" alt="Trader Door 2" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Trader Door</span>
-        </div>
-        <div class="product-card-body">
-          <h3>Trader Door</h3>
-          <p>Sturdy and elegant trader doors crafted with brass and white metal embellishments for commercial and residential spaces.</p>
-          <div class="card-footer">
-            <span>Brass & White Metal</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/traderdoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Trader%20Door" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="newdoubledoor" data-title="New Double Door" data-desc="New arrivals in double door designs — handcrafted brass and white metal statement entrances." data-material="Brass & White Metal" data-wa="New%20Double%20Door">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/newdoubledoor/ndd_9.jpg" alt="New Double Door 9" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/newdoubledoor/ndd_12.jpg" alt="New Double Door 12" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">New Double Door</span>
-        </div>
-        <div class="product-card-body">
-          <h3>New Double Door</h3>
-          <p>New arrivals in double door designs — handcrafted brass and white metal statement entrances for your home.</p>
-          <div class="card-footer">
-            <span>Brass & White Metal</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/newdoubledoor/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=New%20Double%20Door" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="pooja" data-title="Pooja Doors" data-desc="Sacred Gopuram arches, kalasha tops and brass temple cladding for home mandirs and temples." data-material="Teak + Brass" data-wa="Pooja%20Doors">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/poojaadoors/pd_1.jpg" alt="Pooja Doors 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/poojaadoors/pd_22.jpg" alt="Pooja Doors 22" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Doors</span>
-        </div>
-        <div class="product-card-body">
-          <h3>Pooja Doors</h3>
-          <p>Sacred Gopuram arches, kalasha tops and brass temple cladding handcrafted for home mandirs and temple sanctums.</p>
-          <div class="card-footer">
-            <span>Teak + Brass</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/poojaadoors/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Pooja%20Doors" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="railings" data-title="Railings" data-desc="Hand-forged brass and white metal railings for staircases, balconies and terraces." data-material="Forged Brass" data-wa="Railings">
-        <div style="position:relative;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
-            <img src="products/railings/rl_1.jpg" alt="Railings 1" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-            <img src="products/railings/rl_28.jpg" alt="Railings 28" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
-          </div>
-          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Railings</span>
-        </div>
-        <div class="product-card-body">
-          <h3>Railings</h3>
-          <p>Hand-forged brass and white metal railings for staircases, balconies and terraces with ornate detailing.</p>
-          <div class="card-footer">
-            <span>Forged Brass</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <a href="products/railings/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
-              <a href="https://wa.me/919620202221?text=Railings" target="_blank">Enquire →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="product-card" data-category="vaskaals" data-title="Vaskaals" data-desc="Traditional solid brass vaskaal pull handles and door hardware crafted by master artisans." data-material="Solid Cast Brass" data-wa="Vaskaals">
         <div style="position:relative;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
@@ -2564,6 +2387,69 @@
             <div style="display:flex;gap:8px;align-items:center;">
               <a href="products/vaskaals/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
               <a href="https://wa.me/919620202221?text=Vaskaals" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="nameplates" data-title="Name Plates" data-desc="Custom cast brass name plates with deep-relief lettering and family crests." data-material="Cast Brass" data-wa="Name%20Plates">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
+            <img src="products/nameplates/np_29.jpg" alt="Name Plates 29" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/nameplates/np_30.jpg" alt="Name Plates 30" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Name Plates</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Name Plates</h3>
+          <p>Custom cast brass name plates with deep-relief lettering, house insignia and family crests.</p>
+          <div class="card-footer">
+            <span>Cast Brass</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/nameplates/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Name%20Plates" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-title="Accessories" data-desc="Handcrafted brass and white metal accessories — beautifully crafted by master artisans in Bengaluru." data-material="Brass & White Metal" data-wa="Accessories">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
+            <img src="products/accessories/acc_2.jpg" alt="Accessories 2" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/accessories/acc_31.jpg" alt="Accessories 31" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Accessories</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Accessories</h3>
+          <p>Handcrafted brass and white metal accessories, made with precision and artistry by our Bengaluru artisans.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/accessories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Accessories" target="_blank">Enquire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="poojaaccesories" data-title="Pooja Door Accessories" data-desc="Decorative brass accessories for pooja room doors." data-material="Brass & White Metal" data-wa="Pooja%20Door%20Accessories">
+        <div style="position:relative;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:150px;">
+            <img src="products/poojaaccesories/pa_14.jpg" alt="Pooja Door Accessories 14" loading="eager" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+            <img src="products/poojaaccesories/pa_28.jpg" alt="Pooja Door Accessories 28" loading="lazy" decoding="async" style="width:100%;height:150px;object-fit:cover;">
+          </div>
+          <span class="card-tag" style="position:absolute;top:14px;right:14px;">Pooja Door Accessories</span>
+        </div>
+        <div class="product-card-body">
+          <h3>Pooja Door Accessories</h3>
+          <p>Decorative brass accessories for pooja room doors — bells, kalasha motifs and divine embellishments.</p>
+          <div class="card-footer">
+            <span>Brass & White Metal</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <a href="products/poojaaccesories/index.html" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#c29320,#8a6205);color:#fff;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.5px;">Show More</a>
+              <a href="https://wa.me/919620202221?text=Pooja%20Door%20Accessories" target="_blank">Enquire →</a>
             </div>
           </div>
         </div>
@@ -2599,7 +2485,7 @@
       <a href="craftsmanship.html#step-2" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">02</span>Design Consultation</a>
       <a href="craftsmanship.html#step-3" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">03</span>Quotation</a>
       <a href="craftsmanship.html#step-4" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">04</span>Approval</a>
-      <a href="craftsmanship.html#step-5" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">05</span>Dye Making</a>
+      <a href="craftsmanship.html#step-5" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">05</span>Die Making</a>
       <a href="craftsmanship.html#step-6" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">06</span>Casting</a>
       <a href="craftsmanship.html#step-7" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">07</span>Finishing</a>
       <a href="craftsmanship.html#step-8" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:40px;padding:7px 15px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:0.8px;color:#f0dcb4;transition:all 0.25s;"><span style="background:#c4940e;color:#1a1000;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;flex-shrink:0;">08</span>Quality Check</a>
@@ -2623,14 +2509,14 @@
       <div class="section-label mx-auto" style="color:#8a6205;">Available Alloys & Finishes</div>
       <h2 class="section-title light">Pure Metals & Protective Coatings</h2>
       <div class="gold-divider"></div>
-      <p class="section-desc light mx-auto">Every piece is crafted from certified metals, sealed with specialized anti-oxidant lacquer, available in five exclusive finishes.</p>
+      <p class="section-desc light mx-auto">Every piece is crafted from certified metals, sealed with specialised anti-oxidant lacquer, available in five exclusive finishes.</p>
     </div>
     <div class="mat-grid">
       <div class="mat-card reveal" style="transition-delay:0.05s"><div class="mat-swatch" style="background:linear-gradient(135deg,#D4AF37,#8C6A15);"></div><h4>Brass Metal Antique Finish</h4><p>Classic warm golden brass with subtle antique tone, deep relief shading, and timeless architectural elegance.</p></div>
       <div class="mat-card reveal" style="transition-delay:0.12s"><div class="mat-swatch" style="background:linear-gradient(135deg,#DCDCDC,#696969);"></div><h4>White Metal Antique Finish</h4><p>Authentic German silver white metal treated with handcrafted vintage dark patina and antique shadow detailing.</p></div>
       <div class="mat-card reveal" style="transition-delay:0.19s"><div class="mat-swatch" style="background:linear-gradient(135deg,#E0C568,#A38029);"></div><h4>White Metal Brass Finish</h4><p>White metal craftsmanship enriched with rich brass gold tone infusion for dual-tone depth and regal lustre.</p></div>
       <div class="mat-card reveal" style="transition-delay:0.26s"><div class="mat-swatch" style="background:linear-gradient(135deg,#D9825B,#8C4320);"></div><h4>White Metal Copper Finish</h4><p>White metal base coated in warm, rich copper and rose hues for majestic warmth and bold entryway presence.</p></div>
-      <div class="mat-card reveal" style="transition-delay:0.33s"><div class="mat-swatch" style="background:linear-gradient(135deg,#5A7A64,#2E4A38);"></div><h4>Patina Finishes</h4><p>Hand-oxidized verdigris, aged bronze and emerald patina finishes creating distinctive heritage depth and texture.</p></div>
+      <div class="mat-card reveal" style="transition-delay:0.33s"><div class="mat-swatch" style="background:linear-gradient(135deg,#5A7A64,#2E4A38);"></div><h4>Patina Finishes</h4><p>Hand-oxidised verdigris, aged bronze and emerald patina finishes creating distinctive heritage depth and texture.</p></div>
     </div>
   </div>
 </section>
@@ -2643,46 +2529,10 @@
       <h2 class="section-title dark">Real Reviews from Google Maps</h2>
       <div class="gold-divider"></div>
     </div>
-    <div class="testi-slider reveal" style="max-width:960px;margin:0 auto;">
-      <div class="testi-track" id="testiTrack">
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"It was a good experience with Antique Designs. Highly recommended for brass works and satisfied with the work — it is more than expected."</p>
-          <div class="testi-author">Anitha AVN</div>
-          <div class="testi-location">Google Review · 2 months ago</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"The team was prompt in response and delivered the brass door fittings on time as promised. Thank you and continue the good work. Special thanks to Jagadish."</p>
-          <div class="testi-author">Nischitha Ravi</div>
-          <div class="testi-location">Google Review · 2 months ago</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"I'm very satisfied with the brass prabhavali I purchased. The craftsmanship and finishing are excellent, and it fits perfectly on my pooja room door frame. The detailing and overall make reflect high-quality workmanship. Highly recommended! 🌸"</p>
-          <div class="testi-author">Srinivas Y L</div>
-          <div class="testi-location">Local Guide · 86 Reviews · 11 months ago</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"Good experience, quality at best price for pooja room brass frame."</p>
-          <div class="testi-author">Vijayakrishnan S</div>
-          <div class="testi-location">Google Review · 2 months ago</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-quote">"Just perfect as expected and on time delivery. Service was really good."</p>
-          <div class="testi-author">Shwetha R Gowda</div>
-          <div class="testi-location">Local Guide · 10 Reviews · 5 months ago</div>
-        </div>
-      </div>
-      <div class="testi-nav" id="testiNav">
-        <button class="hero-dot active" data-testi="0"></button>
-        <button class="hero-dot" data-testi="1"></button>
-        <button class="hero-dot" data-testi="2"></button>
-        <button class="hero-dot" data-testi="3"></button>
-        <button class="hero-dot" data-testi="4"></button>
-      </div>
+    <!-- Elfsight Google Reviews -->
+    <div style="max-width:1100px;margin:0 auto;">
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-8fddd346-35d3-4748-ad52-144245b42918" data-elfsight-app-lazy></div>
     </div>
   </div>
 </section>
@@ -2762,6 +2612,40 @@
   </div>
 </section>
 
+<!-- INSTAGRAM REELS -->
+<section class="section section-dark" id="instagram-feed">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label mx-auto">Follow Us on Instagram</div>
+      <h2 class="section-title dark">@antique_designs_india</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc dark mx-auto">Latest reels and videos from our atelier.</p>
+    </div>
+    <div class="reels-outer reveal">
+      <button class="reels-arrow prev" id="reelsPrev" aria-label="Previous">&#8249;</button>
+      <button class="reels-arrow next" id="reelsNext" aria-label="Next">&#8250;</button>
+      <div class="reels-viewport" id="reelsViewport">
+        <div class="reels-track" id="reelsTrack">
+      <!-- REELS:START -->
+      <div class="reel-card"><video src="reels/De3uHZ3zEMB.mp4" poster="reels/De3uHZ3zEMB.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/De3uHZ3zEMB/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DdihEfyzMiJ.mp4" poster="reels/DdihEfyzMiJ.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DdihEfyzMiJ/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DdYSyR4zvNc.mp4" poster="reels/DdYSyR4zvNc.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DdYSyR4zvNc/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/Dc_RobXpSRH.mp4" poster="reels/Dc_RobXpSRH.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/Dc_RobXpSRH/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DcJRLefpAcT.mp4" poster="reels/DcJRLefpAcT.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DcJRLefpAcT/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/Dbu9xywJ7u8.mp4" poster="reels/Dbu9xywJ7u8.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/Dbu9xywJ7u8/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DbcakOMJ-Fy.mp4" poster="reels/DbcakOMJ-Fy.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DbcakOMJ-Fy/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DbKXl4Spu6K.mp4" poster="reels/DbKXl4Spu6K.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DbKXl4Spu6K/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <div class="reel-card"><video src="reels/DauQpuKpJsq.mp4" poster="reels/DauQpuKpJsq.jpg" muted loop playsinline preload="none"></video><button type="button" class="reel-sound" aria-label="Turn sound on or off">&#128263;</button><a class="reel-link" href="https://www.instagram.com/reel/DauQpuKpJsq/" target="_blank" rel="noopener">View on Instagram</a></div>
+      <!-- REELS:END -->
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:32px;">
+      <a href="https://www.instagram.com/antique_designs_india" target="_blank" rel="noopener" class="btn-view-all">Follow on Instagram</a>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY FULLSCREEN LIGHTBOX -->
 <div id="glb">
   <button class="glb-close" id="glbClose">✕</button>
@@ -2770,162 +2654,6 @@
   <button class="glb-nav glb-next" id="glbNext">&#8594;</button>
   <div class="glb-counter" id="glbCounter"></div>
 </div>
-
-<!-- ======================================================
-     8. CUSTOM FABRICATION SECTION
-====================================================== -->
-<section class="section section-light" id="custom-fabrication">
-  <div class="container">
-    <div class="text-center reveal" style="margin-bottom:52px;">
-      <div class="section-label mx-auto">Custom Fabrication</div>
-      <h2 class="section-title dark" style="letter-spacing:1.5px;">HAVE A REFERENCE?<br><span class="gold-text">WE CAN CRAFT IT.</span></h2>
-      <div class="gold-divider"></div>
-      <p class="section-desc dark mx-auto" style="max-width:720px;font-size:16px;line-height:1.75;color:#6b4d24;">
-        “Share your reference image, architectural drawing or concept. Our team can develop it into a customised architectural metal element.”
-      </p>
-    </div>
-
-    <div class="custom-fab-card reveal">
-      <form id="customFabForm" onsubmit="submitCustomFab(event)">
-        <div class="custom-fab-grid">
-
-          <!-- Name -->
-          <div class="form-group">
-            <label class="form-label" for="cf_name">Name *</label>
-            <input type="text" class="form-control" id="cf_name" placeholder="e.g. Rajesh Sharma" required>
-          </div>
-
-          <!-- Phone -->
-          <div class="form-group">
-            <label class="form-label" for="cf_phone">Phone *</label>
-            <input type="tel" class="form-control" id="cf_phone" placeholder="e.g. +91 98765 43210" required>
-          </div>
-
-          <!-- Email -->
-          <div class="form-group">
-            <label class="form-label" for="cf_email">Email</label>
-            <input type="email" class="form-control" id="cf_email" placeholder="your@email.com">
-          </div>
-
-          <!-- Project Location -->
-          <div class="form-group">
-            <label class="form-label" for="cf_location">Project Location *</label>
-            <input type="text" class="form-control" id="cf_location" placeholder="e.g. Bengaluru, Hyderabad, Chennai..." required>
-          </div>
-
-          <!-- Product Type -->
-          <div class="form-group">
-            <label class="form-label" for="cf_product_type">Product Type *</label>
-            <select class="form-control" id="cf_product_type" required>
-              <option value="" disabled selected>Select product type...</option>
-              <option value="Main Doors">Main Doors</option>
-              <option value="Double Doors">Double Doors</option>
-              <option value="Pooja Doors">Pooja Doors</option>
-              <option value="Internal Doors">Internal Doors</option>
-              <option value="Trader Doors">Trader Doors</option>
-              <option value="New Double Door">New Double Door</option>
-              <option value="Railings">Railings</option>
-              <option value="Bannister">Bannister</option>
-              <option value="Gates">Gates</option>
-              <option value="Handles">Handles</option>
-              <option value="Vaskaals">Vaskaals</option>
-              <option value="Wall Arts">Wall Arts</option>
-              <option value="Name Plates">Name Plates</option>
-              <option value="Pooja Door Accessories">Pooja Door Accessories</option>
-              <option value="Accessories">Accessories</option>
-              <option value="Bespoke Metal Architectural Element">Bespoke Metal Architectural Element</option>
-              <option value="Other / Multiple Items">Other / Multiple Items</option>
-            </select>
-          </div>
-
-          <!-- Required Dimensions -->
-          <div class="form-group">
-            <label class="form-label" for="cf_dimensions">Required Dimensions</label>
-            <input type="text" class="form-control" id="cf_dimensions" placeholder="e.g. 7ft x 3.5ft / Custom site dimensions">
-          </div>
-
-          <!-- Material -->
-          <div class="form-group">
-            <label class="form-label" for="cf_material">Material</label>
-            <select class="form-control" id="cf_material">
-              <option value="" disabled selected>Select preferred material...</option>
-              <option value="Solid Brass">Solid Brass</option>
-              <option value="White Metal (German Silver)">White Metal (German Silver)</option>
-              <option value="Brass & White Metal Combination">Brass & White Metal Combination</option>
-              <option value="Solid Teakwood with Brass Inlay/Cladding">Solid Teakwood with Brass Inlay/Cladding</option>
-              <option value="Forged Wrought Iron with Brass Accents">Forged Wrought Iron with Brass Accents</option>
-              <option value="Consultatelier for Recommendation">Consult atelier for Recommendation</option>
-            </select>
-          </div>
-
-          <!-- Finish -->
-          <div class="form-group">
-            <label class="form-label" for="cf_finish">Finish</label>
-            <select class="form-control" id="cf_finish">
-              <option value="" disabled selected>Select preferred finish...</option>
-              <option value="Antique Brass / Vintage Patina">Antique Brass / Vintage Patina</option>
-              <option value="Polished High-Gloss Brass">Polished High-Gloss Brass</option>
-              <option value="Brushed / Satin Brass">Brushed / Satin Brass</option>
-              <option value="Antique White Metal / Silver Patina">Antique White Metal / Silver Patina</option>
-              <option value="Polished White Metal">Polished White Metal</option>
-              <option value="Oxidised Dark Bronze">Oxidised Dark Bronze</option>
-              <option value="Dual Tone (Brass + Silver)">Dual Tone (Brass + Silver)</option>
-              <option value="Custom Match to Reference">Custom Match to Reference</option>
-            </select>
-          </div>
-
-          <!-- Quantity -->
-          <div class="form-group">
-            <label class="form-label" for="cf_quantity">Quantity</label>
-            <input type="text" class="form-control" id="cf_quantity" placeholder="e.g. 1 Unit, 2 Sets, 50 Rft...">
-          </div>
-
-          <!-- Project Timeline -->
-          <div class="form-group">
-            <label class="form-label" for="cf_timeline">Project Timeline</label>
-            <select class="form-control" id="cf_timeline">
-              <option value="" disabled selected>Select expected timeline...</option>
-              <option value="Immediate (Within 2-3 weeks)">Immediate (Within 2-3 weeks)</option>
-              <option value="1 - 2 Months">1 - 2 Months</option>
-              <option value="2 - 4 Months">2 - 4 Months</option>
-              <option value="Planning / Concept Stage">Planning / Concept Stage</option>
-            </select>
-          </div>
-
-          <!-- Message -->
-          <div class="form-group full-width">
-            <label class="form-label" for="cf_message">Message</label>
-            <textarea class="form-control" id="cf_message" rows="3" placeholder="Describe your concept, specific carving motifs, architectural style, or questions for our master craftsmen..."></textarea>
-          </div>
-
-          <!-- Upload Reference Image / Drawing -->
-          <div class="form-group full-width">
-            <label class="form-label">Upload Reference Image / Drawing</label>
-            <div class="file-upload-box" id="fileUploadBox">
-              <input type="file" id="cf_file" accept="image/*,.pdf,.dwg,.dxf" onchange="handleFileSelect(this)">
-              <div class="file-upload-icon">📂</div>
-              <div class="file-upload-title">Click or drag reference image / architectural drawing here</div>
-              <div class="file-upload-hint">Supports JPG, PNG, WEBP, PDF, CAD (Max 25MB)</div>
-              <img id="filePreviewThumb" class="file-preview-thumb" alt="Reference preview">
-              <div class="file-selected-name" id="fileSelectedName"></div>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="form-group full-width" style="margin-top:12px;margin-bottom:0;">
-            <button type="submit" class="form-submit" style="font-size:14px;padding:16px 28px;letter-spacing:2px;">
-              ✦ REQUEST CUSTOM FABRICATION ✦
-            </button>
-            <p style="text-align:center;font-size:12px;color:#8c6a38;margin-top:12px;">
-              🔒 Direct consultation with master artisans · Prompt technical estimation & 3D development support
-            </p>
-          </div>
-
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
 
 <!-- CONTACT & QUOTE -->
 <section class="section section-dark" id="contact">
@@ -2946,7 +2674,7 @@
         <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" class="contact-card"><div class="contact-icon">📍</div><div><div class="contact-label">Workshop Address</div><div class="contact-value" style="font-size:13px;">39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</div></div></a>
         <div style="margin-top:10px;padding:18px;border-radius:14px;background:#fff8ee;border:1px solid rgba(160,104,8,0.18);">
           <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#9a7040;margin-bottom:6px;">Also Find Us Online</div>
-          <div style="font-size:13px;color:#6b4c20;">🌐 <a href="http://www.antiquedesigns.in" style="color:#a06808;">www.antiquedesigns.in</a><br>📸 <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="color:#a06808;">@antiquedesigns_bengaluru</a></div>
+          <div style="font-size:13px;color:#6b4c20;">🌐 <a href="https://antiquedesign.in" style="color:#a06808;">antiquedesign.in</a><br>📸 <a href="https://www.instagram.com/antique_designs_india" target="_blank" style="color:#a06808;">@antique_designs_india</a></div>
         </div>
       </div>
       <div class="reveal-right">
@@ -3147,7 +2875,7 @@
           <div class="bro-feat-icon">
             <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
-          <div class="bro-feat-text"><strong>Complete Product Range</strong>All 15 handcrafted lines</div>
+          <div class="bro-feat-text"><strong>Complete Product Range</strong>All 14 handcrafted lines</div>
         </div>
         <div class="bro-feat">
           <div class="bro-feat-icon">
@@ -3608,7 +3336,7 @@ function ibStart() {
         </div>
         <p style="font-size:13px;color:rgba(240,210,160,0.65);line-height:1.7;max-width:280px;">Premier offline artisanal atelier handcrafting bespoke Brass & White Metal architectural masterpieces since 2014.</p>
         <div style="margin-top:20px;display:flex;gap:12px;">
-          <a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(240,200,100,0.12);border:1px solid rgba(240,200,100,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">📸</a>
+          <a href="https://www.instagram.com/antique_designs_india" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(240,200,100,0.12);border:1px solid rgba(240,200,100,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">📸</a>
           <a href="https://wa.me/919620202221" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">💬</a>
           <a href="tel:+919620202221" style="width:36px;height:36px;border-radius:50%;background:rgba(240,200,100,0.12);border:1px solid rgba(240,200,100,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:16px;">📞</a>
         </div>
@@ -3618,7 +3346,7 @@ function ibStart() {
         <ul class="footer-links">
           <li><a href="#collections">Main Entrance Doors</a></li>
           <li><a href="#collections">Pooja Mandir Doors</a></li>
-          <li><a href="#collections">3/4 Concept Doors</a></li>
+          <li><a href="#collections">3/4 Doors</a></li>
           <li><a href="#collections">Partition Grills</a></li>
           <li><a href="#collections">Brass Railings</a></li>
           <li><a href="#collections">Name Plates</a></li>
@@ -3632,9 +3360,8 @@ function ibStart() {
           <li><a href="#about">About Us</a></li>
           <li><a href="craftsmanship.html">Craftsmanship Journey (Full Page)</a></li>
           <li><a href="#materials">Materials & Finishes</a></li>
-          <li><a href="#custom-fabrication">Custom Fabrication</a></li>
           <li><a href="#instagram">Work Gallery</a></li>
-          <li><a href="https://www.instagram.com/antiquedesigns_bengaluru" target="_blank">@antiquedesigns_bengaluru</a></li>
+          <li><a href="https://www.instagram.com/antique_designs_india" target="_blank">@antique_designs_india</a></li>
         </ul>
       </div>
       <div>
@@ -3643,7 +3370,7 @@ function ibStart() {
           <li><a href="tel:+919620202221">+91 96202 02221</a></li>
           <li><a href="tel:+919663852454">+91 96638 52454</a></li>
           <li><a href="mailto:hello@antique-designs.com">hello@antique-designs.com</a></li>
-          <li><a href="http://www.antiquedesigns.in">www.antiquedesigns.in</a></li>
+          <li><a href="https://antiquedesign.in">antiquedesign.in</a></li>
           <li><a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank">📍 Get Directions</a></li>
         </ul>
         <div style="margin-top:18px;padding:14px;border-radius:10px;background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.2);">
@@ -3652,8 +3379,8 @@ function ibStart() {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Antique Designs Bengaluru. All rights reserved. | <a href="http://www.antiquedesigns.in">www.antiquedesigns.in</a></span>
-      <span>39/1, Channenahalli, Magadi Main Rd, Karnataka 562130</span>
+      <span>© 2026 Antique Designs Bengaluru. All rights reserved. | <a href="https://antiquedesign.in">antiquedesign.in</a></span>
+      <span><a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">&#128205; 39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</a></span>
     </div>
   </div>
 </footer>
@@ -3770,7 +3497,7 @@ function ibStart() {
     }
 
     function renderFilter(filter) {
-      visibleCards = allCards.filter(c => filter === 'all' || c.dataset.category === filter);
+      visibleCards = allCards.filter(c => filter === 'all' || filter.split(',').includes(c.dataset.category));
       allCards.forEach(c => {
         c.style.display = visibleCards.includes(c) ? '' : 'none';
       });
@@ -3814,18 +3541,33 @@ function ibStart() {
     applyTransform();
   })();
 
-  // TESTIMONIALS AUTO SLIDER
-  const testiTrack = document.getElementById('testiTrack');
-  const testiNavBtns = document.querySelectorAll('[data-testi]');
-  let testiIndex = 0;
-  let testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000);
-  function goToTesti(n) {
-    testiNavBtns[testiIndex].classList.remove('active');
-    testiIndex = (n + 5) % 5;
-    testiTrack.style.transform = `translateX(-${testiIndex * 100}%)`;
-    testiNavBtns[testiIndex].classList.add('active');
-  }
-  testiNavBtns.forEach(btn => btn.addEventListener('click', () => { clearInterval(testiTimer); goToTesti(+btn.dataset.testi); testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000); }));
+  // INSTAGRAM REELS - autoplay when visible (muted), tap speaker for sound
+  (function() {
+    const vp = document.getElementById('reelsViewport');
+    if (!vp) return;
+    const reelVideos = () => Array.from(vp.querySelectorAll('video'));
+    const step = () => { const c = vp.querySelector('.reel-card'); return c ? c.offsetWidth + 20 : 300; };
+    document.getElementById('reelsPrev').addEventListener('click', () => vp.scrollBy({ left: -step(), behavior: 'smooth' }));
+    document.getElementById('reelsNext').addEventListener('click', () => {
+      const atEnd = vp.scrollLeft + vp.clientWidth >= vp.scrollWidth - 4;
+      atEnd ? vp.scrollTo({ left: 0, behavior: 'smooth' }) : vp.scrollBy({ left: step(), behavior: 'smooth' });
+    });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        const v = en.target;
+        if (en.isIntersecting && en.intersectionRatio >= 0.6) { v.preload = 'auto'; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else v.pause();
+      });
+    }, { root: vp, threshold: [0, 0.6] });
+    reelVideos().forEach(v => io.observe(v));
+    vp.addEventListener('click', e => {
+      const btn = e.target.closest('.reel-sound');
+      if (!btn) return;
+      const v = btn.parentElement.querySelector('video');
+      v.muted = !v.muted;
+      btn.innerHTML = v.muted ? '&#128263;' : '&#128266;';
+    });
+  })();
 
   // SCROLL REVEAL — fire as soon as any part enters viewport
   const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
@@ -3964,110 +3706,6 @@ function ibStart() {
       if (e.key === 'ArrowRight') { glbIndex = (glbIndex + 1) % glbItems.length; showGlb(); }
     });
   })();
-
-  // CUSTOM FABRICATION FILE HANDLER & FORM
-  function handleFileSelect(input) {
-    const label = document.getElementById('fileSelectedName');
-    const thumb = document.getElementById('filePreviewThumb');
-    const box = document.getElementById('fileUploadBox');
-    
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      label.textContent = `✓ Attached: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
-      label.style.display = 'inline-block';
-      if (box) box.classList.add('has-file');
-
-      // Show instant image preview if it's an image
-      if (thumb) {
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = function(ev) {
-            thumb.src = ev.target.result;
-            thumb.style.display = 'block';
-          };
-          reader.readAsDataURL(file);
-        } else {
-          thumb.style.display = 'none';
-        }
-      }
-    } else {
-      label.textContent = '';
-      label.style.display = 'none';
-      if (thumb) thumb.style.display = 'none';
-      if (box) box.classList.remove('has-file');
-    }
-  }
-
-  async function submitCustomFab(e) {
-    e.preventDefault();
-    const submitBtn = e.target.querySelector('button[type="submit"]') || document.querySelector('.form-submit');
-    const originalBtnText = submitBtn.innerHTML;
-
-    const name = document.getElementById('cf_name').value.trim();
-    const phone = document.getElementById('cf_phone').value.trim();
-    const email = document.getElementById('cf_email').value.trim();
-    const location = document.getElementById('cf_location').value.trim();
-    const productType = document.getElementById('cf_product_type').value;
-    const dimensions = document.getElementById('cf_dimensions').value.trim();
-    const material = document.getElementById('cf_material').value;
-    const finish = document.getElementById('cf_finish').value;
-    const quantity = document.getElementById('cf_quantity').value.trim();
-    const timeline = document.getElementById('cf_timeline').value;
-    const message = document.getElementById('cf_message').value.trim();
-    const fileInput = document.getElementById('cf_file');
-    const hasFile = fileInput.files && fileInput.files[0];
-    let uploadedImageUrl = null;
-
-    if (hasFile) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '⏳ Uploading Image to WhatsApp...';
-      try {
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-        formData.append('upload_preset', 'ml_default');
-        
-        // Free instant image hosting endpoint
-        const uploadRes = await fetch('https://tmpfiles.org/api/v1/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const uploadData = await uploadRes.json();
-        if (uploadData && uploadData.data && uploadData.data.url) {
-          // Format direct link for instant WhatsApp preview: https://tmpfiles.org/dl/...
-          uploadedImageUrl = uploadData.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
-        }
-      } catch (err) {
-        console.warn('Image upload fallback:', err);
-      }
-    }
-
-    let customMsg = `🏛️ *CUSTOM FABRICATION REQUEST* 🏛️\n\n`;
-    customMsg += `*Name:* ${name}\n`;
-    customMsg += `*Phone:* ${phone}\n`;
-    if (email) customMsg += `*Email:* ${email}\n`;
-    customMsg += `*Project Location:* ${location}\n`;
-    customMsg += `*Product Type:* ${productType}\n`;
-    if (dimensions) customMsg += `*Dimensions:* ${dimensions}\n`;
-    if (material) customMsg += `*Material:* ${material}\n`;
-    if (finish) customMsg += `*Finish:* ${finish}\n`;
-    if (quantity) customMsg += `*Quantity:* ${quantity}\n`;
-    if (timeline) customMsg += `*Timeline:* ${timeline}\n`;
-    if (message) customMsg += `*Message:* ${message}\n`;
-    if (uploadedImageUrl) {
-      customMsg += `📸 *View Reference Image:* ${uploadedImageUrl}\n\n`;
-    } else if (hasFile) {
-      customMsg += `📎 *Reference File:* ${fileInput.files[0].name}\n\n`;
-    } else {
-      customMsg += `\n`;
-    }
-    customMsg += `Please provide quotation and technical feasibility for this custom metalwork commission.`;
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = originalBtnText;
-
-    const waUrl = `https://wa.me/919620202221?text=${encodeURIComponent(customMsg)}`;
-    window.open(waUrl, '_blank');
-  }
 
   // QUOTE FORM
   function submitQuote(e) {
@@ -4364,7 +4002,7 @@ function ibStart() {
     },
     {
       keys: ['product','products','what do you make','what do you sell','catalog','range','items'],
-      reply: "We handcraft <strong>9 product lines</strong> in Brass & White Metal:<br><br>🚪 Main Entrance Doors<br>🛕 Pooja Mandir Doors<br>🔲 Partition Jaali Grills<br>🪜 Brass Railings & Balusters<br>🏷️ Cast Brass Name Plates<br>🚧 Villa Gates<br>🌿 3D Wall Murals<br>🔑 Vaskaal Handles<br>🚪 3/4 Concept Doors",
+      reply: "We handcraft <strong>14 product lines</strong> in Brass & White Metal:<br><br>? Main Doors<br>? Pooja Doors<br>? Double Doors<br>? 3/4 Doors<br>? Internal Doors<br>? Railings<br>? Banister<br>? Gates<br>? Handles<br>? Wall Arts<br>? Vaskaals<br>? Name Plates<br>? Accessories<br>? Pooja Door Accessories",
       chips: ['Main Doors', 'Pooja Doors', 'Name Plates', 'Pricing', 'WhatsApp Us']
     },
     {
@@ -4690,11 +4328,11 @@ function ibStart() {
       wa: 'Pooja%20Door%20Accessories'
     },
     traderdoor: {
-      title: 'Trader Door',
-      desc: 'Sturdy and elegant trader doors crafted with brass and white metal embellishments — designed for commercial and residential spaces that demand quality and style.',
+      title: '3/4 Doors',
+      desc: 'Elegant 3/4 concept doors crafted with brass and white metal embellishments — designed for commercial and residential spaces that demand quality and style.',
       count: 14,
       folder: 'products/traderdoor/td_',
-      wa: 'Trader%20Door'
+      wa: '3%2F4%20Doors'
     },
     wallarts: {
       title: 'Wall Arts',
@@ -4704,11 +4342,11 @@ function ibStart() {
       wa: 'Wall%20Arts'
     },
     bannister: {
-      title: 'Bannister',
+      title: 'Banister',
       desc: 'Ornate brass and white metal banisters handcrafted for staircases and balconies — intricate spindle work, curved handrails and decorative detailing by our Bengaluru artisans.',
       count: 7,
       folder: 'products/bannister/bn_',
-      wa: 'Bannister'
+      wa: 'Banister'
     },
     handles: {
       title: 'Handles',
@@ -4718,18 +4356,11 @@ function ibStart() {
       wa: 'Handles'
     },
     maindoors: {
-      title: 'Main Doors New',
+      title: 'Main Doors',
       desc: 'Latest collection of handcrafted brass and white metal main doors — bold designs, deep-relief motifs and superior craftsmanship for grand villa and home entrances.',
       count: 37,
       folder: 'products/maindoors/md_',
-      wa: 'Main%20Doors%20New'
-    },
-    newdoubledoor: {
-      title: 'New Double Door',
-      desc: 'New arrivals in double door designs — handcrafted brass and white metal statement entrances with mirror-matched relief work and ornate detailing.',
-      count: 12,
-      folder: 'products/newdoubledoor/ndd_',
-      wa: 'New%20Double%20Door'
+      wa: 'Main%20Doors'
     },
     poojaadoors: {
       title: 'Pooja Doors',

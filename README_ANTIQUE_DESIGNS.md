@@ -21,15 +21,15 @@ They handcraft, emboss, cast, and forge real architectural brass and metal piece
 
 ## Files Created in Workspace:
 
-1. [`index.html`](index.html:1) — Fully responsive, production-ready website HTML with Tailwind CSS, Lucide icons, filterable 9-category product gallery, offline manufacturing process, Instagram showcase (@antiquedesigns_bengaluru), quotation request form, and direct WhatsApp concierge.
+1. [`index.html`](index.html:1) — Fully responsive, production-ready website HTML with Tailwind CSS, Lucide icons, filterable 9-category product gallery, offline manufacturing process, Instagram showcase (@antique_designs_india), quotation request form, and direct WhatsApp concierge.
 2. [`figma_app_component.tsx`](figma_app_component.tsx:1) — Full React/TypeScript code ready to paste directly into Figma Make (`https://antiquedesign.figma.site`).
 
 ---
 
 ## Direct Business Information Configured:
-- **Instagram:** `@antiquedesigns_bengaluru` (`https://www.instagram.com/antiquedesigns_bengaluru`)
+- **Instagram:** `@antique_designs_india` (`https://www.instagram.com/antique_designs_india`)
 - **Workshop Address:** `39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130`
 - **Google Maps App Direct Link:** `https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb`
 - **Direct Phone Numbers:** `+91 89713 05188`, `+91 96202 02221`, `+91 96638 52454`
 - **Email:** `hello@antique-designs.com`
-- **Official Domain:** `www.antiquedesigns.in`
+- **Official Domain:** `antiquedesign.in`

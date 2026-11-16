@@ -16,16 +16,16 @@ BASE = Path(__file__).parent
 # category_key -> (page_title, description, material, folder, prefix, count, wa_text)
 CATEGORIES = [
     ("accessories",    "Accessories",            "Handcrafted brass and white metal accessories — bells, motifs, decorative fittings and embellishments by our Bengaluru artisans.",       "Brass & White Metal",  "products/accessories",    "acc_",   31, "Accessories"),
-    ("bannister",      "Bannister",              "Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.",                              "Forged Brass",         "products/bannister",      "bn_",     7, "Bannister"),
+    ("bannister",      "Banister",              "Ornate brass and white metal banisters handcrafted for staircases and balconies with intricate detailing.",                              "Forged Brass",         "products/bannister",      "bn_",     7, "Bannister"),
     ("handles",        "Handles",                "Solid cast brass and white metal door handles, pull bars and architectural hardware crafted to last a lifetime.",                        "Cast Brass",           "products/handles",        "hn_",     6, "Handles"),
     ("doubledoor",     "Double Door",            "Elegant symmetrical double doors handcrafted in brass and white metal for grand villa and mansion entrances.",                           "Brass & White Metal",  "products/doubledoor",     "dd_",    20, "Double%20Door"),
     ("internaldoors",  "Internal Doors",         "Beautifully crafted internal doors with brass and white metal detailing to elevate every room.",                                         "Brass & White Metal",  "products/internaldoors",  "id_",    14, "Internal%20Doors"),
     ("poojaaccesories","Pooja Door Accessories", "Decorative brass accessories for pooja room doors — bells, kalasha motifs and divine embellishments.",                                   "Brass & White Metal",  "products/poojaaccesories","pa_",    36, "Pooja%20Door%20Accessories"),
-    ("maindoors",      "Main Doors New",         "Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.",                               "Brass & White Metal",  "products/maindoors",      "md_",    37, "Main%20Doors%20New"),
+    ("maindoors",      "Main Doors",         "Latest collection of handcrafted brass and white metal main doors — bold, elegant and built to impress.",                               "Brass & White Metal",  "products/maindoors",      "md_",    37, "Main%20Doors"),
     ("nameplates",     "Name Plates",            "Custom cast brass name plates with deep-relief lettering, house insignia and family crests.",                                            "Cast Brass",           "products/nameplates",     "np_",    37, "Name%20Plates"),
     ("gates",          "Gates",                  "Ornate compound and villa gates with decorative brass fittings and finials for prestigious entrances.",                                  "Brass & Iron",         "products/gates",          "gate_",   8, "Gates"),
     ("wallarts",       "Wall Arts",              "Hand-hammered brass and white metal wall art — relief panels, 3D murals and statement pieces for any space.",                            "Brass & White Metal",  "products/wallarts",       "wa_",    47, "Wall%20Arts"),
-    ("traderdoor",     "Trader Door",            "Sturdy and elegant trader doors crafted with brass and white metal embellishments.",                                                     "Brass & White Metal",  "products/traderdoor",     "td_",    14, "Trader%20Door"),
+    ("traderdoor",     "3/4 Doors",            "Elegant 3/4 concept doors crafted with brass and white metal embellishments.",                                                     "Brass & White Metal",  "products/traderdoor",     "td_",    14, "3%2F4%20Doors"),
     ("newdoubledoor",  "New Double Door",        "New arrivals in double door designs — handcrafted brass and white metal statement entrances for your home.",                             "Brass & White Metal",  "products/newdoubledoor",  "ndd_",   12, "New%20Double%20Door"),
     ("poojaadoors",    "Pooja Doors",            "Sacred Gopuram arches, kalasha tops and brass temple cladding handcrafted for home mandirs and temple sanctums.",                       "Teak + Brass",         "products/poojaadoors",    "pd_",    58, "Pooja%20Doors"),
     ("railings",       "Railings",               "Hand-forged brass and white metal railings for staircases, balconies and terraces with ornate detailing.",                              "Forged Brass",         "products/railings",       "rl_",    39, "Railings"),
@@ -154,7 +154,7 @@ PAGE_TEMPLATE = """\
 
 <!-- FOOTER -->
 <div class="site-footer">
-  &copy; 2025 Antique Designs Bengaluru &mdash; 39/1 Channenahalli, Magadi Main Rd, Karnataka 562130 &nbsp;|&nbsp;
+  &copy; 2026 Antique Designs Bengaluru &mdash; <a href="https://maps.app.goo.gl/DYgX5WBEqMSR9Msz8?g_st=awb" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">&#128205; 39/1, Channenahalli, Kadabagere Post, Magadi Main Rd, Karnataka 562130</a> &nbsp;|&nbsp;
   <a href="../index.html">Back to Home</a>
 </div>
 
